@@ -2,10 +2,10 @@ package com.kokostudio.matchandmix.manager;
 
 import java.io.IOException;
 
-import org.andengine.audio.music.Music;
-import org.andengine.audio.music.MusicFactory;
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
+import org.andengine.opengl.font.Font;
+import org.andengine.opengl.font.FontFactory;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
@@ -17,6 +17,9 @@ import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.debug.Debug;
+
+import android.graphics.Typeface;
+
 import com.kokostudio.matchandmix.GameActivity;
 
 
@@ -75,14 +78,27 @@ public class ResourcesManager {
 	public BuildableBitmapTextureAtlas gameMenuTextureAtlas;
 	public TiledTextureRegion guessTextureRegion;
 	
+	// GUESS THE MISSING LETTER TEXTURES *****************************************************
+	// NOTE: THIS IS JUST A SAMPLE TEXTURES
+	public BitmapTextureAtlas GTMLTextureAtlas;
+	public ITextureRegion questionTextureRegion;
+	public ITextureRegion choiceATExtureRegion;
+	public ITextureRegion choiceBTextureRegion;
+	public ITextureRegion choiceCTextureRegion;
+	
 	// ABOUT PANELS ***********************************************
 	public BuildableBitmapTextureAtlas AboutSceneTextureAtlas;
 	public ITextureRegion aboutpanelTextureRegion;
 	
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// SFX
-	//--------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
+	
+	// ---------------------------------------------------------------------------
+	// FONTS
+	// ---------------------------------------------------------------------------
+	public Font font;
 	
 	//-----------------------------
 	// CLASS LOGIC
@@ -310,12 +326,26 @@ public class ResourcesManager {
 			createGeneralBackground();
 			createCommonButtons();
 			loadGTMLPanelGrahics();
+			loadGTMLFonts();
 			loadGTMLPanelAudio();
 		}
 			
 		public void loadGTMLPanelGrahics() {
-			
+			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_GTML/");
+			GTMLTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+			questionTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(GTMLTextureAtlas, activity, "q.png", 300,300);
+			choiceATExtureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(GTMLTextureAtlas, activity, "a.png", 0,0);
+			choiceBTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(GTMLTextureAtlas, activity, "b.png", 100,100);
+			choiceCTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(GTMLTextureAtlas, activity, "c.png", 200,200);
+			GTMLTextureAtlas.load();
 		}
+		
+		public void loadGTMLFonts() {
+			font = FontFactory.create(activity.getFontManager(), activity.getTextureManager(), 256, 256, 
+					Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 32);
+			font.load();
+		}
+		
 		public void loadGTMLPanelAudio() {
 		
 		}

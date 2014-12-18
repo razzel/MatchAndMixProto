@@ -22,7 +22,6 @@ public class GuessTheMissingLetter extends BaseScene {
 	
 	private int x, y, rowCounter;
 	
-	private GuessTheMissingLetterPanel gtml;
 
 	@Override
 	public void createScene() {
@@ -73,8 +72,8 @@ public class GuessTheMissingLetter extends BaseScene {
 		attachChild(qHeader);
 		
 		// Create the 5x5 array of question frames
-		qFrames = new TiledSprite[23];
-		x = 190; y = 330; rowCounter = 0;
+		qFrames = new TiledSprite[29];
+		x = 190; y = 340; rowCounter = 0;
 		for(int i = 0; i < qFrames.length; i++) {
 			final int index = i;
 			if(rowCounter < 5) {
@@ -91,7 +90,7 @@ public class GuessTheMissingLetter extends BaseScene {
 							qFrames[index].setScale(1.0f);
 							
 							// set the index variable to the GTMLPanel's setQuestion()
-							gtml.setQuestions(index);
+							GuessTheMissingLetterPanel.getQuestionIndex(index);
 							// load the GTML Panel
 							SceneManager.getInstance().loadGTMLPanelScene();
 							break;
@@ -100,7 +99,7 @@ public class GuessTheMissingLetter extends BaseScene {
 					}
 					
 				};		
-				activity.runOnUiThread(new Runnable() {
+				engine.runOnUpdateThread(new Runnable() {
 					@Override
 					public void run() {
 						registerTouchArea(qFrames[index]);
@@ -111,7 +110,7 @@ public class GuessTheMissingLetter extends BaseScene {
 				rowCounter++;
 			}
 			else if(rowCounter == 5) {
-				y -=80;
+				y -=75;
 				x = 190;
 				rowCounter = 0;
 			}		

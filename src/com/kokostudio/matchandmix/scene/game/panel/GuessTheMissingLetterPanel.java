@@ -1,31 +1,46 @@
 package com.kokostudio.matchandmix.scene.game.panel;
 
 import org.andengine.entity.scene.background.Background;
+import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
+import org.andengine.entity.text.Text;
 import org.andengine.input.touch.TouchEvent;
+import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.util.adt.color.Color;
 
+import android.database.sqlite.SQLiteDatabase;
+
 import com.kokostudio.matchandmix.base.BaseScene;
+import com.kokostudio.matchandmix.database.myDatabase;
 import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
 
 public class GuessTheMissingLetterPanel extends BaseScene {
 	
 	// variable in which what set of question will the DB will retrieve
-	private int questionSet;
+	private static int questionSet;
 	
 	// this will determine if the questionSet is already answered
 	private boolean answered = false;
 	
 	// Sprites
 	private TiledSprite back;
+	
+	// TEXT
+	private Text test;
+	
+	// DATABASE
+	private myDatabase myDB;
+	
+	// QUESTIONS AND CHOICES
+	private Sprite question;
+	private Sprite a, b, c, d;
 
 	@Override
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 		createBackground();
-		createButtons();
-		
+		createButtons();	
 	}
 
 	@Override
@@ -48,7 +63,15 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 	// ======================================================================================
 	
 	private void createBackground() {
-		setBackground(new Background(1.0f *questionSet, 0.8f *questionSet, 0.9f *questionSet));
+		setBackground(new Background(Color.BLUE));
+		
+		// create TEXT
+		test = new Text(100, 100, resourcesManager.font, "frame number: "+questionSet,vbom);
+		attachChild(test);
+		
+		question = new Sprite(400, 240, getQuestionRegion(), vbom);
+		attachChild(question);
+		
 	}
 	
 	private void createButtons() {
@@ -77,19 +100,34 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 		
 	}
 	
+	public void createQuestion() {
+		
+	}
 	// ======================================================================================
 	// DATABASE SECTION
 	// ======================================================================================
 	
-	
-	
-	// SETTERS & GETTERS
-	public void setQuestions(int i) {
+	public static void getQuestionIndex(int i) {
 		questionSet = i;
 	}
 	
-	public void getQuestions() {
+	public static boolean isAnswered(int i) {
 		
+		
+		return false;
+	}
+	
+	private ITextureRegion getQuestionRegion() {
+		ITextureRegion questionRegion = null;
+		switch(questionSet) {
+		case 0:
+			questionRegion = resourcesManager.questionTextureRegion;
+			break;
+		case 1:
+			questionRegion = resourcesManager.choiceATExtureRegion;
+			break;
+		}
+		return questionRegion;
 	}
 	
 }
