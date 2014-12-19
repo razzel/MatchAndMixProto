@@ -14,6 +14,8 @@ import com.kokostudio.matchandmix.scene.PlayMenuScene;
 import com.kokostudio.matchandmix.scene.SplashScene;
 
 import com.kokostudio.matchandmix.scene.game.GuessTheMissingLetter;
+import com.kokostudio.matchandmix.scene.game.SolveIT;
+import com.kokostudio.matchandmix.scene.game.ThatColorIs;
 //import com.kokostudio.matchandmix.scene.game.MatchIt;
 import com.kokostudio.matchandmix.scene.game.panel.GuessTheMissingLetterPanel;
 
@@ -177,6 +179,28 @@ public class SceneManager {
 		ResourcesManager.getInstance().loadMatchItPanelResources();
 		//MatchItPanelScene = new MatchItPanel();
 		setScene(MatchItPanelScene);	
+	}
+	
+	// THAT COLOR IS SCENE ====================================================================================
+	public void loadThatColorIsScene() {
+		// unload the game menu textures
+		ResourcesManager.getInstance().unloadGameMenuTexture();
+		// load that THAT COLOR IS SCENE RESOURCES
+		ResourcesManager.getInstance().loadThatColorIsResources();
+		// set the scene
+		ThatColorIsScene = new ThatColorIs();
+		setScene(ThatColorIsScene);
+	}
+	
+	//SOLVE IT =============================================================================================
+	public void loadSolveItScene() {
+		// unload the game menu textures
+		ResourcesManager.getInstance().unloadGameMenuTexture();
+		// load that THAT COLOR IS SCENE RESOURCES
+		ResourcesManager.getInstance().loadThatColorIsResources();
+		// set the scene
+		SolveItScene = new SolveIT();
+		setScene(SolveItScene);
 	}
 	
 	// ABOUT ================================================================================================================

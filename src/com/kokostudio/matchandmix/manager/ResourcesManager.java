@@ -1,7 +1,5 @@
 package com.kokostudio.matchandmix.manager;
 
-import java.io.IOException;
-
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
 import org.andengine.opengl.font.Font;
@@ -77,6 +75,10 @@ public class ResourcesManager {
 	// GAME MENU TEXTURES ***************************************************************
 	public BuildableBitmapTextureAtlas gameMenuTextureAtlas;
 	public TiledTextureRegion guessTextureRegion;
+	public TiledTextureRegion thatColorIsTextureRegion;
+	public TiledTextureRegion solveITTextureRegion;
+	public TiledTextureRegion matchItTextureRegion;
+	public TiledTextureRegion countItTextureRegion;
 	
 	// GUESS THE MISSING LETTER TEXTURES *****************************************************
 	// NOTE: THIS IS JUST A SAMPLE TEXTURES
@@ -240,6 +242,10 @@ public class ResourcesManager {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu_games/");
 		gameMenuTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
 		guessTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameMenuTextureAtlas, activity, "gml_btn.png", 2, 1);
+		thatColorIsTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameMenuTextureAtlas, activity, "tci_btn.png", 2, 1);
+		solveITTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameMenuTextureAtlas, activity, "si_btn.png", 2, 1);
+		matchItTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameMenuTextureAtlas, activity, "mi_btn.png", 2, 1);
+		countItTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameMenuTextureAtlas, activity, "ci_btn.png", 2, 1);
 		try {
 			this.gameMenuTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 1));
 			this.gameMenuTextureAtlas.load();
@@ -390,6 +396,8 @@ public class ResourcesManager {
 	
 	// THAT COLOR IS ???? ===================================================================================================================
 	public void loadThatColorIsResources() {
+		createGeneralBackground();
+		createQuestionFrames();
 		loadThatColorIsGraphics();
 		loadThatColorIsAudio();
 	}
@@ -402,6 +410,10 @@ public class ResourcesManager {
 		
 	}
 	// UNLOAD
+	public void unloadThatColorIsTextures() {
+		unloadBackground();
+		unloadQuestionFrame();
+	}
 	
 	//----------------------------------------------------------
 	// SETTERS & GETTERS

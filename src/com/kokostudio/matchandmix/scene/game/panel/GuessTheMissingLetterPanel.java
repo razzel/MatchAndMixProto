@@ -126,6 +126,10 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 		case 1:
 			questionRegion = resourcesManager.choiceATExtureRegion;
 			break;
+		case 2:
+			questionRegion = resourcesManager.choiceBTextureRegion;
+			break;
+			
 		}
 		return questionRegion;
 	}
