@@ -32,6 +32,12 @@ public class SolveIT extends BaseScene {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void onMenuKeyPressed() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	public SceneType getSceneType() {

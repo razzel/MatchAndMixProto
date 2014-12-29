@@ -37,6 +37,12 @@ public class GuessTheMissingLetter extends BaseScene {
 	}
 
 	@Override
+	public void onMenuKeyPressed() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
 	public SceneType getSceneType() {
 		return SceneType.SCENE_GTML;
 	}

@@ -9,6 +9,7 @@ import com.kokostudio.matchandmix.base.BaseScene;
 //import com.kokostudio.matchandmix.scene.About;
 import com.kokostudio.matchandmix.scene.MainMenuScene;
 import com.kokostudio.matchandmix.scene.GameMenuScene;
+import com.kokostudio.matchandmix.scene.OptionScene;
 //import com.kokostudio.matchandmix.scene.GameMenuScene;
 import com.kokostudio.matchandmix.scene.PlayMenuScene;
 import com.kokostudio.matchandmix.scene.SplashScene;
@@ -135,6 +136,16 @@ public class SceneManager {
 		ResourcesManager.getInstance().loadGameMenuResources();
 		gameMenuScene = new GameMenuScene();
 		setScene(gameMenuScene);
+	}
+	
+	// OPTION SCENE ============================================================================================================
+	public void loadOptionScene() {
+		// unload main menu scene resources
+		ResourcesManager.getInstance().unloadMainMenuTextures();
+		// load the option scene resources
+		ResourcesManager.getInstance().loadOptionResources();
+		optionScene = new OptionScene();
+		setScene(optionScene);
 	}
 	
 	
@@ -276,9 +287,5 @@ public class SceneManager {
 			break;
 		}
 	}
-
-	public void loadnextResources() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }

@@ -27,12 +27,20 @@ public class MainMenuScene extends BaseScene {
 		about.setVisible(false);
 		options.setVisible(false);
 		exit.setVisible(false);
+		
+		unregisterTouchArea(options);
 	}
 
 	@Override
 	public void onBackKeyPressed() {
 		//
 	}
+	
+	@Override
+	public void onMenuKeyPressed() {
+		resourcesManager.bgm.pause();
+	}
+	
 
 	@Override
 	public SceneType getSceneType() {
@@ -184,10 +192,29 @@ public class MainMenuScene extends BaseScene {
 		// 2ND MENU
 		about = new TiledSprite(185, 200, resourcesManager.aboutTiledTextureRegion, vbom);
 		
-		options = new TiledSprite(400, 200, resourcesManager.optionTiledTextureRegion, vbom);
+		options = new TiledSprite(400, 200, resourcesManager.optionTiledTextureRegion, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				switch (pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					options.setCurrentTileIndex(1);
+					options.setScale(0.9f);
+					break;
+				case TouchEvent.ACTION_UP:
+					options.setCurrentTileIndex(0);
+					options.setScale(1.0f);
+					
+					// set the scene to option
+					SceneManager.getInstance().loadOptionScene();
+					break;
+				}
+				return true;
+			}		
+		};
 		
 		exit = new TiledSprite(615, 200, resourcesManager.exitTiledTextureRegion, vbom);
 		
+		registerTouchArea(options);
 		attachChild(about);
 		attachChild(options);
 		attachChild(exit);

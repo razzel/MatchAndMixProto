@@ -1,5 +1,10 @@
 package com.kokostudio.matchandmix.manager;
 
+import java.io.IOException;
+
+import org.andengine.audio.music.Music;
+import org.andengine.audio.music.MusicFactory;
+import org.andengine.audio.sound.SoundFactory;
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
 import org.andengine.opengl.font.Font;
@@ -88,14 +93,21 @@ public class ResourcesManager {
 	public ITextureRegion choiceBTextureRegion;
 	public ITextureRegion choiceCTextureRegion;
 	
+	// OPTION TEXTURES
+	public BuildableBitmapTextureAtlas optionTextureAtlas;
+	public ITextureRegion optionBoardTextureRegion;
+	public ITextureRegion onTextureRegion;
+	public ITextureRegion offTextureRegion;
+	
 	// ABOUT PANELS ***********************************************
 	public BuildableBitmapTextureAtlas AboutSceneTextureAtlas;
 	public ITextureRegion aboutpanelTextureRegion;
 	
-	
 	// ---------------------------------------------------------------------------
 	// SFX
 	// ---------------------------------------------------------------------------
+	// BACKGROUND MUSIC
+	public Music bgm;
 	
 	// ---------------------------------------------------------------------------
 	// FONTS
@@ -105,6 +117,17 @@ public class ResourcesManager {
 	//-----------------------------
 	// CLASS LOGIC
 	//-----------------------------
+	public void loadBGM() {
+		MusicFactory.setAssetBasePath("sfx/");
+		try {
+			this.bgm = MusicFactory.createMusicFromAsset(activity.getMusicManager(), activity, "bgm.mp3");
+			this.bgm.setLooping(true);
+		}
+		catch(final IOException e) {
+			Debug.e(e);
+		}
+		
+	}
 	
 	// CREATE GENERAL BACKGROUND AND ENTITIES ==========================================================================================
 	public void createGeneralBackground() {
@@ -183,7 +206,7 @@ public class ResourcesManager {
 		}
 	}
 	public void loadPlayMenuAudio() {
-		
+		loadBGM();
 	}	
 	
 	public void loadPlayMenuTextures() {
@@ -266,6 +289,37 @@ public class ResourcesManager {
 	// PROGRESS SCENE =======================================================================================================================
 	
 	// OPTION SCENE =========================================================================================================================
+	
+	public void loadOptionResources() {
+		createGeneralBackground();
+		createCommonButtons();
+		loadOptionGraphics();
+		loadOptionAudio();
+	}
+	
+	public void loadOptionGraphics() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/option/");
+		optionTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 768, 768);
+		optionBoardTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(optionTextureAtlas, activity, "option_board.png");
+		onTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(optionTextureAtlas, activity, "on_btn.png");
+		offTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(optionTextureAtlas, activity, "off_btn.png");	
+		try {
+			this.optionTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.optionTextureAtlas.load();
+		} catch(final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+	}
+	
+	public void loadOptionAudio() {
+		
+	}
+	
+	public void unloadOptionTexture() {
+		this.optionTextureAtlas.unload();
+		unloadBackground();
+		unloadCommonButtons();
+	}
 	
 	// ABOUT SCENE ==========================================================================================================================
 	

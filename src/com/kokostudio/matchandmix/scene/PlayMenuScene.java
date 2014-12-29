@@ -17,6 +17,8 @@ public class PlayMenuScene extends BaseScene {
 	
 	@Override
 	public void createScene() {
+		resourcesManager.bgm.play();
+		resourcesManager.bgm.setVolume(1.0f);
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 		createBackground();
 		createButton();
@@ -26,7 +28,13 @@ public class PlayMenuScene extends BaseScene {
 	public void onBackKeyPressed() {
 		System.exit(0);
 	}
-
+	
+	@Override
+	public void onMenuKeyPressed() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	@Override
 	public SceneType getSceneType() {
 		return SceneType.SCENE_PLAYMENU;
