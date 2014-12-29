@@ -10,6 +10,7 @@ import com.kokostudio.matchandmix.base.BaseScene;
 import com.kokostudio.matchandmix.manager.ResourcesManager;
 import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
+import com.kokostudio.matchandmix.scene.game.panel.ThatColorIsPanel;
 
 public class ThatColorIs extends BaseScene {
 	
@@ -89,6 +90,10 @@ public class ThatColorIs extends BaseScene {
 						case TouchEvent.ACTION_UP:
 							qFrames[index].setScale(1.0f);
 							qFrames[index].setCurrentTileIndex(0);
+							// set the index variable to the THAT COLOR IS Panel's getQuestionIndex();
+							ThatColorIsPanel.getQuestionIndex(index);
+							// load the THAT COLOR IS Panel
+							SceneManager.getInstance().loadThatColorIsPanelScene();	
 							break;
 						}
 						return true;
@@ -97,13 +102,11 @@ public class ThatColorIs extends BaseScene {
 				};
 				
 				engine.runOnUpdateThread(new Runnable() {
-
 					@Override
 					public void run() {
 						registerTouchArea(qFrames[index]);
 						attachChild(qFrames[index]);
-					}
-					
+					}		
 				});
 				x += 110;
 				rowCounter++;

@@ -9,6 +9,7 @@ import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
 import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
+import org.andengine.opengl.texture.ITexture;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
@@ -21,7 +22,9 @@ import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.debug.Debug;
 
+import android.content.ClipData.Item;
 import android.graphics.Typeface;
+import android.view.textservice.TextInfo;
 
 import com.kokostudio.matchandmix.GameActivity;
 
@@ -86,12 +89,48 @@ public class ResourcesManager {
 	public TiledTextureRegion countItTextureRegion;
 	
 	// GUESS THE MISSING LETTER TEXTURES *****************************************************
-	// NOTE: THIS IS JUST A SAMPLE TEXTURES
+		// NOTE: THIS IS JUST A SAMPLE TEXTURES
 	public BitmapTextureAtlas GTMLTextureAtlas;
 	public ITextureRegion questionTextureRegion;
 	public ITextureRegion choiceATExtureRegion;
 	public ITextureRegion choiceBTextureRegion;
 	public ITextureRegion choiceCTextureRegion;
+	
+	// THAT COLOR IS **************************************************************************
+	public BuildableBitmapTextureAtlas thatColorIsBGTextureAtlas;
+	public ITextureRegion thatColorIsBGTextureRegion;
+	public ITextureRegion questionPlankTextureRegion;
+	
+	public BuildableBitmapTextureAtlas color1TextureAtlas;
+	public TiledTextureRegion blackTextureRegion;
+	public TiledTextureRegion blueTextureRegion;
+	public TiledTextureRegion brownTextureRegion;
+	public TiledTextureRegion grayTextureRegion;
+	
+	public BuildableBitmapTextureAtlas color2TextureAtlas;
+	public TiledTextureRegion greenTextureRegion;
+	public TiledTextureRegion orangeTextureRegion;
+	public TiledTextureRegion pinkTextureRegion;
+	public TiledTextureRegion purpleTextureRegion;
+	
+	public BuildableBitmapTextureAtlas color3TextureAtlas;
+	public TiledTextureRegion redTextureRegion;
+	public TiledTextureRegion violetTextureRegion;
+	public TiledTextureRegion whiteTextureRegion;
+	public TiledTextureRegion yellowTextureRegion;
+	
+	// OTHER IMAGES  **********************************************************************
+		// SHAPES
+	public BuildableBitmapTextureAtlas shape1Atlas;
+	public ITextureRegion cirleTexture;
+	public ITextureRegion diamondTexture;
+	public ITextureRegion heartTexture;
+	public BuildableBitmapTextureAtlas shape2Atlas;
+	public ITextureRegion rectangleTexture;
+	public ITextureRegion squareTexture;
+	public ITextureRegion starTexture;
+	public BuildableBitmapTextureAtlas shape3Atlas;
+	public ITextureRegion triangleTexture;
 	
 	// OPTION TEXTURES
 	public BuildableBitmapTextureAtlas optionTextureAtlas;
@@ -130,6 +169,7 @@ public class ResourcesManager {
 	}
 	
 	// CREATE GENERAL BACKGROUND AND ENTITIES ==========================================================================================
+		// BACKGROUND
 	public void createGeneralBackground() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 		bgTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
@@ -139,7 +179,7 @@ public class ResourcesManager {
 	public void unloadBackground() {
 		bgTextureAtlas.unload();
 	}
-	// QUESTION FRAMES
+		// QUESTION FRAMES
 	public void createQuestionFrames() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 		qFrameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 256);
@@ -157,7 +197,7 @@ public class ResourcesManager {
 		qFrameTextureAtlas.unload();
 	}
 	
-	// COMMON BUTTONS
+		// COMMON BUTTONS
 	public void createCommonButtons() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 		commonButtonsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 300, 300);
@@ -173,6 +213,58 @@ public class ResourcesManager {
 	}
 	public void unloadCommonButtons() {
 		commonButtonsTextureAtlas.unload();
+	}
+	public void loadShapes() {
+		loadShape1();
+		loadShape2();
+		loadShape3();
+	}
+	public void loadShape1() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/shapes/");
+		shape1Atlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+		cirleTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(shape1Atlas, activity, "a_circle.png");
+		diamondTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(shape1Atlas, activity, "a_diamond.png");
+		heartTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(shape1Atlas, activity, "a_heart.png");
+		try {
+			this.shape1Atlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.shape1Atlas.load();
+			
+		} catch(final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+	}
+	public void loadShape2() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/shapes/");
+		shape2Atlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+		rectangleTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(shape2Atlas, activity, "a_rectangle.png");
+		squareTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(shape2Atlas, activity, "a_square.png");
+		starTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(shape2Atlas, activity, "a_star.png");
+		try {
+			this.shape2Atlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.shape2Atlas.load();
+			
+		} catch(final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+	}
+	
+	public void loadShape3() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/shapes/");
+		shape3Atlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+		triangleTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(shape3Atlas, activity, "a_triangle.png");
+		try {
+			this.shape3Atlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.shape3Atlas.load();
+			
+		} catch(final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+	}
+	
+	public void unloadShapes() {
+		shape1Atlas.unload();
+		shape2Atlas.unload();
+		shape3Atlas.unload();
 	}
 	
 	// SPLASH SCENE ==================================================================================================================
@@ -381,7 +473,7 @@ public class ResourcesManager {
 	public void loadGTMLAudio() {
 		
 	}
-	// GTML PANEL
+		// GTML PANEL
 		public void loadGTMLPanelResources() {
 			createGeneralBackground();
 			createCommonButtons();
@@ -412,6 +504,11 @@ public class ResourcesManager {
 
 	// UNLOAD
 	public void unloadGTMLTextures() {
+		unloadBackground();
+		unloadCommonButtons();
+	}
+	
+	public void unloadGTMLPanelTextures() {
 		unloadBackground();
 		unloadQuestionFrame();
 	}
@@ -463,11 +560,87 @@ public class ResourcesManager {
 	public void loadThatColorIsAudio() {
 		
 	}
-	// UNLOAD
+	
 	public void unloadThatColorIsTextures() {
 		unloadBackground();
 		unloadQuestionFrame();
 	}
+	
+		// THAT COLOR IS PANEL
+	public void loadThatColorIsPanelResources() {
+		loadShapes();
+		loadThatColorIsPanelGraphics();
+		loadColor1Atlas();
+		loadColor2Atlas();
+		loadColor3Atlas();
+	}
+	
+	public void loadThatColorIsPanelGraphics() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_color/");
+		thatColorIsBGTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+		thatColorIsBGTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(thatColorIsBGTextureAtlas, activity, "tci_bg.png");
+		questionPlankTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(thatColorIsBGTextureAtlas, activity, "question_plank.png");
+		try {
+			this.thatColorIsBGTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.thatColorIsBGTextureAtlas.load();		
+		} catch(final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+	}
+	
+	public void loadColor1Atlas() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_color/");
+		color1TextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+		blackTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(color1TextureAtlas, activity, "black_btn.png", 2, 1);
+		blueTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(color1TextureAtlas, activity, "blue_btn.png", 2, 1);
+		brownTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(color1TextureAtlas, activity, "brown_btn.png", 2, 1);
+		grayTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(color1TextureAtlas, activity, "gray_btn.png", 2, 1);
+		
+		try {
+			this.color1TextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.color1TextureAtlas.load();
+		} catch(final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+	}
+	
+	public void loadColor2Atlas() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_color/");
+		color2TextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+		greenTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(color2TextureAtlas, activity, "green_btn.png", 2, 1);
+		orangeTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(color2TextureAtlas, activity, "orange_btn.png", 2, 1);
+		pinkTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(color2TextureAtlas, activity, "pink_btn.png", 2, 1);
+		purpleTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(color2TextureAtlas, activity, "purple_btn.png", 2, 1);
+		try {
+			this.color2TextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.color2TextureAtlas.load();
+		} catch(final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+	}
+	public void loadColor3Atlas() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_color/");
+		color3TextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+		redTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(color3TextureAtlas, activity, "red_btn.png", 2, 1);
+		violetTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(color3TextureAtlas, activity, "red_btn.png", 2, 1);
+		whiteTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(color3TextureAtlas, activity, "white_btn.png", 2, 1);
+		yellowTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(color3TextureAtlas, activity, "yellow_btn.png", 2, 1);
+		try {
+			this.color3TextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.color3TextureAtlas.load();
+		} catch(final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+	}
+	
+	public void unloadThatColorIsPanelTextures() {
+		unloadShapes();
+		thatColorIsBGTextureAtlas.unload();
+		color1TextureAtlas.unload();
+		color2TextureAtlas.unload();
+		color3TextureAtlas.unload();
+	}
+	
 	
 	//----------------------------------------------------------
 	// SETTERS & GETTERS

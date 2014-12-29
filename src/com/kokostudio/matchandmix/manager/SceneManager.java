@@ -19,6 +19,7 @@ import com.kokostudio.matchandmix.scene.game.SolveIT;
 import com.kokostudio.matchandmix.scene.game.ThatColorIs;
 //import com.kokostudio.matchandmix.scene.game.MatchIt;
 import com.kokostudio.matchandmix.scene.game.panel.GuessTheMissingLetterPanel;
+import com.kokostudio.matchandmix.scene.game.panel.ThatColorIsPanel;
 
 //import com.kokostudio.matchandmix.scene.game.panel.MatchItPanel;
 
@@ -162,7 +163,7 @@ public class SceneManager {
 		
 	}
 	
-	// LOAD GTML  PANEL SCENE
+		// LOAD GTML  PANEL SCENE
 	public void loadGTMLPanelScene() {
 		// unload the GTML it textures
 		ResourcesManager.getInstance().unloadGTMLTextures();
@@ -201,6 +202,18 @@ public class SceneManager {
 		// set the scene
 		ThatColorIsScene = new ThatColorIs();
 		setScene(ThatColorIsScene);
+	}
+	
+		// LOAD THAT COLOR IS PANEL SCENE
+	public void loadThatColorIsPanelScene() {
+		// unload the textures of the THATCOLORIS textures
+		ResourcesManager.getInstance().unloadThatColorIsTextures();
+		// load THAT COLOR IS SCENE Resources
+		ResourcesManager.getInstance().loadThatColorIsPanelResources();
+		
+		ThatColorIsPanelScene = new ThatColorIsPanel();
+		setScene(ThatColorIsPanelScene);
+		
 	}
 	
 	//SOLVE IT =============================================================================================

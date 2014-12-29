@@ -22,7 +22,6 @@ public class GuessTheMissingLetter extends BaseScene {
 	
 	private int x, y, rowCounter;
 	
-
 	@Override
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
@@ -95,7 +94,7 @@ public class GuessTheMissingLetter extends BaseScene {
 							qFrames[index].setCurrentTileIndex(0);
 							qFrames[index].setScale(1.0f);
 							
-							// set the index variable to the GTMLPanel's setQuestion()
+							// set the index variable to the GTMLPanel's getQuestionIndex()
 							GuessTheMissingLetterPanel.getQuestionIndex(index);
 							// load the GTML Panel
 							SceneManager.getInstance().loadGTMLPanelScene();

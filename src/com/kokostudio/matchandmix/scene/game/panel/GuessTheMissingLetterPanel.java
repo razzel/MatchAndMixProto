@@ -21,7 +21,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 	private static int questionSet;
 	
 	// this will determine if the questionSet is already answered
-	private boolean answered = false;
+	private boolean answered;
 	
 	// Sprites
 	private TiledSprite back;
@@ -34,7 +34,8 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 	
 	// QUESTIONS AND CHOICES
 	private Sprite question;
-	private Sprite a, b, c, d;
+	private Sprite s1, s2, s3, s4;
+	private TiledSprite correctSprite;
 
 	@Override
 	public void createScene() {
@@ -93,7 +94,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 					back.setCurrentTileIndex(1);
 					back.setScale(0.9f);
 					// unload the PANEL'S TEXUTRES / RESOURCES
-					
+					resourcesManager.unloadGTMLPanelTextures();
 					// then set the SCENE to GuessTheMissingLetter
 					SceneManager.getInstance().loadGTMLScene();
 					break;
@@ -117,9 +118,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 		questionSet = i;
 	}
 	
-	public static boolean isAnswered(int i) {
-		
-		
+	public static boolean isAnswered(int i) {	
 		return false;
 	}
 	
