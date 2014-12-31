@@ -15,10 +15,12 @@ import com.kokostudio.matchandmix.scene.PlayMenuScene;
 import com.kokostudio.matchandmix.scene.SplashScene;
 
 import com.kokostudio.matchandmix.scene.game.GuessTheMissingLetter;
+import com.kokostudio.matchandmix.scene.game.MatchIt;
 import com.kokostudio.matchandmix.scene.game.SolveIT;
 import com.kokostudio.matchandmix.scene.game.ThatColorIs;
 //import com.kokostudio.matchandmix.scene.game.MatchIt;
 import com.kokostudio.matchandmix.scene.game.panel.GuessTheMissingLetterPanel;
+import com.kokostudio.matchandmix.scene.game.panel.MatchItPanel;
 import com.kokostudio.matchandmix.scene.game.panel.ThatColorIsPanel;
 
 //import com.kokostudio.matchandmix.scene.game.panel.MatchItPanel;
@@ -149,6 +151,16 @@ public class SceneManager {
 		setScene(optionScene);
 	}
 	
+	// ABOUT ================================================================================================================
+	public void loadaboutScene() {
+		// unload the play menu texture
+		ResourcesManager.getInstance().unloadMainMenuTextures();	
+		// load the main menu texture
+		//ResourcesManager.getInstance().loadAboutPanelResources();
+		//aboutScene = new About();
+		setScene(aboutScene);
+	}
+	
 	
 	// GAMES SCENES MANAGEMENT
 	
@@ -176,24 +188,24 @@ public class SceneManager {
 	// MAtch IT SCENE ==============================================================================================================
 	public void loadMatchItScene() {
 		// unload the main menu textures
-		ResourcesManager.getInstance().unloadMainMenuTextures();
+		ResourcesManager.getInstance().unloadGameMenuTexture();
 		// load the guess the missing letter resources
 		ResourcesManager.getInstance().loadMatchItResources();
-		//MatchItScene = new MatchIt();
+		MatchItScene = new MatchIt();
 		setScene(MatchItScene);		
 	}
 	
 		// LOAD MATCH IT PANEL SCENE
-	public void loadMatchItPanelScene() {
-		// unload the match it textures
-		ResourcesManager.getInstance().unloadMatchItResources();
-		// load the MATCH IT PANEL SCENE RESOURCES
-		ResourcesManager.getInstance().loadMatchItPanelResources();
-		//MatchItPanelScene = new MatchItPanel();
-		setScene(MatchItPanelScene);	
-	}
+		public void loadMatchItPanelScene() {
+			// unload the match it textures
+			ResourcesManager.getInstance().unloadMatchItResources();
+			// load the MATCH IT PANEL SCENE RESOURCES
+			ResourcesManager.getInstance().loadMatchItPanelResources();
+			MatchItPanelScene = new MatchItPanel();
+			setScene(MatchItPanelScene);	
+		}
 	
-	// THAT COLOR IS SCENE ====================================================================================
+	// THAT COLOR IS SCENE =================================================================================================
 	public void loadThatColorIsScene() {
 		// unload the game menu textures
 		ResourcesManager.getInstance().unloadGameMenuTexture();
@@ -216,7 +228,7 @@ public class SceneManager {
 		
 	}
 	
-	//SOLVE IT =============================================================================================
+	//SOLVE IT ====================================================================================================================
 	public void loadSolveItScene() {
 		// unload the game menu textures
 		ResourcesManager.getInstance().unloadGameMenuTexture();
@@ -225,16 +237,6 @@ public class SceneManager {
 		// set the scene
 		SolveItScene = new SolveIT();
 		setScene(SolveItScene);
-	}
-	
-	// ABOUT ================================================================================================================
-	public void loadaboutScene() {
-		// unload the play menu texture
-		ResourcesManager.getInstance().unloadMainMenuTextures();	
-		// load the main menu texture
-		//ResourcesManager.getInstance().loadAboutPanelResources();
-		//aboutScene = new About();
-		setScene(aboutScene);
 	}
 	
 	

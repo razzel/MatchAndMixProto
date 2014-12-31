@@ -58,17 +58,15 @@ public class myDatabase extends SQLiteOpenHelper {
 		c.moveToFirst();
 		int index = c.getColumnIndex(isOn);
 		String myReturn = c.getString(index);
-		db.close();
+		c.close();
 		return myReturn;
 	}
 	
-	public int updateSound(String s) {
+	public void updateSound(String s) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues cv = new ContentValues();
 		cv.put(isOn, s);
-		int updateSound = db.update(tOption, cv, option_id+" = 0", null);
-		db.close();
-		return updateSound;
+		db.update(tOption, cv, option_id+" = 0", null);
 	}
 	
 }

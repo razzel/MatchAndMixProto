@@ -4,6 +4,7 @@ import org.andengine.engine.camera.Camera;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
+import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.util.GLState;
 
 import android.util.Log;
@@ -19,7 +20,8 @@ public class OptionScene extends BaseScene {
 	
 	private TiledSprite back;
 	private Sprite onOff;
-	//private Sprite off;
+	private Sprite on;
+	private Sprite off;
 	private Sprite optionBoard;
 	
 	myDatabase db;
@@ -29,6 +31,7 @@ public class OptionScene extends BaseScene {
 		db = new myDatabase(activity);
 		createBackground();
 		createButtons();
+		checkSound();
 	}
 
 	@Override
@@ -78,12 +81,12 @@ public class OptionScene extends BaseScene {
 					back.setCurrentTileIndex(0);
 					back.setScale(1.0f);
 					// unload options textures
-					//ResourcesManager.getInstance().unloadOptionTexture();
+					ResourcesManager.getInstance().unloadOptionTexture();
 					// load the previous scene
-					//SceneManager.getInstance().loadMainMenuScene();
+					SceneManager.getInstance().loadMainMenuScene();
 					
 					// TEST DB
-					String result = db.isSoundOn();
+					String result = isSoundOn();
 					Log.d("DATABASE","results = " +result);
 					
 					break;
@@ -98,8 +101,8 @@ public class OptionScene extends BaseScene {
 		optionBoard = new Sprite(400,240, resourcesManager.optionBoardTextureRegion, vbom);
 		attachChild(optionBoard);
 		// create on and off button
-		
-		onOff = new Sprite(490, 210, db.isSoundOn()=="true"?resourcesManager.offTextureRegion : resourcesManager.onTextureRegion, vbom) {
+		/*
+		onOff = new Sprite(490, 210, isSoundOn().compareTo("true")==0?resourcesManager.onTextureRegion :resourcesManager.offTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				switch(pSceneTouchEvent.getAction()) {
@@ -109,15 +112,15 @@ public class OptionScene extends BaseScene {
 				case TouchEvent.ACTION_UP:
 					onOff.setScale(1.0f);
 					toggleButton();
-					Log.d("database", db.isSoundOn());
+					Log.d("database", isSoundOn());
 					break;
 				}
 				return true;
 			}	
 		};
 		registerTouchArea(onOff);
-		attachChild(onOff);
-		/*
+		attachChild(onOff); */
+		
 		on = new Sprite(490, 210, resourcesManager.onTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
@@ -151,31 +154,60 @@ public class OptionScene extends BaseScene {
 				return true;
 			}	
 		};
-		attachChild(off); */
+		registerTouchArea(off);
+		attachChild(off);
+	}
+	
+
+	
+	// ========================================================================================================================
+	// DATABASE SECTION 
+	// ========================================================================================================================
+	
+	private String isSoundOn() {
+		String s = db.isSoundOn();
+		db.close();
+		return s;
+	}
+	
+	private void updateSound(String s) {
+		db.updateSound(s);
+		db.close();
+	}
+	
+	private void checkSound() {
+		String cmp = isSoundOn();
+		if(cmp.compareTo("true") == 0) {
+			on.setVisible(true);
+			off.setVisible(false);		
+		}
+		else {
+			on.setVisible(false);
+			off.setVisible(true);
+		}
 	}
 	
 	private void toggleButton() {
-		if(db.isSoundOn()=="true") {
+		String cmp = isSoundOn();
+		if(cmp.compareTo("true") == 0) {
 			// if the sound is ON turn it OFF
-			db.updateSound("false");
-			activity.runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					Toast.makeText(activity, "Update Successful", Toast.LENGTH_SHORT).show();
-				}
-				
-			});
+			updateSound("false");
+			if(on.isVisible()) {
+				on.setVisible(false);
+				off.setVisible(true);
+			}
+			engine.getSoundManager().setMasterVolume(0.0f);
+			engine.getMusicManager().setMasterVolume(0.0f);			
 		}
 		else {
 			// if the sound is OFF turn it ON
-			db.updateSound("true");
-			activity.runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					Toast.makeText(activity, "Update Successful", Toast.LENGTH_SHORT).show();
-				}
-				
-			});
+			updateSound("true");
+			if(off.isVisible()) {
+				off.setVisible(false);
+				on.setVisible(true);
+			}
+			engine.getSoundManager().setMasterVolume(1.0f);
+			engine.getMusicManager().setMasterVolume(1.0f);	
 		}
 	}
 	

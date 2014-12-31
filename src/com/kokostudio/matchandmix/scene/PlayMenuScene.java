@@ -8,6 +8,7 @@ import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.util.GLState;
 
 import com.kokostudio.matchandmix.base.BaseScene;
+import com.kokostudio.matchandmix.database.myDatabase;
 import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
 
@@ -15,10 +16,12 @@ public class PlayMenuScene extends BaseScene {
 	
 	private TiledSprite play;
 	
+	private myDatabase db;
+	
 	@Override
 	public void createScene() {
-		resourcesManager.bgm.play();
-		resourcesManager.bgm.setVolume(1.0f);
+		db = new myDatabase(activity);
+		checkSounds();
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 		createBackground();
 		createButton();
@@ -82,4 +85,16 @@ public class PlayMenuScene extends BaseScene {
 		registerTouchArea(play);
 		attachChild(play);
 	}	
+	
+	private void checkSounds() {
+		if(db.isSoundOn().compareTo("true") == 0) {
+			engine.getSoundManager().setMasterVolume(1.0f);
+			engine.getMusicManager().setMasterVolume(1.0f);
+		} else {
+			engine.getSoundManager().setMasterVolume(0.0f);
+			engine.getMusicManager().setMasterVolume(0.0f);
+		}
+		resourcesManager.bgm.play();
+		resourcesManager.bgm.setVolume(1.0f);
+	}
 }

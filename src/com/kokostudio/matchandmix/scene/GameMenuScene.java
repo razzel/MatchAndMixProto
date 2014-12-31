@@ -217,7 +217,7 @@ public class GameMenuScene extends BaseScene {
 			
 		};
 		
-		
+		// SOLVE IT
 		solveIt = new TiledSprite(615, 200, resourcesManager.solveITTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
@@ -245,7 +245,7 @@ public class GameMenuScene extends BaseScene {
 		attachChild(guess);
 		
 		// 2nd GAME MENU
-		// match it
+		// MATCH IT
 		matchIt = new TiledSprite(185, 200, resourcesManager.matchItTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
@@ -258,7 +258,7 @@ public class GameMenuScene extends BaseScene {
 					matchIt.setScale(1.0f);
 					matchIt.setCurrentTileIndex(0);
 					// Load the GuessTheMissingLetter Scene
-					//SceneManager.getInstance().loadMatchItScene();
+					SceneManager.getInstance().loadMatchItScene();
 					break;
 				}
 				return true;

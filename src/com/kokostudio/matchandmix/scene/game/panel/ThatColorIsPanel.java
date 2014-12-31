@@ -73,7 +73,7 @@ public class ThatColorIsPanel extends BaseScene {
 				super.preDraw(pGLState, pCamera);
 			}	
 		};
-		questionPlank = new Sprite(240, 70, resourcesManager.questionPlankTextureRegion, vbom);
+		questionPlank = new Sprite(240, 70, resourcesManager.color_questionPlankTextureRegion, vbom);
 		attachChild(BG);
 		attachChild(questionPlank);
 	}
@@ -97,24 +97,122 @@ public class ThatColorIsPanel extends BaseScene {
 					break;
 				}
 				return true;
-			}
-			
+			}	
 		};
 		registerTouchArea(back);
 		attachChild(back);
 	}
 	
 	private void createQuestions() {
-		question = new Sprite(250, 240, question(), vbom);
+		question = new Sprite(250, 240, question(), vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				switch(pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					question.setScale(1.1f);
+					break;
+				case TouchEvent.ACTION_UP:
+					question.setScale(1.0f);
+					// PLAY THE SOUND OF THE QUESTION
+					break;
+				}
+				return true;
+			}
+			
+		};
+		registerTouchArea(question);
 		attachChild(question);
 	}
 	
 	private void createChoices() {
-		c1 = new Sprite(650, setColor1Position(), color1(), vbom);
-		c2 = new Sprite(650, setColor2Position(), color2(), vbom);
-		c3 = new Sprite(650, setColor3Position(), color3(), vbom);
-		c4 = new Sprite(650, setColor4Position(), color4(), vbom);
-		correctSprite = new TiledSprite(650, correctSpritePosition(), correctAnswerSprite(), vbom);
+		correctSprite = new TiledSprite(650, correctSpritePosition(), correctAnswerSprite(), vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				switch(pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					correctSprite.setScale(1.2f);
+					break;
+				case TouchEvent.ACTION_UP:
+					correctSprite.setScale(1.0f);
+					// PLAY THE CORRECT SOUND THEN SWITCH TO THE NEXT TILEINDEX
+					correctSprite.setCurrentTileIndex(1);
+					unregisterTouchArea(correctSprite);
+					unregisterTouchArea(c1);
+					unregisterTouchArea(c2);
+					unregisterTouchArea(c3);
+					unregisterTouchArea(c4);
+					break;
+				}
+				return true;
+			}
+		};
+		
+		c1 = new Sprite(650, setColor1Position(), color1(), vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				switch(pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					c1.setScale(1.2f);
+					break;
+				case TouchEvent.ACTION_UP:
+					c1.setScale(1.0f);
+					// PLAY THE INCORRECT SOUND
+					break;
+				}
+				return true;
+			}
+			
+		};
+		c2 = new Sprite(650, setColor2Position(), color2(), vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				switch(pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					c2.setScale(1.2f);
+					break;
+				case TouchEvent.ACTION_UP:
+					c2.setScale(1.0f);
+					// PLAY THE INCORRECT SOUND
+					break;
+				}
+				return true;
+			}
+		};
+		c3 = new Sprite(650, setColor3Position(), color3(), vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				switch(pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					c3.setScale(1.2f);
+					break;
+				case TouchEvent.ACTION_UP:
+					c3.setScale(1.0f);
+					// PLAY THE INCORRECT SOUND
+					break;
+				}
+				return true;
+			}
+		};
+		c4 = new Sprite(650, setColor4Position(), color4(), vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				switch(pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					c4.setScale(1.2f);
+					break;
+				case TouchEvent.ACTION_UP:
+					c4.setScale(1.0f);
+					// PLAY THE INCORRECT SOUND
+					break;
+				}
+				return true;
+			}
+		};
+		registerTouchArea(c1);
+		registerTouchArea(c2);
+		registerTouchArea(c3);
+		registerTouchArea(c4);
+		registerTouchArea(correctSprite);
 		
 		attachChild(c1);
 		attachChild(c2);
@@ -130,7 +228,6 @@ public class ThatColorIsPanel extends BaseScene {
 	public static void getQuestionIndex(int i) {
 		questionSet = i;
 	}
-	
 	/* positions
 	 * 400
 	 * 320
@@ -187,7 +284,6 @@ public class ThatColorIsPanel extends BaseScene {
 	}
 	
 	public ITextureRegion color1() {
-		//ITextureRegion r = null;
 		if(questionSet == 0) {
 			r = resourcesManager.yellowTextureRegion;
 		}
