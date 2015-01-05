@@ -8,7 +8,10 @@ import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.util.GLState;
 
+import android.util.Log;
+
 import com.kokostudio.matchandmix.base.BaseScene;
+import com.kokostudio.matchandmix.database.myDatabase;
 import com.kokostudio.matchandmix.manager.ResourcesManager;
 import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
@@ -32,10 +35,14 @@ public class ThatColorIsPanel extends BaseScene {
 	private Sprite BG;
 	private Sprite questionPlank;
 	private TiledSprite back;
+	
+	// DATABASE
+	private myDatabase db;
 
 	@Override
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
+		db = new myDatabase(activity);
 		createBackground();
 		createButtons();
 		createChoices();
@@ -88,6 +95,7 @@ public class ThatColorIsPanel extends BaseScene {
 					back.setScale(0.9f);
 					break;
 				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
 					back.setCurrentTileIndex(0);
 					back.setScale(1f);
 					// unload that color is panel textures
@@ -114,6 +122,7 @@ public class ThatColorIsPanel extends BaseScene {
 				case TouchEvent.ACTION_UP:
 					question.setScale(1.0f);
 					// PLAY THE SOUND OF THE QUESTION
+					Log.d("database", isAnswered(questionSet));
 					break;
 				}
 				return true;
@@ -135,12 +144,8 @@ public class ThatColorIsPanel extends BaseScene {
 				case TouchEvent.ACTION_UP:
 					correctSprite.setScale(1.0f);
 					// PLAY THE CORRECT SOUND THEN SWITCH TO THE NEXT TILEINDEX
+					resourcesManager.correct.play();
 					correctSprite.setCurrentTileIndex(1);
-					unregisterTouchArea(correctSprite);
-					unregisterTouchArea(c1);
-					unregisterTouchArea(c2);
-					unregisterTouchArea(c3);
-					unregisterTouchArea(c4);
 					break;
 				}
 				return true;
@@ -157,6 +162,7 @@ public class ThatColorIsPanel extends BaseScene {
 				case TouchEvent.ACTION_UP:
 					c1.setScale(1.0f);
 					// PLAY THE INCORRECT SOUND
+					resourcesManager.wrong.play();
 					break;
 				}
 				return true;
@@ -173,6 +179,7 @@ public class ThatColorIsPanel extends BaseScene {
 				case TouchEvent.ACTION_UP:
 					c2.setScale(1.0f);
 					// PLAY THE INCORRECT SOUND
+					resourcesManager.wrong.play();
 					break;
 				}
 				return true;
@@ -188,6 +195,7 @@ public class ThatColorIsPanel extends BaseScene {
 				case TouchEvent.ACTION_UP:
 					c3.setScale(1.0f);
 					// PLAY THE INCORRECT SOUND
+					resourcesManager.wrong.play();
 					break;
 				}
 				return true;
@@ -203,6 +211,7 @@ public class ThatColorIsPanel extends BaseScene {
 				case TouchEvent.ACTION_UP:
 					c4.setScale(1.0f);
 					// PLAY THE INCORRECT SOUND
+					resourcesManager.wrong.play();
 					break;
 				}
 				return true;
@@ -228,86 +237,79 @@ public class ThatColorIsPanel extends BaseScene {
 	public static void getQuestionIndex(int i) {
 		questionSet = i;
 	}
+	
+	public void update(int id, String s) {
+		db.updateThatColorIs(id, s);
+		db.close();
+	}
+	
+	public String isAnswered(int id) {
+		String s = db.isAnswered(id);
+		db.close();
+		return s;
+	}
+	
 	/* positions
-	 * 400
-	 * 320
-	 * 240
-	 * 160
-	 * 80
+	 * 400 pos1
+	 * 320 pos2
+	 * 240 pos3
+	 * 160 pos4
+	 * 80 pos5
 	 */
+	
 	public int correctSpritePosition() {
-		if(questionSet == 0) {
-			pos = 160;
-		}
+		if(questionSet == 0) pos = 160;
 		return pos;
 	}
 	public int setColor1Position() {
-		if(questionSet == 0) {
-			pos = 400;
-		}
+		if(questionSet == 0) pos = 400;
 		return pos;
 	}
 	public int setColor2Position() {
-		if(questionSet == 0) {
-			pos = 320;
-		}
+		if(questionSet == 0) pos = 320;
 		return pos;
 	}
 	public int setColor3Position() {
-		if(questionSet == 0) {
-			pos = 240;
-		}
+		if(questionSet == 0) pos = 240;
 		return pos;
 	}
 	public int setColor4Position() {
-		if(questionSet == 0) {
-			pos = 80;
-		}
+		if(questionSet == 0) pos = 80;
 		return pos;
 	}
 	
 	// TEXTURES
 	public ITextureRegion question() {
 		ITextureRegion questionRegion = null;
-		if(questionSet == 0) {
-			questionRegion = resourcesManager.heartTexture;
-		}
+		if(questionSet == 0) questionRegion = resourcesManager.heartTexture;
+		
 		return questionRegion;
 	}
 	
 	public TiledTextureRegion correctAnswerSprite() {
 		TiledTextureRegion r = null;
-		if(questionSet == 0) {
-			r = resourcesManager.redTextureRegion;
-		}
+		if(questionSet == 0) r = resourcesManager.redTextureRegion;
+		
 		return r;
 	}
 	
 	public ITextureRegion color1() {
-		if(questionSet == 0) {
-			r = resourcesManager.yellowTextureRegion;
-		}
+		if(questionSet == 0) r = resourcesManager.yellowTextureRegion;
 		return r;
 	}
 	
 	public ITextureRegion color2() {
-		if(questionSet == 0) {
-			r = resourcesManager.blueTextureRegion;
-		}
+		if(questionSet == 0) r = resourcesManager.blueTextureRegion;
 		return r;
 	}
 	
 	public ITextureRegion color3() {
-		if(questionSet == 0) {
-			r = resourcesManager.pinkTextureRegion;
-		}
+		if(questionSet == 0) r = resourcesManager.pinkTextureRegion;
 		return r;
 	}
 	
 	public ITextureRegion color4() {
-		if(questionSet == 0) {
-			r = resourcesManager.greenTextureRegion;
-		}
+		if(questionSet == 0) r = resourcesManager.greenTextureRegion;
 		return r;
 	}
 	

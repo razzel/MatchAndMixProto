@@ -24,6 +24,7 @@ public class MainMenuScene extends BaseScene {
 		createMenuSelection();
 		createButtons();
 		prev.setVisible(false);
+		unregisterTouchArea(prev);
 		about.setVisible(false);
 		options.setVisible(false);
 		exit.setVisible(false);
@@ -38,10 +39,9 @@ public class MainMenuScene extends BaseScene {
 	
 	@Override
 	public void onMenuKeyPressed() {
-		resourcesManager.bgm.pause();
+		
 	}
 	
-
 	@Override
 	public SceneType getSceneType() {
 		return SceneType.SCENE_MAINMENU;
@@ -87,6 +87,7 @@ public class MainMenuScene extends BaseScene {
 					next.setScale(0.9f);
 					break;
 				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
 					next.setCurrentTileIndex(0);
 					next.setScale(1.0f);
 					
@@ -96,6 +97,7 @@ public class MainMenuScene extends BaseScene {
 					progress.setVisible(false);
 					howTo.setVisible(false);
 					// then unregister their toucharea
+					unregisterTouchArea(next);
 					unregisterTouchArea(games);
 					unregisterTouchArea(progress);
 					unregisterTouchArea(howTo);
@@ -106,6 +108,7 @@ public class MainMenuScene extends BaseScene {
 					options.setVisible(true);
 					exit.setVisible(true);
 					// register again their toucharea
+					registerTouchArea(prev);
 					registerTouchArea(about);
 					registerTouchArea(options);
 					registerTouchArea(exit);
@@ -124,6 +127,7 @@ public class MainMenuScene extends BaseScene {
 					prev.setScale(0.9f);
 					break;
 				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
 					prev.setCurrentTileIndex(0);
 					prev.setScale(1.0f);
 					
@@ -143,6 +147,7 @@ public class MainMenuScene extends BaseScene {
 					options.setVisible(false);
 					exit.setVisible(false);
 					// unregister their toucharea
+					unregisterTouchArea(prev);
 					unregisterTouchArea(about);
 					unregisterTouchArea(options);
 					unregisterTouchArea(exit);
@@ -168,6 +173,7 @@ public class MainMenuScene extends BaseScene {
 					games.setScale(0.9f);
 					break;
 				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
 					// LOAD THE GAME MENU SCENE in the SceneManager
 					SceneManager.getInstance().loadGameMenuScene();
 					
@@ -201,6 +207,7 @@ public class MainMenuScene extends BaseScene {
 					options.setScale(0.9f);
 					break;
 				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
 					options.setCurrentTileIndex(0);
 					options.setScale(1.0f);
 					

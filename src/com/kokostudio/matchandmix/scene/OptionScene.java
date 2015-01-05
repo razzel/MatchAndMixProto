@@ -4,11 +4,9 @@ import org.andengine.engine.camera.Camera;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
-import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.util.GLState;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.kokostudio.matchandmix.base.BaseScene;
 import com.kokostudio.matchandmix.database.myDatabase;
@@ -19,7 +17,6 @@ import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
 public class OptionScene extends BaseScene {
 	
 	private TiledSprite back;
-	private Sprite onOff;
 	private Sprite on;
 	private Sprite off;
 	private Sprite optionBoard;
@@ -28,6 +25,7 @@ public class OptionScene extends BaseScene {
 
 	@Override
 	public void createScene() {
+		this.setTouchAreaBindingOnActionDownEnabled(true);
 		db = new myDatabase(activity);
 		createBackground();
 		createButtons();
@@ -78,6 +76,7 @@ public class OptionScene extends BaseScene {
 					back.setScale(0.9f);
 					break;
 				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
 					back.setCurrentTileIndex(0);
 					back.setScale(1.0f);
 					// unload options textures
@@ -100,27 +99,8 @@ public class OptionScene extends BaseScene {
 		
 		optionBoard = new Sprite(400,240, resourcesManager.optionBoardTextureRegion, vbom);
 		attachChild(optionBoard);
-		// create on and off button
-		/*
-		onOff = new Sprite(490, 210, isSoundOn().compareTo("true")==0?resourcesManager.onTextureRegion :resourcesManager.offTextureRegion, vbom) {
-			@Override
-			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
-				switch(pSceneTouchEvent.getAction()) {
-				case TouchEvent.ACTION_DOWN:
-					onOff.setScale(0.9f);
-					break;
-				case TouchEvent.ACTION_UP:
-					onOff.setScale(1.0f);
-					toggleButton();
-					Log.d("database", isSoundOn());
-					break;
-				}
-				return true;
-			}	
-		};
-		registerTouchArea(onOff);
-		attachChild(onOff); */
 		
+		// create on and off button	
 		on = new Sprite(490, 210, resourcesManager.onTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
@@ -129,6 +109,7 @@ public class OptionScene extends BaseScene {
 					on.setScale(0.9f);
 					break;
 				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
 					on.setScale(1.0f);
 					toggleButton();
 					break;
@@ -147,6 +128,7 @@ public class OptionScene extends BaseScene {
 					off.setScale(0.9f);
 					break;
 				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
 					off.setScale(1.0f);
 					toggleButton();
 					break;

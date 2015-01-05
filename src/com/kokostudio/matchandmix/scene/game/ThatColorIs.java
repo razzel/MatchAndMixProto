@@ -88,6 +88,7 @@ public class ThatColorIs extends BaseScene {
 							qFrames[index].setCurrentTileIndex(1);
 							break;
 						case TouchEvent.ACTION_UP:
+							resourcesManager.click.play();
 							qFrames[index].setScale(1.0f);
 							qFrames[index].setCurrentTileIndex(0);
 							// set the index variable to the THAT COLOR IS Panel's getQuestionIndex();
@@ -129,6 +130,7 @@ public class ThatColorIs extends BaseScene {
 					back.setCurrentTileIndex(1);
 					break;
 				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
 					back.setScale(1.0f);
 					back.setCurrentTileIndex(0);
 					// unload THAT COLOR IS Textures

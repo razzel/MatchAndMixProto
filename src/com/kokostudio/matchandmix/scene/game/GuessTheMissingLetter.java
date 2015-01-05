@@ -91,6 +91,7 @@ public class GuessTheMissingLetter extends BaseScene {
 							qFrames[index].setScale(0.9f);
 							break;
 						case TouchEvent.ACTION_UP:
+							resourcesManager.click.play();
 							qFrames[index].setCurrentTileIndex(0);
 							qFrames[index].setScale(1.0f);
 							
@@ -134,6 +135,7 @@ public class GuessTheMissingLetter extends BaseScene {
 					back.setScale(0.9f);
 					break;
 				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
 					back.setCurrentTileIndex(0);
 					back.setScale(1.0f);
 					

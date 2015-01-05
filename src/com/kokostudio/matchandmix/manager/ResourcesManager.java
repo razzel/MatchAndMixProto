@@ -4,11 +4,13 @@ import java.io.IOException;
 
 import org.andengine.audio.music.Music;
 import org.andengine.audio.music.MusicFactory;
+import org.andengine.audio.sound.Sound;
 import org.andengine.audio.sound.SoundFactory;
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
 import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
+import org.andengine.opengl.font.IFont;
 import org.andengine.opengl.texture.ITexture;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
@@ -167,6 +169,37 @@ public class ResourcesManager {
 	// ---------------------------------------------------------------------------
 	// BACKGROUND MUSIC
 	public Music bgm;
+	public Sound click;
+	public Sound correct;
+	public Sound wrong;
+	
+	public void loadBGM() {
+		MusicFactory.setAssetBasePath("sfx/");
+		try {
+			this.bgm = MusicFactory.createMusicFromAsset(activity.getMusicManager(), activity, "bgm.mp3");
+			this.bgm.setLooping(true);
+		} catch(final IOException e) {
+			Debug.e(e);
+		}
+	}
+	public void loadClickSound() {
+		SoundFactory.setAssetBasePath("sfx/");
+		try {
+			this.click = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "Click.ogg");
+		} catch(final IOException e) {
+			Debug.e(e);
+		}
+	}
+	public void loadCorrectWrongSound() {
+		SoundFactory.setAssetBasePath("sfx/");
+		try {
+			this.correct = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "correct.mp3");
+			this.wrong = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "wrong.mp3");
+		} catch(final IOException e) {
+			Debug.e(e);
+		}
+	}
+	
 	
 	// ---------------------------------------------------------------------------
 	// FONTS
@@ -176,17 +209,6 @@ public class ResourcesManager {
 	//-----------------------------
 	// CLASS LOGIC
 	//-----------------------------
-	public void loadBGM() {
-		MusicFactory.setAssetBasePath("sfx/");
-		try {
-			this.bgm = MusicFactory.createMusicFromAsset(activity.getMusicManager(), activity, "bgm.mp3");
-			this.bgm.setLooping(true);
-		}
-		catch(final IOException e) {
-			Debug.e(e);
-		}
-		
-	}
 	
 	// CREATE GENERAL BACKGROUND AND ENTITIES ==========================================================================================
 		// BACKGROUND
@@ -319,6 +341,7 @@ public class ResourcesManager {
 	}
 	public void loadPlayMenuAudio() {
 		loadBGM();
+		loadClickSound();
 	}	
 	
 	public void loadPlayMenuTextures() {
@@ -357,7 +380,7 @@ public class ResourcesManager {
 	}
 	
 	public void loadMainMenuAudio() {
-		
+		loadClickSound();
 	}
 	// UNLOAD
 	public void unloadMainMenuTextures() {
@@ -390,7 +413,7 @@ public class ResourcesManager {
 	}
 	
 	public void loadGameMenuAudio() {
-		
+		loadClickSound();
 	}
 	// UNLOAD
 	public void unloadGameMenuTexture() {
@@ -401,7 +424,6 @@ public class ResourcesManager {
 	// PROGRESS SCENE =======================================================================================================================
 	
 	// OPTION SCENE =========================================================================================================================
-	
 	public void loadOptionResources() {
 		createGeneralBackground();
 		createCommonButtons();
@@ -424,7 +446,7 @@ public class ResourcesManager {
 	}
 	
 	public void loadOptionAudio() {
-		
+		loadClickSound();
 	}
 	
 	public void unloadOptionTexture() {
@@ -452,7 +474,7 @@ public class ResourcesManager {
 	}
 	
 	public void loadMatchItAudio() {
-		
+		loadClickSound();
 	}
 	
 	public void unloadMatchItResources() {
@@ -519,7 +541,7 @@ public class ResourcesManager {
 		}
 		
 		public void loadMatchItPanelAudio() {
-			
+			loadClickSound();
 		}
 		
 		public void unloadMatchItPanelTextures() {
@@ -542,7 +564,7 @@ public class ResourcesManager {
 	}
 	
 	public void loadGTMLAudio() {
-		
+		loadClickSound();
 	}
 		// GTML PANEL
 		public void loadGTMLPanelResources() {
@@ -570,7 +592,7 @@ public class ResourcesManager {
 		}
 		
 		public void loadGTMLPanelAudio() {
-		
+			loadClickSound();
 		}
 
 	// UNLOAD
@@ -595,9 +617,8 @@ public class ResourcesManager {
 	}
 	
 	public void loadCountItAudio() {
-		
+		loadClickSound();
 	}
-	
 	
 	// SOLVE IT !!!! =======================================================================================================================
 	public void loadSolveItResources() {
@@ -610,7 +631,7 @@ public class ResourcesManager {
 	}
 	
 	public void loadSolveItAudio() {
-		
+		loadClickSound();
 	}
 	
 	// THAT COLOR IS ???? ===================================================================================================================
@@ -626,7 +647,7 @@ public class ResourcesManager {
 	}
 	
 	public void loadThatColorIsAudio() {
-		
+		loadClickSound();
 	}
 	
 	public void unloadThatColorIsTextures() {
@@ -636,6 +657,8 @@ public class ResourcesManager {
 	
 		// THAT COLOR IS PANEL
 		public void loadThatColorIsPanelResources() {
+			loadClickSound();
+			loadCorrectWrongSound();
 			loadShapes();
 			loadThatColorIsPanelGraphics();
 			loadColor1();

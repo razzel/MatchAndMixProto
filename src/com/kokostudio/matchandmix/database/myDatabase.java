@@ -13,21 +13,20 @@ public class myDatabase extends SQLiteOpenHelper {
 	private static final int dbVersion = 1;
 	
 	
-	// OPTION
+	// CREATE OPTION TABLE
 	public static final String tOption = "option_table";
 	public static final String option_id = "option_id";
 	public static final String isOn = "isOn";
 	public static final String CREATE_OPTION_TABLE = "CREATE TABLE IF NOT EXISTS " + tOption + " ("
 														+ option_id + " INTEGER PRIMARY KEY, "
 														+ isOn + " TEXT)";
-	
 	// GUESS THE MISSING LETTER
-	public static final String tGTML = "GTML";
-	public static final String fGTML_ID = "_id";
-	public static final String isAnswered = "isAnswered";
-	public static final String CREATE_GTML_TABLE = "CREATE TABLE IF NOT EXISTS "+tGTML+" (" 
-													+ fGTML_ID + " INTEGER PRIMARY KEY , "
-													+ isAnswered + " TEXT, "
+	public static final String table_ThatColorIs = "Color";
+	public static final String fThatColorIs_ID = "color_id";
+	public static final String fColor_isAnswered = "isAnswered";
+	public static final String CREATE_ThatColorIs_TABLE = "CREATE TABLE IF NOT EXISTS "+table_ThatColorIs+" (" 
+													+ fThatColorIs_ID + " INTEGER PRIMARY KEY , "
+													+ fColor_isAnswered+ " TEXT "
 													+ ")";
 	
 	public myDatabase(Context context) {
@@ -36,22 +35,58 @@ public class myDatabase extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		// Create database table
-		db.execSQL(CREATE_OPTION_TABLE);
-		
-		// Prepopulate some values in the table
 		ContentValues cv = new ContentValues();
-		cv.put(option_id, 0);
-		cv.put(isOn, "true");
-			db.insert(tOption, null, cv);
+		
+		db.execSQL(CREATE_OPTION_TABLE);
+			// VALUES FOR OPTIONS
+			cv.put(option_id, 0);
+			cv.put(isOn, "true");
+				db.insert(tOption, null, cv);
+				
+		db.execSQL(CREATE_ThatColorIs_TABLE);
+			// VALUES FOR THAT COLOR IS
+			cv.put(fThatColorIs_ID, 0);
+			cv.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, cv);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("DROP TABLE IF EXISTS "+tGTML);
+		db.execSQL("DROP TABLE IF EXISTS " + CREATE_ThatColorIs_TABLE);
+		db.execSQL("DROP TABLE IF EXISTS " + CREATE_OPTION_TABLE);
 		onCreate(db);
 	}
 	
+	// THAT COLOR IS
+	public void insertThatColorIsValues() {
+		ContentValues cv = new ContentValues();
+		SQLiteDatabase db = this.getWritableDatabase();
+		// VALUES FOR THATCOLORIS
+		cv.put(fThatColorIs_ID, 0);
+		cv.put(fColor_isAnswered, "false");	
+			db.insert(table_ThatColorIs, null, cv);
+			db.close();
+	}
+	
+	public void updateThatColorIs(int id, String s) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put(fColor_isAnswered, s);
+		db.update(table_ThatColorIs, cv, fThatColorIs_ID+"=" +id, null);
+	}
+	
+	public String isAnswered(int id) {
+		SQLiteDatabase db = this.getReadableDatabase();
+		//String[] mySearch = new String[]{String.valueOf(id)};
+		Cursor c = db.rawQuery("SELECT " + fColor_isAnswered + " FROM " + table_ThatColorIs + " WHERE " + fThatColorIs_ID + " = " +id, null);
+		c.moveToFirst();
+		int index = c.getColumnIndex(fColor_isAnswered);
+		String myReturn = c.getString(index);
+		c.close();
+		return myReturn;
+	}
+	
+	// OPTIONS
 	public String isSoundOn() {
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor c = db.rawQuery("SELECT " + isOn + " FROM "+ tOption + " WHERE " + option_id + " = 0" , null);

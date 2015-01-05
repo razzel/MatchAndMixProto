@@ -74,6 +74,7 @@ public class PlayMenuScene extends BaseScene {
 					play.setScale(0.9f);
 					break;
 				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
 					SceneManager.getInstance().loadMainMenuScene();
 					play.setCurrentTileIndex(0);
 					play.setScale(1.0f);

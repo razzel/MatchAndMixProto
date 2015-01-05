@@ -26,6 +26,7 @@ public class GameMenuScene extends BaseScene {
 		createButtons();
 		createGameSelection();
 		prev.setVisible(false);
+		unregisterTouchArea(prev);
 		matchIt.setVisible(false);
 		countIt.setVisible(false);
 		unregisterTouchArea(matchIt);
@@ -80,6 +81,7 @@ public class GameMenuScene extends BaseScene {
 					next.setScale(0.9f);
 					break;
 				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
 					next.setCurrentTileIndex(0);
 					next.setScale(1.0f);
 					
@@ -89,6 +91,7 @@ public class GameMenuScene extends BaseScene {
 					solveIt.setVisible(false);
 					whatColor.setVisible(false);
 					// then unregister their toucharea
+					unregisterTouchArea(next);
 					unregisterTouchArea(guess);
 					unregisterTouchArea(solveIt);
 					unregisterTouchArea(whatColor);
@@ -99,6 +102,7 @@ public class GameMenuScene extends BaseScene {
 					matchIt.setVisible(true);
 					//exit.setVisible(true);
 					// register again their toucharea
+					registerTouchArea(prev);
 					registerTouchArea(countIt);
 					registerTouchArea(matchIt);
 					//registerTouchArea(exit);
@@ -117,6 +121,7 @@ public class GameMenuScene extends BaseScene {
 					prev.setScale(0.9f);
 					break;
 				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
 					prev.setCurrentTileIndex(0);
 					prev.setScale(1.0f);
 					
@@ -126,6 +131,7 @@ public class GameMenuScene extends BaseScene {
 					solveIt.setVisible(true);
 					whatColor.setVisible(true);
 					// register again their toucharea
+					registerTouchArea(next);
 					registerTouchArea(guess);
 					registerTouchArea(solveIt);
 					registerTouchArea(whatColor);
@@ -136,6 +142,7 @@ public class GameMenuScene extends BaseScene {
 					countIt.setVisible(false);
 					//exit.setVisible(false);
 					// unregister their toucharea
+					unregisterTouchArea(prev);
 					unregisterTouchArea(matchIt);
 					unregisterTouchArea(countIt);
 					//unregisterTouchArea(exit);
@@ -158,6 +165,7 @@ public class GameMenuScene extends BaseScene {
 					back.setScale(0.9f);
 					break;
 				case TouchEvent.ACTION_UP:	
+					resourcesManager.click.play();
 					back.setCurrentTileIndex(0);
 					back.setScale(1.0f);
 					// unload the GameMenuTextures
@@ -185,6 +193,7 @@ public class GameMenuScene extends BaseScene {
 					guess.setScale(0.9f);
 					break;
 				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
 					guess.setCurrentTileIndex(0);
 					guess.setScale(1.0f);
 					// Load the GuessTheMissingLetter Scene
@@ -206,6 +215,7 @@ public class GameMenuScene extends BaseScene {
 					whatColor.setCurrentTileIndex(1);
 					break;
 				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
 					whatColor.setScale(1.0f);
 					whatColor.setCurrentTileIndex(0);
 					// Switch the scene
@@ -227,6 +237,7 @@ public class GameMenuScene extends BaseScene {
 					solveIt.setCurrentTileIndex(1);
 					break;
 				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
 					solveIt.setScale(1.0f);
 					solveIt.setCurrentTileIndex(0);
 					// Switch the scene
@@ -255,6 +266,7 @@ public class GameMenuScene extends BaseScene {
 					guess.setScale(0.9f);
 					break;
 				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
 					matchIt.setScale(1.0f);
 					matchIt.setCurrentTileIndex(0);
 					// Load the GuessTheMissingLetter Scene
@@ -276,6 +288,7 @@ public class GameMenuScene extends BaseScene {
 					countIt.setCurrentTileIndex(1);
 					break;
 				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
 					countIt.setScale(1.0f);
 					countIt.setCurrentTileIndex(0);
 					// Switch the scene
