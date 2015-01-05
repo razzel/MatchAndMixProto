@@ -137,6 +137,7 @@ public class MainMenuScene extends BaseScene {
 					progress.setVisible(true);
 					howTo.setVisible(true);
 					// register again their toucharea
+					registerTouchArea(next); //<-- dagdag mo ito
 					registerTouchArea(games);
 					registerTouchArea(progress);
 					registerTouchArea(howTo);
