@@ -137,7 +137,11 @@ public class MainMenuScene extends BaseScene {
 					progress.setVisible(true);
 					howTo.setVisible(true);
 					// register again their toucharea
+<<<<<<< HEAD
 					registerTouchArea(next); //<-- dagdag mo ito
+=======
+					registerTouchArea(next);
+>>>>>>> origin/master
 					registerTouchArea(games);
 					registerTouchArea(progress);
 					registerTouchArea(howTo);
@@ -220,7 +224,24 @@ public class MainMenuScene extends BaseScene {
 			}		
 		};
 		
-		exit = new TiledSprite(615, 200, resourcesManager.exitTiledTextureRegion, vbom);
+		exit = new TiledSprite(615, 200, resourcesManager.exitTiledTextureRegion, vbom){
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				switch (pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					exit.setCurrentTileIndex(1);
+					exit.setScale(0.9f);
+					break;
+				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
+					exit.setCurrentTileIndex(0);
+					exit.setScale(1.0f);
+					System.exit(1);
+					break;
+				}
+				return true;
+			}		
+		};
 		
 		registerTouchArea(options);
 		attachChild(about);

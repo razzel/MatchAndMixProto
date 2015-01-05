@@ -292,7 +292,7 @@ public class GameMenuScene extends BaseScene {
 					countIt.setScale(1.0f);
 					countIt.setCurrentTileIndex(0);
 					// Switch the scene
-					//SceneManager.getInstance().loadcountItScene();
+					SceneManager.getInstance().loadCountItScene();
 					break;
 				}
 				return true;

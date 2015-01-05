@@ -608,6 +608,8 @@ public class ResourcesManager {
 	
 	// COUNT IT !!!! =======================================================================================================================
 	public void loadCountItResources() {
+		createGeneralBackground();
+		createQuestionFrames();
 		loadCountItGraphics();
 		loadCountItAudio();
 	}
