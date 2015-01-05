@@ -18,6 +18,7 @@ import com.kokostudio.matchandmix.scene.game.GuessTheMissingLetter;
 import com.kokostudio.matchandmix.scene.game.MatchIt;
 import com.kokostudio.matchandmix.scene.game.SolveIT;
 import com.kokostudio.matchandmix.scene.game.ThatColorIs;
+import com.kokostudio.matchandmix.scene.game.countIt;
 //import com.kokostudio.matchandmix.scene.game.MatchIt;
 import com.kokostudio.matchandmix.scene.game.panel.GuessTheMissingLetterPanel;
 import com.kokostudio.matchandmix.scene.game.panel.MatchItPanel;
@@ -238,6 +239,16 @@ public class SceneManager {
 		SolveItScene = new SolveIT();
 		setScene(SolveItScene);
 	}
+	//COUNT IT ==================================================================================================
+	public void loadCountItScene() {
+		//unload the game textures
+		ResourcesManager.getInstance().unloadGameMenuTexture();
+		//Load that Count it Scene Resources
+		ResourcesManager.getInstance().loadCountItResources();
+		// set the scene
+		CountItScene = new countIt();
+		setScene(CountItScene);
+	}
 	
 	
 	//----------------------------------
@@ -291,12 +302,16 @@ public class SceneManager {
 		case SCENE_COUNTITPANEL:
 			setScene(CountItPanelScene);
 			break;
+		case SCENE_COUNTIT:
+			setScene(CountItScene);
+			break;
 		case SCENE_GAMEMENU:
 			setScene(gameMenuScene);
 			break;
 		case SCENE_ABOUT:
 			setScene(aboutScene);
 			break;
+		
 		//
 		default:
 			break;
