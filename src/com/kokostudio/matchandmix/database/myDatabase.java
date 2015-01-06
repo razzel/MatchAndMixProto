@@ -35,19 +35,29 @@ public class myDatabase extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		ContentValues cv = new ContentValues();
 		
+		ContentValues optionValues = new ContentValues();
 		db.execSQL(CREATE_OPTION_TABLE);
 			// VALUES FOR OPTIONS
-			cv.put(option_id, 0);
-			cv.put(isOn, "true");
-				db.insert(tOption, null, cv);
-				
+			optionValues.put(option_id, 0);
+			optionValues.put(isOn, "true");
+				db.insert(tOption, null, optionValues);
+			
+		
+		ContentValues colorValues = new ContentValues();	
 		db.execSQL(CREATE_ThatColorIs_TABLE);
 			// VALUES FOR THAT COLOR IS
-			cv.put(fThatColorIs_ID, 0);
-			cv.put(fColor_isAnswered, "false");	
-				db.insert(table_ThatColorIs, null, cv);
+			colorValues.put(fThatColorIs_ID, 0);
+			colorValues.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, colorValues);
+				
+			colorValues.put(fThatColorIs_ID, 1);
+			colorValues.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, colorValues);
+					
+			colorValues.put(fThatColorIs_ID, 2);
+			colorValues.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, colorValues);
 	}
 
 	@Override
@@ -58,16 +68,6 @@ public class myDatabase extends SQLiteOpenHelper {
 	}
 	
 	// THAT COLOR IS
-	public void insertThatColorIsValues() {
-		ContentValues cv = new ContentValues();
-		SQLiteDatabase db = this.getWritableDatabase();
-		// VALUES FOR THATCOLORIS
-		cv.put(fThatColorIs_ID, 0);
-		cv.put(fColor_isAnswered, "false");	
-			db.insert(table_ThatColorIs, null, cv);
-			db.close();
-	}
-	
 	public void updateThatColorIs(int id, String s) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues cv = new ContentValues();
@@ -75,9 +75,14 @@ public class myDatabase extends SQLiteOpenHelper {
 		db.update(table_ThatColorIs, cv, fThatColorIs_ID+"=" +id, null);
 	}
 	
+	public int colorGetCount(String s) {
+		SQLiteDatabase db = this.getReadableDatabase();
+		
+		return 0;
+	}
+	
 	public String isAnswered(int id) {
 		SQLiteDatabase db = this.getReadableDatabase();
-		//String[] mySearch = new String[]{String.valueOf(id)};
 		Cursor c = db.rawQuery("SELECT " + fColor_isAnswered + " FROM " + table_ThatColorIs + " WHERE " + fThatColorIs_ID + " = " +id, null);
 		c.moveToFirst();
 		int index = c.getColumnIndex(fColor_isAnswered);

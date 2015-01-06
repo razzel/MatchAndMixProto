@@ -17,12 +17,13 @@ public class GameMenuScene extends BaseScene {
 	
 	private TiledSprite guess, matchIt, solveIt, countIt, whatColor;
 	private TiledSprite back, next, prev;
+	
 
 	@Override
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 		createBackground();
-		//createGameHeader();
+		createGameHeader();
 		createButtons();
 		createGameSelection();
 		prev.setVisible(false);
@@ -35,7 +36,10 @@ public class GameMenuScene extends BaseScene {
 
 	@Override
 	public void onBackKeyPressed() {
-		
+		// unload the GameMenuTextures
+		ResourcesManager.getInstance().unloadGameMenuTexture();
+		// then reload the MAIN MENU Scene
+		SceneManager.getInstance().loadMainMenuScene();
 	}
 
 	@Override
@@ -68,11 +72,20 @@ public class GameMenuScene extends BaseScene {
 		});
 	}
 	
-	//private void createGameHeader() {}
+	private void createGameHeader() {
+		attachChild(new Sprite(400, 430, resourcesManager.gameHeaderTextureReion, vbom) {
+			@Override
+			protected void preDraw(GLState pGLState, Camera pCamera) {
+				pGLState.enableDither();
+				super.preDraw(pGLState, pCamera);
+			}
+			
+		}); 
+	}
 	
 	private void createButtons() {
-		
-		next = new TiledSprite(765, 200, resourcesManager.nextTiledTextureRegion, vbom) {
+		int y = 200;
+		next = new TiledSprite(765, y, resourcesManager.nextTiledTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				switch(pSceneTouchEvent.getAction()) {
@@ -112,7 +125,7 @@ public class GameMenuScene extends BaseScene {
 				return true;
 			}
 		};
-		prev = new TiledSprite(35, 200, resourcesManager.prevTiledTextureRegion, vbom) {
+		prev = new TiledSprite(35, y, resourcesManager.prevTiledTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				switch(pSceneTouchEvent.getAction()) {
@@ -155,8 +168,8 @@ public class GameMenuScene extends BaseScene {
 		registerTouchArea(prev);
 		attachChild(next);
 		attachChild(prev);	
-		
-		back = new TiledSprite(45,40, resourcesManager.backTiledTextureRegion, vbom) {
+		/*
+		back = new TiledSprite(60,40, resourcesManager.backTiledTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				switch(pSceneTouchEvent.getAction()) {
@@ -179,12 +192,13 @@ public class GameMenuScene extends BaseScene {
 			
 		};
 		registerTouchArea(back);
-		attachChild(back);
+		attachChild(back); */
 	}
 	
 	private void createGameSelection() {
+		int y = 200;
 		// GUESS THE MISSING LETTER
-		guess = new TiledSprite(185, 200, resourcesManager.guessTextureRegion, vbom) {
+		guess = new TiledSprite(185, y, resourcesManager.guessTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				switch(pSceneTouchEvent.getAction()) {
@@ -206,7 +220,7 @@ public class GameMenuScene extends BaseScene {
 		};
 		
 		// THAT COLOR IS
-		whatColor = new TiledSprite(400, 200, resourcesManager.thatColorIsTextureRegion, vbom) {
+		whatColor = new TiledSprite(400, y, resourcesManager.thatColorIsTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				switch(pSceneTouchEvent.getAction()) {
@@ -228,7 +242,7 @@ public class GameMenuScene extends BaseScene {
 		};
 		
 		// SOLVE IT
-		solveIt = new TiledSprite(615, 200, resourcesManager.solveITTextureRegion, vbom) {
+		solveIt = new TiledSprite(615, y, resourcesManager.solveITTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				switch(pSceneTouchEvent.getAction()) {
@@ -257,7 +271,7 @@ public class GameMenuScene extends BaseScene {
 		
 		// 2nd GAME MENU
 		// MATCH IT
-		matchIt = new TiledSprite(185, 200, resourcesManager.matchItTextureRegion, vbom) {
+		matchIt = new TiledSprite(185, y, resourcesManager.matchItTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				switch(pSceneTouchEvent.getAction()) {
@@ -279,7 +293,7 @@ public class GameMenuScene extends BaseScene {
 		
 		
 		// THAT COLOR IS
-		countIt = new TiledSprite(400, 200, resourcesManager.countItTextureRegion, vbom) {
+		countIt = new TiledSprite(400, y, resourcesManager.countItTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				switch(pSceneTouchEvent.getAction()) {

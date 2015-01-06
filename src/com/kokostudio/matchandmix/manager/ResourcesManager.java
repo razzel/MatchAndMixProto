@@ -84,6 +84,7 @@ public class ResourcesManager {
 	
 	// GAME MENU TEXTURES ***************************************************************
 	public BuildableBitmapTextureAtlas gameMenuTextureAtlas;
+	public ITextureRegion gameHeaderTextureReion;
 	public TiledTextureRegion guessTextureRegion;
 	public TiledTextureRegion thatColorIsTextureRegion;
 	public TiledTextureRegion solveITTextureRegion;
@@ -154,11 +155,16 @@ public class ResourcesManager {
 		public BuildableBitmapTextureAtlas shape3Atlas;
 		public ITextureRegion triangleTexture;
 		
-	// OPTION TEXTURES****************************************************************************
+	// OPTION TEXTURES ***************************************************************************
 	public BuildableBitmapTextureAtlas optionTextureAtlas;
 	public ITextureRegion optionBoardTextureRegion;
 	public ITextureRegion onTextureRegion;
 	public ITextureRegion offTextureRegion;
+	
+	// PROGRESS TEXTURES *************************************************************************
+	public BuildableBitmapTextureAtlas progressTextureAtlas;
+	public ITextureRegion progressHeaderTexture;
+	public ITextureRegion solveItStatTexture;
 	
 	// ABOUT PANELS ***********************************************
 	public BuildableBitmapTextureAtlas AboutSceneTextureAtlas;
@@ -242,7 +248,7 @@ public class ResourcesManager {
 		// COMMON BUTTONS
 	public void createCommonButtons() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
-		commonButtonsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 300, 300);
+		commonButtonsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 512, 300);
 		backTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(commonButtonsTextureAtlas, activity, "back_btn.png", 2, 1);
 		nextTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(commonButtonsTextureAtlas, activity, "next_btn.png", 2, 1);
 		prevTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(commonButtonsTextureAtlas, activity, "prev_btn.png", 2, 1);
@@ -399,6 +405,7 @@ public class ResourcesManager {
 	public void loadGameMenuGraphics() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu_games/");
 		gameMenuTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+		gameHeaderTextureReion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameMenuTextureAtlas, activity, "games_header.png");
 		guessTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameMenuTextureAtlas, activity, "gml_btn.png", 2, 1);
 		thatColorIsTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameMenuTextureAtlas, activity, "tci_btn.png", 2, 1);
 		solveITTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameMenuTextureAtlas, activity, "si_btn.png", 2, 1);
@@ -422,6 +429,35 @@ public class ResourcesManager {
 	}
 	
 	// PROGRESS SCENE =======================================================================================================================
+	public void loadProgressResources() {
+		createGeneralBackground();
+		createCommonButtons();
+		loadProgressGraphics();
+		loadProgressFonts();
+	}
+	
+	public void loadProgressGraphics() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/progress/");
+		progressTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+		progressHeaderTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(progressTextureAtlas, activity, "progress_header.png");
+		solveItStatTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(progressTextureAtlas, activity, "si_stat.png");
+		try {
+			this.progressTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.progressTextureAtlas.load();
+		} catch(final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+	}
+	
+	public void loadProgressFonts() {
+		loadGTMLFonts();
+	}
+	
+	public void unloadProgressResources() {
+		unloadBackground();
+		unloadCommonButtons();
+		progressTextureAtlas.unload();
+	}
 	
 	// OPTION SCENE =========================================================================================================================
 	public void loadOptionResources() {

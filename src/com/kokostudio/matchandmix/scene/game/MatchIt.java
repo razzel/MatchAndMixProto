@@ -125,7 +125,7 @@ public class MatchIt extends BaseScene {
 
 	private void createButtons() {
 		// create the Back Button
-		back = new TiledSprite(45, 40, resourcesManager.backTiledTextureRegion, vbom) {
+		back = new TiledSprite(60, 40, resourcesManager.backTiledTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				switch (pSceneTouchEvent.getAction()) {

@@ -10,6 +10,7 @@ import com.kokostudio.matchandmix.base.BaseScene;
 import com.kokostudio.matchandmix.scene.MainMenuScene;
 import com.kokostudio.matchandmix.scene.GameMenuScene;
 import com.kokostudio.matchandmix.scene.OptionScene;
+import com.kokostudio.matchandmix.scene.ProgressScene;
 //import com.kokostudio.matchandmix.scene.GameMenuScene;
 import com.kokostudio.matchandmix.scene.PlayMenuScene;
 import com.kokostudio.matchandmix.scene.SplashScene;
@@ -150,6 +151,16 @@ public class SceneManager {
 		ResourcesManager.getInstance().loadOptionResources();
 		optionScene = new OptionScene();
 		setScene(optionScene);
+	}
+	
+	public void loadProgressScene() {
+		// unload main menu textures
+		ResourcesManager.getInstance().unloadMainMenuTextures();
+		// load progress texture
+		ResourcesManager.getInstance().loadProgressResources();
+		// set scene
+		progressScene = new ProgressScene();
+		setScene(progressScene);
 	}
 	
 	// ABOUT ================================================================================================================

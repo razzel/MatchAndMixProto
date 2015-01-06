@@ -47,6 +47,7 @@ public class ThatColorIsPanel extends BaseScene {
 		createButtons();
 		createChoices();
 		createQuestions();
+		checkStatus();
 	}
 
 	@Override
@@ -86,7 +87,7 @@ public class ThatColorIsPanel extends BaseScene {
 	}
 	
 	private void createButtons() {
-		back = new TiledSprite(45, 430, resourcesManager.backTiledTextureRegion, vbom) {
+		back = new TiledSprite(60, 430, resourcesManager.backTiledTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				switch(pSceneTouchEvent.getAction()) {
@@ -122,7 +123,7 @@ public class ThatColorIsPanel extends BaseScene {
 				case TouchEvent.ACTION_UP:
 					question.setScale(1.0f);
 					// PLAY THE SOUND OF THE QUESTION
-					Log.d("database", isAnswered(questionSet));
+					Log.d("database", isAnswred(questionSet));
 					break;
 				}
 				return true;
@@ -146,6 +147,8 @@ public class ThatColorIsPanel extends BaseScene {
 					// PLAY THE CORRECT SOUND THEN SWITCH TO THE NEXT TILEINDEX
 					resourcesManager.correct.play();
 					correctSprite.setCurrentTileIndex(1);
+					update(questionSet, "true");
+					lock();
 					break;
 				}
 				return true;
@@ -243,10 +246,27 @@ public class ThatColorIsPanel extends BaseScene {
 		db.close();
 	}
 	
-	public String isAnswered(int id) {
+	public String isAnswred(int id) {
 		String s = db.isAnswered(id);
 		db.close();
 		return s;
+	}
+	
+	public void checkStatus() {
+		String cmp = db.isAnswered(questionSet);
+		if(cmp.compareTo("true") == 0) {
+			lock();
+		}
+		else return;
+	}
+	
+	public void lock() {
+		unregisterTouchArea(c1);
+		unregisterTouchArea(c2);
+		unregisterTouchArea(c3);
+		unregisterTouchArea(c4);
+		unregisterTouchArea(correctSprite);
+		correctSprite.setCurrentTileIndex(1);
 	}
 	
 	/* positions
@@ -259,22 +279,47 @@ public class ThatColorIsPanel extends BaseScene {
 	
 	public int correctSpritePosition() {
 		if(questionSet == 0) pos = 160;
+		
+		else if (questionSet == 1) pos = 320;
+		
+		else if (questionSet == 2) pos = 240;
+			
 		return pos;
 	}
 	public int setColor1Position() {
 		if(questionSet == 0) pos = 400;
+		
+		else if (questionSet == 1) pos = 400;
+		
+		else if (questionSet == 2) pos = 400;
+		
 		return pos;
 	}
 	public int setColor2Position() {
 		if(questionSet == 0) pos = 320;
+		
+		else if (questionSet == 1) pos = 240;
+		
+		else if (questionSet == 2) pos = 320;
+		
 		return pos;
 	}
 	public int setColor3Position() {
 		if(questionSet == 0) pos = 240;
+		
+		else if (questionSet == 1) pos = 160;
+		
+		else if (questionSet == 2) pos = 160;
+		
 		return pos;
 	}
 	public int setColor4Position() {
 		if(questionSet == 0) pos = 80;
+		
+		else if (questionSet == 1) pos = 80;
+		
+		else if (questionSet == 2) pos = 80;
+		
 		return pos;
 	}
 	
@@ -283,33 +328,59 @@ public class ThatColorIsPanel extends BaseScene {
 		ITextureRegion questionRegion = null;
 		if(questionSet == 0) questionRegion = resourcesManager.heartTexture;
 		
+		else if (questionSet == 1) questionRegion = resourcesManager.starTexture;
+		
+		else if (questionSet == 2) questionRegion = resourcesManager.squareTexture;
+		
 		return questionRegion;
 	}
 	
 	public TiledTextureRegion correctAnswerSprite() {
 		TiledTextureRegion r = null;
 		if(questionSet == 0) r = resourcesManager.redTextureRegion;
+		else if (questionSet == 1) r = resourcesManager.yellowTextureRegion;
+		else if (questionSet == 2) r = resourcesManager.blueTextureRegion;
 		
 		return r;
 	}
 	
 	public ITextureRegion color1() {
 		if(questionSet == 0) r = resourcesManager.yellowTextureRegion;
+		
+		else if (questionSet == 1)  r = resourcesManager.greenTextureRegion;
+		
+		else if (questionSet == 2) r = resourcesManager.violetTextureRegion;
+		
 		return r;
 	}
 	
 	public ITextureRegion color2() {
 		if(questionSet == 0) r = resourcesManager.blueTextureRegion;
+		
+		else if (questionSet == 1) r = resourcesManager.pinkTextureRegion;
+		
+		else if (questionSet == 2) r = resourcesManager.pinkTextureRegion;
+		
 		return r;
 	}
 	
 	public ITextureRegion color3() {
 		if(questionSet == 0) r = resourcesManager.pinkTextureRegion;
+		
+		else if (questionSet == 1) r = resourcesManager.orangeTextureRegion;
+		
+		else if (questionSet == 2) r = resourcesManager.redTextureRegion;
+		
 		return r;
 	}
 	
 	public ITextureRegion color4() {
 		if(questionSet == 0) r = resourcesManager.greenTextureRegion;
+		
+		else if (questionSet == 1) r = resourcesManager.redTextureRegion;
+		
+		else if (questionSet == 2) r = resourcesManager.greenTextureRegion;
+		
 		return r;
 	}
 	

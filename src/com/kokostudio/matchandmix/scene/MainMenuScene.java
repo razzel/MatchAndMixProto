@@ -186,12 +186,32 @@ public class MainMenuScene extends BaseScene {
 			}	
 		};
 		
-		progress = new TiledSprite(400, 200, resourcesManager.progressTiledTextureRegion, vbom);
+		progress = new TiledSprite(400, 200, resourcesManager.progressTiledTextureRegion, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				switch(pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					progress.setCurrentTileIndex(1);
+					progress.setScale(0.9f);
+					break;
+				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
+					progress.setCurrentTileIndex(0);
+					progress.setScale(1.0f);
+					// set scene
+					SceneManager.getInstance().loadProgressScene();
+					break;
+				}
+				return true;
+			}
+			
+		};
 		
 		howTo = new TiledSprite(615, 200, resourcesManager.howtoTiledTextureRegion, vbom);
 		
 		
 		registerTouchArea(games);
+		registerTouchArea(progress);
 		attachChild(games);
 		attachChild(progress);
 		attachChild(howTo);
@@ -232,7 +252,7 @@ public class MainMenuScene extends BaseScene {
 					resourcesManager.click.play();
 					exit.setCurrentTileIndex(0);
 					exit.setScale(1.0f);
-					System.exit(1);
+					System.exit(0);
 					break;
 				}
 				return true;

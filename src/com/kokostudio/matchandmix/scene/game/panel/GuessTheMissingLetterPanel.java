@@ -76,8 +76,8 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 		test = new Text(100, 100, resourcesManager.font, "frame number: "+questionSet,vbom);
 		attachChild(test);
 		
-		question = new Sprite(400, 240, getQuestionRegion(), vbom);
-		attachChild(question);
+		//question = new Sprite(400, 240, getQuestionRegion(), vbom);
+		//attachChild(question);
 		
 	}
 	
