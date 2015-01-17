@@ -141,6 +141,10 @@ public class myDatabase extends SQLiteOpenHelper {
 			colorValues.put(fThatColorIs_ID, 27);
 			colorValues.put(fColor_isAnswered, "false");	
 				db.insert(table_ThatColorIs, null, colorValues);
+				
+			colorValues.put(fThatColorIs_ID, 28);
+			colorValues.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, colorValues);
 	}
 
 	@Override
