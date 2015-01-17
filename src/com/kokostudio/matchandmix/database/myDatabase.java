@@ -58,6 +58,89 @@ public class myDatabase extends SQLiteOpenHelper {
 			colorValues.put(fThatColorIs_ID, 2);
 			colorValues.put(fColor_isAnswered, "false");	
 				db.insert(table_ThatColorIs, null, colorValues);
+				
+			colorValues.put(fThatColorIs_ID, 3);
+			colorValues.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, colorValues);
+			
+			colorValues.put(fThatColorIs_ID, 4);
+			colorValues.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, colorValues);
+				
+			colorValues.put(fThatColorIs_ID, 6);
+			colorValues.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, colorValues);			
+			
+			colorValues.put(fThatColorIs_ID, 7);
+			colorValues.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, colorValues);		
+			colorValues.put(fThatColorIs_ID, 8);
+			colorValues.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, colorValues);		
+		
+			colorValues.put(fThatColorIs_ID, 9);
+			colorValues.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, colorValues);
+			
+			colorValues.put(fThatColorIs_ID, 10);
+			colorValues.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, colorValues);
+				
+			colorValues.put(fThatColorIs_ID, 12);
+			colorValues.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, colorValues);	
+				
+			colorValues.put(fThatColorIs_ID, 13);
+			colorValues.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, colorValues);	
+			
+			colorValues.put(fThatColorIs_ID, 14);
+			colorValues.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, colorValues);
+				
+			colorValues.put(fThatColorIs_ID, 15);
+			colorValues.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, colorValues);
+		
+			colorValues.put(fThatColorIs_ID, 16);
+			colorValues.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, colorValues);
+				
+			colorValues.put(fThatColorIs_ID, 18);
+			colorValues.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, colorValues);
+				
+			colorValues.put(fThatColorIs_ID, 19);
+			colorValues.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, colorValues);
+				
+			colorValues.put(fThatColorIs_ID, 20);
+			colorValues.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, colorValues);
+				
+			colorValues.put(fThatColorIs_ID, 21);
+			colorValues.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, colorValues);
+			
+			colorValues.put(fThatColorIs_ID, 22);
+			colorValues.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, colorValues);
+			
+			colorValues.put(fThatColorIs_ID, 24);
+			colorValues.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, colorValues);
+				
+			colorValues.put(fThatColorIs_ID, 25);
+			colorValues.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, colorValues);
+
+			colorValues.put(fThatColorIs_ID, 26);
+			colorValues.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, colorValues);
+				
+			colorValues.put(fThatColorIs_ID, 27);
+			colorValues.put(fColor_isAnswered, "false");	
+				db.insert(table_ThatColorIs, null, colorValues);
 	}
 
 	@Override

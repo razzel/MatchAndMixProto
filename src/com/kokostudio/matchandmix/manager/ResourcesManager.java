@@ -154,6 +154,34 @@ public class ResourcesManager {
 		
 		public BuildableBitmapTextureAtlas shape3Atlas;
 		public ITextureRegion triangleTexture;
+		// fruitsNvegs
+		public BuildableBitmapTextureAtlas fruitNvegsatlas;
+		public ITextureRegion beanTexture; 
+		public ITextureRegion orangesTexture;
+		public ITextureRegion bananaTexture;
+		public ITextureRegion eggplantTexture;
+		public ITextureRegion papayaTexture;
+		public ITextureRegion grapesTexture;
+		public ITextureRegion garlicTexture;
+		public ITextureRegion nutTexture;
+		// animals
+		public BuildableBitmapTextureAtlas AnimalsAtlas;
+		public ITextureRegion snakeTexture;
+		//Others
+		public BuildableBitmapTextureAtlas OthersAtlas;
+		public ITextureRegion balloonTexture;
+		public ITextureRegion candyTexture;
+		public ITextureRegion boneTexture;
+		public ITextureRegion stoneTexture;
+		public ITextureRegion ribbonTexture;
+		public ITextureRegion iglooTexture;
+		public ITextureRegion ballTexture;
+		public ITextureRegion cheeseTexture;
+		public ITextureRegion flowerTexture;
+		public ITextureRegion swordTexture;
+		public ITextureRegion bearTexture;
+		public ITextureRegion cookieTexture;
+		public ITextureRegion hatTexture;
 		
 	// OPTION TEXTURES ***************************************************************************
 	public BuildableBitmapTextureAtlas optionTextureAtlas;
@@ -314,7 +342,108 @@ public class ResourcesManager {
 		shape2Atlas.unload();
 		shape3Atlas.unload();
 	}
+	//fruitsNVegs
+	public void loadfruitsNvegs(){
+		loadfruitsNvegs1();	
+	}
+	public void loadfruitsNvegs1(){
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/fruitsNvegs/");
+		fruitNvegsatlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+		beanTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(fruitNvegsatlas, activity, "a_bean.png");
+		orangesTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(fruitNvegsatlas, activity, "a_orange.png");
+		bananaTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(fruitNvegsatlas, activity, "a_banana.png");
+		eggplantTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(fruitNvegsatlas, activity, "a_eggplant.png");
+		papayaTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(fruitNvegsatlas, activity, "a_papaya.png");
+		grapesTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(fruitNvegsatlas, activity, "a_grapes.png");
+		garlicTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(fruitNvegsatlas, activity, "a_garlic.png");
+		nutTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(fruitNvegsatlas, activity, "a_nut.png");
+		try {
+			this.fruitNvegsatlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.fruitNvegsatlas.load();
+			
+		} catch(final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+	}
+	public void unloadfruitNvegs(){
+		fruitNvegsatlas.unload();
+	}
 	
+	//ANIMALS========================================================================================================================
+	public void loadAnimals(){
+		loadAnimals1();
+	}
+	public void loadAnimals1(){
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/animals/");
+		AnimalsAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+		snakeTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(AnimalsAtlas, activity, "a_snake.png");
+		bearTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(AnimalsAtlas, activity, "a_bear.png");
+		try {
+			this.AnimalsAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.AnimalsAtlas.load();
+			
+		} catch(final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+	}
+	public void unloadAnimals(){
+		AnimalsAtlas.unload();
+	}
+	//OTHERS =========================================================================================================================
+	public void loadOthers(){
+		loadOthers1();
+		loadOthers2();
+		loadOthers3();
+	}
+	public void loadOthers1(){
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/others/");
+		OthersAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+		balloonTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(OthersAtlas, activity, "a_balloon.png");
+		candyTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(OthersAtlas, activity, "a_candy.png");
+		
+		
+		try {
+			this.OthersAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.OthersAtlas.load();
+			
+		} catch(final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+	}
+	public void loadOthers2(){
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/others/");
+		OthersAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+		boneTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(OthersAtlas, activity, "a_bone.png");
+		stoneTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(OthersAtlas, activity, "a_stone.png");
+		ribbonTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(OthersAtlas, activity, "a_ribbon.png");
+		try {
+			this.OthersAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.OthersAtlas.load();
+			
+		} catch(final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+	}
+	public void loadOthers3(){
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/others/");
+		OthersAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+		iglooTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(OthersAtlas, activity, "a_igloo.png");
+		ballTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(OthersAtlas, activity, "a_ball.png");
+		cheeseTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(OthersAtlas, activity, "a_cheese.png");
+		flowerTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(OthersAtlas, activity, "a_flower.png");
+		swordTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(OthersAtlas, activity, "a_sword.png");
+		cookieTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(OthersAtlas, activity, "a_cookie.png");
+		try {
+			this.OthersAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.OthersAtlas.load();
+			
+		} catch(final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+	}
+	public void unloadOthers(){
+		OthersAtlas.unload();
+	}
 	// SPLASH SCENE ==================================================================================================================
 	public void loadSplashScene() {
 		//BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
@@ -702,6 +831,9 @@ public class ResourcesManager {
 			loadColor1();
 			loadColor2();
 			loadColor3();
+			loadfruitsNvegs();
+			loadAnimals();
+			loadOthers();
 		}
 		
 		public void loadThatColorIsPanelGraphics() {
@@ -751,7 +883,7 @@ public class ResourcesManager {
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_color/");
 			color3TextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
 			redTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(color3TextureAtlas, activity, "red_btn.png", 2, 1);
-			violetTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(color3TextureAtlas, activity, "red_btn.png", 2, 1);
+			violetTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(color3TextureAtlas, activity, "violet_btn.png", 2, 1);
 			whiteTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(color3TextureAtlas, activity, "white_btn.png", 2, 1);
 			yellowTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(color3TextureAtlas, activity, "yellow_btn.png", 2, 1);
 			try {
