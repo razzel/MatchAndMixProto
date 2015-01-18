@@ -7,9 +7,11 @@ import org.andengine.entity.text.Text;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.util.GLState;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.kokostudio.matchandmix.base.BaseScene;
+import com.kokostudio.matchandmix.database.myDatabase;
 import com.kokostudio.matchandmix.manager.ResourcesManager;
 import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
@@ -18,9 +20,26 @@ public class ProgressScene extends BaseScene {
 	
 	private TiledSprite back;
 	private Sprite progressHeader;
-	private Sprite solveItStat;
+	private Sprite progressPanel;
 	
-	private Text color_text;
+	private myDatabase db;
+	
+	// TEXT
+	private Text colorAnswered;
+	private Text colorRemaining;
+	
+	private Text matchAnswered;
+	private Text matchRemaining;
+	
+	private Text solveAnswered;
+	private Text solveRemaining;
+	
+	private Text countAnswered;
+	private Text countRemaining;
+	
+	private Text guessAnswered;
+	private Text guessRemaining;
+	
 	
 
 	@Override
@@ -29,6 +48,7 @@ public class ProgressScene extends BaseScene {
 		createBackground();
 		createButtons();
 		createProgress();
+		createText();
 	}
 
 	@Override
@@ -60,13 +80,12 @@ public class ProgressScene extends BaseScene {
 			protected void preDraw(GLState pGLState, Camera pCamera) {
 				pGLState.enableDither();
 				super.preDraw(pGLState, pCamera);
-			}
-			
+			}	
 		});
 	}
 	
 	private void createButtons() {
-		back = new TiledSprite(60, 45, resourcesManager.backTiledTextureRegion, vbom) {
+		back = new TiledSprite(45, 40, resourcesManager.backTiledTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				switch (pSceneTouchEvent.getAction()) {
@@ -102,15 +121,27 @@ public class ProgressScene extends BaseScene {
 		};
 		attachChild(progressHeader);
 		
-		solveItStat = new Sprite(400, 240, resourcesManager.solveItStatTexture, vbom);
-		attachChild(solveItStat);
+		progressPanel = new Sprite(410,195, resourcesManager.progressPanelTexture, vbom);
+		attachChild(progressPanel);
+		
+	}
+	
+	private void createText() {
+		colorAnswered = new Text(400, 240, resourcesManager.aklatanFont, "test", vbom);
+		attachChild(colorAnswered);
 	}
 	
 	// =============================================================================================
 	// DATABASE SECTION
 	// =============================================================================================
 	
-	private int getColorAnswred(String s) {
+	
+	// THAT COLOR IS
+	private int getColorAnswred() {;
+		return 0;
+	}
+	
+	private int getColorRemaining() {
 		return 0;
 	}
 

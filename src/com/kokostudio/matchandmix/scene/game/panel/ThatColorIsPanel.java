@@ -15,6 +15,7 @@ import com.kokostudio.matchandmix.database.myDatabase;
 import com.kokostudio.matchandmix.manager.ResourcesManager;
 import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
+import com.kokostudio.matchandmix.scene.game.ThatColorIs;
 
 public class ThatColorIsPanel extends BaseScene {
 	
@@ -38,6 +39,8 @@ public class ThatColorIsPanel extends BaseScene {
 	
 	// DATABASE
 	private myDatabase db;
+	
+	private ThatColorIs color;
 
 	@Override
 	public void createScene() {
@@ -87,7 +90,7 @@ public class ThatColorIsPanel extends BaseScene {
 	}
 	
 	private void createButtons() {
-		back = new TiledSprite(60, 430, resourcesManager.backTiledTextureRegion, vbom) {
+		back = new TiledSprite(45, 430, resourcesManager.backTiledTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				switch(pSceneTouchEvent.getAction()) {
@@ -247,13 +250,13 @@ public class ThatColorIsPanel extends BaseScene {
 	}
 	
 	public String isAnswred(int id) {
-		String s = db.isAnswered(id);
+		String s = db.colorIsAnswered(id);
 		db.close();
 		return s;
 	}
 	
 	public void checkStatus() {
-		String cmp = db.isAnswered(questionSet);
+		String cmp = db.colorIsAnswered(questionSet);
 		if(cmp.compareTo("true") == 0) {
 			lock();
 		}

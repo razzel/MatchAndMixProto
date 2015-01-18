@@ -188,14 +188,14 @@ public class SceneManager {
 	}
 	
 		// LOAD GTML  PANEL SCENE
-	public void loadGTMLPanelScene() {
-		// unload the GTML it textures
-		ResourcesManager.getInstance().unloadGTMLTextures();
-		// load the GTML PANEL SCENE RESOURCES
-		ResourcesManager.getInstance().loadGTMLPanelResources();
-		GTMLPanelScene = new GuessTheMissingLetterPanel();
-		setScene(GTMLPanelScene);	
-	}
+		public void loadGTMLPanelScene() {
+			// unload the GTML it textures
+			ResourcesManager.getInstance().unloadGTMLTextures();
+			// load the GTML PANEL SCENE RESOURCES
+			ResourcesManager.getInstance().loadGTMLPanelResources();
+			GTMLPanelScene = new GuessTheMissingLetterPanel();
+			setScene(GTMLPanelScene);	
+		}
 	
 	// MAtch IT SCENE ==============================================================================================================
 	public void loadMatchItScene() {

@@ -7,6 +7,7 @@ import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.util.GLState;
 
 import com.kokostudio.matchandmix.base.BaseScene;
+import com.kokostudio.matchandmix.database.myDatabase;
 import com.kokostudio.matchandmix.manager.ResourcesManager;
 import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
@@ -19,6 +20,9 @@ public class ThatColorIs extends BaseScene {
 	private TiledSprite[] qFrames;
 	
 	private int x, y, rowCounter;
+	
+	private myDatabase db;
+	
 
 	@Override
 	public void createScene() {
@@ -117,11 +121,11 @@ public class ThatColorIs extends BaseScene {
 				x = 190;
 				rowCounter = 0;
 			}
-		}
+		}	
 	}
 
 	private void createButtons() {
-		back = new TiledSprite(60, 40,resourcesManager.backTiledTextureRegion, vbom) {
+		back = new TiledSprite(45, 40,resourcesManager.backTiledTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent,float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				switch(pSceneTouchEvent.getAction()) {
@@ -145,5 +149,12 @@ public class ThatColorIs extends BaseScene {
 		};
 		registerTouchArea(back);
 		attachChild(back);
+	}
+	
+	// -----------------------------------------------------
+	// DATABASE SECTION
+	// -----------------------------------------------------
+	private void frameIsAnswered(int i) {
+		
 	}
 }

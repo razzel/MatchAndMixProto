@@ -21,7 +21,8 @@ public class PlayMenuScene extends BaseScene {
 	@Override
 	public void createScene() {
 		db = new myDatabase(activity);
-		checkSounds();
+		checkBGM();
+		checkSFX();
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 		createBackground();
 		createButton();
@@ -87,15 +88,20 @@ public class PlayMenuScene extends BaseScene {
 		attachChild(play);
 	}	
 	
-	private void checkSounds() {
-		if(db.isSoundOn().compareTo("true") == 0) {
-			engine.getSoundManager().setMasterVolume(1.0f);
-			engine.getMusicManager().setMasterVolume(1.0f);
+	private void checkBGM() {
+		if(db.isBGMOn().compareTo("true") == 0) {
+			engine.getMusicManager().setMasterVolume(0.70f);
 		} else {
-			engine.getSoundManager().setMasterVolume(0.0f);
 			engine.getMusicManager().setMasterVolume(0.0f);
 		}
 		resourcesManager.bgm.play();
 		resourcesManager.bgm.setVolume(1.0f);
+	}
+	private void checkSFX() {
+		if(db.isSFXOn().compareTo("true") == 0) {
+			engine.getSoundManager().setMasterVolume(1.0f);
+		} else {
+			engine.getSoundManager().setMasterVolume(0.0f);
+		}
 	}
 }

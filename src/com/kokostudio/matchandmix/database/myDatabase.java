@@ -20,7 +20,7 @@ public class myDatabase extends SQLiteOpenHelper {
 	public static final String CREATE_OPTION_TABLE = "CREATE TABLE IF NOT EXISTS " + tOption + " ("
 														+ option_id + " INTEGER PRIMARY KEY, "
 														+ isOn + " TEXT)";
-	// GUESS THE MISSING LETTER
+	// THAT COLOR IS
 	public static final String table_ThatColorIs = "Color";
 	public static final String fThatColorIs_ID = "color_id";
 	public static final String fColor_isAnswered = "isAnswered";
@@ -28,6 +28,15 @@ public class myDatabase extends SQLiteOpenHelper {
 													+ fThatColorIs_ID + " INTEGER PRIMARY KEY , "
 													+ fColor_isAnswered+ " TEXT "
 													+ ")";
+	
+	// GUESST THE MISSING LETTER
+	public static final String table_GTML = "GTML";
+	public static final String fGTML_ID = "gtml_id";
+	public static final String fgtml_isAnswered = "isAnswered";
+	public static final String CREATE_GTML_TABLE = "CREATE TABLE IF NOT EXISTS "+table_GTML+" ("
+												+fGTML_ID+ " INTEGER PRIMARY KEY , "
+												+fgtml_isAnswered+ " TEXT "
+												+ ")";
 	
 	public myDatabase(Context context) {
 		super(context, dbName, null, dbVersion);
@@ -42,10 +51,31 @@ public class myDatabase extends SQLiteOpenHelper {
 			optionValues.put(option_id, 0);
 			optionValues.put(isOn, "true");
 				db.insert(tOption, null, optionValues);
-			
+			optionValues.put(option_id, 1);
+			optionValues.put(isOn, "true");
+				db.insert(tOption, null, optionValues);
 		
-		ContentValues colorValues = new ContentValues();	
+		// THAT COLOR IS
 		db.execSQL(CREATE_ThatColorIs_TABLE);
+		insertThatColorIsValues(db);
+		
+		// GUESS THE MISSING LETTER
+		db.execSQL(CREATE_GTML_TABLE);
+		insertGTMLValues(db);
+		
+	}
+
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		db.execSQL("DROP TABLE IF EXISTS " + CREATE_ThatColorIs_TABLE);
+		db.execSQL("DROP TABLE IF EXISTS " + CREATE_OPTION_TABLE);
+		db.execSQL("DROP TABLE IF EXISTS " + CREATE_GTML_TABLE);
+		onCreate(db);
+	}
+	
+	// THAT COLOR IS ******************************************************************************************************************
+	public void insertThatColorIsValues(SQLiteDatabase db) {
+		ContentValues colorValues = new ContentValues();	
 			// VALUES FOR THAT COLOR IS
 			colorValues.put(fThatColorIs_ID, 0);
 			colorValues.put(fColor_isAnswered, "false");	
@@ -146,15 +176,7 @@ public class myDatabase extends SQLiteOpenHelper {
 			colorValues.put(fColor_isAnswered, "false");	
 				db.insert(table_ThatColorIs, null, colorValues);
 	}
-
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("DROP TABLE IF EXISTS " + CREATE_ThatColorIs_TABLE);
-		db.execSQL("DROP TABLE IF EXISTS " + CREATE_OPTION_TABLE);
-		onCreate(db);
-	}
 	
-	// THAT COLOR IS
 	public void updateThatColorIs(int id, String s) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues cv = new ContentValues();
@@ -162,13 +184,20 @@ public class myDatabase extends SQLiteOpenHelper {
 		db.update(table_ThatColorIs, cv, fThatColorIs_ID+"=" +id, null);
 	}
 	
-	public int colorGetCount(String s) {
-		SQLiteDatabase db = this.getReadableDatabase();
-		
+	public int colorGetAnswered() {
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor c = db.rawQuery("SELECT * FROM "+table_ThatColorIs, null);
+		c.moveToFirst();
+		int x = c.getCount();
+		c.close();
+		return x;
+	}
+	
+	public int colorGetRemaining() {
 		return 0;
 	}
 	
-	public String isAnswered(int id) {
+	public String colorIsAnswered(int id) {
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor c = db.rawQuery("SELECT " + fColor_isAnswered + " FROM " + table_ThatColorIs + " WHERE " + fThatColorIs_ID + " = " +id, null);
 		c.moveToFirst();
@@ -178,8 +207,38 @@ public class myDatabase extends SQLiteOpenHelper {
 		return myReturn;
 	}
 	
-	// OPTIONS
-	public String isSoundOn() {
+	// GUESS THE MISSING LETTER ***************************************************************************************************
+	public void insertGTMLValues(SQLiteDatabase db) {
+		ContentValues gtmlValues = new ContentValues();
+		
+		gtmlValues.put(fGTML_ID, 0);
+		gtmlValues.put(fgtml_isAnswered, "false");
+			db.insert(table_GTML, null, gtmlValues);
+			
+		gtmlValues.put(fGTML_ID,1);
+		gtmlValues.put(fgtml_isAnswered, "false");
+			db.insert(table_GTML, null, gtmlValues);	
+	}
+	
+	public void updateGTML(int id, String s) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put(fgtml_isAnswered, s);
+		db.update(table_GTML, cv, fGTML_ID+"=" +id, null);
+	}
+	
+	public String gtmlIsAnswered(int id) {
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor c = db.rawQuery("SELECT " + fgtml_isAnswered + " FROM " + table_GTML + " WHERE " + fGTML_ID + " = " +id, null);
+		c.moveToFirst();
+		int index = c.getColumnIndex(fgtml_isAnswered);
+		String myReturn = c.getString(index);
+		c.close();
+		return myReturn;
+	}
+	
+	// OPTIONS ********************************************************************************************************
+	public String isBGMOn() {
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor c = db.rawQuery("SELECT " + isOn + " FROM "+ tOption + " WHERE " + option_id + " = 0" , null);
 		c.moveToFirst();
@@ -189,11 +248,28 @@ public class myDatabase extends SQLiteOpenHelper {
 		return myReturn;
 	}
 	
-	public void updateSound(String s) {
+	public String isSFXOn() {
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor c = db.rawQuery("SELECT " + isOn + " FROM "+ tOption + " WHERE " + option_id + " = 1" , null);
+		c.moveToFirst();
+		int index = c.getColumnIndex(isOn);
+		String myReturn = c.getString(index);
+		c.close();
+		return myReturn;
+	}
+	
+	public void updateBGM(String s) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues cv = new ContentValues();
 		cv.put(isOn, s);
 		db.update(tOption, cv, option_id+" = 0", null);
+	}
+	
+	public void updateSFX(String s) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put(isOn, s);
+		db.update(tOption, cv, option_id+" = 1", null);
 	}
 	
 }
