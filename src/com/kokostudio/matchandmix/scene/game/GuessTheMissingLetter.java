@@ -160,7 +160,7 @@ public class GuessTheMissingLetter extends BaseScene {
 	// DATABASE SECTION
 	// ------------------------------------------------
 	private String frameIsAnswered(int i) {
-		String s = db.colorIsAnswered(i);
+		String s = db.gtmlIsAnswered(i);
 		db.close();
 		return s;
 	}

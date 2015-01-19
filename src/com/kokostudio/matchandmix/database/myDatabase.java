@@ -38,13 +38,24 @@ public class myDatabase extends SQLiteOpenHelper {
 												+fgtml_isAnswered+ " TEXT "
 												+ ")";
 	
+	
+	// COUNT
+	/*
+	public static final String table_color_count = "color_count";
+	public static final String fcolor_count_id = "id";
+	public static final String fcolor_answered = "answered";
+	public static final String fcolor_remaining = "remaining";
+	public static final String CREATE_COLOR_COUNT_TABLE = "CREATE TABLE IF NOT EXISTS " +table_color_count+ " ("
+														+fcolor_count_id+ " INTEGER PRIMARY KEY, "
+														+fcolor_answered+ " INTEGER , "
+														+fcolor_remaining+ " INTEGER "
+														+")"; */
 	public myDatabase(Context context) {
 		super(context, dbName, null, dbVersion);
 	}
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		
 		ContentValues optionValues = new ContentValues();
 		db.execSQL(CREATE_OPTION_TABLE);
 			// VALUES FOR OPTIONS
@@ -59,6 +70,14 @@ public class myDatabase extends SQLiteOpenHelper {
 		db.execSQL(CREATE_ThatColorIs_TABLE);
 		insertThatColorIsValues(db);
 		
+		//db.execSQL(CREATE_COLOR_COUNT_TABLE);
+		//ContentValues colorCountValues = new ContentValues();
+		//	colorCountValues.put(fcolor_count_id, 0);
+		//	colorCountValues.put(fcolor_answered, 0);
+		//	colorCountValues.put(fcolor_remaining, 25);
+		//		db.insert(table_color_count, null, colorCountValues);
+		
+		
 		// GUESS THE MISSING LETTER
 		db.execSQL(CREATE_GTML_TABLE);
 		insertGTMLValues(db);
@@ -70,6 +89,7 @@ public class myDatabase extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + CREATE_ThatColorIs_TABLE);
 		db.execSQL("DROP TABLE IF EXISTS " + CREATE_OPTION_TABLE);
 		db.execSQL("DROP TABLE IF EXISTS " + CREATE_GTML_TABLE);
+		//db.execSQL("DROP TABLE IF EXISTS " + CREATE_COLOR_COUNT_TABLE);
 		onCreate(db);
 	}
 	
@@ -184,13 +204,8 @@ public class myDatabase extends SQLiteOpenHelper {
 		db.update(table_ThatColorIs, cv, fThatColorIs_ID+"=" +id, null);
 	}
 	
-	public int colorGetCount() {
-		SQLiteDatabase db = this.getWritableDatabase();
-		Cursor c = db.rawQuery("SELECT * FROM "+table_ThatColorIs, null);
-		c.moveToFirst();
-		int x = c.getCount();
-		c.close();
-		return x;
+	public int colorGetAnswered() {
+		return 0;
 	}
 	
 	public int colorGetRemaining() {

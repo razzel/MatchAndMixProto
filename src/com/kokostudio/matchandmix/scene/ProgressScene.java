@@ -128,7 +128,7 @@ public class ProgressScene extends BaseScene {
 	}
 	
 	private void createText() {
-		colorAnswered = new Text(400, 240, resourcesManager.aklatanFont, "test"+ db.colorGetCount(), vbom);
+		colorAnswered = new Text(400, 240, resourcesManager.aklatanFont, "test" , vbom);
 		attachChild(colorAnswered);
 	}
 	
@@ -138,7 +138,8 @@ public class ProgressScene extends BaseScene {
 	
 	
 	// THAT COLOR IS
-	private int getColorAnswred() {;
+	private int getColorAnswred() {
+		int asd = 0;
 		return 0;
 	}
 	
