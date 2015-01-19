@@ -363,7 +363,7 @@ public class ResourcesManager {
 			this.Monkey = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "MONKEY.mp3");
 			this.Panda = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "PANDA.mp3");
 			this.Snake = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "SNAKE.mp3");
-			this.Giraffe = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "GIRAFFE.mp3");
+			this.Giraffe = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "GIRRAFE.mp3");
 			//this.Owl = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "OWL.mp3");
 			
 		} catch(final IOException e) {

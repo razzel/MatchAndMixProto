@@ -184,7 +184,7 @@ public class myDatabase extends SQLiteOpenHelper {
 		db.update(table_ThatColorIs, cv, fThatColorIs_ID+"=" +id, null);
 	}
 	
-	public int colorGetAnswered() {
+	public int colorGetCount() {
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor c = db.rawQuery("SELECT * FROM "+table_ThatColorIs, null);
 		c.moveToFirst();

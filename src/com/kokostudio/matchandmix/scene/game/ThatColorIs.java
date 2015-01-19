@@ -17,16 +17,19 @@ public class ThatColorIs extends BaseScene {
 	
 	private Sprite qHeader;
 	private TiledSprite back;
-	private TiledSprite[] qFrames;
+	public static TiledSprite[] qFrames;
 	
 	private int x, y, rowCounter;
 	
 	private myDatabase db;
 	
+	private ThatColorIsPanel colorPanel;
+	
 
 	@Override
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
+		db = new myDatabase(activity);
 		createBackground();
 		createQuestionHeader();
 		createButtons();
@@ -83,7 +86,7 @@ public class ThatColorIs extends BaseScene {
 		for(int i = 0; i < qFrames.length; i++) {
 			final int index = i;
 			if(rowCounter < 5) {
-				qFrames[i] = new TiledSprite(x, y, resourcesManager.notAnsweredTextureRegion, vbom) {
+				qFrames[i] = new TiledSprite(x, y, frameIsAnswered(index).compareTo("false")==0? resourcesManager.notAnsweredTextureRegion : resourcesManager.answeredTextureRegion, vbom) {
 					@Override
 					public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 						switch(pSceneTouchEvent.getAction()) {
@@ -154,7 +157,9 @@ public class ThatColorIs extends BaseScene {
 	// -----------------------------------------------------
 	// DATABASE SECTION
 	// -----------------------------------------------------
-	private void frameIsAnswered(int i) {
-		
+	private String frameIsAnswered(int i) {
+		String s = db.colorIsAnswered(i);
+		db.close();
+		return s;
 	}
 }

@@ -9,6 +9,7 @@ import org.andengine.opengl.util.GLState;
 import android.text.method.Touch;
 
 import com.kokostudio.matchandmix.base.BaseScene;
+import com.kokostudio.matchandmix.database.myDatabase;
 import com.kokostudio.matchandmix.manager.ResourcesManager;
 import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
@@ -22,9 +23,12 @@ public class GuessTheMissingLetter extends BaseScene {
 	
 	private int x, y, rowCounter;
 	
+	private myDatabase db;
+	
 	@Override
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
+		db = new myDatabase(activity);
 		createBackground();
 		createQuestionHeader();
 		createButtons();	
@@ -82,7 +86,7 @@ public class GuessTheMissingLetter extends BaseScene {
 		for(int i = 0; i < qFrames.length; i++) {
 			final int index = i;
 			if(rowCounter < 5) {
-				qFrames[i] = new TiledSprite(x, y, resourcesManager.notAnsweredTextureRegion, vbom) {
+				qFrames[i] = new TiledSprite(x, y, frameIsAnswered(index).compareTo("false")==0? resourcesManager.notAnsweredTextureRegion : resourcesManager.answeredTextureRegion, vbom) {
 					@Override
 					public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 						switch(pSceneTouchEvent.getAction()) {
@@ -150,5 +154,14 @@ public class GuessTheMissingLetter extends BaseScene {
 		};
 		registerTouchArea(back);
 		attachChild(back);
+	}
+	
+	//-------------------------------------------------
+	// DATABASE SECTION
+	// ------------------------------------------------
+	private String frameIsAnswered(int i) {
+		String s = db.colorIsAnswered(i);
+		db.close();
+		return s;
 	}
 }

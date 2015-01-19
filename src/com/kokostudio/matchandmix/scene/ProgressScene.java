@@ -45,6 +45,7 @@ public class ProgressScene extends BaseScene {
 	@Override
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
+		db = new myDatabase(activity);
 		createBackground();
 		createButtons();
 		createProgress();
@@ -127,7 +128,7 @@ public class ProgressScene extends BaseScene {
 	}
 	
 	private void createText() {
-		colorAnswered = new Text(400, 240, resourcesManager.aklatanFont, "test", vbom);
+		colorAnswered = new Text(400, 240, resourcesManager.aklatanFont, "test"+ db.colorGetCount(), vbom);
 		attachChild(colorAnswered);
 	}
 	
