@@ -218,6 +218,98 @@ public class myDatabase extends SQLiteOpenHelper {
 		gtmlValues.put(fGTML_ID,1);
 		gtmlValues.put(fgtml_isAnswered, "false");
 			db.insert(table_GTML, null, gtmlValues);	
+	
+		gtmlValues.put(fGTML_ID,2);
+		gtmlValues.put(fgtml_isAnswered, "false");
+			db.insert(table_GTML, null, gtmlValues);	
+			
+		gtmlValues.put(fGTML_ID,3);
+		gtmlValues.put(fgtml_isAnswered, "false");
+			db.insert(table_GTML, null, gtmlValues);
+			
+		gtmlValues.put(fGTML_ID,4);
+		gtmlValues.put(fgtml_isAnswered, "false");
+			db.insert(table_GTML, null, gtmlValues);
+			
+		gtmlValues.put(fGTML_ID,6);
+		gtmlValues.put(fgtml_isAnswered, "false");
+			db.insert(table_GTML, null, gtmlValues);
+			
+		gtmlValues.put(fGTML_ID,7);
+		gtmlValues.put(fgtml_isAnswered, "false");
+			db.insert(table_GTML, null, gtmlValues);
+			
+		gtmlValues.put(fGTML_ID,8);
+		gtmlValues.put(fgtml_isAnswered, "false");
+			db.insert(table_GTML, null, gtmlValues);
+			
+		gtmlValues.put(fGTML_ID,9);
+		gtmlValues.put(fgtml_isAnswered, "false");
+			db.insert(table_GTML, null, gtmlValues);
+		
+		gtmlValues.put(fGTML_ID,10);
+		gtmlValues.put(fgtml_isAnswered, "false");
+			db.insert(table_GTML, null, gtmlValues);
+			
+		gtmlValues.put(fGTML_ID,12);
+		gtmlValues.put(fgtml_isAnswered, "false");
+			db.insert(table_GTML, null, gtmlValues);
+		
+		gtmlValues.put(fGTML_ID,13);
+		gtmlValues.put(fgtml_isAnswered, "false");
+			db.insert(table_GTML, null, gtmlValues);
+			
+		gtmlValues.put(fGTML_ID,14);
+		gtmlValues.put(fgtml_isAnswered, "false");
+			db.insert(table_GTML, null, gtmlValues);
+			
+		gtmlValues.put(fGTML_ID,15);
+		gtmlValues.put(fgtml_isAnswered, "false");
+			db.insert(table_GTML, null, gtmlValues);
+			
+		gtmlValues.put(fGTML_ID,16);
+		gtmlValues.put(fgtml_isAnswered, "false");
+			db.insert(table_GTML, null, gtmlValues);
+
+		gtmlValues.put(fGTML_ID,18);
+		gtmlValues.put(fgtml_isAnswered, "false");
+			db.insert(table_GTML, null, gtmlValues);
+	
+		gtmlValues.put(fGTML_ID,19);
+		gtmlValues.put(fgtml_isAnswered, "false");
+			db.insert(table_GTML, null, gtmlValues);
+		
+		gtmlValues.put(fGTML_ID,20);
+		gtmlValues.put(fgtml_isAnswered, "false");
+			db.insert(table_GTML, null, gtmlValues);
+			
+		gtmlValues.put(fGTML_ID,21);
+		gtmlValues.put(fgtml_isAnswered, "false");
+			db.insert(table_GTML, null, gtmlValues);
+	
+		gtmlValues.put(fGTML_ID,22);
+		gtmlValues.put(fgtml_isAnswered, "false");
+			db.insert(table_GTML, null, gtmlValues);
+			
+		gtmlValues.put(fGTML_ID,24);
+		gtmlValues.put(fgtml_isAnswered, "false");
+			db.insert(table_GTML, null, gtmlValues);
+			
+		gtmlValues.put(fGTML_ID,25);
+		gtmlValues.put(fgtml_isAnswered, "false");
+			db.insert(table_GTML, null, gtmlValues);
+	
+		gtmlValues.put(fGTML_ID,26);
+		gtmlValues.put(fgtml_isAnswered, "false");
+			db.insert(table_GTML, null, gtmlValues);
+			
+		gtmlValues.put(fGTML_ID,27);
+		gtmlValues.put(fgtml_isAnswered, "false");
+			db.insert(table_GTML, null, gtmlValues);
+			
+		gtmlValues.put(fGTML_ID,28);
+		gtmlValues.put(fgtml_isAnswered, "false");
+			db.insert(table_GTML, null, gtmlValues);
 	}
 	
 	public void updateGTML(int id, String s) {
