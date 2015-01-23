@@ -100,6 +100,7 @@ public class MatchItPanel extends BaseScene {
 				case TouchEvent.ACTION_UP:
 					back.setCurrentTileIndex(0);
 					back.setScale(1f);
+					resourcesManager.click.play();
 					// unload MATCH IT panel textures
 					ResourcesManager.getInstance().unloadMatchItPanelTextures();
 					// SET THE SCENE TO MATCH IT
@@ -233,6 +234,7 @@ public class MatchItPanel extends BaseScene {
 				case TouchEvent.ACTION_UP:
 					c5.setScale(1.0f);
 					checkPosition(c5, pSceneTouchEvent.getX(), pSceneTouchEvent.getY(), 715, 115);
+					isAnswered = true;
 					Log.d("touch X", "x =" +pSceneTouchEvent.getX());
 					Log.d("touch y", "y = " +pSceneTouchEvent.getY());
 					break;
@@ -252,6 +254,11 @@ public class MatchItPanel extends BaseScene {
 	// ========================================================================================
 	public static void getQuestionIndex(int i) {
 		questionSet = i;
+	}
+	
+	private void isAnswered() {
+		if(isAnswered == false)
+			isAnswered = true;
 	}
 	// POSITIONS 
 		/*

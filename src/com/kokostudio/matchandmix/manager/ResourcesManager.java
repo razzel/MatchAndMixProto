@@ -922,6 +922,7 @@ public class ResourcesManager {
 			createQuestionFrames();
 			loadMatchItPanelGraphics();
 			loadMatchItPanelAudio();
+			loadfruitsNvegs();
 		}
 		
 		public void loadMatchItPanelGraphics() {
