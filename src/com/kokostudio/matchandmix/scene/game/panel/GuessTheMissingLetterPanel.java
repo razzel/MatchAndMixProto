@@ -60,6 +60,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 		createQuestion();
 		createChoices();
 		checkStatus();
+		engine.getMusicManager().setMasterVolume(0.10f);
 		questionImage.setScale(0.8f);
 	}
 
@@ -111,6 +112,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 					resourcesManager.click.play();
 					back.setCurrentTileIndex(1);
 					back.setScale(0.9f);
+					engine.getMusicManager().setMasterVolume(0.70f);
 					// unload the PANEL'S TEXUTRES / RESOURCES
 					resourcesManager.unloadGTMLPanelTextures();
 					// then set the SCENE to GuessTheMissingLetter

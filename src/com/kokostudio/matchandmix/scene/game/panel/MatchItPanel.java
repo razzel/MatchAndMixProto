@@ -1,6 +1,8 @@
 package com.kokostudio.matchandmix.scene.game.panel;
 
 import org.andengine.engine.camera.Camera;
+import org.andengine.engine.handler.timer.ITimerCallback;
+import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
@@ -32,7 +34,7 @@ public class MatchItPanel extends BaseScene {
 	private int pos;
 	
 	// SPRITES
-	private Sprite question;
+	private TiledSprite question;
 	private Sprite c1, c2, c3, c4, c5;
 	private Sprite choiceBox;
 	private Sprite correctSprite;
@@ -116,7 +118,7 @@ public class MatchItPanel extends BaseScene {
 	}
 	
 	private void createQuestions() {
-		question = new Sprite(250, 250, resourcesManager.questionAppleTexture, vbom);
+		question = new TiledSprite(250, 250, question(), vbom);
 		attachChild(question);
 		question.setZIndex(0);
 	}
@@ -127,7 +129,7 @@ public class MatchItPanel extends BaseScene {
 		attachChild(choiceBox);
 		
 		// CHOICES
-		correctSprite = new Sprite(590, 375 ,resourcesManager.choiceAppleTexture, vbom) {
+		correctSprite = new Sprite(715, 115 ,resourcesManager.choiceAvocadoTexture, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				correctSprite.setPosition(pSceneTouchEvent.getX(), pSceneTouchEvent.getY());
@@ -137,6 +139,8 @@ public class MatchItPanel extends BaseScene {
 					break;
 				case TouchEvent.ACTION_UP:
 					correctSprite.setScale(1.0f);
+					isAnswered = true;
+					checkPosition(correctSprite, pSceneTouchEvent.getX(), pSceneTouchEvent.getY(), 715, 115);
 					break;
 				}
 				return true;
@@ -156,6 +160,7 @@ public class MatchItPanel extends BaseScene {
 					break;
 				case TouchEvent.ACTION_UP:
 					c1.setScale(1.0f);
+					checkPosition(c1, pTouchAreaLocalX, pTouchAreaLocalY, 715, 370);
 					break;
 				}
 				return true;
@@ -176,6 +181,7 @@ public class MatchItPanel extends BaseScene {
 					break;
 				case TouchEvent.ACTION_UP:
 					c2.setScale(1.0f);
+					checkPosition(c2, pTouchAreaLocalX, pTouchAreaLocalY, 715, 240);
 					break;
 				}
 				return true;
@@ -189,12 +195,14 @@ public class MatchItPanel extends BaseScene {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				c3.setPosition(pSceneTouchEvent.getX(), pSceneTouchEvent.getY());
+				
 				switch(pSceneTouchEvent.getAction()) {
 				case TouchEvent.ACTION_DOWN:
 					c3.setScale(3.5f);
 					break;
 				case TouchEvent.ACTION_UP:
 					c3.setScale(1.0f);
+					checkPosition(c3, pTouchAreaLocalX, pTouchAreaLocalX, 590, 240);
 					break;
 				}
 				return true;
@@ -214,6 +222,7 @@ public class MatchItPanel extends BaseScene {
 					break;
 				case TouchEvent.ACTION_UP:
 					c4.setScale(1.0f);
+					checkPosition(c4, pTouchAreaLocalX, pTouchAreaLocalY, 590, 115);
 					break;
 				}
 				return true;
@@ -223,7 +232,7 @@ public class MatchItPanel extends BaseScene {
 		attachChild(c4);
 		c4.setZIndex(1);
 		
-		c5 = new Sprite(715, 115 , resourcesManager.choiceAppleTexture, vbom) {
+		c5 = new Sprite(590, 370 , resourcesManager.choiceAppleTexture, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				c5.setPosition(pSceneTouchEvent.getX(), pSceneTouchEvent.getY());
@@ -233,10 +242,7 @@ public class MatchItPanel extends BaseScene {
 					break;
 				case TouchEvent.ACTION_UP:
 					c5.setScale(1.0f);
-					checkPosition(c5, pSceneTouchEvent.getX(), pSceneTouchEvent.getY(), 715, 115);
-					isAnswered = true;
-					Log.d("touch X", "x =" +pSceneTouchEvent.getX());
-					Log.d("touch y", "y = " +pSceneTouchEvent.getY());
+					checkPosition(c5, pTouchAreaLocalX, pTouchAreaLocalY, 590, 370);
 					break;
 				}
 				return true;
@@ -256,10 +262,6 @@ public class MatchItPanel extends BaseScene {
 		questionSet = i;
 	}
 	
-	private void isAnswered() {
-		if(isAnswered == false)
-			isAnswered = true;
-	}
 	// POSITIONS 
 		/*
 		 * (590,375) | (715,370)
@@ -305,19 +307,16 @@ public class MatchItPanel extends BaseScene {
 	}
 	
 	// TEXTURES **************************************************
-	public ITextureRegion question() {
-		ITextureRegion questionRegion = null;
-		if(questionSet == 0) {
-			
-		}
+	public TiledTextureRegion question() {
+		TiledTextureRegion questionRegion = null;
+		if(questionSet == 0) questionRegion = resourcesManager.questionAirplaneTexture;
+		else if (questionSet == 1) questionRegion = resourcesManager.questionAppleTexture;
+		else if (questionSet == 2) questionRegion = resourcesManager.questionAvocadoTexture;
 		return questionRegion;
 	}
 	
 	public ITextureRegion correctAnswerSprite() {
-		TiledTextureRegion r = null;
-		if(questionSet == 0) {
-			
-		}
+		if(questionSet == 0) r = null;
 		return r;
 	}
 	
@@ -357,20 +356,25 @@ public class MatchItPanel extends BaseScene {
 	}
 	
 	// BACK TO POSITION
-	public void checkPosition(Sprite sprite, float touchX, float touchY, int posX, int posY) {
+	private void checkPosition(Sprite sprite, float touchX, float touchY, int posX, int posY) {
 		if(touchX < 260 && touchX  > 240 && touchY < 260 && touchY > 240) {
 			sprite.detachSelf();
+			lock();
+			resourcesManager.correct.play();
 			
-		} else 
+		} else { 
 			// Back to Original Position
 			sprite.setPosition(posX, posY);
+			resourcesManager.wrong.play();
+		}
 	}
 	
-	public void lock() {
+	private void lock() {
+		question.setCurrentTileIndex(1);
 		unregisterTouchArea(c1);
 		unregisterTouchArea(c2);
 		unregisterTouchArea(c3);
 		unregisterTouchArea(c4);
-		
+		unregisterTouchArea(c5);
 	}
 }
