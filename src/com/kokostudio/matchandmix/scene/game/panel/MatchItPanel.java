@@ -20,7 +20,7 @@ public class MatchItPanel extends BaseScene {
 	
 	// POSITIONS 
 	/*
-	 * (590,375) | (715,370)
+	 * (590,370) | (715,370)
 	 * (590,240) | (715,240)
 	 * (590,115) | (715,115)
 	 * */
