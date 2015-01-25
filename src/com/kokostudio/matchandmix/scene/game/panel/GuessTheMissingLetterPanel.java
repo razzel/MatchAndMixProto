@@ -2,18 +2,12 @@ package com.kokostudio.matchandmix.scene.game.panel;
 
 import org.andengine.audio.sound.Sound;
 import org.andengine.engine.camera.Camera;
-import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
-import org.andengine.entity.text.Text;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.util.GLState;
-import org.andengine.util.adt.color.Color;
-
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.AvoidXfermode;
 
 import com.kokostudio.matchandmix.base.BaseScene;
 import com.kokostudio.matchandmix.database.myDatabase;
@@ -25,19 +19,8 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 	// variable in which what set of question will the DB will retrieve
 	private static int questionSet;
 	
-	// this will determine if the questionSet is already answered
-	private boolean answered;
-	
 	// Sprites
 	private TiledSprite back;
-	
-	// TEXT
-	private Text test;
-	
-	// DATABASE
-	private myDatabase myDB;
-	
-	private Sprite BG;
 	
 	private ITextureRegion r;
 	private int pos;
@@ -275,18 +258,12 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 		questionSet = i;
 	}
 	
-	public void update(int id, String s) {
+	private void update(int id, String s) {
 		db.updateGTML(id, s);
 		db.close();
 	}
 	
-	public String isAnswered(int id) {
-		String s = db.gtmlIsAnswered(id);
-		db.close();
-		return s;
-	}
-	
-	public void checkStatus() {
+	private void checkStatus() {
 		String cmp = db.gtmlIsAnswered(questionSet);
 		if(cmp.compareTo("true") == 0) {
 			lock();

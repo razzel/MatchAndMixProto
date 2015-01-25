@@ -15,15 +15,11 @@ import com.kokostudio.matchandmix.database.myDatabase;
 import com.kokostudio.matchandmix.manager.ResourcesManager;
 import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
-import com.kokostudio.matchandmix.scene.game.ThatColorIs;
 
 public class ThatColorIsPanel extends BaseScene {
 	
 	// variable in which what set of question will be retrieve
 	private static int questionSet;
-	
-	// if the selected frame is already answered
-	private boolean isAnswered;
 	
 	private ITextureRegion r;
 	private int pos;
@@ -39,8 +35,6 @@ public class ThatColorIsPanel extends BaseScene {
 	
 	// DATABASE
 	private myDatabase db;
-	
-	private ThatColorIs color;
 
 	@Override
 	public void createScene() {
@@ -244,18 +238,18 @@ public class ThatColorIsPanel extends BaseScene {
 		questionSet = i;
 	}
 	
-	public void update(int id, String s) {
+	private void update(int id, String s) {
 		db.updateThatColorIs(id, s);
 		db.close();
 	}
 	
-	public String isAnswred(int id) {
+	private String isAnswred(int id) {
 		String s = db.colorIsAnswered(id);
 		db.close();
 		return s;
 	}
 	
-	public void checkStatus() {
+	private void checkStatus() {
 		String cmp = db.colorIsAnswered(questionSet);
 		if(cmp.compareTo("true") == 0) {
 			lock();
@@ -263,7 +257,7 @@ public class ThatColorIsPanel extends BaseScene {
 		else return;
 	}
 	
-	public void lock() {
+	private void lock() {
 		unregisterTouchArea(c1);
 		unregisterTouchArea(c2);
 		unregisterTouchArea(c3);
@@ -280,7 +274,7 @@ public class ThatColorIsPanel extends BaseScene {
 	 * 80 pos5
 	 */
 	
-	public int correctSpritePosition() {
+	private int correctSpritePosition() {
 		if(questionSet == 0) pos = 160;
 		
 		else if (questionSet == 1) pos = 320;
@@ -332,7 +326,7 @@ public class ThatColorIsPanel extends BaseScene {
 		else if (questionSet == 28) pos = 400;
 		return pos;
 	}
-	public int setColor1Position() {
+	private int setColor1Position() {
 		if(questionSet == 0) pos = 400;
 		
 		else if (questionSet == 1) pos = 400;
@@ -384,7 +378,7 @@ public class ThatColorIsPanel extends BaseScene {
 		else if (questionSet == 28) pos = 320;
 		return pos;
 	}
-	public int setColor2Position() {
+	private int setColor2Position() {
 		if(questionSet == 0) pos = 320;
 		
 		else if (questionSet == 1) pos = 240;
@@ -436,7 +430,7 @@ public class ThatColorIsPanel extends BaseScene {
 		else if (questionSet == 28) pos = 240;
 		return pos;
 	}
-	public int setColor3Position() {
+	private int setColor3Position() {
 		if(questionSet == 0) pos = 240;
 		
 		else if (questionSet == 1) pos = 160;
@@ -488,7 +482,7 @@ public class ThatColorIsPanel extends BaseScene {
 		else if (questionSet == 28) pos = 160;
 		return pos;
 	}
-	public int setColor4Position() {
+	private int setColor4Position() {
 		if(questionSet == 0) pos = 80;
 		
 		else if (questionSet == 1) pos = 80;
@@ -542,7 +536,7 @@ public class ThatColorIsPanel extends BaseScene {
 	}
 	
 	// TEXTURES
-	public ITextureRegion question() {
+	private ITextureRegion question() {
 		ITextureRegion questionRegion = null;
 		if(questionSet == 0) questionRegion = resourcesManager.heartTexture;
 		
@@ -597,7 +591,7 @@ public class ThatColorIsPanel extends BaseScene {
 		return questionRegion;
 	}
 	
-	public TiledTextureRegion correctAnswerSprite() {
+	private TiledTextureRegion correctAnswerSprite() {
 		TiledTextureRegion r = null;
 		if(questionSet == 0) r = resourcesManager.redTextureRegion;
 		else if (questionSet == 1) r = resourcesManager.yellowTextureRegion;
@@ -627,7 +621,7 @@ public class ThatColorIsPanel extends BaseScene {
 		return r;
 	}
 	
-	public ITextureRegion color1() {
+	private ITextureRegion color1() {
 		if(questionSet == 0) r = resourcesManager.yellowTextureRegion;
 		
 		else if (questionSet == 1)  r = resourcesManager.greenTextureRegion;
@@ -680,7 +674,7 @@ public class ThatColorIsPanel extends BaseScene {
 		return r;
 	}
 	
-	public ITextureRegion color2() {
+	private ITextureRegion color2() {
 		if(questionSet == 0) r = resourcesManager.blueTextureRegion;
 		
 		else if (questionSet == 1) r = resourcesManager.pinkTextureRegion;
@@ -733,7 +727,7 @@ public class ThatColorIsPanel extends BaseScene {
 		return r;
 	}
 	
-	public ITextureRegion color3() {
+	private ITextureRegion color3() {
 		if(questionSet == 0) r = resourcesManager.pinkTextureRegion;
 		
 		else if (questionSet == 1) r = resourcesManager.orangeTextureRegion;
@@ -786,7 +780,7 @@ public class ThatColorIsPanel extends BaseScene {
 		return r;
 	}
 	
-	public ITextureRegion color4() {
+	private ITextureRegion color4() {
 		if(questionSet == 0) r = resourcesManager.greenTextureRegion;
 		
 		else if (questionSet == 1) r = resourcesManager.redTextureRegion;

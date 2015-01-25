@@ -38,7 +38,14 @@ public class myDatabase extends SQLiteOpenHelper {
 												+fgtml_isAnswered+ " TEXT "
 												+ ")";
 	
-	
+	// MATCH IT
+	public static final String table_MatchIt = "match";
+	public static final String fMatch_ID = "match_id";
+	public static final String fMatch_isAnswered = "isAnswered";
+	public static final String CREATE_MATCHIT_TABLE = "CREATE TABLE IF NOT EXISTS " +table_MatchIt+ " ("
+													+fMatch_ID+ " INTEGER PRIMARY KEY, "
+													+fMatch_isAnswered+ " TEXT "
+													+ ")";
 	// COUNT
 	/*
 	public static final String table_color_count = "color_count";
@@ -50,6 +57,7 @@ public class myDatabase extends SQLiteOpenHelper {
 														+fcolor_answered+ " INTEGER , "
 														+fcolor_remaining+ " INTEGER "
 														+")"; */
+	
 	public myDatabase(Context context) {
 		super(context, dbName, null, dbVersion);
 	}
@@ -70,17 +78,22 @@ public class myDatabase extends SQLiteOpenHelper {
 		db.execSQL(CREATE_ThatColorIs_TABLE);
 		insertThatColorIsValues(db);
 		
+		// GUESS THE MISSING LETTER
+		db.execSQL(CREATE_GTML_TABLE);
+		insertGTMLValues(db);
+		
+		// MATCH IT
+		db.execSQL(CREATE_MATCHIT_TABLE);
+		insertMatchItValues(db);
+		
+		
+		
 		//db.execSQL(CREATE_COLOR_COUNT_TABLE);
 		//ContentValues colorCountValues = new ContentValues();
 		//	colorCountValues.put(fcolor_count_id, 0);
 		//	colorCountValues.put(fcolor_answered, 0);
 		//	colorCountValues.put(fcolor_remaining, 25);
 		//		db.insert(table_color_count, null, colorCountValues);
-		
-		
-		// GUESS THE MISSING LETTER
-		db.execSQL(CREATE_GTML_TABLE);
-		insertGTMLValues(db);
 		
 	}
 
@@ -89,6 +102,7 @@ public class myDatabase extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + CREATE_ThatColorIs_TABLE);
 		db.execSQL("DROP TABLE IF EXISTS " + CREATE_OPTION_TABLE);
 		db.execSQL("DROP TABLE IF EXISTS " + CREATE_GTML_TABLE);
+		db.execSQL("DROP TABLE IF EXISTS " + CREATE_MATCHIT_TABLE);
 		//db.execSQL("DROP TABLE IF EXISTS " + CREATE_COLOR_COUNT_TABLE);
 		onCreate(db);
 	}
@@ -223,7 +237,7 @@ public class myDatabase extends SQLiteOpenHelper {
 	}
 	
 	// GUESS THE MISSING LETTER ***************************************************************************************************
-	public void insertGTMLValues(SQLiteDatabase db) {
+	private void insertGTMLValues(SQLiteDatabase db) {
 		ContentValues gtmlValues = new ContentValues();
 		
 		gtmlValues.put(fGTML_ID, 0);
@@ -339,6 +353,36 @@ public class myDatabase extends SQLiteOpenHelper {
 		Cursor c = db.rawQuery("SELECT " + fgtml_isAnswered + " FROM " + table_GTML + " WHERE " + fGTML_ID + " = " +id, null);
 		c.moveToFirst();
 		int index = c.getColumnIndex(fgtml_isAnswered);
+		String myReturn = c.getString(index);
+		c.close();
+		return myReturn;
+	}
+	
+	// MATCH IT *************************************************************************************************************
+	private void insertMatchItValues(SQLiteDatabase db) {
+		ContentValues matchValues = new ContentValues();
+		
+		matchValues.put(fMatch_ID, 0);
+		matchValues.put(fMatch_isAnswered, "false");
+			db.insert(table_MatchIt, null, matchValues);
+		
+		matchValues.put(fMatch_ID, 1);
+		matchValues.put(fMatch_isAnswered, "false");
+			db.insert(table_MatchIt, null, matchValues);
+	}
+	
+	public void updateMatchIt(int id, String s) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put(fMatch_isAnswered, s);
+		db.update(table_MatchIt, cv, fMatch_ID+" = " +id, null);
+	}
+	
+	public String matchItIsAnswered(int id) {
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor c = db.rawQuery("SELECT " + fMatch_isAnswered + " FROM " + table_MatchIt + " WHERE " + fMatch_ID + " = " +id, null);
+		c.moveToFirst();
+		int index = c.getColumnIndex(fMatch_isAnswered);
 		String myReturn = c.getString(index);
 		c.close();
 		return myReturn;

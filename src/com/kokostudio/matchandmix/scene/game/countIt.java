@@ -10,6 +10,7 @@ import com.kokostudio.matchandmix.base.BaseScene;
 import com.kokostudio.matchandmix.manager.ResourcesManager;
 import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
+import com.kokostudio.matchandmix.scene.game.panel.CountItPanel;
 
 public class countIt extends BaseScene {
 	private Sprite qHeader;
@@ -89,6 +90,11 @@ public class countIt extends BaseScene {
 							resourcesManager.click.play();
 							qFrames[index].setScale(1.0f);
 							qFrames[index].setCurrentTileIndex(0);
+							
+							// get the index of the pressed frame
+							CountItPanel.getQuestionIndex(index);
+							// SET SCENE TO COUNT IT PANEL
+							SceneManager.getInstance().loadCountItPanelScene();
 							break;
 						}
 						return true;

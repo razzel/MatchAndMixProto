@@ -6,8 +6,6 @@ import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.util.GLState;
 
-import android.text.method.Touch;
-
 import com.kokostudio.matchandmix.base.BaseScene;
 import com.kokostudio.matchandmix.database.myDatabase;
 import com.kokostudio.matchandmix.manager.ResourcesManager;

@@ -1,8 +1,6 @@
 package com.kokostudio.matchandmix.manager;
 
 import org.andengine.engine.Engine;
-import org.andengine.engine.handler.timer.ITimerCallback;
-import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
 
 import com.kokostudio.matchandmix.base.BaseScene;
@@ -20,6 +18,7 @@ import com.kokostudio.matchandmix.scene.game.MatchIt;
 import com.kokostudio.matchandmix.scene.game.SolveIT;
 import com.kokostudio.matchandmix.scene.game.ThatColorIs;
 import com.kokostudio.matchandmix.scene.game.countIt;
+import com.kokostudio.matchandmix.scene.game.panel.CountItPanel;
 //import com.kokostudio.matchandmix.scene.game.MatchIt;
 import com.kokostudio.matchandmix.scene.game.panel.GuessTheMissingLetterPanel;
 import com.kokostudio.matchandmix.scene.game.panel.MatchItPanel;
@@ -250,6 +249,7 @@ public class SceneManager {
 		SolveItScene = new SolveIT();
 		setScene(SolveItScene);
 	}
+	
 	//COUNT IT ==================================================================================================
 	public void loadCountItScene() {
 		//unload the game textures
@@ -259,6 +259,16 @@ public class SceneManager {
 		// set the scene
 		CountItScene = new countIt();
 		setScene(CountItScene);
+	}
+	
+	public void loadCountItPanelScene() {
+		// unload Count it Textures
+		ResourcesManager.getInstance().unloadCountItResources();
+		// load the count it panel scene resources
+		ResourcesManager.getInstance().loadCountItPanelResources();
+		// set the scene
+		CountItPanelScene = new CountItPanel();
+		setScene(CountItPanelScene);
 	}
 	
 	

@@ -7,6 +7,7 @@ import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.util.GLState;
 
 import com.kokostudio.matchandmix.base.BaseScene;
+import com.kokostudio.matchandmix.database.myDatabase;
 import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
 import com.kokostudio.matchandmix.scene.game.panel.MatchItPanel;
@@ -16,12 +17,15 @@ public class MatchIt extends BaseScene {
 	private Sprite qHeader;
 	private TiledSprite[] qFrames;
 	private TiledSprite back;
+	
+	private myDatabase db;
 
 	private int x, y, rowCounter;
 
 	@Override
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
+		db = new myDatabase(activity);
 		createBackground();
 		createQuestionHeader();
 		createButtons();
@@ -81,11 +85,9 @@ public class MatchIt extends BaseScene {
 		for (int i = 0; i < qFrames.length; i++) {
 			final int index = i;
 			if (rowCounter < 5) {
-				qFrames[i] = new TiledSprite(x, y,
-						resourcesManager.notAnsweredTextureRegion, vbom) {
+				qFrames[i] = new TiledSprite(x, y, resourcesManager.notAnsweredTextureRegion, vbom) {
 					@Override
-					public boolean onAreaTouched(TouchEvent pSceneTouchEvent,
-							float pTouchAreaLocalX, float pTouchAreaLocalY) {
+					public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 						switch (pSceneTouchEvent.getAction()) {
 						case TouchEvent.ACTION_DOWN:
 							qFrames[index].setCurrentTileIndex(1);
@@ -151,4 +153,12 @@ public class MatchIt extends BaseScene {
 		attachChild(back);
 	}
 
+	// ------------------------------------------------------------
+	// DATABASE SECTION
+	// -------------------------------------------------------------
+	private String frameIsAnswered(int i) {
+		String s = db.matchItIsAnswered(i);
+		db.close();
+		return s;
+	}
 }
