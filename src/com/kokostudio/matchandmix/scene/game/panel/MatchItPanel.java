@@ -274,13 +274,15 @@ public class MatchItPanel extends BaseScene {
 			
 			else if(questionSet == 1) pos = 715;
 			
+			else if(questionSet == 2) pos = 715;
 			return pos;
 		}
 		public int correctSpriteYPosition() {	
 			if(questionSet == 0) pos = 240;
 			
 			else if(questionSet == 1) pos = 370;
-				
+			
+			else if(questionSet == 2) pos = 370;
 			return pos;
 		}
 		
@@ -290,6 +292,7 @@ public class MatchItPanel extends BaseScene {
 			
 			else if(questionSet == 1) pos = 590;
 			
+			else if(questionSet == 2) pos = 590;
 			return pos;
 		}	
 		public int setChoice1YPosition() {
@@ -297,6 +300,7 @@ public class MatchItPanel extends BaseScene {
 			
 			else if(questionSet == 1) pos = 370;
 			
+			else if(questionSet == 2) pos = 370;
 			return pos;
 		}
 		
@@ -306,6 +310,7 @@ public class MatchItPanel extends BaseScene {
 			
 			else if(questionSet == 1) pos = 590;
 			
+			else if(questionSet == 2) pos = 590;
 			return pos;
 		}
 		public int setChoice2YPosition() {
@@ -313,6 +318,7 @@ public class MatchItPanel extends BaseScene {
 			
 			else if(questionSet == 1) pos = 240;
 			
+			else if(questionSet == 2) pos = 240;
 			return pos;
 		}
 		
@@ -322,12 +328,15 @@ public class MatchItPanel extends BaseScene {
 			
 			else if(questionSet == 1) pos = 715;
 			
+			else if(questionSet == 2) pos = 715;
 			return pos;
 		}
 		public int setChoice3YPosition() {
 			if(questionSet == 0) pos = 240;
 			
 			else if(questionSet == 1) pos = 240;
+			
+			else if(questionSet == 2) pos = 240;
 			
 			return pos;
 		}
@@ -338,13 +347,15 @@ public class MatchItPanel extends BaseScene {
 			
 			else if(questionSet == 1) pos = 590;
 			
+			else if(questionSet == 2) pos = 590;
 			return pos;
 		}
 		public int setChoice4YPosition() {
 			if(questionSet == 0) pos = 115;
 			
 			else if(questionSet == 1) pos = 115;
-					
+				
+			else if(questionSet == 2) pos = 115;
 			return pos;
 		}
 		
@@ -354,6 +365,7 @@ public class MatchItPanel extends BaseScene {
 			
 			else if(questionSet == 1) pos = 715;
 			
+			else if(questionSet == 2) pos = 715;
 			return pos;
 		}
 		
@@ -362,6 +374,7 @@ public class MatchItPanel extends BaseScene {
 			
 			else if(questionSet == 1) pos = 115;
 			
+			else if(questionSet == 2) pos = 115;
 			return pos;
 		}
 	
@@ -369,7 +382,10 @@ public class MatchItPanel extends BaseScene {
 	public TiledTextureRegion question() {
 		TiledTextureRegion questionRegion = null;
 		if(questionSet == 0) questionRegion = resourcesManager.questionTriangleTexture;
+		
 		else if (questionSet == 1) questionRegion = resourcesManager.questionSquareTexture;
+		
+		else if (questionSet == 2) questionRegion = resourcesManager.questionAvocadoTexture;
 		return questionRegion;
 	}
 	
@@ -378,6 +394,7 @@ public class MatchItPanel extends BaseScene {
 		
 		else if(questionSet == 1) r = resourcesManager.choiceSquareTexture;
 		
+		else if(questionSet == 2) r = resourcesManager.choiceAirplane;
 		return r;
 	}
 	
@@ -385,7 +402,7 @@ public class MatchItPanel extends BaseScene {
 		if(questionSet == 0) r = resourcesManager.choiceGrapesTexture;
 		
 		else if(questionSet == 1) r = resourcesManager.choiceFlowerTexture;
-		
+		else if(questionSet == 2) r = resourcesManager.choiceFlowerTexture;
 		return r;
 	}
 	
@@ -393,7 +410,7 @@ public class MatchItPanel extends BaseScene {
 		if(questionSet == 0) r = resourcesManager.choiceFlowerTexture;
 		
 		else if(questionSet == 1) r = resourcesManager.choicePumpkinTexture;
-		
+		else if(questionSet == 2) r = resourcesManager.choiceAppleTexture;
 		return r;
 	}
 	
@@ -401,6 +418,7 @@ public class MatchItPanel extends BaseScene {
 		if(questionSet == 0) r = resourcesManager.choiceSquareTexture;
 		
 		else if(questionSet == 1) r = resourcesManager.choiceBookTexture;
+		else if(questionSet == 2) r = resourcesManager.choiceCatTexture;
 		
 		return r;
 	}
@@ -409,6 +427,7 @@ public class MatchItPanel extends BaseScene {
 		if(questionSet == 0) r= resourcesManager.choiceStarTexture;
 		
 		else if(questionSet == 1) r = resourcesManager.choiceHeartTexture;
+		else if(questionSet == 2) r = resourcesManager.choicePumpkinTexture;
 		
 		return r;
 	}
@@ -417,6 +436,7 @@ public class MatchItPanel extends BaseScene {
 		if(questionSet == 0) r = resourcesManager.choiceHeartTexture;
 		
 		else if(questionSet == 1) r = resourcesManager.choiceStarTexture;
+		else if(questionSet == 2) r = resourcesManager.choiceBookTexture;
 		
 		return r;
 	}

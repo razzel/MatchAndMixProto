@@ -369,6 +369,10 @@ public class myDatabase extends SQLiteOpenHelper {
 		matchValues.put(fMatch_ID, 1);
 		matchValues.put(fMatch_isAnswered, "false");
 			db.insert(table_MatchIt, null, matchValues);
+	
+		matchValues.put(fMatch_ID, 2);
+		matchValues.put(fMatch_isAnswered, "false");
+			db.insert(table_MatchIt, null, matchValues);
 	}
 	
 	public void updateMatchIt(int id, String s) {
