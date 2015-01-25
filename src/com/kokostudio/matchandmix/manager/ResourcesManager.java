@@ -1101,8 +1101,7 @@ public class ResourcesManager {
 			questionAirplaneTexture= BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_airplane.png", 2,1);
 			questionAppleTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_apple.png", 2,1);
 			questionAvocadoTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_avocado.png", 2,1);
-			
-			
+					
 			try {
 				this.questionAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 				this.questionAtlas.load();
@@ -1234,6 +1233,7 @@ public class ResourcesManager {
 		public void loadChoices1() {
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_matchit/choices/");
 			choiceAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+			//choiceAirplane = BitmapTextureAtlasTextureRegionFactory.createFromAsset(choiceAtlas, activity, "c_airplane.png");
 			choiceAppleTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(choiceAtlas, activity, "c_apple.png");
 			choiceAvocadoTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(choiceAtlas, activity, "c_avocado.png");
 			choiceBirdTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(choiceAtlas, activity, "c_bird.png");
@@ -1257,6 +1257,7 @@ public class ResourcesManager {
 			choiceStarTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(choiceAtlas, activity, "c_star.png");
 			choiceStrawberryTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(choiceAtlas, activity, "c_strawberry.png");
 			choiceTriangleTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(choiceAtlas, activity, "c_triangle.png");
+			choiceCarrotTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(choiceAtlas, activity, "c_carrot.png");
 			try {
 				this.choiceAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 				this.choiceAtlas.load();
