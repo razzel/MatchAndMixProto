@@ -1497,7 +1497,7 @@ public class ResourcesManager {
 	public void loadSolveItGraphics() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_solveit/");
 		solveitmenuAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
-		//addTiledTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(solveitmenuAtlas, activity, "add_btn.png", 2, 1);
+		addTiledTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(solveitmenuAtlas, activity, "add_btn.png", 2, 1);
 		//divTiledTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(solveitmenuAtlas, activity, "div_btn.png", 2, 1);
 		try {
 			this.solveitmenuAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));

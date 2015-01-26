@@ -90,7 +90,8 @@ public class SolveIT extends BaseScene {
 	
 
 	
-	// ADD
+	// divide
+		/*
 	divide = new TiledSprite(400, 400, resourcesManager.divTiledTexture, vbom) {
 		@Override
 		public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
@@ -112,7 +113,7 @@ public class SolveIT extends BaseScene {
 		
 	};
 	registerTouchArea(divide);
-	attachChild(divide);
+	attachChild(divide); */
 
 	}	
 }
