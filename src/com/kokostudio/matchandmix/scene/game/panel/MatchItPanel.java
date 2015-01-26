@@ -278,6 +278,47 @@ public class MatchItPanel extends BaseScene {
 			
 			else if(questionSet == 3) pos = 715;
 			
+			else if(questionSet == 4) pos = 590;
+			
+			else if(questionSet == 6) pos = 715;
+			
+			else if(questionSet == 7) pos = 715;
+			
+			else if(questionSet == 8) pos = 590;
+			
+			else if(questionSet == 9) pos = 590;
+			
+			else if(questionSet == 10) pos = 715;
+			
+			else if(questionSet == 12) pos = 590;
+			
+			else if(questionSet == 13) pos = 590;
+			
+			else if(questionSet == 14) pos = 715;
+			
+			else if(questionSet == 15) pos = 590;
+			
+			else if(questionSet == 16) pos = 715;
+			
+			else if(questionSet == 18) pos = 715;
+			
+			else if(questionSet == 19) pos = 590;
+			
+			else if(questionSet == 20) pos = 715;
+			
+			else if(questionSet == 21) pos = 590;
+			
+			else if(questionSet == 22) pos = 715;
+			
+			else if(questionSet == 24) pos = 715;
+			
+			else if(questionSet == 25) pos = 590;
+			
+			else if(questionSet == 26) pos = 715;
+			
+			else if(questionSet == 27) pos = 590;
+		
+			else if(questionSet == 28) pos = 590;
 			return pos;
 		}
 		public int correctSpriteYPosition() {	
@@ -289,6 +330,48 @@ public class MatchItPanel extends BaseScene {
 			
 			else if(questionSet == 3) pos = 240;
 			
+			else if(questionSet == 4) pos = 370;
+			
+			else if(questionSet == 6) pos = 115;
+			
+			else if(questionSet == 7) pos = 240;
+			
+			else if(questionSet == 8) pos = 240;
+			
+			else if(questionSet == 9) pos = 370;
+			
+			else if(questionSet == 10) pos = 240;
+			
+			else if(questionSet == 12) pos = 115;
+			
+			else if(questionSet == 13) pos = 240;
+			
+			else if(questionSet == 14) pos = 115;
+			
+			else if(questionSet == 15) pos = 115;
+			
+			else if(questionSet == 16) pos = 115;
+			
+			else if(questionSet == 18) pos = 240;
+			
+			else if(questionSet == 19) pos = 240;
+			
+			else if(questionSet == 20) pos = 115;
+			
+			else if(questionSet == 21) pos = 370;
+			
+			else if(questionSet == 22) pos = 240;
+			
+			else if(questionSet == 24) pos = 370;
+			
+			else if(questionSet == 25) pos = 115;
+			
+			else if(questionSet == 26) pos = 240;
+			
+			else if(questionSet == 27) pos = 590;
+			
+			else if(questionSet == 28) pos = 590;
+		
 			return pos;
 		}
 		
@@ -302,6 +385,47 @@ public class MatchItPanel extends BaseScene {
 			
 			else if(questionSet == 3) pos = 590;
 			
+			else if(questionSet == 4) pos = 590;
+			
+			else if(questionSet == 6) pos = 715;
+			
+			else if(questionSet == 7) pos = 715;
+			
+			else if(questionSet == 8) pos = 590;
+			
+			else if(questionSet == 9) pos = 590;
+			
+			else if(questionSet == 10) pos = 715;
+			
+			else if(questionSet == 12) pos = 590;
+			
+			else if(questionSet == 13) pos = 590;
+			
+			else if(questionSet == 14) pos = 590;
+			
+			else if(questionSet == 15) pos = 715;
+			
+			else if(questionSet == 16) pos = 715;
+			
+			else if(questionSet == 18) pos = 715;
+			
+			else if(questionSet == 19) pos = 590;
+			
+			else if(questionSet == 20) pos = 715;
+			
+			else if(questionSet == 21) pos = 590;
+			
+			else if(questionSet == 22) pos = 715;
+			
+			else if(questionSet == 24) pos = 715;
+			
+			else if(questionSet == 25) pos = 590;
+			
+			else if(questionSet == 26) pos = 715;
+			
+			else if(questionSet == 27) pos = 590;
+	
+			else if(questionSet == 28) pos = 590;
 			return pos;
 		}	
 		public int setChoice1YPosition() {
@@ -313,6 +437,47 @@ public class MatchItPanel extends BaseScene {
 			
 			else if(questionSet == 3) pos = 370;
 			
+			else if(questionSet == 4) pos = 240;
+			
+			else if(questionSet == 6) pos = 240;
+			
+			else if(questionSet == 7) pos = 115;
+			
+			else if(questionSet == 8) pos = 370;
+			
+			else if(questionSet == 9) pos = 115;
+			
+			else if(questionSet == 10) pos = 115;
+			
+			else if(questionSet == 12) pos = 370;
+			
+			else if(questionSet == 13) pos = 115;
+			
+			else if(questionSet == 14) pos = 240;
+			
+			else if(questionSet == 15) pos = 240;
+			
+			else if(questionSet == 16) pos = 240;
+			
+			else if(questionSet == 18) pos = 370;
+			
+			else if(questionSet == 19) pos = 115;
+			
+			else if(questionSet == 20) pos = 240;
+			
+			else if(questionSet == 21) pos = 115;
+			
+			else if(questionSet == 22) pos = 115;
+			
+			else if(questionSet == 24) pos = 115;
+			
+			else if(questionSet == 25) pos = 240;
+			
+			else if(questionSet == 26) pos = 115;
+			
+			else if(questionSet == 27) pos = 590;
+			
+			else if(questionSet == 28) pos = 590;
 			return pos;
 		}
 		
@@ -325,7 +490,48 @@ public class MatchItPanel extends BaseScene {
 			else if(questionSet == 2) pos = 590;
 			
 			else if(questionSet == 3) pos = 715;
-					
+			
+			else if(questionSet == 4) pos = 590;
+			
+			else if(questionSet == 6) pos = 715;
+			
+			else if(questionSet == 7) pos = 715;
+			
+			else if(questionSet == 8) pos = 590;
+			
+			else if(questionSet == 9) pos = 590;
+			
+			else if(questionSet == 10) pos = 715;
+			
+			else if(questionSet == 12) pos = 590;
+			
+			else if(questionSet == 13) pos = 590;
+			
+			else if(questionSet == 14) pos = 715;
+			
+			else if(questionSet == 15) pos = 590;
+			
+			else if(questionSet == 16) pos = 715;
+			
+			else if(questionSet == 18) pos = 715;
+			
+			else if(questionSet == 19) pos = 590;
+			
+			else if(questionSet == 20) pos = 715;
+			
+			else if(questionSet == 21) pos = 590;
+			
+			else if(questionSet == 22) pos = 715;
+			
+			else if(questionSet == 24) pos = 715;
+			
+			else if(questionSet == 25) pos = 590;
+			
+			else if(questionSet == 26) pos = 715;
+			
+			else if(questionSet == 27) pos = 590;
+			
+			else if(questionSet == 28) pos = 590;
 			return pos;
 		}
 		public int setChoice2YPosition() {
@@ -337,6 +543,47 @@ public class MatchItPanel extends BaseScene {
 			
 			else if(questionSet == 3) pos = 370;
 			
+			else if(questionSet == 4) pos = 115;
+			
+			else if(questionSet == 6) pos = 370;
+			
+			else if(questionSet == 7) pos = 370;
+			
+			else if(questionSet == 8) pos = 115;
+			
+			else if(questionSet == 9) pos = 240;
+			
+			else if(questionSet == 10) pos = 370;
+			
+			else if(questionSet == 12) pos = 240;
+			
+			else if(questionSet == 13) pos = 370;
+			
+			else if(questionSet == 14) pos = 370;
+			
+			else if(questionSet == 15) pos = 370;
+			
+			else if(questionSet == 16) pos = 370;
+			
+			else if(questionSet == 18) pos = 115;
+			
+			else if(questionSet == 19) pos = 370;
+			
+			else if(questionSet == 20) pos = 370;
+			
+			else if(questionSet == 21) pos = 240;
+			
+			else if(questionSet == 22) pos = 370;
+			
+			else if(questionSet == 24) pos = 240;
+			
+			else if(questionSet == 25) pos = 370;
+			
+			else if(questionSet == 26) pos = 370;
+	
+			else if(questionSet == 27) pos = 590;
+			
+			else if(questionSet == 28) pos = 590;
 			return pos;
 		}
 		
@@ -350,6 +597,48 @@ public class MatchItPanel extends BaseScene {
 			
 			else if(questionSet == 3) pos = 590;
 			
+			else if(questionSet == 4) pos = 715;
+			
+			else if(questionSet == 6) pos = 590;
+			
+			else if(questionSet == 7) pos = 590;
+			
+			else if(questionSet == 8) pos = 715;
+			
+			else if(questionSet == 9) pos = 715;
+			
+			else if(questionSet == 10) pos = 590;
+			
+			else if(questionSet == 12) pos = 715;
+			
+			else if(questionSet == 13) pos = 715;
+			
+			else if(questionSet == 14) pos = 715;
+			
+			else if(questionSet == 15) pos = 715;
+			
+			else if(questionSet == 16) pos = 590;
+			
+			else if(questionSet == 18) pos = 590;
+			
+			else if(questionSet == 19) pos = 715;
+			
+			else if(questionSet == 20) pos = 590;
+			
+			else if(questionSet == 21) pos = 715;
+			
+			else if(questionSet == 22) pos = 590;
+			
+			else if(questionSet == 24) pos = 590;
+			
+			else if(questionSet == 25) pos = 715;
+			
+			else if(questionSet == 26) pos = 590;
+			
+			else if(questionSet == 27) pos = 590;
+			
+			else if(questionSet == 28) pos = 590;
+			
 			return pos;
 		}
 		public int setChoice3YPosition() {
@@ -361,6 +650,47 @@ public class MatchItPanel extends BaseScene {
 			
 			else if(questionSet == 3) pos = 240;
 			
+			else if(questionSet == 4) pos = 370;
+			
+			else if(questionSet == 6) pos = 370;
+			
+			else if(questionSet == 7) pos = 115;
+			
+			else if(questionSet == 8) pos = 370;
+			
+			else if(questionSet == 9) pos = 370;
+			
+			else if(questionSet == 10) pos = 115;
+			
+			else if(questionSet == 12) pos = 115;
+			
+			else if(questionSet == 13) pos = 115;
+			
+			else if(questionSet == 14) pos = 240;
+			
+			else if(questionSet == 15) pos = 115;
+			
+			else if(questionSet == 16) pos = 115;
+			
+			else if(questionSet == 18) pos = 115;
+			
+			else if(questionSet == 19) pos = 115;
+			
+			else if(questionSet == 20) pos = 115;
+			
+			else if(questionSet == 21) pos = 370;
+			
+			else if(questionSet == 22) pos = 115;
+			
+			else if(questionSet == 24) pos = 115;
+			
+			else if(questionSet == 25) pos = 115;
+			
+			else if(questionSet == 26) pos = 115;
+			
+			else if(questionSet == 27) pos = 590;
+			
+			else if(questionSet == 28) pos = 590;
 			return pos;
 		}
 		
@@ -373,6 +703,48 @@ public class MatchItPanel extends BaseScene {
 			else if(questionSet == 2) pos = 590;
 			
 			else if(questionSet == 3) pos = 590;
+			
+			else if(questionSet == 4) pos = 715;
+			
+			else if(questionSet == 6) pos = 590;
+			
+			else if(questionSet == 7) pos = 590;
+			
+			else if(questionSet == 8) pos = 715;
+			
+			else if(questionSet == 9) pos = 715;
+			
+			else if(questionSet == 10) pos = 590;
+			
+			else if(questionSet == 12) pos = 715;
+			
+			else if(questionSet == 13) pos = 715;
+			
+			else if(questionSet == 14) pos = 590;
+			
+			else if(questionSet == 15) pos = 715;
+			
+			else if(questionSet == 16) pos = 590;
+			
+			else if(questionSet == 18) pos = 590;
+			
+			else if(questionSet == 19) pos = 715;
+			
+			else if(questionSet == 20) pos = 715;
+			
+			else if(questionSet == 21) pos = 715;
+			
+			else if(questionSet == 22) pos = 590;
+			
+			else if(questionSet == 24) pos = 590;
+			
+			else if(questionSet == 25) pos = 715;
+			
+			else if(questionSet == 26) pos = 590;
+			
+			else if(questionSet == 27) pos = 715;
+			
+			else if(questionSet == 28) pos = 715;
 			return pos;
 		}
 		public int setChoice4YPosition() {
@@ -382,6 +754,50 @@ public class MatchItPanel extends BaseScene {
 				
 			else if(questionSet == 2) pos = 115;
 			else if(questionSet == 3) pos = 115;
+			
+			else if(questionSet == 4) pos = 240;
+			
+			else if(questionSet == 6) pos = 240;
+			
+			else if(questionSet == 7) pos = 240;
+			
+			else if(questionSet == 8) pos = 240;
+			
+			else if(questionSet == 9) pos = 240;
+			
+			else if(questionSet == 10) pos = 240;
+			
+			else if(questionSet == 12) pos = 240;
+			
+			else if(questionSet == 13) pos = 240;
+			
+			else if(questionSet == 14) pos = 115;
+			
+			else if(questionSet == 15) pos = 370;
+			
+			else if(questionSet == 16) pos = 240;
+			
+			else if(questionSet == 18) pos = 240;
+			
+			else if(questionSet == 19) pos = 240;
+			
+			else if(questionSet == 20) pos = 240;
+			
+			else if(questionSet == 21) pos = 240;
+			
+			else if(questionSet == 22) pos = 240;
+			
+			else if(questionSet == 24) pos = 240;
+			
+			else if(questionSet == 25) pos = 240;
+			
+			else if(questionSet == 26) pos = 240;
+			
+			else if(questionSet == 27) pos = 240;
+			
+			
+			else if(questionSet == 28) pos = 240;
+		
 			return pos;
 		}
 		
@@ -394,6 +810,48 @@ public class MatchItPanel extends BaseScene {
 			else if(questionSet == 2) pos = 715;
 			
 			else if(questionSet == 3) pos = 715;
+			
+			else if(questionSet == 4) pos = 715;
+			
+			else if(questionSet == 6) pos = 590;
+			
+			else if(questionSet == 7) pos = 590;
+			
+			else if(questionSet == 8) pos = 715;
+			
+			else if(questionSet == 9) pos = 715;
+			
+			else if(questionSet == 10) pos = 590;
+			
+			else if(questionSet == 12) pos = 715;
+			
+			else if(questionSet == 13) pos = 715;
+			
+			else if(questionSet == 14) pos = 715;
+			
+			else if(questionSet == 15) pos = 715;
+			
+			else if(questionSet == 16) pos = 590;
+			
+			else if(questionSet == 18) pos = 590;
+			
+			else if(questionSet == 19) pos = 715;
+			
+			else if(questionSet == 20) pos = 715;
+			
+			else if(questionSet == 21) pos = 715;
+			
+			else if(questionSet == 22) pos = 590;
+			
+			else if(questionSet == 24) pos = 590;
+			
+			else if(questionSet == 25) pos = 715;
+			
+			else if(questionSet == 26) pos = 590;
+			
+			else if(questionSet == 27) pos = 715;
+			
+			else if(questionSet == 28) pos = 715;
 			return pos;
 		}
 		
@@ -406,6 +864,47 @@ public class MatchItPanel extends BaseScene {
 			
 			else if(questionSet == 3) pos = 115;
 			
+			else if(questionSet == 4) pos = 115;
+			
+			else if(questionSet == 6) pos = 115;
+			
+			else if(questionSet == 7) pos = 370;
+			
+			else if(questionSet == 8) pos = 115;
+			
+			else if(questionSet == 9) pos = 115;
+			
+			else if(questionSet == 10) pos = 370;
+			
+			else if(questionSet == 12) pos = 370;
+			
+			else if(questionSet == 13) pos = 370;
+			
+			else if(questionSet == 14) pos = 240;
+			
+			else if(questionSet == 15) pos = 240;
+			
+			else if(questionSet == 16) pos = 370;
+			
+			else if(questionSet == 18) pos = 370;
+			
+			else if(questionSet == 19) pos = 370;
+			
+			else if(questionSet == 20) pos = 370;
+			
+			else if(questionSet == 21) pos = 370;
+			
+			else if(questionSet == 22) pos = 370;
+			
+			else if(questionSet == 24) pos = 370;
+			
+			else if(questionSet == 25) pos = 370;
+			
+			else if(questionSet == 26) pos = 370;
+			
+			else if(questionSet == 27) pos = 370;
+			
+			else if(questionSet == 28) pos = 370;
 			return pos;
 		}
 	
@@ -420,6 +919,48 @@ public class MatchItPanel extends BaseScene {
 		
 		else if (questionSet == 3) questionRegion = resourcesManager.questionStarTexture;
 		
+		else if (questionSet == 4) questionRegion = resourcesManager.questionAvocadoTexture;
+		
+		else if (questionSet == 6) questionRegion = resourcesManager.questionCatTexture;
+		
+		else if (questionSet == 7) questionRegion = resourcesManager.questionCornTexture;
+		
+		else if (questionSet == 8) questionRegion = resourcesManager.questionBirdTexture;
+		
+		else if (questionSet == 9) questionRegion = resourcesManager.questionCircleTexture;
+		
+		else if (questionSet == 10) questionRegion = resourcesManager.questionDogTexture;
+		
+		else if (questionSet == 12) questionRegion = resourcesManager.questionCarrotTexture;
+		
+		else if (questionSet == 13) questionRegion = resourcesManager.questionDoughnutTexture;
+		
+		else if (questionSet == 14) questionRegion = resourcesManager.questionAppleTexture;
+		
+		else if (questionSet == 15) questionRegion = resourcesManager.questionStrawberryTexture;
+		
+		else if (questionSet == 16) questionRegion = resourcesManager.questionFlowerTexture;
+		
+		else if (questionSet == 18) questionRegion = resourcesManager.questionMangoTexture;
+		
+		else if (questionSet == 19) questionRegion = resourcesManager.questionBookTexture;
+		
+		else if (questionSet == 20) questionRegion = resourcesManager.questionHeartTexture;
+		
+		else if (questionSet == 21) questionRegion = resourcesManager.questionMushroomTexture;
+		
+		else if (questionSet == 22) questionRegion = resourcesManager.questionIcecreamTexture;
+		
+		else if (questionSet == 24) questionRegion = resourcesManager.questionGrapesTexture;
+		
+		else if (questionSet == 25) questionRegion = resourcesManager.questionPigTexture;
+		
+		else if (questionSet == 26) questionRegion = resourcesManager.questionPumpkinTexture;
+		
+		else if (questionSet == 27) questionRegion = resourcesManager.questionEggplantTexture;
+		
+		else if (questionSet == 28) questionRegion = resourcesManager.questionRabbitTexture;
+		
 		return questionRegion;
 	}
 	
@@ -432,6 +973,47 @@ public class MatchItPanel extends BaseScene {
 		
 		else if(questionSet == 3) r = resourcesManager.choiceStarTexture;
 		
+		else if(questionSet == 4) r = resourcesManager.choiceAvocadoTexture;
+		
+		else if(questionSet == 6) r = resourcesManager.choiceCatTexture;
+		
+		else if(questionSet == 7) r = resourcesManager.choiceCornTexture;
+		
+		else if(questionSet == 8) r = resourcesManager.choiceBirdTexture;
+		
+		else if(questionSet == 9) r = resourcesManager.choiceCircleTexture;
+		
+		else if(questionSet == 10) r = resourcesManager.choiceDogTexture;
+		
+		else if(questionSet == 12) r = resourcesManager.choiceCarrotTexture;
+		
+		else if(questionSet == 13) r = resourcesManager.choiceDoughnutTexture;
+		
+		else if(questionSet == 14) r = resourcesManager.choiceAppleTexture;
+		
+		else if(questionSet == 15) r = resourcesManager.choiceStrawberryTexture;
+		
+		else if(questionSet == 16) r = resourcesManager.choiceFlowerTexture;
+		
+		else if(questionSet == 18) r = resourcesManager.choiceMangoTexture;
+		
+		else if(questionSet == 19) r = resourcesManager.choiceBookTexture;
+		
+		else if(questionSet == 20) r = resourcesManager.choiceHeartTexture;
+		
+		else if(questionSet == 21) r = resourcesManager.choiceMushroomTexture;
+		
+		else if(questionSet == 22) r = resourcesManager.choiceIcecreamTexture;
+		
+		else if(questionSet == 24) r = resourcesManager.choiceGrapesTexture;
+		
+		else if(questionSet == 25) r = resourcesManager.choicePigTexture;
+		
+		else if(questionSet == 26) r = resourcesManager.choicePumpkinTexture;
+		
+		else if(questionSet == 27) r = resourcesManager.choiceEggplantTexture;
+		
+		else if(questionSet == 28) r = resourcesManager.choiceRabbitTexture;
 		return r;
 	}
 	
@@ -441,6 +1023,41 @@ public class MatchItPanel extends BaseScene {
 		else if(questionSet == 1) r = resourcesManager.choiceFlowerTexture;
 		else if(questionSet == 2) r = resourcesManager.choiceFlowerTexture;
 		else if(questionSet == 3) r = resourcesManager.choiceCornTexture;
+		else if(questionSet == 4) r = resourcesManager.choiceCatTexture;
+		else if(questionSet == 6) r = resourcesManager.choiceEggplantTexture;
+		else if(questionSet == 7) r = resourcesManager.choiceCatTexture;
+		else if(questionSet == 8) r = resourcesManager.choiceCarrotTexture;
+		else if(questionSet == 9) r = resourcesManager.choiceEggplantTexture;
+		else if(questionSet == 10) r = resourcesManager.choiceCatTexture;
+		else if(questionSet == 12) r = resourcesManager.choiceAppleTexture;
+		else if(questionSet == 13) r = resourcesManager.choiceAvocadoTexture;
+		
+		else if(questionSet == 14) r = resourcesManager.choicePumpkinTexture;
+		
+		else if(questionSet == 15) r = resourcesManager.choiceCatTexture;
+		
+		else if(questionSet == 16) r = resourcesManager.choiceGrapesTexture;
+		
+		else if(questionSet == 18) r = resourcesManager.choiceCornTexture;
+		
+		else if(questionSet == 19) r = resourcesManager.choiceBookTexture;
+		
+		else if(questionSet == 20) r = resourcesManager.choiceCatTexture;
+		
+		else if(questionSet == 21) r = resourcesManager.choiceEggplantTexture;
+		
+		else if(questionSet == 22) r = resourcesManager.choiceSquareTexture;
+		
+		else if(questionSet == 24) r = resourcesManager.choiceMangoTexture;
+		
+		else if(questionSet == 25) r = resourcesManager.choiceTriangleTexture;
+		
+		else if(questionSet == 26) r = resourcesManager.choiceBookTexture;
+		
+		else if(questionSet == 27) r = resourcesManager.choiceCatTexture;
+		
+		else if(questionSet == 28) r = resourcesManager.choiceAvocadoTexture;
+		
 		return r;
 	}
 	
@@ -450,6 +1067,40 @@ public class MatchItPanel extends BaseScene {
 		else if(questionSet == 1) r = resourcesManager.choicePumpkinTexture;
 		else if(questionSet == 2) r = resourcesManager.choiceAppleTexture;
 		else if(questionSet == 3) r = resourcesManager.choiceTriangleTexture;
+		else if(questionSet == 4) r = resourcesManager.choiceDogTexture;
+		else if(questionSet == 6) r = resourcesManager.choiceDoughnutTexture;
+		else if(questionSet == 7) r = resourcesManager.choiceFlowerTexture;
+		else if(questionSet == 8) r = resourcesManager.choiceDogTexture;
+		else if(questionSet == 9) r = resourcesManager.choiceSquareTexture;
+		else if(questionSet == 10) r = resourcesManager.choiceCircleTexture;
+		else if(questionSet == 12) r = resourcesManager.choiceEggplantTexture;
+		else if(questionSet == 13) r = resourcesManager.choiceAirplane;
+		
+		else if(questionSet == 14) r = resourcesManager.choiceDogTexture;
+		
+		else if(questionSet == 15) r = resourcesManager.choiceCarrotTexture;
+		
+		else if(questionSet == 16) r = resourcesManager.choiceAppleTexture;
+		
+		else if(questionSet == 18) r = resourcesManager.choiceAirplane;
+		
+		else if(questionSet == 19) r = resourcesManager.choiceCarrotTexture;
+		
+		else if(questionSet == 20) r = resourcesManager.choiceHeartTexture;
+		
+		else if(questionSet == 21) r = resourcesManager.choiceBirdTexture;
+		
+		else if(questionSet == 22) r = resourcesManager.choiceEggplantTexture;
+		
+		else if(questionSet == 24) r = resourcesManager.choiceGrapesTexture;
+		
+		else if(questionSet == 25) r = resourcesManager.choiceSquareTexture;
+		
+		else if(questionSet == 26) r = resourcesManager.choiceAirplane;
+		
+		else if(questionSet == 27) r = resourcesManager.choiceDogTexture;
+		
+		else if(questionSet == 28) r = resourcesManager.choicePigTexture;
 		return r;
 	}
 	
@@ -459,6 +1110,41 @@ public class MatchItPanel extends BaseScene {
 		else if(questionSet == 1) r = resourcesManager.choiceBookTexture;
 		else if(questionSet == 2) r = resourcesManager.choiceCatTexture;
 		else if(questionSet == 3) r = resourcesManager.choiceGrapesTexture;
+		else if(questionSet == 4) r = resourcesManager.choiceHeartTexture;
+		else if(questionSet == 6) r = resourcesManager.choiceBookTexture;
+		else if(questionSet == 7) r = resourcesManager.choiceMushroomTexture;
+		else if(questionSet == 8) r = resourcesManager.choiceGrapesTexture;
+		else if(questionSet == 9) r = resourcesManager.choiceTriangleTexture;
+		else if(questionSet == 10) r = resourcesManager.choicePigTexture;
+		else if(questionSet == 12) r = resourcesManager.choiceGrapesTexture;
+		else if(questionSet == 13) r = resourcesManager.choiceGrapesTexture;
+		
+		else if(questionSet == 14) r = resourcesManager.choiceCarrotTexture;
+		
+		else if(questionSet == 15) r = resourcesManager.choiceBookTexture;
+		
+		else if(questionSet == 16) r = resourcesManager.choiceGrapesTexture;
+		
+		else if(questionSet == 18) r = resourcesManager.choiceIcecreamTexture;
+		
+		else if(questionSet == 19) r = resourcesManager.choiceEggplantTexture;
+		
+		else if(questionSet == 20) r = resourcesManager.choiceAvocadoTexture;
+		
+		else if(questionSet == 21) r = resourcesManager.choicePigTexture;
+		
+		else if(questionSet == 22) r = resourcesManager.choiceDoughnutTexture;
+		
+		else if(questionSet == 24) r = resourcesManager.choiceCarrotTexture;
+		
+		else if(questionSet == 25) r = resourcesManager.choiceCornTexture;
+		
+		else if(questionSet == 26) r = resourcesManager.choiceCatTexture;
+		
+		else if(questionSet == 27) r = resourcesManager.choiceAppleTexture;
+		
+		else if(questionSet == 28) r = resourcesManager.choiceBirdTexture;
+		
 		
 		return r;
 	}
@@ -469,6 +1155,40 @@ public class MatchItPanel extends BaseScene {
 		else if(questionSet == 1) r = resourcesManager.choiceHeartTexture;
 		else if(questionSet == 2) r = resourcesManager.choicePumpkinTexture;
 		else if(questionSet == 3) r = resourcesManager.choiceRabbitTexture;
+		else if(questionSet == 4) r = resourcesManager.choiceIcecreamTexture;
+		else if(questionSet == 6) r = resourcesManager.choiceMangoTexture;
+		else if(questionSet == 7) r = resourcesManager.choiceGrapesTexture;
+		else if(questionSet == 8) r = resourcesManager.choiceAirplane;
+		else if(questionSet == 9) r = resourcesManager.choiceRabbitTexture;
+		else if(questionSet == 10) r = resourcesManager.choiceRabbitTexture;
+		else if(questionSet == 12) r = resourcesManager.choiceMangoTexture;
+		else if(questionSet == 13) r = resourcesManager.choiceAvocadoTexture;
+		
+		else if(questionSet == 14) r = resourcesManager.choiceAvocadoTexture;
+		
+		else if(questionSet == 15) r = resourcesManager.choiceBookTexture;
+		
+		else if(questionSet == 16) r = resourcesManager.choiceCatTexture;
+		
+		else if(questionSet == 18) r = resourcesManager.choiceDogTexture;
+		
+		else if(questionSet == 19) r = resourcesManager.choiceGrapesTexture;
+		
+		else if(questionSet == 20) r = resourcesManager.choiceHeartTexture;
+		
+		else if(questionSet == 21) r = resourcesManager.choiceFlowerTexture;
+		
+		else if(questionSet == 22) r = resourcesManager.choiceCarrotTexture;
+		
+		else if(questionSet == 24) r = resourcesManager.choiceMushroomTexture;
+		
+		else if(questionSet == 25) r = resourcesManager.choiceAirplane;
+		
+		else if(questionSet == 26) r = resourcesManager.choiceSquareTexture;
+		
+		else if(questionSet == 27) r = resourcesManager.choiceCircleTexture;
+		
+		else if(questionSet == 28) r = resourcesManager.choiceRabbitTexture;
 		
 		return r;
 	}
@@ -479,6 +1199,42 @@ public class MatchItPanel extends BaseScene {
 		else if(questionSet == 1) r = resourcesManager.choiceStarTexture;
 		else if(questionSet == 2) r = resourcesManager.choiceBookTexture;
 		else if(questionSet == 3) r = resourcesManager.choiceCarrotTexture;
+		else if(questionSet == 4) r = resourcesManager.choicePigTexture;
+		else if(questionSet == 6) r = resourcesManager.choiceMushroomTexture;
+		else if(questionSet == 7) r = resourcesManager.choiceTriangleTexture;
+		else if(questionSet == 8) r = resourcesManager.choiceCatTexture;
+		else if(questionSet == 9) r = resourcesManager.choiceCatTexture;
+		else if(questionSet == 10) r = resourcesManager.choiceMangoTexture;
+		else if(questionSet == 12) r = resourcesManager.choiceIcecreamTexture;
+		else if(questionSet == 13) r = resourcesManager.choiceBookTexture;
+		
+		else if(questionSet == 14) r = resourcesManager.choiceEggplantTexture;
+		
+		else if(questionSet == 15) r = resourcesManager.choiceMushroomTexture;
+		
+		else if(questionSet == 16) r = resourcesManager.choiceGrapesTexture;
+		
+		else if(questionSet == 18) r = resourcesManager.choiceFlowerTexture;
+		
+		else if(questionSet == 19) r = resourcesManager.choiceIcecreamTexture;
+		
+		else if(questionSet == 20) r = resourcesManager.choiceGrapesTexture;
+		
+		else if(questionSet == 21) r = resourcesManager.choiceCornTexture;
+		
+		else if(questionSet == 22) r = resourcesManager.choiceBookTexture;
+		
+		else if(questionSet == 24) r = resourcesManager.choiceCatTexture;
+		
+		else if(questionSet == 25) r = resourcesManager.choiceGrapesTexture;
+		
+		else if(questionSet == 26) r = resourcesManager.choiceAirplane;
+		
+		else if(questionSet == 27) r = resourcesManager.choiceCornTexture;
+		
+		else if(questionSet == 28) r = resourcesManager.choiceAppleTexture;
+		
+		
 		
 		return r;
 	}

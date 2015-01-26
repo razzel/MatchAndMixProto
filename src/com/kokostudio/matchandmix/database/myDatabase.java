@@ -377,6 +377,90 @@ public class myDatabase extends SQLiteOpenHelper {
 		matchValues.put(fMatch_ID, 3);
 		matchValues.put(fMatch_isAnswered, "false");
 			db.insert(table_MatchIt, null, matchValues);
+		
+		matchValues.put(fMatch_ID, 4);
+		matchValues.put(fMatch_isAnswered, "false");
+			db.insert(table_MatchIt, null, matchValues);
+		
+		matchValues.put(fMatch_ID, 6);
+		matchValues.put(fMatch_isAnswered, "false");
+			db.insert(table_MatchIt, null, matchValues);
+		
+		matchValues.put(fMatch_ID, 7);
+		matchValues.put(fMatch_isAnswered, "false");
+				db.insert(table_MatchIt, null, matchValues);
+		
+		matchValues.put(fMatch_ID, 8);
+		matchValues.put(fMatch_isAnswered, "false");
+				db.insert(table_MatchIt, null, matchValues);
+				
+		matchValues.put(fMatch_ID, 9);
+		matchValues.put(fMatch_isAnswered, "false");
+				db.insert(table_MatchIt, null, matchValues);
+				
+		matchValues.put(fMatch_ID, 10);
+		matchValues.put(fMatch_isAnswered, "false");
+				db.insert(table_MatchIt, null, matchValues);
+		
+		matchValues.put(fMatch_ID, 12);
+		matchValues.put(fMatch_isAnswered, "false");
+				db.insert(table_MatchIt, null, matchValues);
+				
+		matchValues.put(fMatch_ID, 13);
+		matchValues.put(fMatch_isAnswered, "false");
+				db.insert(table_MatchIt, null, matchValues);
+				
+		matchValues.put(fMatch_ID, 14);
+		matchValues.put(fMatch_isAnswered, "false");
+				db.insert(table_MatchIt, null, matchValues);
+				
+		matchValues.put(fMatch_ID, 15);
+		matchValues.put(fMatch_isAnswered, "false");
+				db.insert(table_MatchIt, null, matchValues);
+										
+		matchValues.put(fMatch_ID, 16);
+		matchValues.put(fMatch_isAnswered, "false");
+				db.insert(table_MatchIt, null, matchValues);
+											
+		matchValues.put(fMatch_ID, 18);
+		matchValues.put(fMatch_isAnswered, "false");
+				db.insert(table_MatchIt, null, matchValues);
+														
+		matchValues.put(fMatch_ID, 19);
+		matchValues.put(fMatch_isAnswered, "false");
+				db.insert(table_MatchIt, null, matchValues);
+																
+		matchValues.put(fMatch_ID, 20);
+		matchValues.put(fMatch_isAnswered, "false");
+				db.insert(table_MatchIt, null, matchValues);
+																		
+		matchValues.put(fMatch_ID, 21);
+		matchValues.put(fMatch_isAnswered, "false");
+				db.insert(table_MatchIt, null, matchValues);
+																				
+		matchValues.put(fMatch_ID, 22);
+		matchValues.put(fMatch_isAnswered, "false");
+				db.insert(table_MatchIt, null, matchValues);
+		
+		matchValues.put(fMatch_ID, 24);
+		matchValues.put(fMatch_isAnswered, "false");
+				db.insert(table_MatchIt, null, matchValues);
+				
+		matchValues.put(fMatch_ID, 25);
+		matchValues.put(fMatch_isAnswered, "false");
+				db.insert(table_MatchIt, null, matchValues);
+				
+		matchValues.put(fMatch_ID, 26);
+		matchValues.put(fMatch_isAnswered, "false");
+				db.insert(table_MatchIt, null, matchValues);
+		
+		matchValues.put(fMatch_ID, 27);
+		matchValues.put(fMatch_isAnswered, "false");
+				db.insert(table_MatchIt, null, matchValues);
+				
+		matchValues.put(fMatch_ID, 28);
+		matchValues.put(fMatch_isAnswered, "false");
+				db.insert(table_MatchIt, null, matchValues);
 	}
 	
 	public void updateMatchIt(int id, String s) {

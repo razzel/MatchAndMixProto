@@ -240,6 +240,14 @@ public class SceneManager {
 	}
 	
 	//SOLVE IT ====================================================================================================================
+	
+	public void loadSolveItMenuScene() {
+		// unload the game menu textures
+		ResourcesManager.getInstance().unloadGameMenuTexture();
+		ResourcesManager.getInstance().loadSolveItResources();
+		SolveItScene = new SolveIT();
+		setScene(SolveItScene);
+	}
 	public void loadSolveItScene() {
 		// unload the game menu textures
 		ResourcesManager.getInstance().unloadGameMenuTexture();

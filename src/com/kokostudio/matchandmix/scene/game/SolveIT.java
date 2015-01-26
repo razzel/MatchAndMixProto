@@ -14,7 +14,8 @@ import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
 public class SolveIT extends BaseScene {
 	private Sprite qHeader;
 	private TiledSprite back;
-	private TiledSprite[] qFrames;
+	private TiledSprite add,divide,sub,multi;
+	
 	
 	private int x, y, rowCounter;
 
@@ -22,9 +23,7 @@ public class SolveIT extends BaseScene {
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 		createBackground();
-		createQuestionHeader();
-		createButtons();
-		
+
 	}
 
 	@Override
@@ -60,88 +59,29 @@ public class SolveIT extends BaseScene {
 		});
 		
 	}
-	
-	private void createQuestionHeader() {
-		qHeader = new Sprite(400, 430, resourcesManager.qHeaderTextureRegion, vbom) {
+	private void createGameSelection() {
+		int y = 200;
+		// GUESS THE MISSING LETTER
+		add = new TiledSprite(185, y, resourcesManager.addTiledTexture, vbom) {
 			@Override
-			protected void preDraw(GLState pGLState, Camera pCamera) {
-				pGLState.enableDither();
-				super.preDraw(pGLState, pCamera);
-			}
-		};
-		attachChild(qHeader);
-		
-		// CREATE QUESTION FRAMES
-		qFrames = new TiledSprite[29];
-		x = 190; y = 340; rowCounter = 0;
-		for(int i = 0; i < qFrames.length; i++) {
-			final int index = i;
-			if(rowCounter < 5) {
-				qFrames[i] = new TiledSprite(x, y, resourcesManager.notAnsweredTextureRegion, vbom) {
-					@Override
-					public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
-						switch(pSceneTouchEvent.getAction()) {
-						case TouchEvent.ACTION_DOWN:
-							qFrames[index].setScale(0.9f);
-							qFrames[index].setCurrentTileIndex(1);
-							break;
-						case TouchEvent.ACTION_UP:
-							resourcesManager.click.play();
-							qFrames[index].setScale(1.0f);
-							qFrames[index].setCurrentTileIndex(0);
-							break;
-						}
-						return true;
-					}
-					
-				};
-				
-				engine.runOnUpdateThread(new Runnable() {
-
-					@Override
-					public void run() {
-						registerTouchArea(qFrames[index]);
-						attachChild(qFrames[index]);
-					}
-					
-				});
-				x += 110;
-				rowCounter++;
-			}
-			else if(rowCounter == 5) {
-				y -= 75;
-				x = 190;
-				rowCounter = 0;
-			}
-		}
-	}
-	
-	
-	
-	private void createButtons() {
-		back = new TiledSprite(45, 40,resourcesManager.backTiledTextureRegion, vbom) {
-			@Override
-			public boolean onAreaTouched(TouchEvent pSceneTouchEvent,float pTouchAreaLocalX, float pTouchAreaLocalY) {
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				switch(pSceneTouchEvent.getAction()) {
 				case TouchEvent.ACTION_DOWN:
-					back.setScale(0.9f);
-					back.setCurrentTileIndex(1);
+					add.setCurrentTileIndex(1);
+					add.setScale(0.9f);
 					break;
 				case TouchEvent.ACTION_UP:
 					resourcesManager.click.play();
-					back.setScale(1.0f);
-					back.setCurrentTileIndex(0);
-					// unload THAT COLOR IS Textures
-					ResourcesManager.getInstance().unloadThatColorIsTextures();
-					// SET SCENE
-					SceneManager.getInstance().loadGameMenuScene();
+					add.setCurrentTileIndex(0);
+					add.setScale(1.0f);
+					// Load the GuessTheMissingLetter Scene
+					SceneManager.getInstance().loadGTMLScene();
 					break;
 				}
 				return true;
 			}
 			
 		};
-		registerTouchArea(back);
-		attachChild(back);
+	
 	}
 }

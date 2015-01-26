@@ -205,6 +205,12 @@ public class ResourcesManager {
 	public ITextureRegion matchItBGTexture;
 	public ITextureRegion matchItChoiceBox;
 	public ITextureRegion match_questionPlank;
+	// SOLVE IT ===========================================================================
+	public BuildableBitmapTextureAtlas solveitmenuAtlas;
+	public TiledTextureRegion addTiledTexture;
+	public TiledTextureRegion subTiledTexture;
+	public TiledTextureRegion divTiledTexture;
+	public TiledTextureRegion multiTiledTexture;
 	
 	// OTHER IMAGES  **********************************************************************
 		// SHAPES
@@ -1233,7 +1239,7 @@ public class ResourcesManager {
 		public void loadChoices1() {
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_matchit/choices/");
 			choiceAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
-			//choiceAirplane = BitmapTextureAtlasTextureRegionFactory.createFromAsset(choiceAtlas, activity, "c_airplane.png");
+			choiceAirplane = BitmapTextureAtlasTextureRegionFactory.createFromAsset(choiceAtlas, activity, "c_airplane.png");
 			choiceAppleTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(choiceAtlas, activity, "c_apple.png");
 			choiceAvocadoTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(choiceAtlas, activity, "c_avocado.png");
 			choiceBirdTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(choiceAtlas, activity, "c_bird.png");
@@ -1485,6 +1491,13 @@ public class ResourcesManager {
 	}
 	
 	public void loadSolveItGraphics() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/g/");
+		try {
+			this.countItObjectAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.countItObjectAtlas.load();
+		} catch(final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
 		
 	}
 	
