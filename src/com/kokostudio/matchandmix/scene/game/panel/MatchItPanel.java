@@ -368,9 +368,9 @@ public class MatchItPanel extends BaseScene {
 			
 			else if(questionSet == 26) pos = 240;
 			
-			else if(questionSet == 27) pos = 590;
+			else if(questionSet == 27) pos = 240;
 			
-			else if(questionSet == 28) pos = 590;
+			else if(questionSet == 28) pos = 115;
 		
 			return pos;
 		}
@@ -475,9 +475,9 @@ public class MatchItPanel extends BaseScene {
 			
 			else if(questionSet == 26) pos = 115;
 			
-			else if(questionSet == 27) pos = 590;
+			else if(questionSet == 27) pos = 370;
 			
-			else if(questionSet == 28) pos = 590;
+			else if(questionSet == 28) pos = 240;
 			return pos;
 		}
 		
@@ -529,7 +529,7 @@ public class MatchItPanel extends BaseScene {
 			
 			else if(questionSet == 26) pos = 715;
 			
-			else if(questionSet == 27) pos = 590;
+			else if(questionSet == 27) pos = 715;
 			
 			else if(questionSet == 28) pos = 590;
 			return pos;
@@ -581,9 +581,9 @@ public class MatchItPanel extends BaseScene {
 			
 			else if(questionSet == 26) pos = 370;
 	
-			else if(questionSet == 27) pos = 590;
+			else if(questionSet == 27) pos = 115;
 			
-			else if(questionSet == 28) pos = 590;
+			else if(questionSet == 28) pos = 370;
 			return pos;
 		}
 		
@@ -688,9 +688,9 @@ public class MatchItPanel extends BaseScene {
 			
 			else if(questionSet == 26) pos = 115;
 			
-			else if(questionSet == 27) pos = 590;
+			else if(questionSet == 27) pos = 115;
 			
-			else if(questionSet == 28) pos = 590;
+			else if(questionSet == 28) pos = 115;
 			return pos;
 		}
 		

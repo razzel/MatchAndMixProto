@@ -241,18 +241,11 @@ public class SceneManager {
 	
 	//SOLVE IT ====================================================================================================================
 	
-	public void loadSolveItMenuScene() {
-		// unload the game menu textures
-		ResourcesManager.getInstance().unloadGameMenuTexture();
-		ResourcesManager.getInstance().loadSolveItResources();
-		SolveItScene = new SolveIT();
-		setScene(SolveItScene);
-	}
 	public void loadSolveItScene() {
 		// unload the game menu textures
 		ResourcesManager.getInstance().unloadGameMenuTexture();
 		// load that THAT COLOR IS SCENE RESOURCES
-		ResourcesManager.getInstance().loadThatColorIsResources();
+		ResourcesManager.getInstance().loadSolveItResources();
 		// set the scene
 		SolveItScene = new SolveIT();
 		setScene(SolveItScene);

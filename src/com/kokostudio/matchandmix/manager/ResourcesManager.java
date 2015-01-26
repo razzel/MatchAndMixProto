@@ -207,6 +207,7 @@ public class ResourcesManager {
 	public ITextureRegion match_questionPlank;
 	// SOLVE IT ===========================================================================
 	public BuildableBitmapTextureAtlas solveitmenuAtlas;
+	public ITextureRegion SolveitmenutextureRegion;
 	public TiledTextureRegion addTiledTexture;
 	public TiledTextureRegion subTiledTexture;
 	public TiledTextureRegion divTiledTexture;
@@ -698,7 +699,7 @@ public class ResourcesManager {
 		pigTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(AnimalsAtlas, activity, "a_pig.png");
 		turtleTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(AnimalsAtlas, activity, "a_turtle.png");
 		rabbitTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(AnimalsAtlas, activity, "a_rabbit.png");
-		elephantTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(AnimalsAtlas, activity, "a_elephant.png");
+		elephantTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(AnimalsAtlas,activity , "a_elephant.png");
 		monkeyTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(AnimalsAtlas, activity, "a_monkey.png");
 		pandaTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(AnimalsAtlas, activity, "a_panda.png");
 		try {
@@ -925,6 +926,8 @@ public class ResourcesManager {
 		aboutTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mainMenuTextureAtlas, activity, "about_btn.png", 2, 1);
 		optionTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mainMenuTextureAtlas, activity, "option_btn.png", 2, 1);
 		exitTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mainMenuTextureAtlas, activity, "quit_btn.png", 2, 1);
+		//divTiledTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mainMenuTextureAtlas, activity, "add_btn.png", 2, 1);
+		
 		try {
 			this.mainMenuTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			this.mainMenuTextureAtlas.load();
@@ -1486,19 +1489,26 @@ public class ResourcesManager {
 	
 	// SOLVE IT !!!! =======================================================================================================================
 	public void loadSolveItResources() {
+		createGeneralBackground();
 		loadSolveItGraphics();
 		loadSolveItAudio();
 	}
 	
 	public void loadSolveItGraphics() {
-		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/g/");
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_solveit/");
+		solveitmenuAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+		//addTiledTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(solveitmenuAtlas, activity, "add_btn.png", 2, 1);
+		//divTiledTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(solveitmenuAtlas, activity, "div_btn.png", 2, 1);
 		try {
-			this.countItObjectAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
-			this.countItObjectAtlas.load();
+			this.solveitmenuAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.solveitmenuAtlas.load();
 		} catch(final TextureAtlasBuilderException e) {
 			Debug.e(e);
 		}
 		
+	}
+	public void unloadSolveItGraphics() {
+		solveitmenuAtlas.unload();
 	}
 	
 	public void loadSolveItAudio() {
