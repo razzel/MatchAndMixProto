@@ -1170,7 +1170,7 @@ public class ResourcesManager {
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_matchit/questions/");
 			questionAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
 			questionFlowerTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_flower.png", 2,1);
-			questionGrapesTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_heart.png", 2,1);
+			questionGrapesTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_grapes.png", 2,1);
 			questionHeartTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_heart.png", 2,1);
 			try {
 				this.questionAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
