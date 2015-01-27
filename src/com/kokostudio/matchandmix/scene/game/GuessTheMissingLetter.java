@@ -142,7 +142,7 @@ public class GuessTheMissingLetter extends BaseScene {
 					back.setScale(1.0f);
 					
 					// unload the GTML textures / resources
-					ResourcesManager.getInstance().unloadGTMLTextures();
+					//ResourcesManager.getInstance().unloadGTMLTextures();
 					// then reload the Game Menu SCENE
 					SceneManager.getInstance().loadGameMenuScene();
 					break;

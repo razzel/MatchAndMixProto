@@ -219,11 +219,31 @@ public class myDatabase extends SQLiteOpenHelper {
 	}
 	
 	public int colorGetAnswered() {
-		return 0;
+		SQLiteDatabase db = this.getReadableDatabase();
+		String[] mySearch = new String[]{"true"};
+		Cursor c = db.rawQuery("SELECT count(*) FROM " +table_ThatColorIs+ " WHERE " +fColor_isAnswered+ " =?", mySearch);
+		int count = 0;
+		while(c.moveToNext()) {
+			int countIndex = c.getColumnIndex("count(*)");
+			count = c.getInt(countIndex);
+		}
+		c.close();
+		db.close();
+		return count;
 	}
 	
 	public int colorGetRemaining() {
-		return 0;
+		SQLiteDatabase db = this.getReadableDatabase();
+		String[] mySearch = new String[]{"false"};
+		Cursor c = db.rawQuery("SELECT count(*) FROM " +table_ThatColorIs+ " WHERE " +fColor_isAnswered+ " =?", mySearch);
+		int count = 0;
+		while(c.moveToNext()) {
+			int countIndex = c.getColumnIndex("count(*)");
+			count = c.getInt(countIndex);
+		}
+		c.close();
+		db.close();
+		return count;
 	}
 	
 	public String colorIsAnswered(int id) {
@@ -348,6 +368,34 @@ public class myDatabase extends SQLiteOpenHelper {
 		db.update(table_GTML, cv, fGTML_ID+"=" +id, null);
 	}
 	
+	public int gtmlGetAnswered() {
+		SQLiteDatabase db = this.getReadableDatabase();
+		String[] mySearch = new String[]{"true"};
+		Cursor c = db.rawQuery("SELECT count(*) FROM " +table_GTML+ " WHERE " +fgtml_isAnswered+ " =?", mySearch);
+		int count = 0;
+		while(c.moveToNext()) {
+			int countIndex = c.getColumnIndex("count(*)");
+			count = c.getInt(countIndex);
+		}
+		c.close();
+		db.close();
+		return count;
+	}
+	
+	public int gtmlGetRemaining() {
+		SQLiteDatabase db = this.getReadableDatabase();
+		String[] mySearch = new String[]{"false"};
+		Cursor c = db.rawQuery("SELECT count(*) FROM " +table_GTML+ " WHERE " +fgtml_isAnswered+ " =?", mySearch);
+		int count = 0;
+		while(c.moveToNext()) {
+			int countIndex = c.getColumnIndex("count(*)");
+			count = c.getInt(countIndex);
+		}
+		c.close();
+		db.close();
+		return count;
+	}
+	
 	public String gtmlIsAnswered(int id) {
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor c = db.rawQuery("SELECT " + fgtml_isAnswered + " FROM " + table_GTML + " WHERE " + fGTML_ID + " = " +id, null);
@@ -468,6 +516,34 @@ public class myDatabase extends SQLiteOpenHelper {
 		ContentValues cv = new ContentValues();
 		cv.put(fMatch_isAnswered, s);
 		db.update(table_MatchIt, cv, fMatch_ID+" = " +id, null);
+	}
+	
+	public int matchGetAnswered() {
+		SQLiteDatabase db = this.getReadableDatabase();
+		String[] mySearch = new String[]{"true"};
+		Cursor c = db.rawQuery("SELECT count(*) FROM " +table_MatchIt+ " WHERE " +fgtml_isAnswered+ " =?", mySearch);
+		int count = 0;
+		while(c.moveToNext()) {
+			int countIndex = c.getColumnIndex("count(*)");
+			count = c.getInt(countIndex);
+		}
+		c.close();
+		db.close();
+		return count;
+	}
+	
+	public int matchGetRemaining() {
+		SQLiteDatabase db = this.getReadableDatabase();
+		String[] mySearch = new String[]{"false"};
+		Cursor c = db.rawQuery("SELECT count(*) FROM " +table_MatchIt+ " WHERE " +fgtml_isAnswered+ " =?", mySearch);
+		int count = 0;
+		while(c.moveToNext()) {
+			int countIndex = c.getColumnIndex("count(*)");
+			count = c.getInt(countIndex);
+		}
+		c.close();
+		db.close();
+		return count;
 	}
 	
 	public String matchItIsAnswered(int id) {

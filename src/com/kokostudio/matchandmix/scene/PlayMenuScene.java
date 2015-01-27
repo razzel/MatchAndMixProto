@@ -21,11 +21,11 @@ public class PlayMenuScene extends BaseScene {
 	@Override
 	public void createScene() {
 		db = new myDatabase(activity);
-		checkBGM();
-		checkSFX();
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 		createBackground();
 		createButton();
+		checkSFX();
+		checkBGM();
 	}
 
 	@Override
@@ -46,10 +46,12 @@ public class PlayMenuScene extends BaseScene {
 
 	@Override
 	public void disposeScene() {
+		System.gc();
 		play.detachSelf();
 		play.dispose();
+		play = null;	
 		this.detachSelf();
-		this.dispose();		
+		this.dispose();	
 	}
 	
 	// =================================================================================
@@ -79,6 +81,7 @@ public class PlayMenuScene extends BaseScene {
 					SceneManager.getInstance().loadMainMenuScene();
 					play.setCurrentTileIndex(0);
 					play.setScale(1.0f);
+					disposeScene();
 					break;
 				}
 				return true;

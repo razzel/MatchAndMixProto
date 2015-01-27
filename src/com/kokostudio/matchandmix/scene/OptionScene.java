@@ -55,7 +55,9 @@ public class OptionScene extends BaseScene {
 	
 	@Override
 	public void disposeScene() {
-		
+		this.dispose();
+		this.detachSelf();
+		System.gc();
 	}
 	
 	// ----------------------------------------------------------------------------------------------------
@@ -85,6 +87,7 @@ public class OptionScene extends BaseScene {
 					resourcesManager.click.play();
 					back.setCurrentTileIndex(0);
 					back.setScale(1.0f);
+					disposeScene();
 					// unload options textures
 					ResourcesManager.getInstance().unloadOptionTexture();
 					// load the previous scene

@@ -97,7 +97,7 @@ public class ThatColorIsPanel extends BaseScene {
 					back.setCurrentTileIndex(0);
 					back.setScale(1f);
 					// unload that color is panel textures
-					ResourcesManager.getInstance().unloadThatColorIsPanelTextures();
+					//ResourcesManager.getInstance().unloadThatColorIsPanelTextures();
 					// set the scene
 					SceneManager.getInstance().loadThatColorIsScene();
 					break;

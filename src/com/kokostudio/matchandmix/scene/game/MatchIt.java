@@ -87,7 +87,7 @@ public class MatchIt extends BaseScene {
 		for (int i = 0; i < qFrames.length; i++) {
 			final int index = i;
 			if (rowCounter < 5) {
-				qFrames[i] = new TiledSprite(x, y, resourcesManager.notAnsweredTextureRegion, vbom) {
+				qFrames[i] = new TiledSprite(x, y, frameIsAnswered(index).compareTo("false")==0? resourcesManager.notAnsweredTextureRegion : resourcesManager.answeredTextureRegion, vbom) {
 					@Override
 					public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 						switch (pSceneTouchEvent.getAction()) {

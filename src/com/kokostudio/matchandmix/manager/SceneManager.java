@@ -1,9 +1,11 @@
 package com.kokostudio.matchandmix.manager;
 
 import org.andengine.engine.Engine;
+import org.andengine.ui.IGameInterface.OnCreateResourcesCallback;
 import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
 
 import com.kokostudio.matchandmix.base.BaseScene;
+import com.kokostudio.matchandmix.scene.LoadingScene;
 //import com.kokostudio.matchandmix.scene.About;
 import com.kokostudio.matchandmix.scene.MainMenuScene;
 import com.kokostudio.matchandmix.scene.GameMenuScene;
@@ -105,18 +107,24 @@ public class SceneManager {
 		splashScene = null;
 	}
 	
+	// LOADING SCENE
+	public void createLoadingScene() {
+		disposeSplashScene();
+		ResourcesManager.getInstance().loadLoadingScene();
+		loadingScene = new LoadingScene();
+		setScene(loadingScene);
+	}
 	
 	// PLAY MENU SCENE ======================================================================================================
 	public void createPlayMenuScene() {
 		ResourcesManager.getInstance().loadPlayMenuResources();
 		playMenuScene = new PlayMenuScene();
 		setScene(playMenuScene);
-		//disposeSplashScene();
 	}
 	
 	public void loadPlayMenuScene() {
 		// dispose the entities in the play menu scene
-		ResourcesManager.getInstance().unloadBackground();
+		//ResourcesManager.getInstance().unloadBackground();
 		// load the play menu texture
 		ResourcesManager.getInstance().loadPlayMenuTextures();
 		setScene(playMenuScene);
@@ -127,7 +135,7 @@ public class SceneManager {
 		// unload the play menu texture
 		ResourcesManager.getInstance().unloadPlayMenuTextures();
 		// load the main menu texture
-		ResourcesManager.getInstance().loadMainMenuResources();
+		//ResourcesManager.getInstance().loadMainMenuResources();
 		mainMenuScene = new MainMenuScene();
 		setScene(mainMenuScene);
 	}
@@ -135,9 +143,9 @@ public class SceneManager {
 	// GAME MENU SCENE =========================================================================================================
 	public void loadGameMenuScene() {
 		// unload the MAIN MENU texture
-		ResourcesManager.getInstance().unloadMainMenuTextures();	
+		//ResourcesManager.getInstance().unloadMainMenuTextures();	
 		// load the GAME MENU texture
-		ResourcesManager.getInstance().loadGameMenuResources();
+		//ResourcesManager.getInstance().loadGameMenuResources();
 		gameMenuScene = new GameMenuScene();
 		setScene(gameMenuScene);
 	}
@@ -145,7 +153,7 @@ public class SceneManager {
 	// OPTION SCENE ============================================================================================================
 	public void loadOptionScene() {
 		// unload main menu scene resources
-		ResourcesManager.getInstance().unloadMainMenuTextures();
+		//ResourcesManager.getInstance().unloadMainMenuTextures();
 		// load the option scene resources
 		ResourcesManager.getInstance().loadOptionResources();
 		optionScene = new OptionScene();
@@ -154,7 +162,7 @@ public class SceneManager {
 	
 	public void loadProgressScene() {
 		// unload main menu textures
-		ResourcesManager.getInstance().unloadMainMenuTextures();
+		//ResourcesManager.getInstance().unloadMainMenuTextures();
 		// load progress texture
 		ResourcesManager.getInstance().loadProgressResources();
 		// set scene
@@ -178,9 +186,9 @@ public class SceneManager {
 	// GUESS THE MISSING LETTER SCENE ===============================================================================================
 	public void loadGTMLScene() {
 		// unload the GAME MENU textures
-		ResourcesManager.getInstance().unloadGameMenuTexture();
+		//ResourcesManager.getInstance().unloadGameMenuTexture();
 		// load the guess the missing letter resources
-		ResourcesManager.getInstance().loadGTMLResources();
+		//ResourcesManager.getInstance().loadGTMLResources();
 		GuessTheMissingLetterScene = new GuessTheMissingLetter();
 		setScene(GuessTheMissingLetterScene);
 		
@@ -189,9 +197,9 @@ public class SceneManager {
 		// LOAD GTML  PANEL SCENE
 		public void loadGTMLPanelScene() {
 			// unload the GTML it textures
-			ResourcesManager.getInstance().unloadGTMLTextures();
+			//ResourcesManager.getInstance().unloadGTMLTextures();
 			// load the GTML PANEL SCENE RESOURCES
-			ResourcesManager.getInstance().loadGTMLPanelResources();
+			//ResourcesManager.getInstance().loadGTMLPanelResources();
 			GTMLPanelScene = new GuessTheMissingLetterPanel();
 			setScene(GTMLPanelScene);	
 		}
@@ -199,9 +207,9 @@ public class SceneManager {
 	// MAtch IT SCENE ==============================================================================================================
 	public void loadMatchItScene() {
 		// unload the main menu textures
-		ResourcesManager.getInstance().unloadGameMenuTexture();
+		//ResourcesManager.getInstance().unloadGameMenuTexture();
 		// load the guess the missing letter resources
-		ResourcesManager.getInstance().loadMatchItResources();
+		//ResourcesManager.getInstance().loadMatchItResources();
 		MatchItScene = new MatchIt();
 		setScene(MatchItScene);		
 	}
@@ -209,9 +217,9 @@ public class SceneManager {
 		// LOAD MATCH IT PANEL SCENE
 		public void loadMatchItPanelScene() {
 			// unload the match it textures
-			ResourcesManager.getInstance().unloadMatchItResources();
+			//ResourcesManager.getInstance().unloadMatchItResources();
 			// load the MATCH IT PANEL SCENE RESOURCES
-			ResourcesManager.getInstance().loadMatchItPanelResources();
+			//ResourcesManager.getInstance().loadMatchItPanelResources();
 			MatchItPanelScene = new MatchItPanel();
 			setScene(MatchItPanelScene);	
 		}
@@ -219,9 +227,9 @@ public class SceneManager {
 	// THAT COLOR IS SCENE =================================================================================================
 	public void loadThatColorIsScene() {
 		// unload the game menu textures
-		ResourcesManager.getInstance().unloadGameMenuTexture();
+		//ResourcesManager.getInstance().unloadGameMenuTexture();
 		// load that THAT COLOR IS SCENE RESOURCES
-		ResourcesManager.getInstance().loadThatColorIsResources();
+		//ResourcesManager.getInstance().loadThatColorIsResources();
 		// set the scene
 		ThatColorIsScene = new ThatColorIs();
 		setScene(ThatColorIsScene);
@@ -230,9 +238,9 @@ public class SceneManager {
 		// LOAD THAT COLOR IS PANEL SCENE
 	public void loadThatColorIsPanelScene() {
 		// unload the textures of the THATCOLORIS textures
-		ResourcesManager.getInstance().unloadThatColorIsTextures();
+		//ResourcesManager.getInstance().unloadThatColorIsTextures();
 		// load THAT COLOR IS SCENE Resources
-		ResourcesManager.getInstance().loadThatColorIsPanelResources();
+		//ResourcesManager.getInstance().loadThatColorIsPanelResources();
 		
 		ThatColorIsPanelScene = new ThatColorIsPanel();
 		setScene(ThatColorIsPanelScene);
@@ -264,9 +272,9 @@ public class SceneManager {
 	
 	public void loadCountItPanelScene() {
 		// unload Count it Textures
-		ResourcesManager.getInstance().unloadCountItResources();
+		//ResourcesManager.getInstance().unloadCountItResources();
 		// load the count it panel scene resources
-		ResourcesManager.getInstance().loadCountItPanelResources();
+		//ResourcesManager.getInstance().loadCountItPanelResources();
 		// set the scene
 		CountItPanelScene = new CountItPanel();
 		setScene(CountItPanelScene);
@@ -298,6 +306,9 @@ public class SceneManager {
 		switch(sceneType) {
 		case SCENE_SPLASH:
 			setScene(splashScene);
+			break;
+		case SCENE_LOADING:
+			setScene(loadingScene);
 			break;
 		case SCENE_PLAYMENU:
 			setScene(playMenuScene);

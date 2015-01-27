@@ -104,7 +104,7 @@ public class MatchItPanel extends BaseScene {
 					back.setScale(1f);
 					resourcesManager.click.play();
 					// unload MATCH IT panel textures
-					ResourcesManager.getInstance().unloadMatchItPanelTextures();
+					//ResourcesManager.getInstance().unloadMatchItPanelTextures();
 					// SET THE SCENE TO MATCH IT
 					SceneManager.getInstance().loadMatchItScene();
 					break;
@@ -1228,7 +1228,7 @@ public class MatchItPanel extends BaseScene {
 		
 		else if(questionSet == 25) r = resourcesManager.choiceGrapesTexture;
 		
-		else if(questionSet == 26) r = resourcesManager.choiceAirplane;
+		else if(questionSet == 26) r = resourcesManager.choiceCornTexture;
 		
 		else if(questionSet == 27) r = resourcesManager.choiceCornTexture;
 		

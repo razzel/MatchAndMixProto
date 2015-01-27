@@ -138,7 +138,7 @@ public class countIt extends BaseScene {
 					back.setScale(1.0f);
 					back.setCurrentTileIndex(0);
 					// unload THAT COLOR IS Textures
-					ResourcesManager.getInstance().unloadThatColorIsTextures();
+					//ResourcesManager.getInstance().unloadThatColorIsTextures();
 					// SET SCENE
 					SceneManager.getInstance().loadGameMenuScene();
 					break;

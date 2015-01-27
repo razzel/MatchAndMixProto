@@ -69,7 +69,9 @@ public class ProgressScene extends BaseScene {
 
 	@Override
 	public void disposeScene() {
-		
+		this.dispose();
+		this.detachSelf();
+		System.gc();
 	}
 	
 	// ============================================================================================
@@ -98,6 +100,8 @@ public class ProgressScene extends BaseScene {
 					resourcesManager.click.play();
 					back.setCurrentTileIndex(0);
 					back.setScale(1.0f);
+					
+					disposeScene();
 					// unload progress textures
 					ResourcesManager.getInstance().unloadProgressResources();
 					// set scene
@@ -122,29 +126,51 @@ public class ProgressScene extends BaseScene {
 		};
 		attachChild(progressHeader);
 		
-		progressPanel = new Sprite(410,195, resourcesManager.progressPanelTexture, vbom);
+		progressPanel = new Sprite(410,195, resourcesManager.progressPanelTexture, vbom) {
+			@Override
+			protected void preDraw(GLState pGLState, Camera pCamera) {
+				pGLState.enableDither();
+				super.preDraw(pGLState, pCamera);
+			}
+			
+		};
 		attachChild(progressPanel);
 		
 	}
 	
 	private void createText() {
-		colorAnswered = new Text(400, 240, resourcesManager.aklatanFont, "test" , vbom);
+		int textX = 450;
+		
+		// MATCH IT COUNT
+		matchAnswered = new Text(textX, 358, resourcesManager.aklatanFont, " " + db.matchGetAnswered(), vbom);
+		attachChild(matchAnswered);
+		matchRemaining = new Text(textX, 330, resourcesManager.aklatanFont, " " + db.matchGetRemaining(), vbom);
+		attachChild(matchRemaining);
+		
+		// GTML COUNT
+		guessAnswered = new Text(textX, 283, resourcesManager.aklatanFont, " " + db.gtmlGetAnswered(), vbom);
+		attachChild(guessAnswered);
+		guessRemaining = new Text(textX, 255, resourcesManager.aklatanFont, " " + db.gtmlGetRemaining(), vbom);
+		attachChild(guessRemaining);
+		
+		// COUNT IT COUNT
+		countAnswered = new Text(550, 210, resourcesManager.aklatanFont, "For Finals Defense!", vbom);
+		attachChild(countAnswered);
+		
+		// SOLVE IT COUNT
+		solveAnswered = new Text(550, 135, resourcesManager.aklatanFont, "For Finals Defense!", vbom);
+		attachChild(solveAnswered);
+				
+		// THAT COLOR IS COUNT
+		colorAnswered = new Text(textX, 68, resourcesManager.aklatanFont, " " + db.colorGetAnswered() , vbom);
 		attachChild(colorAnswered);
+		colorRemaining = new Text(textX, 40, resourcesManager.aklatanFont, " " + db.colorGetRemaining(), vbom);
+		attachChild(colorRemaining);
+		
 	}
 	
 	// =============================================================================================
 	// DATABASE SECTION
 	// =============================================================================================
-	
-	
-	// THAT COLOR IS
-	private int getColorAnswred() {
-		int asd = 0;
-		return 0;
-	}
-	
-	private int getColorRemaining() {
-		return 0;
-	}
 
 }

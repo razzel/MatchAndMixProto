@@ -1,5 +1,7 @@
 package com.kokostudio.matchandmix.scene;
 
+import org.andengine.engine.handler.timer.ITimerCallback;
+import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.util.adt.color.Color;
@@ -8,11 +10,22 @@ import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
 
 public class SplashScene extends BaseScene {
 	
-	//private Sprite splash;
+	private Sprite splash;
 
 	@Override
 	public void createScene() {
-		setBackground(new Background(Color.YELLOW));
+		setBackground(new Background(0,0,0));
+		splash = new Sprite(400, 240, resourcesManager.SplashTextureRegion, vbom);
+		attachChild(splash);
+		
+		engine.registerUpdateHandler(new TimerHandler(2f, new ITimerCallback() {
+			@Override
+			public void onTimePassed(TimerHandler pTimerHandler) {
+				unregisterUpdateHandler(pTimerHandler);
+				resourcesManager.loadGameResources();	
+			}
+		}));
+		
 	}
 
 	@Override
@@ -33,8 +46,9 @@ public class SplashScene extends BaseScene {
 
 	@Override
 	public void disposeScene() {
-		//splash.detachSelf();
-		//splash.dispose();
+		System.gc();
+		splash.detachSelf();
+		splash.dispose();
 		this.detachSelf();
 		this.dispose();
 	}

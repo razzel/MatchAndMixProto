@@ -62,14 +62,15 @@ public class GameActivity extends BaseGameActivity {
 
 	@Override
 	public void onPopulateScene(Scene pScene, OnPopulateSceneCallback pOnPopulateSceneCallback) throws IOException {
-		mEngine.registerUpdateHandler(new TimerHandler(2f, new ITimerCallback() {
+		mEngine.registerUpdateHandler(new TimerHandler(5f, new ITimerCallback() {
 			@Override
 			public void onTimePassed(final TimerHandler pTimerHandler) {
 				mEngine.unregisterUpdateHandler(pTimerHandler);
 				// load menu resources, create menu scene
 				// set menu scene using scene manager
 				// dispose splashScene
-				SceneManager.getInstance().createPlayMenuScene();
+				SceneManager.getInstance().createLoadingScene();
+				//SceneManager.getInstance().createPlayMenuScene();
 			}	
 		}));
 		pOnPopulateSceneCallback.onPopulateSceneFinished();

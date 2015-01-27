@@ -16,7 +16,7 @@ import com.kokostudio.matchandmix.scene.game.SolveIT;
 public class GameMenuScene extends BaseScene {
 	
 	private TiledSprite guess, matchIt, solveIt, countIt, whatColor;
-	private TiledSprite back, next, prev;
+	private TiledSprite next, prev;
 	
 
 	@Override
@@ -37,7 +37,7 @@ public class GameMenuScene extends BaseScene {
 	@Override
 	public void onBackKeyPressed() {
 		// unload the GameMenuTextures
-		ResourcesManager.getInstance().unloadGameMenuTexture();
+		//ResourcesManager.getInstance().unloadGameMenuTexture();
 		// then reload the MAIN MENU Scene
 		SceneManager.getInstance().loadMainMenuScene();
 	}
@@ -56,7 +56,9 @@ public class GameMenuScene extends BaseScene {
 
 	@Override
 	public void disposeScene() {
-		
+		this.dispose();
+		this.detachSelf();
+		System.gc();
 	}
 	
 	// =======================================================================================
@@ -210,6 +212,8 @@ public class GameMenuScene extends BaseScene {
 					resourcesManager.click.play();
 					guess.setCurrentTileIndex(0);
 					guess.setScale(1.0f);
+					
+					disposeScene();
 					// Load the GuessTheMissingLetter Scene
 					SceneManager.getInstance().loadGTMLScene();
 					break;
@@ -232,6 +236,7 @@ public class GameMenuScene extends BaseScene {
 					resourcesManager.click.play();
 					whatColor.setScale(1.0f);
 					whatColor.setCurrentTileIndex(0);
+					disposeScene();
 					// Switch the scene
 					SceneManager.getInstance().loadThatColorIsScene();
 					break;
@@ -254,8 +259,9 @@ public class GameMenuScene extends BaseScene {
 					resourcesManager.click.play();
 					solveIt.setScale(1.0f);
 					solveIt.setCurrentTileIndex(0);
+					//disposeScene();
 					// Switch the scene
-					SceneManager.getInstance().loadSolveItScene();
+					//SceneManager.getInstance().loadSolveItScene();
 					break;
 				}
 				return true;
@@ -283,6 +289,7 @@ public class GameMenuScene extends BaseScene {
 					resourcesManager.click.play();
 					matchIt.setScale(1.0f);
 					matchIt.setCurrentTileIndex(0);
+					disposeScene();
 					// Load the GuessTheMissingLetter Scene
 					SceneManager.getInstance().loadMatchItScene();
 					break;
@@ -305,8 +312,9 @@ public class GameMenuScene extends BaseScene {
 					resourcesManager.click.play();
 					countIt.setScale(1.0f);
 					countIt.setCurrentTileIndex(0);
+					//disposeScene();
 					// Switch the scene
-					SceneManager.getInstance().loadCountItScene();
+					//SceneManager.getInstance().loadCountItScene();
 					break;
 				}
 				return true;

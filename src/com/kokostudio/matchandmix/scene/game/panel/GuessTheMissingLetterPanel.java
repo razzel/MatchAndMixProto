@@ -97,7 +97,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 					back.setScale(0.9f);
 					engine.getMusicManager().setMasterVolume(0.70f);
 					// unload the PANEL'S TEXUTRES / RESOURCES
-					resourcesManager.unloadGTMLPanelTextures();
+					//resourcesManager.unloadGTMLPanelTextures();
 					// then set the SCENE to GuessTheMissingLetter
 					SceneManager.getInstance().loadGTMLScene();
 					break;
@@ -860,7 +860,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 		
 		else if (questionSet == 18) pos = 400;
 		
-		else if (questionSet == 19) pos = 200;
+		else if (questionSet == 19) pos = 300;
 		
 		else if (questionSet == 20) pos = 200;
 		
