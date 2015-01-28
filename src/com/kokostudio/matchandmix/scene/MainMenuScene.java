@@ -44,15 +44,16 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 	
 	@Override
 	public void createScene() {
+		/*
 		this.scrollDetector = new SurfaceScrollDetector(this);
 		this.clickDetector = new ClickDetector(this);
 		
 		this.setOnSceneTouchListener(this);
 		this.setTouchAreaBindingOnActionMoveEnabled(true);
-		
+		*/
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 		
-		/*
+		
 		createBackground();
 		createMenuHeader();
 		createMenuSelection();
@@ -64,11 +65,11 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 		exit.setVisible(false);
 		
 		unregisterTouchArea(options);
-		*/
 		
+		/*
 		createMenuHeader();
 		createMenuBoxes();
-		createParallaxBackground();
+		createParallaxBackground(); */
 		
 	}	
 

@@ -2,6 +2,8 @@ package com.kokostudio.matchandmix.scene.game.panel;
 
 import org.andengine.audio.sound.Sound;
 import org.andengine.engine.camera.Camera;
+import org.andengine.engine.handler.timer.ITimerCallback;
+import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
@@ -153,6 +155,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 					questionImageSound().play();
 					update(questionSet, "true");
 					lock();
+					//nextQuestion();
 					break;
 				}
 				return true;
@@ -269,6 +272,20 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 			lock();
 		}
 		else return;
+	}
+	
+	private void nextQuestion() {
+		int x = 1;
+		int container = 0;
+		while(db.gtmlIsAnswered(questionSet+x).compareTo("true")==0) {
+			container = questionSet+x;
+			x++;
+		} 
+		if(container == 5 || container == 11 || container == 17 || container == 23)
+			getQuestionIndex(container+1);
+		else
+			getQuestionIndex(container);
+		SceneManager.getInstance().loadGTMLPanelScene();
 	}
 	
 	// SOUND
