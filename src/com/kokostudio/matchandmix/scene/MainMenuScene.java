@@ -1,13 +1,13 @@
 package com.kokostudio.matchandmix.scene;
 
 import org.andengine.engine.camera.Camera;
-import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.ParallaxBackground;
 import org.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
+import org.andengine.entity.util.FPSLogger;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.input.touch.detector.ClickDetector;
 import org.andengine.input.touch.detector.ClickDetector.IClickDetectorListener;
@@ -16,9 +16,9 @@ import org.andengine.input.touch.detector.ScrollDetector.IScrollDetectorListener
 import org.andengine.input.touch.detector.SurfaceScrollDetector;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.util.GLState;
-import org.andengine.util.adt.color.Color;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.kokostudio.matchandmix.GameActivity;
 import com.kokostudio.matchandmix.base.BaseScene;
@@ -33,30 +33,26 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 	private Sprite menuLeft;
 	private Sprite menuRight;
 	
-	private SurfaceScrollDetector scrollDetector;
-	private ClickDetector clickDetector;
+	public SurfaceScrollDetector scrollDetector;
+	public ClickDetector clickDetector;
 	
-	private int PADDING = 30;
-	private float minX = 0;
-	private float maxX = 0;
-	private float currentX = 0;
-	private int itemClicked = -1;
-	
-	private Rectangle scrollBar;
+	public float minX = 0;
+	public float maxX = 0;
+	public float currentX = 0;
 	
 	private TiledSprite[] menuSelectionTiledSprite;
 	
 	@Override
 	public void createScene() {
-		//this.sortChildren();
+		this.scrollDetector = new SurfaceScrollDetector(this);
+		this.clickDetector = new ClickDetector(this);
 		
-		////this.scrollDetector = new SurfaceScrollDetector(this);
-		//this.clickDetector = new ClickDetector(this);
-
-		//this.setOnSceneTouchListener(this);
+		this.setOnSceneTouchListener(this);
+		this.setTouchAreaBindingOnActionMoveEnabled(true);
+		
 		this.setTouchAreaBindingOnActionDownEnabled(true);
-		//this.setTouchAreaBindingOnActionMoveEnabled(true);
 		
+		/*
 		createBackground();
 		createMenuHeader();
 		createMenuSelection();
@@ -68,11 +64,13 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 		exit.setVisible(false);
 		
 		unregisterTouchArea(options);
+		*/
 		
-		//createParallaxBackground();
-		//createMenu();
+		createMenuHeader();
+		createMenuBoxes();
+		createParallaxBackground();
 		
-	}
+	}	
 
 	@Override
 	public void onBackKeyPressed() {
@@ -100,7 +98,6 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 	// ===============================================================================================================================
 	// CLASS LOGIC
 	// ===============================================================================================================================
-	
 	public void createBackground() {
 		attachChild(new Sprite(400, 240, resourcesManager.bgTextureRegion, vbom) {
 			@Override
@@ -117,8 +114,7 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 			protected void preDraw(GLState pGLState, Camera pCamera) {
 				pGLState.enableDither();
 				super.preDraw(pGLState, pCamera);
-			}
-			
+			}		
 		});
 	}
 	
@@ -314,17 +310,71 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 		
 	}
 	
-	private void createParallaxBackground() {
-		ParallaxBackground bg = new ParallaxBackground(0,0,0);
-		bg.attachParallaxEntity(new ParallaxEntity(0, new Sprite(400, 240, resourcesManager.bgTextureRegion, vbom)));
-		setBackground(bg);
+	@Override
+	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
+		this.clickDetector.onTouchEvent(pSceneTouchEvent);
+		this.scrollDetector.onTouchEvent(pSceneTouchEvent);
+		return true;
 	}
 	
-	private void createMenu() {
+	@Override
+	public void onScroll(ScrollDetector pScollDetector, int pPointerID, float pDistanceX, float pDistanceY) {
+		
+		if(camera.getXMin()<=15)
+         	menuLeft.setVisible(false);
+         else
+         	menuLeft.setVisible(true);
+    	 
+    	 if(camera.getXMin()>maxX-15)
+             menuRight.setVisible(false);
+         else
+        	 menuRight.setVisible(true);
+    	 
+     	
+         //Return if ends are reached
+     	 if ( ((currentX - pDistanceX) < minX)) {
+     		return;
+     	 } else if((currentX - pDistanceX) > maxX) {
+     		return;
+     	 }
+     		 
+     	 
+    	 
+        //Center camera to the current point
+        this.camera.offsetCenter(-pDistanceX, 0);
+        currentX -= pDistanceX;
+
+        menuLeft.setPosition(this.camera.getCenterX()- GameActivity.CAMERA_WIDTH/2 + 45 ,200);
+        menuRight.setPosition(this.camera.getCenterX()+ GameActivity.CAMERA_WIDTH/2 - 45, 200);
+       
+        //Because Camera can have negativ X values, so set to 0
+    	if(this.camera.getXMin()<0){
+    		this.camera.offsetCenter(0,0);
+    		currentX = 0;
+    	}
+         
+         activity.runOnUiThread(new Runnable() {
+ 			
+ 			@Override
+ 			public void run() {
+ 				Toast.makeText(activity, "Scroll", Toast.LENGTH_SHORT).show();
+ 				
+ 			}
+ 		});
+         
+        
+    	
+	}
+
+	@Override
+	public void onClick(ClickDetector pClickDetector, int pPointerID, float pSceneX, float pSceneY) {
+		
+	}
+	
+	private void createMenuBoxes() {
 		int spriteX = 150;
 		int spriteY = 200;
 		
-		int item = 1;
 		menuSelectionTiledSprite = new TiledSprite[6];
 		TiledTextureRegion[] menuSelectionTexture = {
 				resourcesManager.gamesTiledTextureRegion, 
@@ -336,7 +386,6 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 				};
 		for(int ctr = 0; ctr < menuSelectionTexture.length; ctr++) {
 			final int index = ctr;
-			final int itemToLoad = item;
 			
 			menuSelectionTiledSprite[ctr] = new TiledSprite(spriteX, spriteY, menuSelectionTexture[ctr], vbom) {
 				@Override
@@ -354,11 +403,9 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 						Log.d("position", "menuRight " + (camera.getCenterX()+ GameActivity.CAMERA_WIDTH/2 - 45));
 						break;
 					}
-					itemClicked = itemToLoad;
 					return false;
 				}	
 			};
-			item++;
 			
 			engine.runOnUpdateThread(new Runnable() {
 				@Override
@@ -368,7 +415,7 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 					menuSelectionTiledSprite[index].setZIndex(0);
 				}
 			});
-			spriteX += 230;
+			spriteX += 280;
 		}
 		
 		maxX = spriteX - GameActivity.CAMERA_WIDTH;
@@ -383,66 +430,22 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 		menuLeft.setVisible(false);
 	}
 	
-
-	@Override
-	public void onScroll(ScrollDetector pScollDetector, int pPointerID, float pDistanceX, float pDistanceY) {
-		if(this.camera.getXMin()<=15)
-         	menuLeft.setVisible(false);
-         else
-         	menuLeft.setVisible(true);
-    	 
-    	 if(this.camera.getXMin()>maxX-15)
-             menuRight.setVisible(false);
-         else
-        	 menuRight.setVisible(true);
-         	
-        //Return if ends are reached
-        if (((currentX - pDistanceX) < minX)  ){                	
-            return;
-        } else if((currentX - pDistanceX) > maxX){
-        	return;
-        }
-        
-        //Center camera to the current point
-        this.camera.offsetCenter(-pDistanceX, 0);
-        currentX -= pDistanceX;
-        
-        
-        menuLeft.setPosition(camera.getCenterX()- GameActivity.CAMERA_WIDTH/2 + 45 ,200);
-        menuRight.setPosition(camera.getCenterX()+ GameActivity.CAMERA_WIDTH/2 - 45, 200);
-       
-        //Because Camera can have negativ X values, so set to 0
-    	if(this.camera.getXMin()<0){
-    		this.camera.offsetCenter(0,0);
-    		currentX = 0;
-    	} 
+	private void createParallaxBackground() {
+		ParallaxBackground bg = new ParallaxBackground(0,0,0);
+		bg.attachParallaxEntity(new ParallaxEntity(0, new Sprite(400, 240, resourcesManager.bgTextureRegion, vbom)));
+		setBackground(bg);
 	}
 
-	@Override
-	public void onClick(ClickDetector pClickDetector, int pPointerID, float pSceneX, float pSceneY) {
-		
-	}
-
-	@Override
-	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
-		this.clickDetector.onTouchEvent(pSceneTouchEvent);
-		this.scrollDetector.onTouchEvent(pSceneTouchEvent);
-		return true;
-	}
-	
-	
 
 	@Override
 	public void onScrollStarted(ScrollDetector pScollDetector, int pPointerID,
 			float pDistanceX, float pDistanceY) {
-		// TODO Auto-generated method stub
 		
 	}
 	
 	@Override
 	public void onScrollFinished(ScrollDetector pScollDetector, int pPointerID,
 			float pDistanceX, float pDistanceY) {
-		// TODO Auto-generated method stub
 		
 	}
 

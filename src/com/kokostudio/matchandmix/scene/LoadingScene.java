@@ -29,7 +29,7 @@ public class LoadingScene extends BaseScene {
 		attachChild(BG);
 		
 		loading = new AnimatedSprite(400, 240, resourcesManager.loadingTexture, vbom);
-		loading.animate(300);
+		loading.animate(100);
 		attachChild(loading);
 		
 		engine.registerUpdateHandler(new TimerHandler(5f, new ITimerCallback() {
