@@ -7,7 +7,6 @@ import org.andengine.entity.scene.background.ParallaxBackground;
 import org.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
-import org.andengine.entity.util.FPSLogger;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.input.touch.detector.ClickDetector;
 import org.andengine.input.touch.detector.ClickDetector.IClickDetectorListener;
@@ -16,10 +15,8 @@ import org.andengine.input.touch.detector.ScrollDetector.IScrollDetectorListener
 import org.andengine.input.touch.detector.SurfaceScrollDetector;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.util.GLState;
-import org.andengine.util.algorithm.Spiral;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.kokostudio.matchandmix.GameActivity;
 import com.kokostudio.matchandmix.base.BaseScene;
@@ -33,7 +30,8 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 	
 	private Sprite menuLeft;
 	private Sprite menuRight;
-	
+	private Sprite menuHeader;
+
 	public SurfaceScrollDetector scrollDetector;
 	public ClickDetector clickDetector;
 	
@@ -49,6 +47,7 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 		this.scrollDetector = new SurfaceScrollDetector(this);
 		this.clickDetector = new ClickDetector(this);
 		
+		this.sortChildren();
 		this.setOnSceneTouchListener(this);
 		this.setTouchAreaBindingOnActionMoveEnabled(true);
 		
@@ -69,8 +68,8 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 		/*
 		createMenuHeader();
 		createMenuBoxes();
-		createParallaxBackground();
-		*/
+		createParallaxBackground();*/
+		
 	}	
 
 	@Override
@@ -110,13 +109,14 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 	}
 	
 	public void createMenuHeader() {
-		attachChild(new Sprite(400, 430, resourcesManager.menuHeaderTextureRegion, vbom) {
+		menuHeader = new Sprite(400, 430, resourcesManager.menuHeaderTextureRegion, vbom) {
 			@Override
 			protected void preDraw(GLState pGLState, Camera pCamera) {
 				pGLState.enableDither();
 				super.preDraw(pGLState, pCamera);
-			}		
-		});
+			}	
+		};
+		attachChild(menuHeader);
 	}
 	
 	public void createButtons() {
@@ -316,6 +316,12 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 		this.clickDetector.onTouchEvent(pSceneTouchEvent);
 		this.scrollDetector.onTouchEvent(pSceneTouchEvent);
 		
+		this.sortChildren();
+		this.setOnSceneTouchListener(this);
+		this.setTouchAreaBindingOnActionMoveEnabled(true);
+		
+		this.setTouchAreaBindingOnActionDownEnabled(true);
+		
 		Log.d("currentX", "currentX = " +currentX);
 		Log.d("currentX", "minX = " +minX);
 		Log.d("currentX", "maxX = " +maxX);
@@ -325,6 +331,7 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 	
 	@Override
 	public void onScroll(ScrollDetector pScollDetector, int pPointerID, float pDistanceX, float pDistanceY) {
+		maxX = 1030;
 		if(camera.getXMin()<=15)
          	menuLeft.setVisible(false);
          else
@@ -338,7 +345,8 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
          //Return if ends are reached
      	 if ( ((currentX - pDistanceX) < minX)) {
      		return;
-     	 } else if((currentX - pDistanceX) > maxX) {
+     		
+     	 } else if( ((currentX - pDistanceX) > maxX)) {
      		return;
      	 }
      		 
@@ -349,6 +357,7 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 
         menuLeft.setPosition(this.camera.getCenterX()- GameActivity.CAMERA_WIDTH/2 + 45 ,200);
         menuRight.setPosition(this.camera.getCenterX()+ GameActivity.CAMERA_WIDTH/2 - 45, 200);
+        menuHeader.setPosition(this.camera.getCenterX() - GameActivity.CAMERA_WIDTH/2 +400, 430);
        
         //Because Camera can have negativ X values, so set to 0
     	if(this.camera.getXMin()<0){
@@ -393,6 +402,7 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 						
 						Log.d("position", "menuLeft " + (camera.getCenterX() - GameActivity.CAMERA_WIDTH/2 + 45));
 						Log.d("position", "menuRight " + (camera.getCenterX()+ GameActivity.CAMERA_WIDTH/2 - 45));
+						Log.d("GAME WIDTH", "test "+GameActivity.CAMERA_WIDTH);
 						break;
 					}
 					return false;
@@ -407,7 +417,7 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 					menuSelectionTiledSprite[index].setZIndex(0);
 				}
 			});
-			spriteX += 280;
+			spriteX += 300;
 		}
 		
 		maxX = spriteX - GameActivity.CAMERA_WIDTH;

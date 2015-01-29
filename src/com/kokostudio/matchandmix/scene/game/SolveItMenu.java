@@ -12,14 +12,11 @@ import com.kokostudio.matchandmix.manager.ResourcesManager;
 import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
 
-public class SolveIT extends BaseScene {
+public class SolveItMenu extends BaseScene {
 	private Sprite qHeader;
 	private TiledSprite back;
 	private TiledSprite add,divide,sub,multi;
 	
-	
-	private int x, y, rowCounter;
-
 	@Override
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
@@ -43,7 +40,7 @@ public class SolveIT extends BaseScene {
 
 	@Override
 	public SceneType getSceneType() {
-		return SceneType.SCENE_SOLVEIT;
+		return SceneType.SCENE_SOLVEITMENU;
 	}
 
 	@Override
@@ -78,7 +75,7 @@ public class SolveIT extends BaseScene {
 					add.setCurrentTileIndex(0);
 					add.setScale(1.0f);
 					// Load the GuessTheMissingLetter Scene
-					//SceneManager.getInstance().loadGTMLScene();
+					SceneManager.getInstance().loadGTMLScene();
 					break;
 				}
 				return true;

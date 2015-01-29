@@ -215,8 +215,7 @@ public class ResourcesManager {
 		
 	
 	// SOLVE IT ******************************************************************************************************
-	public BuildableBitmapTextureAtlas solveitmenuAtlas;
-	public ITextureRegion SolveitmenutextureRegion;
+	public BuildableBitmapTextureAtlas solveItMenuAtlas;
 	public TiledTextureRegion addTiledTexture;
 	public TiledTextureRegion subTiledTexture;
 	public TiledTextureRegion divTiledTexture;
@@ -347,15 +346,18 @@ public class ResourcesManager {
 		public ITextureRegion countItBGTexture;
 		public ITextureRegion countItClueTriangleTexture;
 		public ITextureRegion countItClueSquareTexture;
+		public ITextureRegion countItClueCirceTexture;
 		
 		// QUESTION FOR COUNT IT
 		public BuildableBitmapTextureAtlas countItQuestionAtlas;
 		public ITextureRegion countItQuestion1;
+		public ITextureRegion countItQuestion2;
 		
 		// OBJECTS FOR COUNT IT
 		public BuildableBitmapTextureAtlas countItObjectAtlas;
 		public ITextureRegion countItObjectTriangle;
 		public ITextureRegion countItObjectSquare;
+		public ITextureRegion countItObjectCircle;
 		
 	// OPTION TEXTURES *********************************************************************************************************
 	public BuildableBitmapTextureAtlas optionTextureAtlas;
@@ -1557,6 +1559,7 @@ public class ResourcesManager {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_countit/questions/");
 				countItQuestionAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
 				countItQuestion1 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItQuestionAtlas, activity, "ci_q1.png");
+				countItQuestion2 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItQuestionAtlas, activity, "ci_q2.png");
 				try {
 					this.countItQuestionAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 					this.countItQuestionAtlas.load();
@@ -1571,7 +1574,7 @@ public class ResourcesManager {
 				countItClueAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
 				countItClueTriangleTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_triangle.png");
 				countItClueSquareTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_square.png");
-				
+				countItClueCirceTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_circle.png");
 				try {
 					this.countItClueAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 					this.countItClueAtlas.load();
@@ -1586,6 +1589,7 @@ public class ResourcesManager {
 				countItObjectAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
 				countItObjectTriangle = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_triangle.png");
 				countItObjectSquare = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_square.png");
+				countItObjectCircle = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_circle.png");
 				try {
 					this.countItObjectAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 					this.countItObjectAtlas.load();
@@ -1618,27 +1622,68 @@ public class ResourcesManager {
 	
 		private void loadSolveItGraphics() {
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_solveit/");
-			solveitmenuAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
-			addTiledTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(solveitmenuAtlas, activity, "add_btn.png", 2, 1);
-			//divTiledTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(solveitmenuAtlas, activity, "div_btn.png", 2, 1);
+			solveItMenuAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+			addTiledTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(solveItMenuAtlas, activity, "add_btn.png", 1, 2);
+			subTiledTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(solveItMenuAtlas, activity, "sub_btn.png", 1, 2);
+			multiTiledTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(solveItMenuAtlas, activity, "mul_btn.png", 1, 2);
+			divTiledTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(solveItMenuAtlas, activity, "div_btn.png", 1, 2);
 			try {
-				this.solveitmenuAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
-				this.solveitmenuAtlas.load();
+				this.solveItMenuAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+				this.solveItMenuAtlas.load();
 			} catch(final TextureAtlasBuilderException e) {
 				Debug.e(e);
 			}
-			
-			
 		}
 		
 		private void loadSolveItAudio() {
 			loadClickSound();
 		}
 		
-	public void unloadSolveItGraphics() {
-		solveitmenuAtlas.unload();
+	public void loadSolveItAddResources() {
+		
+	}
+		private void loadSolvieItAddGraphics() {
+			
+		}
+		
+		private void loadSolveItAddAudio() {
+			
+		}
+		
+	public void loadSolveItSubResources() {
+		
 	}
 	
+		private void loadSolveItSubGraphics() {
+			
+		}
+		
+		private void loadSolveItSubAudio() {
+			
+		}
+		
+	public void loadSolveItMulResources() {
+		
+	}
+		private void loadSolveItMulGraphics() {
+			
+		}
+		
+		private void loadSolveItMulAudio() {
+			
+		}
+		
+	public void loadSolveItDivResources() {
+		
+	}
+		private void loadSolveItDivGraphics() {
+			
+		}
+		
+		private void loadSolveItDivAudio() {
+			
+		}
+		
 	// ****************************************************************
 	// THAT COLOR IS
 	// ****************************************************************

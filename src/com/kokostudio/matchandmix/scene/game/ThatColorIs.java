@@ -8,7 +8,6 @@ import org.andengine.opengl.util.GLState;
 
 import com.kokostudio.matchandmix.base.BaseScene;
 import com.kokostudio.matchandmix.database.myDatabase;
-import com.kokostudio.matchandmix.manager.ResourcesManager;
 import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
 import com.kokostudio.matchandmix.scene.game.panel.ThatColorIsPanel;
@@ -22,9 +21,6 @@ public class ThatColorIs extends BaseScene {
 	private int x, y, rowCounter;
 	
 	private myDatabase db;
-	
-	private ThatColorIsPanel colorPanel;
-	
 
 	@Override
 	public void createScene() {

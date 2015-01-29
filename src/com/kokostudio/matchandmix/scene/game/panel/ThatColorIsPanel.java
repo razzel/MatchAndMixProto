@@ -64,7 +64,9 @@ public class ThatColorIsPanel extends BaseScene {
 
 	@Override
 	public void disposeScene() {
-		
+		this.dispose();
+		this.detachSelf();
+		System.gc();
 	}
 	
 	// -----------------------------------------------------------------------------
@@ -98,6 +100,7 @@ public class ThatColorIsPanel extends BaseScene {
 					back.setScale(1f);
 					// unload that color is panel textures
 					//ResourcesManager.getInstance().unloadThatColorIsPanelTextures();
+					disposeScene();
 					// set the scene
 					SceneManager.getInstance().loadThatColorIsScene();
 					break;

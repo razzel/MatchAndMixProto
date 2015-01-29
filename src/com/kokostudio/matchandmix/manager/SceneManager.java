@@ -17,7 +17,7 @@ import com.kokostudio.matchandmix.scene.SplashScene;
 
 import com.kokostudio.matchandmix.scene.game.GuessTheMissingLetter;
 import com.kokostudio.matchandmix.scene.game.MatchIt;
-import com.kokostudio.matchandmix.scene.game.SolveIT;
+import com.kokostudio.matchandmix.scene.game.SolveItMenu;
 import com.kokostudio.matchandmix.scene.game.ThatColorIs;
 import com.kokostudio.matchandmix.scene.game.countIt;
 import com.kokostudio.matchandmix.scene.game.panel.CountItPanel;
@@ -47,7 +47,11 @@ public class SceneManager {
 	private BaseScene MatchItScene;
 	private BaseScene GuessTheMissingLetterScene;
 	private BaseScene CountItScene;
-	private BaseScene SolveItScene;
+	private BaseScene SolveItMenuScene;
+		private BaseScene SolveItAddScene;
+		private BaseScene SolveItSubScene;
+		private BaseScene SolveItMulScene;
+		private BaseScene SolveItDivScene;
 	private BaseScene ThatColorIsScene;
 	// GAME PANELS
 	private BaseScene MatchItPanelScene;
@@ -78,7 +82,7 @@ public class SceneManager {
 		SCENE_MATCHIT,
 		SCENE_GTML,
 		SCENE_COUNTIT,
-		SCENE_SOLVEIT,
+		SCENE_SOLVEITMENU,
 		SCENE_THATCOLORIS,
 		
 		//GAME PANEL SCENES
@@ -249,15 +253,46 @@ public class SceneManager {
 	
 	//SOLVE IT ====================================================================================================================
 	
-	public void loadSolveItScene() {
+	public void loadSolveItMenuScene() {
 		// unload the game menu textures
 		ResourcesManager.getInstance().unloadGameMenuTexture();
 		// load that THAT COLOR IS SCENE RESOURCES
 		ResourcesManager.getInstance().loadSolveItResources();
 		// set the scene
-		SolveItScene = new SolveIT();
-		setScene(SolveItScene);
+		SolveItMenuScene = new SolveItMenu();
+		setScene(SolveItMenuScene);
 	}
+	
+		public void loadSolveItAddScene() {
+			
+		}
+		
+			public void loadSolveItAddPanelScene() {
+				
+			}
+		
+		public void loadSolveItSubScene() {
+			
+		}
+			public void loadSolveItSubPanelScene() {
+				
+			}
+		
+		public void loadSolveItMulScene() {
+			
+		}
+		
+			public void loadSolveItMulPanelScene() {
+				
+			}
+		
+		public void loadSolveItDivScene() {
+			
+		}
+		
+			public void loadSolveItDivPanelScene() {
+				
+			}
 	
 	//COUNT IT ==================================================================================================
 	public void loadCountItScene() {

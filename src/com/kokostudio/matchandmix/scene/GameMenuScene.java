@@ -7,11 +7,8 @@ import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.util.GLState;
 
 import com.kokostudio.matchandmix.base.BaseScene;
-import com.kokostudio.matchandmix.manager.ResourcesManager;
 import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
-import com.kokostudio.matchandmix.scene.game.ThatColorIs;
-import com.kokostudio.matchandmix.scene.game.SolveIT;
 
 public class GameMenuScene extends BaseScene {
 	
@@ -312,9 +309,9 @@ public class GameMenuScene extends BaseScene {
 					resourcesManager.click.play();
 					countIt.setScale(1.0f);
 					countIt.setCurrentTileIndex(0);
-					//disposeScene();
+					disposeScene();
 					// Switch the scene
-					//SceneManager.getInstance().loadCountItScene();
+					SceneManager.getInstance().loadCountItScene();
 					break;
 				}
 				return true;

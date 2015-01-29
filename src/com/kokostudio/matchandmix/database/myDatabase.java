@@ -131,6 +131,10 @@ public class myDatabase extends SQLiteOpenHelper {
 			colorValues.put(fColor_isAnswered, "false");	
 				db.insert(table_ThatColorIs, null, colorValues);
 				
+				colorValues.put(fThatColorIs_ID, 5);
+				colorValues.put(fColor_isAnswered, "true");	
+					db.insert(table_ThatColorIs, null, colorValues);
+				
 			colorValues.put(fThatColorIs_ID, 6);
 			colorValues.put(fColor_isAnswered, "false");	
 				db.insert(table_ThatColorIs, null, colorValues);			
@@ -149,6 +153,10 @@ public class myDatabase extends SQLiteOpenHelper {
 			colorValues.put(fThatColorIs_ID, 10);
 			colorValues.put(fColor_isAnswered, "false");	
 				db.insert(table_ThatColorIs, null, colorValues);
+				
+				colorValues.put(fThatColorIs_ID, 11);
+				colorValues.put(fColor_isAnswered, "true");	
+					db.insert(table_ThatColorIs, null, colorValues);
 				
 			colorValues.put(fThatColorIs_ID, 12);
 			colorValues.put(fColor_isAnswered, "false");	
@@ -170,6 +178,10 @@ public class myDatabase extends SQLiteOpenHelper {
 			colorValues.put(fColor_isAnswered, "false");	
 				db.insert(table_ThatColorIs, null, colorValues);
 				
+				colorValues.put(fThatColorIs_ID, 17);
+				colorValues.put(fColor_isAnswered, "true");	
+					db.insert(table_ThatColorIs, null, colorValues);
+				
 			colorValues.put(fThatColorIs_ID, 18);
 			colorValues.put(fColor_isAnswered, "false");	
 				db.insert(table_ThatColorIs, null, colorValues);
@@ -189,6 +201,10 @@ public class myDatabase extends SQLiteOpenHelper {
 			colorValues.put(fThatColorIs_ID, 22);
 			colorValues.put(fColor_isAnswered, "false");	
 				db.insert(table_ThatColorIs, null, colorValues);
+				
+				colorValues.put(fThatColorIs_ID, 23);
+				colorValues.put(fColor_isAnswered, "true");	
+					db.insert(table_ThatColorIs, null, colorValues);
 			
 			colorValues.put(fThatColorIs_ID, 24);
 			colorValues.put(fColor_isAnswered, "false");	
@@ -229,7 +245,7 @@ public class myDatabase extends SQLiteOpenHelper {
 		}
 		c.close();
 		db.close();
-		return count;
+		return count-4;
 	}
 	
 	public int colorGetRemaining() {
