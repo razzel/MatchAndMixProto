@@ -261,6 +261,15 @@ public class MatchItPanel extends BaseScene {
 		questionSet = i;
 	}
 	
+	private void nextQuestion() {
+		int x = 1;
+		while(db.matchItIsAnswered(questionSet+x).compareTo("true")==0) {
+			x++;
+		} 
+		getQuestionIndex(questionSet+x);
+		SceneManager.getInstance().loadMatchItPanelScene();
+	}
+	
 	// POSITIONS 
 		/* (X, Y)	 | (X, Y)
 		 * (590,375) | (715,370)
@@ -1273,6 +1282,7 @@ public class MatchItPanel extends BaseScene {
 	}
 	
 	private void lock() {
+		nextQuestion();
 		question.setCurrentTileIndex(1);
 		correctSprite.detachSelf();
 		unregisterTouchArea(c1);

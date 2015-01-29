@@ -16,6 +16,7 @@ import org.andengine.input.touch.detector.ScrollDetector.IScrollDetectorListener
 import org.andengine.input.touch.detector.SurfaceScrollDetector;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.util.GLState;
+import org.andengine.util.algorithm.Spiral;
 
 import android.util.Log;
 import android.widget.Toast;
@@ -44,13 +45,13 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 	
 	@Override
 	public void createScene() {
-		/*
+		
 		this.scrollDetector = new SurfaceScrollDetector(this);
 		this.clickDetector = new ClickDetector(this);
 		
 		this.setOnSceneTouchListener(this);
 		this.setTouchAreaBindingOnActionMoveEnabled(true);
-		*/
+		
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 		
 		
@@ -65,12 +66,11 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 		exit.setVisible(false);
 		
 		unregisterTouchArea(options);
-		
 		/*
 		createMenuHeader();
 		createMenuBoxes();
-		createParallaxBackground(); */
-		
+		createParallaxBackground();
+		*/
 	}	
 
 	@Override
@@ -315,12 +315,16 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
 		this.clickDetector.onTouchEvent(pSceneTouchEvent);
 		this.scrollDetector.onTouchEvent(pSceneTouchEvent);
+		
+		Log.d("currentX", "currentX = " +currentX);
+		Log.d("currentX", "minX = " +minX);
+		Log.d("currentX", "maxX = " +maxX);
+		
 		return true;
 	}
 	
 	@Override
 	public void onScroll(ScrollDetector pScollDetector, int pPointerID, float pDistanceX, float pDistanceY) {
-		
 		if(camera.getXMin()<=15)
          	menuLeft.setVisible(false);
          else
@@ -331,7 +335,6 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
          else
         	 menuRight.setVisible(true);
     	 
-     	
          //Return if ends are reached
      	 if ( ((currentX - pDistanceX) < minX)) {
      		return;
@@ -339,7 +342,6 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
      		return;
      	 }
      		 
-     	 
     	 
         //Center camera to the current point
         this.camera.offsetCenter(-pDistanceX, 0);
@@ -353,17 +355,6 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
     		this.camera.offsetCenter(0,0);
     		currentX = 0;
     	}
-         
-         activity.runOnUiThread(new Runnable() {
- 			
- 			@Override
- 			public void run() {
- 				Toast.makeText(activity, "Scroll", Toast.LENGTH_SHORT).show();
- 				
- 			}
- 		});
-         
-        
     	
 	}
 

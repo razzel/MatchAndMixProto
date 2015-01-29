@@ -280,9 +280,15 @@ public class myDatabase extends SQLiteOpenHelper {
 		gtmlValues.put(fgtml_isAnswered, "false");
 			db.insert(table_GTML, null, gtmlValues);
 			
+			gtmlValues.put(fGTML_ID,5);
+			gtmlValues.put(fgtml_isAnswered, "true");
+				db.insert(table_GTML, null, gtmlValues);
+				
 		gtmlValues.put(fGTML_ID,6);
 		gtmlValues.put(fgtml_isAnswered, "false");
 			db.insert(table_GTML, null, gtmlValues);
+			
+		
 			
 		gtmlValues.put(fGTML_ID,7);
 		gtmlValues.put(fgtml_isAnswered, "false");
@@ -299,6 +305,10 @@ public class myDatabase extends SQLiteOpenHelper {
 		gtmlValues.put(fGTML_ID,10);
 		gtmlValues.put(fgtml_isAnswered, "false");
 			db.insert(table_GTML, null, gtmlValues);
+			
+			gtmlValues.put(fGTML_ID,11);
+			gtmlValues.put(fgtml_isAnswered, "true");
+				db.insert(table_GTML, null, gtmlValues);
 			
 		gtmlValues.put(fGTML_ID,12);
 		gtmlValues.put(fgtml_isAnswered, "false");
@@ -319,6 +329,10 @@ public class myDatabase extends SQLiteOpenHelper {
 		gtmlValues.put(fGTML_ID,16);
 		gtmlValues.put(fgtml_isAnswered, "false");
 			db.insert(table_GTML, null, gtmlValues);
+			
+			gtmlValues.put(fGTML_ID,17);
+			gtmlValues.put(fgtml_isAnswered, "true");
+				db.insert(table_GTML, null, gtmlValues);
 
 		gtmlValues.put(fGTML_ID,18);
 		gtmlValues.put(fgtml_isAnswered, "false");
@@ -340,6 +354,9 @@ public class myDatabase extends SQLiteOpenHelper {
 		gtmlValues.put(fgtml_isAnswered, "false");
 			db.insert(table_GTML, null, gtmlValues);
 			
+			gtmlValues.put(fGTML_ID,23);
+			gtmlValues.put(fgtml_isAnswered, "true");
+				db.insert(table_GTML, null, gtmlValues);
 		gtmlValues.put(fGTML_ID,24);
 		gtmlValues.put(fgtml_isAnswered, "false");
 			db.insert(table_GTML, null, gtmlValues);
@@ -379,7 +396,7 @@ public class myDatabase extends SQLiteOpenHelper {
 		}
 		c.close();
 		db.close();
-		return count;
+		return count-4;
 	}
 	
 	public int gtmlGetRemaining() {
@@ -429,6 +446,10 @@ public class myDatabase extends SQLiteOpenHelper {
 		matchValues.put(fMatch_ID, 4);
 		matchValues.put(fMatch_isAnswered, "false");
 			db.insert(table_MatchIt, null, matchValues);
+			
+			matchValues.put(fMatch_ID, 5);
+			matchValues.put(fMatch_isAnswered, "true");
+				db.insert(table_MatchIt, null, matchValues);
 		
 		matchValues.put(fMatch_ID, 6);
 		matchValues.put(fMatch_isAnswered, "false");
@@ -449,6 +470,10 @@ public class myDatabase extends SQLiteOpenHelper {
 		matchValues.put(fMatch_ID, 10);
 		matchValues.put(fMatch_isAnswered, "false");
 				db.insert(table_MatchIt, null, matchValues);
+				
+				matchValues.put(fMatch_ID, 11);
+				matchValues.put(fMatch_isAnswered, "true");
+					db.insert(table_MatchIt, null, matchValues);
 		
 		matchValues.put(fMatch_ID, 12);
 		matchValues.put(fMatch_isAnswered, "false");
@@ -470,6 +495,9 @@ public class myDatabase extends SQLiteOpenHelper {
 		matchValues.put(fMatch_isAnswered, "false");
 				db.insert(table_MatchIt, null, matchValues);
 											
+				matchValues.put(fMatch_ID, 17);
+				matchValues.put(fMatch_isAnswered, "true");
+					db.insert(table_MatchIt, null, matchValues);
 		matchValues.put(fMatch_ID, 18);
 		matchValues.put(fMatch_isAnswered, "false");
 				db.insert(table_MatchIt, null, matchValues);
@@ -489,6 +517,10 @@ public class myDatabase extends SQLiteOpenHelper {
 		matchValues.put(fMatch_ID, 22);
 		matchValues.put(fMatch_isAnswered, "false");
 				db.insert(table_MatchIt, null, matchValues);
+				
+				matchValues.put(fMatch_ID, 23);
+				matchValues.put(fMatch_isAnswered, "true");
+					db.insert(table_MatchIt, null, matchValues);
 		
 		matchValues.put(fMatch_ID, 24);
 		matchValues.put(fMatch_isAnswered, "false");
@@ -529,7 +561,7 @@ public class myDatabase extends SQLiteOpenHelper {
 		}
 		c.close();
 		db.close();
-		return count;
+		return count-4;
 	}
 	
 	public int matchGetRemaining() {
