@@ -2,6 +2,7 @@ package com.kokostudio.matchandmix.scene;
 
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
+import org.andengine.entity.modifier.AlphaModifier;
 import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.util.adt.color.Color;
@@ -16,6 +17,7 @@ public class SplashScene extends BaseScene {
 	public void createScene() {
 		setBackground(new Background(0,0,0));
 		splash = new Sprite(400, 240, resourcesManager.SplashTextureRegion, vbom);
+		splash.registerEntityModifier(new AlphaModifier(1, 1, 5));
 		attachChild(splash);
 		
 		engine.registerUpdateHandler(new TimerHandler(2f, new ITimerCallback() {

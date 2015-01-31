@@ -304,8 +304,6 @@ public class myDatabase extends SQLiteOpenHelper {
 		gtmlValues.put(fgtml_isAnswered, "false");
 			db.insert(table_GTML, null, gtmlValues);
 			
-		
-			
 		gtmlValues.put(fGTML_ID,7);
 		gtmlValues.put(fgtml_isAnswered, "false");
 			db.insert(table_GTML, null, gtmlValues);

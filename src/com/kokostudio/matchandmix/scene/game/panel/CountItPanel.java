@@ -338,6 +338,56 @@ public class CountItPanel extends BaseScene {
 		
 		else if(questionSet == 1) cnt = 4;
 		
+		else if(questionSet == 2) cnt = 1;
+		
+		else if(questionSet == 3) cnt = 4;
+		
+		else if(questionSet == 4) cnt = 5;
+		
+		else if(questionSet == 6) cnt = 2;
+		
+		else if(questionSet == 7) cnt = 2;
+		
+		else if(questionSet == 8) cnt = 3;
+		
+		else if(questionSet == 9) cnt = 3;
+		
+		else if(questionSet == 10) cnt = 4;
+		//
+		
+		else if(questionSet == 12) cnt = 5;
+		
+		else if(questionSet == 13) cnt = 4;
+		
+		else if(questionSet == 14) cnt = 1;
+		
+		else if(questionSet == 15) cnt = 5;
+		
+		else if(questionSet == 16) cnt = 3;
+		
+		//
+		
+		else if(questionSet == 18) cnt = 4;
+		
+		else if(questionSet == 19) cnt = 6;
+		
+		else if(questionSet == 20) cnt = 3;
+		
+		else if(questionSet == 21) cnt = 8;
+		
+		else if(questionSet == 22) cnt = 1;
+		
+		//
+		
+		else if(questionSet == 24) cnt = 8;
+		
+		else if(questionSet == 25) cnt = 9;
+		
+		else if(questionSet == 26) cnt = 5;
+		
+		else if(questionSet == 27) cnt = 4;
+		
+		else if(questionSet == 28) cnt = 8;
 		return cnt;
 	}
 	
@@ -345,6 +395,41 @@ public class CountItPanel extends BaseScene {
 		if(questionSet == 0) cnt = 2;
 		
 		else if(questionSet == 1) cnt = 5;
+		
+		else if(questionSet == 2) cnt = 4;
+		
+		else if(questionSet == 3) cnt = 4;
+		
+		else if(questionSet == 4) cnt = 2;
+		//
+		
+		else if(questionSet == 6) cnt = 2;
+		else if(questionSet == 7) cnt = 6;
+		else if(questionSet == 8) cnt = 4;
+		else if(questionSet == 9) cnt = 3;
+		else if(questionSet == 10) cnt = 2;
+		//
+		
+		else if(questionSet == 12) cnt = 2;
+		else if(questionSet == 13) cnt = 4;
+		else if(questionSet == 14) cnt = 5;
+		else if(questionSet == 15) cnt = 1;
+		else if(questionSet == 16) cnt = 2;
+		
+		//
+		
+		else if(questionSet == 18) cnt = 4;
+		else if(questionSet == 19) cnt = 6;
+		else if(questionSet == 20) cnt = 2;
+		else if(questionSet == 21) cnt = 1;
+		else if(questionSet == 22) cnt = 3;
+		
+		//
+		else if(questionSet == 24) cnt = 4;
+		else if(questionSet == 25) cnt = 2;
+		else if(questionSet == 26) cnt = 1;
+		else if(questionSet == 27) cnt = 4;
+		else if(questionSet == 28) cnt = 3;
 		return cnt;
 	}
 	
@@ -353,6 +438,42 @@ public class CountItPanel extends BaseScene {
 		if(questionSet == 0) r = resourcesManager.countItQuestion1;
 		
 		else if (questionSet == 1) r = resourcesManager.countItQuestion2;
+		
+		else if (questionSet == 2) r = resourcesManager.countItQuestion3;
+		
+		else if (questionSet == 3) r = resourcesManager.countItQuestion4;
+		
+		else if (questionSet == 4) r = resourcesManager.countItQuestion5;
+		
+		//
+		
+		else if (questionSet == 6) r = resourcesManager.countItQuestion6;
+		else if (questionSet == 7) r = resourcesManager.countItQuestion7;
+		else if (questionSet == 8) r = resourcesManager.countItQuestion8;
+		else if (questionSet == 9) r = resourcesManager.countItQuestion9;
+		else if (questionSet == 10) r = resourcesManager.countItQuestion10;
+		//
+		
+		else if (questionSet == 12) r = resourcesManager.countItQuestion11;
+		else if (questionSet == 13) r = resourcesManager.countItQuestion12;
+		else if (questionSet == 14) r = resourcesManager.countItQuestion13;
+		else if (questionSet == 15) r = resourcesManager.countItQuestion14;
+		else if (questionSet == 16) r = resourcesManager.countItQuestion15;
+		//
+		
+		else if (questionSet == 18) r = resourcesManager.countItQuestion16;
+		else if (questionSet == 19) r = resourcesManager.countItQuestion17;
+		else if (questionSet == 20) r = resourcesManager.countItQuestion18;
+		else if (questionSet == 21) r = resourcesManager.countItQuestion19;
+		else if (questionSet == 22) r = resourcesManager.countItQuestion20;
+		//
+		
+		else if (questionSet == 24) r = resourcesManager.countItQuestion21;
+		else if (questionSet == 25) r = resourcesManager.countItQuestion22;
+		else if (questionSet == 26) r = resourcesManager.countItQuestion23;
+		else if (questionSet == 27) r = resourcesManager.countItQuestion24;
+		else if (questionSet == 28) r = resourcesManager.countItQuestion25;
+		
 			
 		return r;
 	}
@@ -362,21 +483,124 @@ public class CountItPanel extends BaseScene {
 		
 		else if (questionSet == 1) r = resourcesManager.countItClueCirceTexture;
 		
+		else if(questionSet == 2) r = resourcesManager.countItClueTriangleTexture;
+		
+		else if(questionSet == 3) r = resourcesManager.countItClueRectangleTexture;
+		
+		else if(questionSet == 4) r = resourcesManager.countItClueDiamondTexture;
+		//
+		else if(questionSet == 6) r = resourcesManager.countItClueLollipopTexture;
+		
+		else if(questionSet == 7) r = resourcesManager.countItClueMoonTexture;
+		
+		else if(questionSet == 8) r = resourcesManager.countItClueButterflyTexture;
+		
+		else if(questionSet == 9) r = resourcesManager.countItClueAppleTexure;
+		
+		else if(questionSet == 10) r = resourcesManager.countItClueBananaTexture;
+		
+		//
+		
+		else if(questionSet == 12) r = resourcesManager.countItClueTurtleTexture;
+		
+		else if(questionSet == 13) r = resourcesManager.countItClueCookieTexture;
+		
+		else if(questionSet == 14) r = resourcesManager.countItClueFanTexture;
+		
+		else if(questionSet == 15) r = resourcesManager.countItClueCarTexure;
+		
+		else if(questionSet == 16) r = resourcesManager.countItClueRacconTexture;
+		
+		//
+		// 18 change to bees
+		else if(questionSet == 18) r = resourcesManager.countItClueFanTexture;
+		
+		else if(questionSet == 19) r = resourcesManager.countItClueEggTexture;
+		
+		else if(questionSet == 20) r = resourcesManager.countItClueKiteTexture;
+		
+		else if(questionSet == 21) r = resourcesManager.countItClueMilkTexture;
+		//22 change to carabao
+		else if(questionSet == 22) r = resourcesManager.countItClueFanTexture;
+		
+		else if(questionSet == 24) r = resourcesManager.countItClueSnowmanTexture;
+		
+		else if(questionSet == 25) r = resourcesManager.countItClueRibonTexture;
+		
+		else if(questionSet == 26) r = resourcesManager.countItClueElephantTexture;
+		//27 change to dolphin
+		else if(questionSet == 27) r = resourcesManager.countItClueFanTexture;
+		
+		else if(questionSet == 28) r = resourcesManager.countItClueCakesTexture;
 		return r;
 	}
 	
 	private ITextureRegion otherClue() {
 		if(questionSet == 0) r = resourcesManager.countItClueSquareTexture;
-		
 		else if(questionSet == 1) r = resourcesManager.countItClueSquareTexture;
+		else if(questionSet == 2) r = resourcesManager.countItClueFanTexture;
+		else if(questionSet == 3) r = resourcesManager.countItClueSquareTexture;
+		else if(questionSet == 4) r = resourcesManager.countItClueSquareTexture;
+		//
+		else if(questionSet == 6) r = resourcesManager.countItClueCandyTexture;
+		else if(questionSet == 7) r = resourcesManager.countItClueStarTexture;
+		else if(questionSet == 8) r = resourcesManager.countItClueBugTexture;
+		else if(questionSet == 9) r = resourcesManager.countItClueStrawberryTexture;
+		else if(questionSet == 10) r = resourcesManager.countItClueMangoTexture;
+		//
+		else if(questionSet == 12) r = resourcesManager.countItClueFrogTexture;
+		else if(questionSet == 13) r = resourcesManager.countItClueIcecreamTexture;
+		else if(questionSet == 14) r = resourcesManager.countItClueHorseTexture;
+		else if(questionSet == 15) r = resourcesManager.countItClueAirplaneTexture;
+		else if(questionSet == 16) r = resourcesManager.countItClueKoalaTexture;
+		//
+		else if(questionSet == 18) r = resourcesManager.countItClueCaterpillarTexture;
+		else if(questionSet == 19) r = resourcesManager.countItClueFanTexture;
+		else if(questionSet == 20) r = resourcesManager.coutItClueBirdTexture;
+		else if(questionSet == 21) r = resourcesManager.countItClueCowTexture;
+		else if(questionSet == 22) r = resourcesManager.countItClueHorseTexture;
+		//
+		else if(questionSet == 24) r = resourcesManager.countItClueIglooTexture;
+		else if(questionSet == 25) r = resourcesManager.countItCluePencilTexture;
+		else if(questionSet == 26) r = resourcesManager.countItClueLionTexture;
+		else if(questionSet == 27) r = resourcesManager.countItClueCakeTexture;
+		else if(questionSet == 28) r = resourcesManager.countItClueBreadTexture;
 		
 		return r;
 	}
 	
 	private ITextureRegion correctObject() {
 		if(questionSet == 0) r = resourcesManager.countItObjectTriangle;
-		
 		else if(questionSet == 1) r = resourcesManager.countItObjectCircle;
+		else if(questionSet == 2) r = resourcesManager.countItObjectCircle;
+		else if(questionSet == 3) r = resourcesManager.countItObjectSquare;
+		else if(questionSet == 4) r = resourcesManager.countItObjectRectangle;
+		//
+		else if(questionSet == 6) r = resourcesManager.countItObjectDiamond;
+		else if(questionSet == 7) r = resourcesManager.countItObjectMoon;
+		else if(questionSet == 8) r = resourcesManager.countItObjectButterfly;
+		else if(questionSet == 9) r = resourcesManager.countItObjectApple;
+		else if(questionSet == 10) r = resourcesManager.countItObjectBanana;
+		//
+		else if(questionSet == 12) r = resourcesManager.countItObjectTurtle;
+		else if(questionSet == 13) r = resourcesManager.countItObjectCookie;
+		else if(questionSet == 14) r = resourcesManager.countItObjectFan;
+		else if(questionSet == 15) r = resourcesManager.countItObjectCar;
+		else if(questionSet == 16) r = resourcesManager.countItObjectRaccoon;
+		//
+		else if(questionSet == 18) r = resourcesManager.countItObjectCake;
+		else if(questionSet == 19) r = resourcesManager.countItObjectEgg;
+		else if(questionSet == 20) r = resourcesManager.countItObjectKite;
+		else if(questionSet == 21) r = resourcesManager.countItObjectMilk;
+		else if(questionSet == 22) r = resourcesManager.countItObjectMilk;
+		//
+		else if(questionSet == 24) r = resourcesManager.countItObjectSnowman;
+		else if(questionSet == 25) r = resourcesManager.countItObjectRibbon;
+		else if(questionSet == 26) r = resourcesManager.countItObjectElephant;
+		else if(questionSet == 27) r = resourcesManager.countItObjectElephant;
+		else if(questionSet == 28) r = resourcesManager.countItObjectCake;
+		
+
 		
 		return r;
 	}
@@ -386,31 +610,138 @@ public class CountItPanel extends BaseScene {
 		
 		else  if(questionSet == 1) r = resourcesManager.countItObjectSquare;
 		
+		else  if(questionSet == 2) r = resourcesManager.countItObjectSquare;
+
+		else if(questionSet == 3) r = resourcesManager.countItObjectCircle;
+		else if(questionSet == 4) r = resourcesManager.countItObjectStar;
+		//
+		else if(questionSet == 6) r = resourcesManager.countItObjectCandy;
+		else if(questionSet == 7) r = resourcesManager.countItObjectStar;
+		else if(questionSet == 8) r = resourcesManager.countItObjectBugs;
+		else if(questionSet == 9) r = resourcesManager.countItObjectStrawberry;
+		else if(questionSet == 10) r = resourcesManager.countItObjectMango;
+		//
+		else if(questionSet == 12) r = resourcesManager.countItObjectFrog;
+		else if(questionSet == 13) r = resourcesManager.countItObjectIcecream;
+		else if(questionSet == 14) r = resourcesManager.countItObjectHat;
+		else if(questionSet == 15) r = resourcesManager.countItObjectAirplane;
+		else if(questionSet == 16) r = resourcesManager.countItObjectKoala;
+		//
+		else if(questionSet == 18) r = resourcesManager.countItObjectCatterpillar;
+		else if(questionSet == 19) r = resourcesManager.countItObjectFan;
+		else if(questionSet == 20) r = resourcesManager.countItObjectKite;
+		else if(questionSet == 21) r = resourcesManager.countItObjectCow;
+		else if(questionSet == 22) r = resourcesManager.countItObjectHorse;
+		//
+		else if(questionSet == 24) r = resourcesManager.countItObjectIgloo;
+		else if(questionSet == 25) r = resourcesManager.countItObjectPencil;
+		else if(questionSet == 26) r = resourcesManager.countItObjectLion;
+		else if(questionSet == 27) r = resourcesManager.countItObjectFan;
+		else if(questionSet == 28) r = resourcesManager.countItObjectBread;
+		
 		return r;
 	}
 	
 	private TiledTextureRegion correctAnswerSprite() {
 		TiledTextureRegion tr = null;
-		if(questionSet == 0) tr = resourcesManager.texture1;
-		
+		if(questionSet == 0) tr = resourcesManager.texture3;
 		else if (questionSet == 1) tr = resourcesManager.texture4;
+		else if (questionSet == 2) tr = resourcesManager.texture1;
+		else if (questionSet == 3) tr = resourcesManager.texture4;
+		else if (questionSet == 4) tr = resourcesManager.texture5;
+		//
+		else if (questionSet == 6) tr = resourcesManager.texture2;
+		else if (questionSet == 7) tr = resourcesManager.texture2;
+		else if (questionSet == 8) tr = resourcesManager.texture3;
+		else if (questionSet == 9) tr = resourcesManager.texture3;
+		else if (questionSet == 10) tr = resourcesManager.texture4;
+		//
+		else if (questionSet == 12) tr = resourcesManager.texture5;
+		else if (questionSet == 13) tr = resourcesManager.texture4;
+		else if (questionSet == 14) tr = resourcesManager.texture1;
+		else if (questionSet == 15) tr = resourcesManager.texture5;
+		else if (questionSet == 16) tr = resourcesManager.texture3;
+		//
+		else if (questionSet == 18) tr = resourcesManager.texture4;
+		else if (questionSet == 19) tr = resourcesManager.texture6;
+		else if (questionSet == 20) tr = resourcesManager.texture3;
+		else if (questionSet == 21) tr = resourcesManager.texture8;
+		else if (questionSet == 22) tr = resourcesManager.texture1;
+		////
+		else if (questionSet == 24) tr = resourcesManager.texture8;
+		else if (questionSet == 25) tr = resourcesManager.texture9;
+		else if (questionSet == 26) tr = resourcesManager.texture5;
+		else if (questionSet == 27) tr = resourcesManager.texture4;
+		else if (questionSet == 28) tr = resourcesManager.texture8;
+		
 		
 		return tr;
 	}
 	
 	private ITextureRegion choice1() {
 		if(questionSet == 0) r = resourcesManager.texture4;
-		
 		else if(questionSet == 1) r = resourcesManager.texture5;
+		else if(questionSet == 2) r = resourcesManager.texture5;
+		else if(questionSet == 3) r = resourcesManager.texture4;
+		else if(questionSet == 4) r = resourcesManager.texture5;
+		//
+		else if(questionSet == 6) r = resourcesManager.texture5;
+		else if(questionSet == 7) r = resourcesManager.texture8;
+		else if(questionSet == 8) r = resourcesManager.texture5;
+		else if(questionSet == 9) r = resourcesManager.texture6;
+		else if(questionSet == 10) r = resourcesManager.texture3;
+		//
+		else if(questionSet == 12) r = resourcesManager.texture9;
+		else if(questionSet == 13) r = resourcesManager.texture3;
+		else if(questionSet == 14) r = resourcesManager.texture4;
+		else if(questionSet == 15) r = resourcesManager.texture2;
+		else if(questionSet == 16) r = resourcesManager.texture8;
+		//
+		else if(questionSet == 18) r = resourcesManager.texture2;
+		else if(questionSet == 19) r = resourcesManager.texture8;
+		else if(questionSet == 20) r = resourcesManager.texture5;
+		else if(questionSet == 21) r = resourcesManager.texture10;
+		else if(questionSet == 22) r = resourcesManager.texture3;
+		//
+		else if(questionSet == 24) r = resourcesManager.texture4;
+		else if(questionSet == 25) r = resourcesManager.texture5;
+		else if(questionSet == 26) r = resourcesManager.texture1;
+		else if(questionSet == 27) r = resourcesManager.texture2;
+		else if(questionSet == 28) r = resourcesManager.texture2;
 		
 		return r;
 	}
 	
 	private ITextureRegion choice2() {
-		if(questionSet == 0) r = resourcesManager.texture3;
-		
+		if(questionSet == 0) r = resourcesManager.texture1;
 		else if(questionSet == 1) r = resourcesManager.texture2;
-		
+		else if(questionSet == 2) r = resourcesManager.texture4;
+		else if(questionSet == 3) r = resourcesManager.texture4;
+		else if(questionSet == 4) r = resourcesManager.texture5;
+		//
+		else if(questionSet == 6) r = resourcesManager.texture1;
+		else if(questionSet == 7) r = resourcesManager.texture8;
+		else if(questionSet == 8) r = resourcesManager.texture5;
+		else if(questionSet == 9) r = resourcesManager.texture7;
+		else if(questionSet == 10) r = resourcesManager.texture10;
+		//
+		else if(questionSet == 12) r = resourcesManager.texture9;
+		else if(questionSet == 13) r = resourcesManager.texture3;
+		else if(questionSet == 14) r = resourcesManager.texture4;
+		else if(questionSet == 15) r = resourcesManager.texture2;
+		else if(questionSet == 16) r = resourcesManager.texture8;
+		//
+		else if(questionSet == 18) r = resourcesManager.texture2;
+		else if(questionSet == 19) r = resourcesManager.texture8;
+		else if(questionSet == 20) r = resourcesManager.texture5;
+		else if(questionSet == 21) r = resourcesManager.texture10;
+		else if(questionSet == 22) r = resourcesManager.texture3;
+		//
+		else if(questionSet == 24) r = resourcesManager.texture4;
+		else if(questionSet == 25) r = resourcesManager.texture5;
+		else if(questionSet == 26) r = resourcesManager.texture1;
+		else if(questionSet == 27) r = resourcesManager.texture2;
+		else if(questionSet == 28) r = resourcesManager.texture2;
 		return r;
 	}
 	
@@ -418,6 +749,35 @@ public class CountItPanel extends BaseScene {
 		if(questionSet == 0) r = resourcesManager.texture2;
 		
 		else if(questionSet == 1) r = resourcesManager.texture3;
+		
+		else if(questionSet == 2) r = resourcesManager.texture6;
+		
+		else if(questionSet == 3) r = resourcesManager.texture4;
+		else if(questionSet == 4) r = resourcesManager.texture5;
+		//
+		else if(questionSet == 6) r = resourcesManager.texture5;
+		else if(questionSet == 7) r = resourcesManager.texture8;
+		else if(questionSet == 8) r = resourcesManager.texture5;
+		else if(questionSet == 9) r = resourcesManager.texture6;
+		else if(questionSet == 10) r = resourcesManager.texture3;
+		//
+		else if(questionSet == 12) r = resourcesManager.texture9;
+		else if(questionSet == 13) r = resourcesManager.texture3;
+		else if(questionSet == 14) r = resourcesManager.texture4;
+		else if(questionSet == 15) r = resourcesManager.texture2;
+		else if(questionSet == 16) r = resourcesManager.texture8;
+		//
+		else if(questionSet == 18) r = resourcesManager.texture2;
+		else if(questionSet == 19) r = resourcesManager.texture8;
+		else if(questionSet == 20) r = resourcesManager.texture5;
+		else if(questionSet == 21) r = resourcesManager.texture10;
+		else if(questionSet == 22) r = resourcesManager.texture3;
+		//
+		else if(questionSet == 24) r = resourcesManager.texture4;
+		else if(questionSet == 25) r = resourcesManager.texture5;
+		else if(questionSet == 26) r = resourcesManager.texture1;
+		else if(questionSet == 27) r = resourcesManager.texture2;
+		else if(questionSet == 28) r = resourcesManager.texture2;
 		
 		return r;
 	}
@@ -427,6 +787,34 @@ public class CountItPanel extends BaseScene {
 		
 		else if(questionSet == 1) r = resourcesManager.texture6;
 		
+		else if(questionSet == 2) r = resourcesManager.texture8;
+		
+		else if(questionSet == 3) r = resourcesManager.texture4;
+		else if(questionSet == 4) r = resourcesManager.texture5;
+		//
+		else if(questionSet == 6) r = resourcesManager.texture5;
+		else if(questionSet == 7) r = resourcesManager.texture8;
+		else if(questionSet == 8) r = resourcesManager.texture5;
+		else if(questionSet == 9) r = resourcesManager.texture6;
+		else if(questionSet == 10) r = resourcesManager.texture3;
+		//
+		else if(questionSet == 12) r = resourcesManager.texture9;
+		else if(questionSet == 13) r = resourcesManager.texture3;
+		else if(questionSet == 14) r = resourcesManager.texture4;
+		else if(questionSet == 15) r = resourcesManager.texture2;
+		else if(questionSet == 16) r = resourcesManager.texture8;
+		//
+		else if(questionSet == 18) r = resourcesManager.texture2;
+		else if(questionSet == 19) r = resourcesManager.texture8;
+		else if(questionSet == 20) r = resourcesManager.texture5;
+		else if(questionSet == 21) r = resourcesManager.texture10;
+		else if(questionSet == 22) r = resourcesManager.texture3;
+		//
+		else if(questionSet == 24) r = resourcesManager.texture4;
+		else if(questionSet == 25) r = resourcesManager.texture5;
+		else if(questionSet == 26) r = resourcesManager.texture1;
+		else if(questionSet == 27) r = resourcesManager.texture2;
+		else if(questionSet == 28) r = resourcesManager.texture2;
 		return r;
 	}
 	
@@ -441,6 +829,35 @@ public class CountItPanel extends BaseScene {
 		
 		else if(questionSet == 1) pos = 400;
 		
+		else if(questionSet == 2) pos = 600;
+		
+		else if(questionSet == 3) pos = 200;
+		else if(questionSet == 4) pos = 400;
+		//
+		else if(questionSet == 6) pos = 200;
+		else if(questionSet == 7) pos = 200;
+		else if(questionSet == 8) pos = 200;
+		else if(questionSet == 9) pos = 300;
+		else if(questionSet == 10) pos = 200;
+		//
+		else if(questionSet == 12) pos = 600;
+		else if(questionSet == 13) pos = 500;
+		else if(questionSet == 14) pos = 300;
+		else if(questionSet == 15) pos = 200;
+		else if(questionSet == 16) pos = 200;
+		//
+		else if(questionSet == 18) pos = 400;
+		else if(questionSet == 19) pos = 500;
+		else if(questionSet == 20) pos = 300;
+		else if(questionSet == 21) pos = 600;
+		else if(questionSet == 22) pos = 600;
+		
+		else if(questionSet == 24) pos = 300;
+		else if(questionSet == 25) pos = 500;
+		else if(questionSet == 26) pos = 600;
+		else if(questionSet == 27) pos = 600;
+		else if(questionSet == 28) pos = 600;
+		
 		return pos;
 	}
 	
@@ -448,7 +865,35 @@ public class CountItPanel extends BaseScene {
 		if(questionSet == 0) pos = 300;
 		
 		else if(questionSet == 1) pos = 200;
+
+		else if(questionSet == 2) pos = 200;
 		
+		else if(questionSet == 3) pos = 600;
+		else if(questionSet == 4) pos = 600;
+		//
+		else if(questionSet == 6) pos = 600;
+		else if(questionSet == 7) pos = 600;
+		else if(questionSet == 8) pos = 600;
+		else if(questionSet == 9) pos = 600;
+		else if(questionSet == 10) pos = 600;
+		//
+		else if(questionSet == 12) pos = 600;
+		else if(questionSet == 13) pos = 600;
+		else if(questionSet == 14) pos = 600;
+		else if(questionSet == 15) pos = 600;
+		else if(questionSet == 16) pos = 600;
+		//
+		else if(questionSet == 18) pos = 600;
+		else if(questionSet == 19) pos = 600;
+		else if(questionSet == 20) pos = 600;
+		else if(questionSet == 21) pos = 600;
+		else if(questionSet == 22) pos = 600;
+		
+		else if(questionSet == 24) pos = 600;
+		else if(questionSet == 25) pos = 600;
+		else if(questionSet == 26) pos = 600;
+		else if(questionSet == 27) pos = 600;
+		else if(questionSet == 28) pos = 300;
 		return pos;
 	}
 	
@@ -456,6 +901,35 @@ public class CountItPanel extends BaseScene {
 		if(questionSet == 0) pos = 400;
 		
 		else if(questionSet == 1) pos = 300;
+		
+		else if(questionSet == 2) pos = 300;
+		
+		else if(questionSet == 3) pos = 600;
+		else if(questionSet == 4) pos = 600;
+		//
+		else if(questionSet == 6) pos = 600;
+		else if(questionSet == 7) pos = 600;
+		else if(questionSet == 8) pos = 600;
+		else if(questionSet == 9) pos = 600;
+		else if(questionSet == 10) pos = 600;
+		//
+		else if(questionSet == 12) pos = 600;
+		else if(questionSet == 13) pos = 600;
+		else if(questionSet == 14) pos = 600;
+		else if(questionSet == 15) pos = 600;
+		else if(questionSet == 16) pos = 600;
+		//
+		else if(questionSet == 18) pos = 600;
+		else if(questionSet == 19) pos = 600;
+		else if(questionSet == 20) pos = 600;
+		else if(questionSet == 21) pos = 600;
+		else if(questionSet == 22) pos = 600;
+		
+		else if(questionSet == 24) pos = 600;
+		else if(questionSet == 25) pos = 600;
+		else if(questionSet == 26) pos = 600;
+		else if(questionSet == 27) pos = 600;
+		else if(questionSet == 28) pos = 600;
 		
 		return pos;
 	}
@@ -465,6 +939,35 @@ public class CountItPanel extends BaseScene {
 		
 		else if(questionSet == 1) pos = 500;
 		
+		else if(questionSet == 2) pos = 400;
+		
+		else if(questionSet == 3) pos = 600;
+		else if(questionSet == 4) pos = 600;
+		//
+		else if(questionSet == 6) pos = 600;
+		else if(questionSet == 7) pos = 600;
+		else if(questionSet == 8) pos = 600;
+		else if(questionSet == 9) pos = 600;
+		else if(questionSet == 10) pos = 600;
+		//
+		else if(questionSet == 12) pos = 600;
+		else if(questionSet == 13) pos = 600;
+		else if(questionSet == 14) pos = 600;
+		else if(questionSet == 15) pos = 600;
+		else if(questionSet == 16) pos = 600;
+		//
+		else if(questionSet == 18) pos = 600;
+		else if(questionSet == 19) pos = 600;
+		else if(questionSet == 20) pos = 600;
+		else if(questionSet == 21) pos = 600;
+		else if(questionSet == 22) pos = 600;
+		
+		else if(questionSet == 24) pos = 600;
+		else if(questionSet == 25) pos = 600;
+		else if(questionSet == 26) pos = 600;
+		else if(questionSet == 27) pos = 600;
+		else if(questionSet == 28) pos = 600;
+		
 		return pos;
 	}
 	
@@ -472,6 +975,35 @@ public class CountItPanel extends BaseScene {
 		if(questionSet == 0) pos = 600;
 		
 		else if(questionSet == 1) pos = 600;
+		
+		else if(questionSet == 2) pos = 500;
+		
+		else if(questionSet == 3) pos = 600;
+		else if(questionSet == 4) pos = 600;
+		//
+		else if(questionSet == 6) pos = 600;
+		else if(questionSet == 7) pos = 600;
+		else if(questionSet == 8) pos = 600;
+		else if(questionSet == 9) pos = 600;
+		else if(questionSet == 10) pos = 600;
+		//
+		else if(questionSet == 12) pos = 600;
+		else if(questionSet == 13) pos = 600;
+		else if(questionSet == 14) pos = 600;
+		else if(questionSet == 15) pos = 600;
+		else if(questionSet == 16) pos = 600;
+		//
+		else if(questionSet == 18) pos = 600;
+		else if(questionSet == 19) pos = 600;
+		else if(questionSet == 20) pos = 600;
+		else if(questionSet == 21) pos = 600;
+		else if(questionSet == 22) pos = 600;
+		
+		else if(questionSet == 24) pos = 600;
+		else if(questionSet == 25) pos = 600;
+		else if(questionSet == 26) pos = 600;
+		else if(questionSet == 27) pos = 600;
+		else if(questionSet == 28) pos = 600;
 		
 		return pos;
 	}

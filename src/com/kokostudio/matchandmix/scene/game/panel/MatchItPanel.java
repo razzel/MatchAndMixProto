@@ -159,7 +159,7 @@ public class MatchItPanel extends BaseScene {
 					break;
 				case TouchEvent.ACTION_UP:
 					c1.setScale(1.0f);
-					checkPosition(c1, pTouchAreaLocalX, pTouchAreaLocalY, setChoice1XPosition(), setChoice1YPosition());
+					checkPosition(c1, 0, 0, setChoice1XPosition(), setChoice1YPosition());
 					break;
 				}
 				return true;
@@ -180,7 +180,7 @@ public class MatchItPanel extends BaseScene {
 					break;
 				case TouchEvent.ACTION_UP:
 					c2.setScale(1.0f);
-					checkPosition(c2, pTouchAreaLocalX, pTouchAreaLocalY, setChoice2XPosition(), setChoice2YPosition());
+					checkPosition(c2, 0, 0, setChoice2XPosition(), setChoice2YPosition());
 					break;
 				}
 				return true;
@@ -201,7 +201,7 @@ public class MatchItPanel extends BaseScene {
 					break;
 				case TouchEvent.ACTION_UP:
 					c3.setScale(1.0f);
-					checkPosition(c3, pTouchAreaLocalX, pTouchAreaLocalX, setChoice3XPosition(), setChoice3YPosition());
+					checkPosition(c3, 0, 0, setChoice3XPosition(), setChoice3YPosition());
 					break;
 				}
 				return true;
@@ -221,7 +221,7 @@ public class MatchItPanel extends BaseScene {
 					break;
 				case TouchEvent.ACTION_UP:
 					c4.setScale(1.0f);
-					checkPosition(c4, pTouchAreaLocalX, pTouchAreaLocalY, setChoice4XPosition(), setChoice4YPosition());
+					checkPosition(c4, 0, 0, setChoice4XPosition(), setChoice4YPosition());
 					break;
 				}
 				return true;
@@ -241,7 +241,7 @@ public class MatchItPanel extends BaseScene {
 					break;
 				case TouchEvent.ACTION_UP:
 					c5.setScale(1.0f);
-					checkPosition(c5, pTouchAreaLocalX, pTouchAreaLocalY, setChoice5XPosition(), setChoice5YPosition());
+					checkPosition(c5, 0, 0, setChoice5XPosition(), setChoice5YPosition());
 					break;
 				}
 				return true;

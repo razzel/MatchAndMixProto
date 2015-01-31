@@ -1,6 +1,7 @@
 package com.kokostudio.matchandmix.scene;
 
 import org.andengine.engine.camera.Camera;
+import org.andengine.entity.modifier.MoveModifier;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
@@ -12,8 +13,9 @@ import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
 
 public class GameMenuScene extends BaseScene {
 	
-	private TiledSprite guess, matchIt, solveIt, countIt, whatColor;
+	private TiledSprite guess, matchIt, solveIt, countIt, whatColor, backToMenu;
 	private TiledSprite next, prev;
+	private Sprite gameHeader;
 	
 
 	@Override
@@ -27,8 +29,10 @@ public class GameMenuScene extends BaseScene {
 		unregisterTouchArea(prev);
 		matchIt.setVisible(false);
 		countIt.setVisible(false);
+		backToMenu.setVisible(false);
 		unregisterTouchArea(matchIt);
 		unregisterTouchArea(countIt);
+		unregisterTouchArea(backToMenu);
 	}
 
 	@Override
@@ -36,7 +40,7 @@ public class GameMenuScene extends BaseScene {
 		// unload the GameMenuTextures
 		//ResourcesManager.getInstance().unloadGameMenuTexture();
 		// then reload the MAIN MENU Scene
-		SceneManager.getInstance().loadMainMenuScene();
+		
 	}
 
 	@Override
@@ -72,14 +76,16 @@ public class GameMenuScene extends BaseScene {
 	}
 	
 	private void createGameHeader() {
-		attachChild(new Sprite(400, 430, resourcesManager.gameHeaderTextureReion, vbom) {
+		gameHeader = new Sprite(400, 430, resourcesManager.gameHeaderTextureReion, vbom) {
 			@Override
 			protected void preDraw(GLState pGLState, Camera pCamera) {
 				pGLState.enableDither();
 				super.preDraw(pGLState, pCamera);
 			}
 			
-		}); 
+		}; 
+		attachChild(gameHeader);
+		//gameHeader.registerEntityModifier(new MoveModifier(.5f, 1600, 430, 400, 430));
 	}
 	
 	private void createButtons() {
@@ -112,11 +118,13 @@ public class GameMenuScene extends BaseScene {
 					prev.setVisible(true);
 					countIt.setVisible(true);
 					matchIt.setVisible(true);
+					backToMenu.setVisible(true);
 					//exit.setVisible(true);
 					// register again their toucharea
 					registerTouchArea(prev);
 					registerTouchArea(countIt);
 					registerTouchArea(matchIt);
+					registerTouchArea(backToMenu);
 					//registerTouchArea(exit);
 					
 					break;
@@ -152,11 +160,13 @@ public class GameMenuScene extends BaseScene {
 					prev.setVisible(false);
 					matchIt.setVisible(false);
 					countIt.setVisible(false);
+					backToMenu.setVisible(false);
 					//exit.setVisible(false);
 					// unregister their toucharea
 					unregisterTouchArea(prev);
 					unregisterTouchArea(matchIt);
 					unregisterTouchArea(countIt);
+					unregisterTouchArea(backToMenu);
 					//unregisterTouchArea(exit);
 					break;
 				}
@@ -318,9 +328,30 @@ public class GameMenuScene extends BaseScene {
 			}
 			
 		};
+		backToMenu = new TiledSprite(615, y, resourcesManager.backToMainTextureRegion, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				switch(pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					backToMenu.setScale(0.9f);
+					backToMenu.setCurrentTileIndex(1);
+					break;
+				case TouchEvent.ACTION_UP:
+					backToMenu.setScale(1.0f);
+					backToMenu.setCurrentTileIndex(0);
+					resourcesManager.click.play();
+					SceneManager.getInstance().loadMainMenuScene();
+					break;
+				}
+				return true;
+			}
+			
+		};
 		
+		registerTouchArea(backToMenu);
 		registerTouchArea(matchIt);
 		registerTouchArea(countIt);
+		attachChild(backToMenu);
 		attachChild(matchIt);
 		attachChild(countIt);
 	}

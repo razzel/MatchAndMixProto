@@ -1,10 +1,15 @@
 package com.kokostudio.matchandmix.scene;
 
 import org.andengine.engine.camera.Camera;
+import org.andengine.entity.modifier.MoveModifier;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.ParallaxBackground;
 import org.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
+import org.andengine.entity.scene.menu.MenuScene;
+import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
+import org.andengine.entity.scene.menu.item.IMenuItem;
+import org.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
@@ -16,6 +21,7 @@ import org.andengine.input.touch.detector.SurfaceScrollDetector;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.util.GLState;
 
+import android.opengl.GLES20;
 import android.util.Log;
 
 import com.kokostudio.matchandmix.GameActivity;
@@ -23,10 +29,14 @@ import com.kokostudio.matchandmix.base.BaseScene;
 import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
 
-public class MainMenuScene extends BaseScene implements IScrollDetectorListener, IOnSceneTouchListener, IClickDetectorListener {
+public class MainMenuScene extends BaseScene implements IScrollDetectorListener, IOnSceneTouchListener, IClickDetectorListener, IOnMenuItemClickListener {
 	
 	private TiledSprite next, prev;
 	private TiledSprite games, progress, howTo, about, options, exit;
+	
+	private MenuScene scene;
+	private final int MENU_YES = 0;
+	private final int MENU_NO = 1;
 	
 	private Sprite menuLeft;
 	private Sprite menuRight;
@@ -44,16 +54,16 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 	@Override
 	public void createScene() {
 		
-		this.scrollDetector = new SurfaceScrollDetector(this);
-		this.clickDetector = new ClickDetector(this);
+		//this.scrollDetector = new SurfaceScrollDetector(this);
+		//this.clickDetector = new ClickDetector(this);
 		
 		this.sortChildren();
-		this.setOnSceneTouchListener(this);
-		this.setTouchAreaBindingOnActionMoveEnabled(true);
+		//this.setOnSceneTouchListener(this);
+		//this.setTouchAreaBindingOnActionMoveEnabled(true);
 		
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 		
-		
+		//createMenuScene();
 		createBackground();
 		createMenuHeader();
 		createMenuSelection();
@@ -116,6 +126,7 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 				super.preDraw(pGLState, pCamera);
 			}	
 		};
+		//menuHeader.registerEntityModifier(new MoveModifier(.5f, -800, 430, 400, 430));
 		attachChild(menuHeader);
 	}
 	
@@ -243,7 +254,6 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 					disposeScene();
 					// set scene
 					SceneManager.getInstance().loadProgressScene();
-					;
 					break;
 				}
 				return true;
@@ -313,6 +323,7 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 	
 	@Override
 	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
+		/*
 		this.clickDetector.onTouchEvent(pSceneTouchEvent);
 		this.scrollDetector.onTouchEvent(pSceneTouchEvent);
 		
@@ -325,8 +336,9 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 		Log.d("currentX", "currentX = " +currentX);
 		Log.d("currentX", "minX = " +minX);
 		Log.d("currentX", "maxX = " +maxX);
-		
+		*/
 		return true;
+		
 	}
 	
 	@Override
@@ -449,6 +461,38 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 	public void onScrollFinished(ScrollDetector pScollDetector, int pPointerID,
 			float pDistanceX, float pDistanceY) {
 		
+	}
+	
+	private void createMenuScene() {
+		this.scene = new MenuScene(this.camera);
+		
+		final SpriteMenuItem yes = new SpriteMenuItem(MENU_YES, resourcesManager.nextTiledTextureRegion, vbom);
+		yes.setBlendFunction(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
+		this.scene.addMenuItem(yes);
+		
+		final SpriteMenuItem no = new SpriteMenuItem(MENU_NO, resourcesManager.nextTiledTextureRegion, vbom);
+		yes.setBlendFunction(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
+		this.scene.addMenuItem(no);
+		
+		scene.buildAnimations();
+		
+		setBackgroundEnabled(false);
+		
+		scene.setOnMenuItemClickListener(this);
+	}
+
+	@Override
+	public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem, float pMenuItemLocalX, float pMenuItemLocalY) {
+		switch(pMenuItem.getID()) {
+		case MENU_YES:
+			System.exit(0);
+			return true;
+		case MENU_NO:
+			scene.reset();
+			return true;
+		default:
+			return false;
+		}
 	}
 
 }

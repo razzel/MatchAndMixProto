@@ -11,6 +11,8 @@ import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.util.GLState;
 
+import android.util.Log;
+
 import com.kokostudio.matchandmix.base.BaseScene;
 import com.kokostudio.matchandmix.database.myDatabase;
 import com.kokostudio.matchandmix.manager.SceneManager;
@@ -35,6 +37,8 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 	private TiledSprite correctSprite;
 	
 	private myDatabase db;
+	
+	int x;
 
 	@Override
 	public void createScene() {
@@ -45,7 +49,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 		createQuestion();
 		createChoices();
 		checkStatus();
-		engine.getMusicManager().setMasterVolume(0.10f);
+		checkAudioStatus();
 		questionImage.setScale(0.8f);
 	}
 
@@ -97,7 +101,10 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 					resourcesManager.click.play();
 					back.setCurrentTileIndex(1);
 					back.setScale(0.9f);
-					engine.getMusicManager().setMasterVolume(0.70f);
+					if(db.isBGMOn().compareTo("true")==0) {
+						engine.getMusicManager().setMasterVolume(0.70f);
+					}
+					
 					// unload the PANEL'S TEXUTRES / RESOURCES
 					//resourcesManager.unloadGTMLPanelTextures();
 					// then set the SCENE to GuessTheMissingLetter
@@ -128,6 +135,9 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 				case TouchEvent.ACTION_UP:
 					questionImageSound().play();
 					questionImage.setScale(0.8f);
+					
+					Log.d("test", "index+X = " + questionSet+x);
+					Log.d("index == 29", "0+x = " + 0+x);
 				}
 				return true;
 			}
@@ -261,6 +271,12 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 		questionSet = i;
 	}
 	
+	private void checkAudioStatus() {
+		if(db.isBGMOn().compareTo("true")==0) {
+			engine.getMusicManager().setMasterVolume(0.10f);
+		}
+	}
+	
 	private void update(int id, String s) {
 		db.updateGTML(id, s);
 		db.close();
@@ -275,11 +291,23 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 	}
 	
 	private void nextQuestion() {
-		int x = 1;
-		while(db.gtmlIsAnswered(questionSet+x).compareTo("true")==0) {
-			x++;
-		} 
-		getQuestionIndex(questionSet+x);
+		x = 0;
+		if(db.gtmlGetAnswered()==25) {
+			SceneManager.getInstance().loadGTMLScene();
+		} else {
+			if(questionSet == 28 || questionSet+x>=28) {
+				while(db.gtmlIsAnswered(0+x).compareTo("true")==0) {
+					x++;
+				}
+				getQuestionIndex(0+x);
+			} else {
+				while(db.gtmlIsAnswered(questionSet+x).compareTo("true")==0) {
+					x++;
+				}
+				getQuestionIndex(questionSet+x);
+			}
+		
+		}
 		SceneManager.getInstance().loadGTMLPanelScene();
 	}
 	

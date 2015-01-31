@@ -121,7 +121,7 @@ public class SceneManager {
 	
 	// PLAY MENU SCENE ======================================================================================================
 	public void createPlayMenuScene() {
-		ResourcesManager.getInstance().loadPlayMenuResources();
+		//ResourcesManager.getInstance().loadPlayMenuResources();
 		playMenuScene = new PlayMenuScene();
 		setScene(playMenuScene);
 	}
@@ -297,7 +297,7 @@ public class SceneManager {
 	//COUNT IT ==================================================================================================
 	public void loadCountItScene() {
 		//unload the game textures
-		ResourcesManager.getInstance().unloadGameMenuTexture();
+		//ResourcesManager.getInstance().unloadGameMenuTexture();
 		//Load that Count it Scene Resources
 		ResourcesManager.getInstance().loadCountItResources();
 		// set the scene
