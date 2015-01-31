@@ -582,7 +582,7 @@ public class CountItPanel extends BaseScene {
 		
 		else if(questionSet == 21) r = resourcesManager.countItClueMilkTexture;
 		//22 change to carabao
-		else if(questionSet == 22) r = resourcesManager.countItClueMilkTexture;
+		else if(questionSet == 22) r = resourcesManager.countItClueCarabaoTexture;
 		
 		else if(questionSet == 24) r = resourcesManager.countItClueSnowmanTexture;
 		
@@ -590,7 +590,7 @@ public class CountItPanel extends BaseScene {
 		
 		else if(questionSet == 26) r = resourcesManager.countItClueElephantTexture;
 		//27 change to dolphin
-		else if(questionSet == 27) r = resourcesManager.countItClueFanTexture;
+		else if(questionSet == 27) r = resourcesManager.countItClueDolphinTexture;
 		
 		else if(questionSet == 28) r = resourcesManager.countItClueCakeTexture;
 		return r;
@@ -619,7 +619,7 @@ public class CountItPanel extends BaseScene {
 		else if(questionSet == 19) r = resourcesManager.countItClueFanTexture;
 		else if(questionSet == 20) r = resourcesManager.coutItClueBirdTexture;
 		//milk to cow
-		else if(questionSet == 21) r = resourcesManager.countItClueMilkTexture;
+		else if(questionSet == 21) r = resourcesManager.countItClueCowTexture;
 		else if(questionSet == 22) r = resourcesManager.countItClueHorseTexture;
 		//
 		else if(questionSet == 24) r = resourcesManager.countItClueIglooTexture;
@@ -659,7 +659,7 @@ public class CountItPanel extends BaseScene {
 		else if(questionSet == 24) r = resourcesManager.countItObjectSnowman;
 		else if(questionSet == 25) r = resourcesManager.countItObjectRibbon;
 		else if(questionSet == 26) r = resourcesManager.countItObjectElephant;
-		else if(questionSet == 27) r = resourcesManager.countItObjectCake;
+		else if(questionSet == 27) r = resourcesManager.countItObjectDolphin;
 		else if(questionSet == 28) r = resourcesManager.countItObjectCake;
 		
 
@@ -693,7 +693,7 @@ public class CountItPanel extends BaseScene {
 		else if(questionSet == 19) r = resourcesManager.countItObjectFan;
 		else if(questionSet == 20) r = resourcesManager.countItObjectBird;
 		//bird to cow
-		else if(questionSet == 21) r = resourcesManager.countItObjectBird;
+		else if(questionSet == 21) r = resourcesManager.countItObjectCow;
 		else if(questionSet == 22) r = resourcesManager.countItObjectHorse;
 		//
 		else if(questionSet == 24) r = resourcesManager.countItObjectIgloo;

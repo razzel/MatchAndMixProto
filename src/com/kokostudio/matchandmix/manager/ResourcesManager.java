@@ -1714,13 +1714,13 @@ public class ResourcesManager {
 				countItClueAirplaneTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_airplane.png");
 				countItClueAppleTexure = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_apple.png");
 				countItClueBananaTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_banana.png");
-				//countItClueBeeTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, null);
+				countItClueBeeTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_bee.png");
 				countItClueBreadTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_bread.png");
 				countItClueBugTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_bug.png");
 				countItClueButterflyTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_butterfly.png");
 				countItClueCakeTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_cake.png");
 				countItClueCandyTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_candy.png");
-				//countItClueCarabaoTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, null);
+				countItClueCarabaoTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_carabao.png");
 				countItClueCarTexure = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_car.png");
 				countItClueCaterpillarTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_caterpillar.png");
 				countItClueCookieTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_cookie.png");
@@ -1750,7 +1750,7 @@ public class ResourcesManager {
 				countItClueRectangleTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_rectangle.png");
 				countItClueLollipopTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_lollipop.png");
 				countItClueIglooTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_igloo.png");
-				
+				countItClueDolphinTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_crab.png");
 				try {
 					this.countItClueAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 					this.countItClueAtlas.load();
@@ -1768,21 +1768,21 @@ public class ResourcesManager {
 				countItObjectCircle = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_circle.png");
 				countItObjectBanana = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_banana.png");
 				countItObjectApple = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_apple.png");
-				//countItObjectBee = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, null);
+				countItObjectBee = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_bee.png");
 				countItObjectBread = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_bread.png");
 				countItObjectBugs = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_bug.png");
 				countItObjectButterfly = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_butterfly.png");
 				countItObjectCake = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_cake.png");
 				countItObjectCandy = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_candy.png");
 				countItObjectCar = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_car.png");
-				//countItObjectCarabao = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, null);
+				countItObjectCarabao = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_carabao.png");
 				countItObjectCatterpillar = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_caterpillar.png");
-				//countItObjectChicken = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, null);
+				countItObjectChicken = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_chicken.png");
 				countItObjectCookie = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_cookie.png");
-				countItObjectCow = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_cow.png");
-				//countItObjectDolphin = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, null);
+				//countItObjectCow = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_cow.png");
+				countItObjectDolphin = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_dolphin.png");
 				countItObjectEgg = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_egg.png");
-				countItObjectElephant = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_eggplant.png");
+				countItObjectElephant = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_elephant.png");
 				countItObjectFan = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_fan.png");
 				countItObjectFrog = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_frog.png");
 				countItObjectHat = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_hat.png");
