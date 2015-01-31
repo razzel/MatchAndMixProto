@@ -887,7 +887,7 @@ public class CountItPanel extends BaseScene {
 		//
 		else if(questionSet == 18) pos = 300;
 		else if(questionSet == 19) pos = 300;
-		else if(questionSet == 20) pos = 300;
+		else if(questionSet == 20) pos = 400;
 		else if(questionSet == 21) pos = 200;
 		else if(questionSet == 22) pos = 300;
 		
@@ -923,7 +923,7 @@ public class CountItPanel extends BaseScene {
 		//
 		else if(questionSet == 18) pos = 400;
 		else if(questionSet == 19) pos = 200;
-		else if(questionSet == 20) pos = 300;
+		else if(questionSet == 20) pos = 200;
 		else if(questionSet == 21) pos = 400;
 		else if(questionSet == 22) pos = 400;
 		
