@@ -469,6 +469,7 @@ public class ResourcesManager {
 		public ITextureRegion countItObjectStrawberry;
 		public ITextureRegion countItObjectMango;
 		public ITextureRegion countItObjectAirplane;
+		public ITextureRegion countItObjectBird;
 	// OPTION TEXTURES *********************************************************************************************************
 	public BuildableBitmapTextureAtlas optionTextureAtlas;
 	public ITextureRegion optionBoardTextureRegion;
@@ -1744,9 +1745,12 @@ public class ResourcesManager {
 				countItClueStarTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_star.png");
 				countItClueStrawberryTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_strawberry.png");
 				countItClueTriangleTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_triangle.png");
-				countItClueTurtleTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_strawberry.png");
+				countItClueTurtleTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_turtle.png");
 				coutItClueBirdTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_bird.png");
 				countItClueRectangleTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_rectangle.png");
+				countItClueLollipopTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_lollipop.png");
+				countItClueIglooTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_igloo.png");
+				
 				try {
 					this.countItClueAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 					this.countItClueAtlas.load();
@@ -1804,6 +1808,7 @@ public class ResourcesManager {
 				countItObjectStrawberry = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_strawberry.png");
 				countItObjectMango = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_mango.png");
 				countItObjectAirplane = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_airplane.png");
+				countItObjectBird = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_bird.png");
 				try {
 					this.countItObjectAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 					this.countItObjectAtlas.load();
