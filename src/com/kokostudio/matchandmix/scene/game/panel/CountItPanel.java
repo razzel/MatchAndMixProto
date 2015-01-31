@@ -14,6 +14,7 @@ import org.andengine.opengl.util.GLState;
 import android.util.Log;
 
 import com.kokostudio.matchandmix.base.BaseScene;
+import com.kokostudio.matchandmix.database.myDatabase;
 import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
 
@@ -37,16 +38,23 @@ public class CountItPanel extends BaseScene {
 	private ITextureRegion r;
 	private int pos, cnt;
 	private int numCount;
+	
+	private myDatabase db;
+	
+	private int x;
 
 	@Override
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
+		db = new myDatabase(activity);
 		createBackground();
 		createQuestions();
 		createButtons();
 		createChoices();
 		createCorrectObjects();
 		createOtherObjects();
+		checkAudioStatus();
+		checkStatus();
 	}
 
 	@Override
@@ -99,6 +107,11 @@ public class CountItPanel extends BaseScene {
 					back.setCurrentTileIndex(0);
 					disposeScene();
 					resourcesManager.click.play();
+					
+					if(db.isBGMOn().compareTo("true")==0) {
+						engine.getMusicManager().setMasterVolume(0.70f);
+					}
+					
 					SceneManager.getInstance().loadCountItScene();
 					break;
 				}
@@ -143,7 +156,9 @@ public class CountItPanel extends BaseScene {
 				case TouchEvent.ACTION_UP:
 					correctSprite.setScale(1.0f);
 					resourcesManager.correct.play();
+					update(questionSet, "true");
 					lock();
+					nextQuestion();
 					break;
 				}
 				return true;
@@ -247,14 +262,16 @@ public class CountItPanel extends BaseScene {
 						object1[index].setScale(0.9f);
 						break;
 					case TouchEvent.ACTION_UP:
-						object1[index].setScale(1.5f);
+						object1[index].setScale(1.8f);
 						playNextSound();
 						unregisterTouchArea(object1[index]);
-						object1[index].registerUpdateHandler(new TimerHandler(4f, new ITimerCallback() {				
+						object1[index].registerUpdateHandler(new TimerHandler(6f, new ITimerCallback() {				
 							@Override
 							public void onTimePassed(TimerHandler pTimerHandler) {
+								
 								numCount = 0;
 								for(int ctr = 0; ctr<object1.length; ctr++) {
+									object1[ctr].unregisterUpdateHandler(pTimerHandler);
 									object1[ctr].setScale(1.0f);
 									registerTouchArea(object1[ctr]);
 								}								
@@ -331,6 +348,50 @@ public class CountItPanel extends BaseScene {
 			{ resourcesManager.number1, resourcesManager.number2, resourcesManager.number3, resourcesManager.number4, resourcesManager.number5,resourcesManager.number6,resourcesManager.number7 ,resourcesManager.number8,resourcesManager.number9};
 		numbers[numCount].play();
 		numCount++;
+	}
+	
+	private void checkAudioStatus() {
+		if(db.isBGMOn().compareTo("true")==0) {
+			engine.getMusicManager().setMasterVolume(0.10f);
+		}
+	}
+	
+	private void update(int id, String s) {
+		db.updateCountIt(id, s);
+		db.close();
+	}
+	
+	private void checkStatus() {
+		String cmp = db.countItIsAnswered(questionSet);
+		if(cmp.compareTo("true")==0) {
+			lock();
+		}
+	}
+	
+	private void nextQuestion() {
+		this.registerUpdateHandler(new TimerHandler(1f, new ITimerCallback() {
+			@Override
+			public void onTimePassed(TimerHandler pTimerHandler) {
+				x = 0;
+				if(db.countGetAnswered()==25) {
+					SceneManager.getInstance().loadCountItScene();
+				} else {
+					if(questionSet == 28 || questionSet+x>=28) {
+						while(db.countItIsAnswered(0+x).compareTo("true")==0) {
+							x++;
+						}
+						getQuestionIndex(0+x);
+					} else {
+						while(db.countItIsAnswered(questionSet+x).compareTo("true")==0) {
+							x++;
+						}
+						getQuestionIndex(questionSet+x);
+					}
+				
+				}
+				SceneManager.getInstance().loadCountItPanelScene();		
+			}
+		}));
 	}
 	
 	private int setHowManyCorrectObject() {

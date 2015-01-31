@@ -1,6 +1,8 @@
 package com.kokostudio.matchandmix.scene.game.panel;
 
 import org.andengine.engine.camera.Camera;
+import org.andengine.engine.handler.timer.ITimerCallback;
+import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
@@ -41,6 +43,8 @@ public class MatchItPanel extends BaseScene {
 	private TiledSprite back;
 	
 	private myDatabase db;
+	
+	private int x;
 
 	@Override
 	public void createScene() {
@@ -262,12 +266,31 @@ public class MatchItPanel extends BaseScene {
 	}
 	
 	private void nextQuestion() {
-		int x = 1;
-		while(db.matchItIsAnswered(questionSet+x).compareTo("true")==0) {
-			x++;
-		} 
-		getQuestionIndex(questionSet+x);
-		SceneManager.getInstance().loadMatchItPanelScene();
+		this.registerUpdateHandler(new TimerHandler(1f, new ITimerCallback() {
+			@Override
+			public void onTimePassed(TimerHandler pTimerHandler) {
+				unregisterUpdateHandler(pTimerHandler);
+					x = 0;
+					if(db.matchGetAnswered()==25) {
+						SceneManager.getInstance().loadMatchItScene();
+					} else {
+						if(questionSet == 28 || questionSet+x>=28) {
+							while(db.matchItIsAnswered(0+x).compareTo("true")==0) {
+								x++;
+							}
+							getQuestionIndex(0+x);
+						} else {
+							while(db.matchItIsAnswered(questionSet+x).compareTo("true")==0) {
+								x++;
+							}
+							getQuestionIndex(questionSet+x);
+						}
+					
+					}
+					SceneManager.getInstance().loadMatchItPanelScene();		
+				}
+		}));
+		
 	}
 	
 	// POSITIONS 

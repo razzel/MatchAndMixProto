@@ -268,7 +268,7 @@ public class GameMenuScene extends BaseScene {
 					solveIt.setCurrentTileIndex(0);
 					//disposeScene();
 					// Switch the scene
-					//SceneManager.getInstance().loadSolveItScene();
+					SceneManager.getInstance().loadSolveItMenuScene();
 					break;
 				}
 				return true;

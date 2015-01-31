@@ -46,17 +46,16 @@ public class myDatabase extends SQLiteOpenHelper {
 													+fMatch_ID+ " INTEGER PRIMARY KEY, "
 													+fMatch_isAnswered+ " TEXT "
 													+ ")";
-	// COUNT
-	/*
-	public static final String table_color_count = "color_count";
-	public static final String fcolor_count_id = "id";
-	public static final String fcolor_answered = "answered";
-	public static final String fcolor_remaining = "remaining";
-	public static final String CREATE_COLOR_COUNT_TABLE = "CREATE TABLE IF NOT EXISTS " +table_color_count+ " ("
-														+fcolor_count_id+ " INTEGER PRIMARY KEY, "
-														+fcolor_answered+ " INTEGER , "
-														+fcolor_remaining+ " INTEGER "
-														+")"; */
+	
+	// COUNT IT
+	public static final String table_CountIt = "count";
+	public static final String fCount_ID = "count_id";
+	public static final String fCount_isAnswered = "isAnswered";
+	public static final String CREATE_COUNTIT_TABLE = "CREATE TABLE IF NOT EXISTS " +table_CountIt+ " ("
+													+fCount_ID+ " INTEGER PRIMARY KEY, "
+													+fCount_isAnswered+ " TEXT "
+													+ ") ";
+	
 	
 	public myDatabase(Context context) {
 		super(context, dbName, null, dbVersion);
@@ -86,14 +85,9 @@ public class myDatabase extends SQLiteOpenHelper {
 		db.execSQL(CREATE_MATCHIT_TABLE);
 		insertMatchItValues(db);
 		
-		
-		
-		//db.execSQL(CREATE_COLOR_COUNT_TABLE);
-		//ContentValues colorCountValues = new ContentValues();
-		//	colorCountValues.put(fcolor_count_id, 0);
-		//	colorCountValues.put(fcolor_answered, 0);
-		//	colorCountValues.put(fcolor_remaining, 25);
-		//		db.insert(table_color_count, null, colorCountValues);
+		// COUNT IT
+		db.execSQL(CREATE_COUNTIT_TABLE);
+		insertCountValues(db);
 		
 	}
 
@@ -103,7 +97,6 @@ public class myDatabase extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + CREATE_OPTION_TABLE);
 		db.execSQL("DROP TABLE IF EXISTS " + CREATE_GTML_TABLE);
 		db.execSQL("DROP TABLE IF EXISTS " + CREATE_MATCHIT_TABLE);
-		//db.execSQL("DROP TABLE IF EXISTS " + CREATE_COLOR_COUNT_TABLE);
 		onCreate(db);
 	}
 	
@@ -597,6 +590,172 @@ public class myDatabase extends SQLiteOpenHelper {
 		Cursor c = db.rawQuery("SELECT " + fMatch_isAnswered + " FROM " + table_MatchIt + " WHERE " + fMatch_ID + " = " +id, null);
 		c.moveToFirst();
 		int index = c.getColumnIndex(fMatch_isAnswered);
+		String myReturn = c.getString(index);
+		c.close();
+		return myReturn;
+	}
+	
+	// COUNT IT ***********************************************************************************************************
+	public void insertCountValues(SQLiteDatabase db) {
+		ContentValues countValues = new ContentValues();
+		
+		countValues.put(fCount_ID, 0);
+		countValues.put(fMatch_isAnswered, "false");
+			db.insert(table_CountIt, null, countValues);
+		
+		countValues.put(fCount_ID, 1);
+		countValues.put(fMatch_isAnswered, "false");
+			db.insert(table_CountIt, null, countValues);
+	
+		countValues.put(fCount_ID, 2);
+		countValues.put(fMatch_isAnswered, "false");
+			db.insert(table_CountIt, null, countValues);
+			
+		countValues.put(fCount_ID, 3);
+		countValues.put(fMatch_isAnswered, "false");
+			db.insert(table_CountIt, null, countValues);
+		
+		countValues.put(fCount_ID, 4);
+		countValues.put(fMatch_isAnswered, "false");
+			db.insert(table_CountIt, null, countValues);
+			
+			countValues.put(fCount_ID, 5);
+			countValues.put(fMatch_isAnswered, "true");
+				db.insert(table_CountIt, null, countValues);
+		
+		countValues.put(fCount_ID, 6);
+		countValues.put(fMatch_isAnswered, "false");
+			db.insert(table_CountIt, null, countValues);
+		
+		countValues.put(fCount_ID, 7);
+		countValues.put(fMatch_isAnswered, "false");
+				db.insert(table_CountIt, null, countValues);
+		
+		countValues.put(fCount_ID, 8);
+		countValues.put(fMatch_isAnswered, "false");
+				db.insert(table_CountIt, null, countValues);
+				
+		countValues.put(fCount_ID, 9);
+		countValues.put(fMatch_isAnswered, "false");
+				db.insert(table_CountIt, null, countValues);
+				
+		countValues.put(fCount_ID, 10);
+		countValues.put(fMatch_isAnswered, "false");
+				db.insert(table_CountIt, null, countValues);
+				
+				countValues.put(fCount_ID, 11);
+				countValues.put(fMatch_isAnswered, "true");
+					db.insert(table_CountIt, null, countValues);
+		
+		countValues.put(fCount_ID, 12);
+		countValues.put(fMatch_isAnswered, "false");
+				db.insert(table_CountIt, null, countValues);
+				
+		countValues.put(fCount_ID, 13);
+		countValues.put(fMatch_isAnswered, "false");
+				db.insert(table_CountIt, null, countValues);
+				
+		countValues.put(fCount_ID, 14);
+		countValues.put(fMatch_isAnswered, "false");
+				db.insert(table_CountIt, null, countValues);
+				
+		countValues.put(fCount_ID, 15);
+		countValues.put(fMatch_isAnswered, "false");
+				db.insert(table_CountIt, null, countValues);
+										
+		countValues.put(fCount_ID, 16);
+		countValues.put(fMatch_isAnswered, "false");
+				db.insert(table_CountIt, null, countValues);
+											
+				countValues.put(fCount_ID, 17);
+				countValues.put(fMatch_isAnswered, "true");
+					db.insert(table_CountIt, null, countValues);
+		countValues.put(fCount_ID, 18);
+		countValues.put(fMatch_isAnswered, "false");
+				db.insert(table_CountIt, null, countValues);
+														
+		countValues.put(fCount_ID, 19);
+		countValues.put(fMatch_isAnswered, "false");
+				db.insert(table_CountIt, null, countValues);
+																
+		countValues.put(fCount_ID, 20);
+		countValues.put(fMatch_isAnswered, "false");
+				db.insert(table_CountIt, null, countValues);
+																		
+		countValues.put(fCount_ID, 21);
+		countValues.put(fMatch_isAnswered, "false");
+				db.insert(table_CountIt, null, countValues);
+																				
+		countValues.put(fCount_ID, 22);
+		countValues.put(fMatch_isAnswered, "false");
+				db.insert(table_CountIt, null, countValues);
+				
+				countValues.put(fCount_ID, 23);
+				countValues.put(fMatch_isAnswered, "true");
+					db.insert(table_CountIt, null, countValues);
+		
+		countValues.put(fCount_ID, 24);
+		countValues.put(fMatch_isAnswered, "false");
+				db.insert(table_CountIt, null, countValues);
+				
+		countValues.put(fCount_ID, 25);
+		countValues.put(fMatch_isAnswered, "false");
+				db.insert(table_CountIt, null, countValues);
+				
+		countValues.put(fCount_ID, 26);
+		countValues.put(fMatch_isAnswered, "false");
+				db.insert(table_CountIt, null, countValues);
+		
+		countValues.put(fCount_ID, 27);
+		countValues.put(fMatch_isAnswered, "false");
+				db.insert(table_CountIt, null, countValues);
+				
+		countValues.put(fCount_ID, 28);
+		countValues.put(fMatch_isAnswered, "false");
+				db.insert(table_CountIt, null, countValues);
+		
+	}
+	
+	public void updateCountIt(int id, String s) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put(fCount_isAnswered, s);
+		db.update(table_CountIt, cv, fCount_ID+" = " +id, null);
+	}
+	
+	public int countGetAnswered() {
+		SQLiteDatabase db = this.getReadableDatabase();
+		String[] mySearch = new String[]{"true"};
+		Cursor c = db.rawQuery("SELECT count(*) FROM " +table_CountIt+ " WHERE " +fCount_isAnswered+ " =?", mySearch);
+		int count = 0;
+		while(c.moveToNext()) {
+			int countIndex = c.getColumnIndex("count(*)");
+			count = c.getInt(countIndex);
+		}
+		c.close();
+		db.close();
+		return count-4;
+	}
+	
+	public int countGetRemaining() {
+		SQLiteDatabase db = this.getReadableDatabase();
+		String[] mySearch = new String[]{"false"};
+		Cursor c = db.rawQuery("SELECT count(*) FROM " +table_CountIt+ " WHERE " +fColor_isAnswered+ " =?", mySearch);
+		int count = 0;
+		while(c.moveToNext()) {
+			int countIndex = c.getColumnIndex("count(*)");
+			count = c.getInt(countIndex);
+		}
+		c.close();
+		db.close();
+		return count;
+	}
+	
+	public String countItIsAnswered(int id) {
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor c = db.rawQuery("SELECT " + fCount_isAnswered + " FROM " + table_CountIt + " WHERE " + fCount_ID + " = " +id, null);
+		c.moveToFirst();
+		int index = c.getColumnIndex(fCount_isAnswered);
 		String myReturn = c.getString(index);
 		c.close();
 		return myReturn;

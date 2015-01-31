@@ -1,6 +1,8 @@
 package com.kokostudio.matchandmix.scene.game.panel;
 
 import org.andengine.engine.camera.Camera;
+import org.andengine.engine.handler.timer.ITimerCallback;
+import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
@@ -35,6 +37,8 @@ public class ThatColorIsPanel extends BaseScene {
 	
 	// DATABASE
 	private myDatabase db;
+	
+	private int x;
 
 	@Override
 	public void createScene() {
@@ -149,6 +153,7 @@ public class ThatColorIsPanel extends BaseScene {
 					correctSprite.setCurrentTileIndex(1);
 					update(questionSet, "true");
 					lock();
+					nextQuestion();
 					break;
 				}
 				return true;
@@ -267,6 +272,34 @@ public class ThatColorIsPanel extends BaseScene {
 		unregisterTouchArea(c4);
 		unregisterTouchArea(correctSprite);
 		correctSprite.setCurrentTileIndex(1);
+	}
+	
+	private void nextQuestion() {
+		this.registerUpdateHandler(new TimerHandler(1f, new ITimerCallback() {
+			@Override
+			public void onTimePassed(TimerHandler pTimerHandler) {
+				unregisterUpdateHandler(pTimerHandler);
+					x = 0;
+					if(db.colorGetAnswered()==25) {
+						SceneManager.getInstance().loadThatColorIsScene();
+					} else {
+						if(questionSet == 28 || questionSet+x>=28) {
+							while(db.colorIsAnswered(0+x).compareTo("true")==0) {
+								x++;
+							}
+							getQuestionIndex(0+x);
+						} else {
+							while(db.matchItIsAnswered(questionSet+x).compareTo("true")==0) {
+								x++;
+							}
+							getQuestionIndex(questionSet+x);
+						}
+					
+					}
+					SceneManager.getInstance().loadThatColorIsPanelScene();		
+				}
+		}));
+		
 	}
 	
 	/* positions

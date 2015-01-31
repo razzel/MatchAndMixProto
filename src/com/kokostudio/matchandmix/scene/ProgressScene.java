@@ -154,8 +154,10 @@ public class ProgressScene extends BaseScene {
 		attachChild(guessRemaining);
 		
 		// COUNT IT COUNT
-		//countAnswered = new Text(550, 210, resourcesManager.aklatanFont, "For Finals Defense!", vbom);
-		//attachChild(countAnswered);
+		countAnswered = new Text(textX, 210, resourcesManager.aklatanFont, " "+ db.countGetAnswered(), vbom);
+		attachChild(countAnswered);
+		countRemaining = new Text(textX, 182, resourcesManager.aklatanFont, " " + db.countGetRemaining(), vbom);
+		attachChild(countRemaining);
 		
 		// SOLVE IT COUNT
 		//solveAnswered = new Text(550, 135, resourcesManager.aklatanFont, "For Finals Defense!", vbom);

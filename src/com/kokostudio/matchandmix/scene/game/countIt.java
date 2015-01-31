@@ -7,6 +7,7 @@ import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.util.GLState;
 
 import com.kokostudio.matchandmix.base.BaseScene;
+import com.kokostudio.matchandmix.database.myDatabase;
 import com.kokostudio.matchandmix.manager.ResourcesManager;
 import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
@@ -18,10 +19,13 @@ public class countIt extends BaseScene {
 	private TiledSprite[] qFrames;
 	
 	private int x, y, rowCounter;
+	
+	private myDatabase db;
 
 	@Override
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
+		db = new myDatabase(activity);
 		createBackground();
 		createQuestionHeader();
 		createButtons();
@@ -78,7 +82,7 @@ public class countIt extends BaseScene {
 		for(int i = 0; i < qFrames.length; i++) {
 			final int index = i;
 			if(rowCounter < 5) {
-				qFrames[i] = new TiledSprite(x, y, resourcesManager.notAnsweredTextureRegion, vbom) {
+				qFrames[i] = new TiledSprite(x, y, db.countItIsAnswered(i).compareTo("false")==0? resourcesManager.notAnsweredTextureRegion : resourcesManager.answeredTextureRegion, vbom) {
 					@Override
 					public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 						switch(pSceneTouchEvent.getAction()) {

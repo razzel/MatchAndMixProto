@@ -50,6 +50,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 		createChoices();
 		checkStatus();
 		checkAudioStatus();
+		playSound();
 		questionImage.setScale(0.8f);
 	}
 
@@ -291,24 +292,41 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 	}
 	
 	private void nextQuestion() {
-		x = 0;
-		if(db.gtmlGetAnswered()==25) {
-			SceneManager.getInstance().loadGTMLScene();
-		} else {
-			if(questionSet == 28 || questionSet+x>=28) {
-				while(db.gtmlIsAnswered(0+x).compareTo("true")==0) {
-					x++;
+		this.registerUpdateHandler(new TimerHandler(1f, new ITimerCallback() {
+			@Override
+			public void onTimePassed(TimerHandler pTimerHandler) {
+				x = 0;
+				if(db.gtmlGetAnswered()==25) {
+					SceneManager.getInstance().loadGTMLScene();
+				} else {
+					if(questionSet == 28 || questionSet+x>=28) {
+						while(db.gtmlIsAnswered(0+x).compareTo("true")==0) {
+							x++;
+						}
+						getQuestionIndex(0+x);
+					} else {
+						while(db.gtmlIsAnswered(questionSet+x).compareTo("true")==0) {
+							x++;
+						}
+						getQuestionIndex(questionSet+x);
+					}
+				
 				}
-				getQuestionIndex(0+x);
-			} else {
-				while(db.gtmlIsAnswered(questionSet+x).compareTo("true")==0) {
-					x++;
-				}
-				getQuestionIndex(questionSet+x);
+				SceneManager.getInstance().loadGTMLPanelScene();		
 			}
-		
-		}
-		SceneManager.getInstance().loadGTMLPanelScene();
+		}));
+
+	}
+	
+	private void playSound() {
+		this.registerUpdateHandler(new TimerHandler(1f, new ITimerCallback() {	
+			@Override
+			public void onTimePassed(TimerHandler pTimerHandler) {
+				unregisterUpdateHandler(pTimerHandler);
+				questionImageSound().play();
+			}
+			
+		}));
 	}
 	
 	// SOUND
