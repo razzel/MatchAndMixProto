@@ -1,6 +1,7 @@
 package com.kokostudio.matchandmix.scene.game;
 
 import org.andengine.engine.camera.Camera;
+import org.andengine.entity.modifier.MoveModifier;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
@@ -13,6 +14,7 @@ import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
 
 public class SolveItMenu extends BaseScene {
+	
 	private Sprite qHeader;
 	private TiledSprite back;
 	private TiledSprite add,divide,sub,multi;
@@ -22,6 +24,7 @@ public class SolveItMenu extends BaseScene {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 		createBackground();
 		createGameSelection();
+		createButtons();
 		
 
 	}
@@ -45,7 +48,9 @@ public class SolveItMenu extends BaseScene {
 
 	@Override
 	public void disposeScene() {
-		// TODO Auto-generated method stub
+		this.dispose();
+		this.detachSelf();
+		System.gc();
 		
 	}
 
@@ -59,32 +64,63 @@ public class SolveItMenu extends BaseScene {
 		});
 		
 	}
-	private void createGameSelection() {
 	
+	private void createButtons() {
+		back = new TiledSprite(45, 40, resourcesManager.backTiledTextureRegion, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				switch (pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					back.setCurrentTileIndex(1);
+					back.setScale(0.9f);
+					break;
+				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
+					disposeScene();
+					// set scene
+					SceneManager.getInstance().loadGameMenuScene();
+					break;
+				}
+				return true;
+			}
+		};
+		registerTouchArea(back);
+		attachChild(back);		
+	}
+	private void createGameSelection() {
+		
 		// ADD
-		add = new TiledSprite(200, 200, resourcesManager.addTiledTexture, vbom) {
+		add = new TiledSprite(400, 420, resourcesManager.addTiledTexture, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				switch(pSceneTouchEvent.getAction()) {
 				case TouchEvent.ACTION_DOWN:
-					add.setCurrentTileIndex(1);
-					add.setScale(0.9f);
 					break;
 				case TouchEvent.ACTION_UP:
-					resourcesManager.click.play();
-					add.setCurrentTileIndex(0);
-					add.setScale(1.0f);
-					// Load the GuessTheMissingLetter Scene
-					SceneManager.getInstance().loadGTMLScene();
 					break;
 				}
 				return true;
 			}
 			
 		};
-		registerTouchArea(add);
+		add.registerEntityModifier(new MoveModifier(0.5f, -200, 420, 400, 420));
+		//registerTouchArea(add);
 		attachChild(add);
-	
+		
+		// SUB
+		sub = new TiledSprite(400, 300, resourcesManager.subTiledTexture, vbom);
+		sub.registerEntityModifier(new MoveModifier(0.5f, 1000, 300, 400, 300));
+		attachChild(sub);
+		
+		// MULTIPLY
+		multi = new TiledSprite(400, 180, resourcesManager.multiTiledTexture, vbom);
+		multi.registerEntityModifier(new MoveModifier(0.5f, -200, 180, 400, 180));
+		attachChild(multi);
+		
+		// DIVIDE
+		divide = new TiledSprite(400,  60, resourcesManager.divTiledTexture, vbom);
+		divide.registerEntityModifier(new MoveModifier(0.5f, 1000, 60, 400, 60));
+		attachChild(divide);
 
 	
 	// divide
@@ -99,8 +135,7 @@ public class SolveItMenu extends BaseScene {
 				break;
 			case TouchEvent.ACTION_UP:
 				resourcesManager.click.play();
-				divide.setCurrentTileIndex(0);
-				divide.setScale(1.0f);
+				
 				// Load the GuessTheMissingLetter Scene
 				//SceneManager.getInstance().loadGTMLScene();
 				break;

@@ -38,7 +38,6 @@ public class PlayMenuScene extends BaseScene {
 			@Override
 			public void onTimePassed(TimerHandler pTimerHandler) {
 				unregisterUpdateHandler(pTimerHandler);
-				
 				createPlayHeader();
 				createButton();
 				
@@ -116,19 +115,8 @@ public class PlayMenuScene extends BaseScene {
 				case TouchEvent.ACTION_UP:
 					resourcesManager.click.play();
 					SceneManager.getInstance().loadMainMenuScene();
-					play.setCurrentTileIndex(0);
-					play.setScale(1.0f);
 					disposeScene();
-					/*
-					bg.registerEntityModifier(new MoveModifier(.5f, 400, 240, -800, 240) {
-
-						@Override
-						protected void onModifierStarted(IEntity pItem) {
-							SceneManager.getInstance().loadMainMenuScene();
-							super.onModifierStarted(pItem);
-						}
-						
-					});*/
+					
 					break;
 				}
 				return true;

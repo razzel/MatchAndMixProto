@@ -98,8 +98,6 @@ public class ProgressScene extends BaseScene {
 					break;
 				case TouchEvent.ACTION_UP:
 					resourcesManager.click.play();
-					back.setCurrentTileIndex(0);
-					back.setScale(1.0f);
 					
 					disposeScene();
 					// unload progress textures

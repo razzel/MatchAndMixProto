@@ -100,8 +100,6 @@ public class GameMenuScene extends BaseScene {
 					break;
 				case TouchEvent.ACTION_UP:
 					resourcesManager.click.play();
-					next.setCurrentTileIndex(0);
-					next.setScale(1.0f);
 					
 					// Hide the 1st 3 entities
 					next.setVisible(false);
@@ -142,8 +140,6 @@ public class GameMenuScene extends BaseScene {
 					break;
 				case TouchEvent.ACTION_UP:
 					resourcesManager.click.play();
-					prev.setCurrentTileIndex(0);
-					prev.setScale(1.0f);
 					
 					// show the 1st 3 entities
 					next.setVisible(true);
@@ -217,8 +213,6 @@ public class GameMenuScene extends BaseScene {
 					break;
 				case TouchEvent.ACTION_UP:
 					resourcesManager.click.play();
-					guess.setCurrentTileIndex(0);
-					guess.setScale(1.0f);
 					
 					disposeScene();
 					// Load the GuessTheMissingLetter Scene
@@ -241,8 +235,7 @@ public class GameMenuScene extends BaseScene {
 					break;
 				case TouchEvent.ACTION_UP:
 					resourcesManager.click.play();
-					whatColor.setScale(1.0f);
-					whatColor.setCurrentTileIndex(0);
+					
 					disposeScene();
 					// Switch the scene
 					SceneManager.getInstance().loadThatColorIsScene();
@@ -264,11 +257,10 @@ public class GameMenuScene extends BaseScene {
 					break;
 				case TouchEvent.ACTION_UP:
 					resourcesManager.click.play();
-					solveIt.setScale(1.0f);
-					solveIt.setCurrentTileIndex(0);
-					//disposeScene();
+					
+					disposeScene();
 					// Switch the scene
-					//SceneManager.getInstance().loadSolveItMenuScene();
+					SceneManager.getInstance().loadSolveItMenuScene();
 					break;
 				}
 				return true;
@@ -294,8 +286,7 @@ public class GameMenuScene extends BaseScene {
 					break;
 				case TouchEvent.ACTION_UP:
 					resourcesManager.click.play();
-					matchIt.setScale(1.0f);
-					matchIt.setCurrentTileIndex(0);
+					
 					disposeScene();
 					// Load the GuessTheMissingLetter Scene
 					SceneManager.getInstance().loadMatchItScene();
@@ -317,8 +308,7 @@ public class GameMenuScene extends BaseScene {
 					break;
 				case TouchEvent.ACTION_UP:
 					resourcesManager.click.play();
-					countIt.setScale(1.0f);
-					countIt.setCurrentTileIndex(0);
+					
 					disposeScene();
 					// Switch the scene
 					SceneManager.getInstance().loadCountItScene();
@@ -337,9 +327,8 @@ public class GameMenuScene extends BaseScene {
 					backToMenu.setCurrentTileIndex(1);
 					break;
 				case TouchEvent.ACTION_UP:
-					backToMenu.setScale(1.0f);
-					backToMenu.setCurrentTileIndex(0);
 					resourcesManager.click.play();
+					
 					SceneManager.getInstance().loadMainMenuScene();
 					break;
 				}

@@ -103,8 +103,6 @@ public class CountItPanel extends BaseScene {
 					back.setCurrentTileIndex(1);
 					break;
 				case TouchEvent.ACTION_UP:
-					back.setScale(1.0f);
-					back.setCurrentTileIndex(0);
 					disposeScene();
 					resourcesManager.click.play();
 					

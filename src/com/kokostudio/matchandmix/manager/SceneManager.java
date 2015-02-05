@@ -259,9 +259,9 @@ public class SceneManager {
 	
 	public void loadSolveItMenuScene() {
 		// unload the game menu textures
-		ResourcesManager.getInstance().unloadGameMenuTexture();
+		//ResourcesManager.getInstance().unloadGameMenuTexture();
 		// load that THAT COLOR IS SCENE RESOURCES
-		ResourcesManager.getInstance().loadSolveItResources();
+		//ResourcesManager.getInstance().loadSolveItResources();
 		// set the scene
 		SolveItMenuScene = new SolveItMenu();
 		setScene(SolveItMenuScene);

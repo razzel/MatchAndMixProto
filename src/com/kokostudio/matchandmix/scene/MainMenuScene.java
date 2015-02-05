@@ -29,14 +29,10 @@ import com.kokostudio.matchandmix.base.BaseScene;
 import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
 
-public class MainMenuScene extends BaseScene implements IScrollDetectorListener, IOnSceneTouchListener, IClickDetectorListener, IOnMenuItemClickListener {
+public class MainMenuScene extends BaseScene implements IScrollDetectorListener, IOnSceneTouchListener, IClickDetectorListener {
 	
 	private TiledSprite next, prev;
 	private TiledSprite games, progress, howTo, about, options, exit;
-	
-	private MenuScene scene;
-	private final int MENU_YES = 0;
-	private final int MENU_NO = 1;
 	
 	private Sprite menuLeft;
 	private Sprite menuRight;
@@ -229,10 +225,9 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 				case TouchEvent.ACTION_UP:
 					resourcesManager.click.play();
 					disposeScene();
+					
 					// LOAD THE GAME MENU SCENE in the SceneManager
 					SceneManager.getInstance().loadGameMenuScene();
-					games.setCurrentTileIndex(0);
-					games.setScale(1.0f);
 					break;
 				}
 				return true;
@@ -249,8 +244,7 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 					break;
 				case TouchEvent.ACTION_UP:
 					resourcesManager.click.play();
-					progress.setCurrentTileIndex(0);
-					progress.setScale(1.0f);
+					
 					disposeScene();
 					// set scene
 					SceneManager.getInstance().loadProgressScene();
@@ -283,8 +277,7 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 					break;
 				case TouchEvent.ACTION_UP:
 					resourcesManager.click.play();
-					options.setCurrentTileIndex(0);
-					options.setScale(1.0f);
+					
 					disposeScene();
 					
 					// set the scene to option
@@ -305,8 +298,7 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 					break;
 				case TouchEvent.ACTION_UP:
 					resourcesManager.click.play();
-					exit.setCurrentTileIndex(0);
-					exit.setScale(1.0f);
+
 					System.exit(0);
 					break;
 				}
@@ -461,38 +453,6 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 	public void onScrollFinished(ScrollDetector pScollDetector, int pPointerID,
 			float pDistanceX, float pDistanceY) {
 		
-	}
-	
-	private void createMenuScene() {
-		this.scene = new MenuScene(this.camera);
-		
-		final SpriteMenuItem yes = new SpriteMenuItem(MENU_YES, resourcesManager.nextTiledTextureRegion, vbom);
-		yes.setBlendFunction(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
-		this.scene.addMenuItem(yes);
-		
-		final SpriteMenuItem no = new SpriteMenuItem(MENU_NO, resourcesManager.nextTiledTextureRegion, vbom);
-		yes.setBlendFunction(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
-		this.scene.addMenuItem(no);
-		
-		scene.buildAnimations();
-		
-		setBackgroundEnabled(false);
-		
-		scene.setOnMenuItemClickListener(this);
-	}
-
-	@Override
-	public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem, float pMenuItemLocalX, float pMenuItemLocalY) {
-		switch(pMenuItem.getID()) {
-		case MENU_YES:
-			System.exit(0);
-			return true;
-		case MENU_NO:
-			scene.reset();
-			return true;
-		default:
-			return false;
-		}
 	}
 
 }

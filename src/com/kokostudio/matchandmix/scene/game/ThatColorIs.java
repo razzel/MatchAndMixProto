@@ -1,6 +1,7 @@
 package com.kokostudio.matchandmix.scene.game;
 
 import org.andengine.engine.camera.Camera;
+import org.andengine.entity.modifier.ScaleModifier;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
@@ -49,7 +50,9 @@ public class ThatColorIs extends BaseScene {
 
 	@Override
 	public void disposeScene() {
-		
+		this.dispose();
+		this.detachSelf();
+		System.gc();
 	}
 	
 	// -------------------------------------------------------------------
@@ -74,6 +77,7 @@ public class ThatColorIs extends BaseScene {
 				super.preDraw(pGLState, pCamera);
 			}
 		};
+		//qHeader.registerEntityModifier(new ScaleModifier(0.5f, 0.1f, 1.0f));
 		attachChild(qHeader);
 		
 		// CREATE QUESTION FRAMES
@@ -110,6 +114,7 @@ public class ThatColorIs extends BaseScene {
 					public void run() {
 						registerTouchArea(qFrames[index]);
 						attachChild(qFrames[index]);
+						qFrames[index].registerEntityModifier(new ScaleModifier(0.5f, 0.1f, 1.0f));
 					}		
 				});
 				x += 110;
@@ -134,8 +139,7 @@ public class ThatColorIs extends BaseScene {
 					break;
 				case TouchEvent.ACTION_UP:
 					resourcesManager.click.play();
-					back.setScale(1.0f);
-					back.setCurrentTileIndex(0);
+					disposeScene();
 					// unload THAT COLOR IS Textures
 					//ResourcesManager.getInstance().unloadThatColorIsTextures();
 					// SET SCENE

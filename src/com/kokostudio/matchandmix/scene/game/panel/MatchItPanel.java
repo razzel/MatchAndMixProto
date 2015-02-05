@@ -104,9 +104,8 @@ public class MatchItPanel extends BaseScene {
 					back.setScale(0.9f);
 					break;
 				case TouchEvent.ACTION_UP:
-					back.setCurrentTileIndex(0);
-					back.setScale(1f);
 					resourcesManager.click.play();
+					
 					// unload MATCH IT panel textures
 					//ResourcesManager.getInstance().unloadMatchItPanelTextures();
 					// SET THE SCENE TO MATCH IT

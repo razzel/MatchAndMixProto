@@ -100,8 +100,7 @@ public class ThatColorIsPanel extends BaseScene {
 					break;
 				case TouchEvent.ACTION_UP:
 					resourcesManager.click.play();
-					back.setCurrentTileIndex(0);
-					back.setScale(1f);
+					
 					// unload that color is panel textures
 					//ResourcesManager.getInstance().unloadThatColorIsPanelTextures();
 					disposeScene();

@@ -1,14 +1,18 @@
 package com.kokostudio.matchandmix.scene.game;
 
 import org.andengine.engine.camera.Camera;
+import org.andengine.entity.modifier.RotationByModifier;
+import org.andengine.entity.modifier.RotationModifier;
+import org.andengine.entity.modifier.ScaleModifier;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.util.GLState;
+import org.andengine.util.modifier.ease.EaseElasticInOut;
+import org.andengine.util.modifier.ease.EaseElasticOut;
 
 import com.kokostudio.matchandmix.base.BaseScene;
 import com.kokostudio.matchandmix.database.myDatabase;
-import com.kokostudio.matchandmix.manager.ResourcesManager;
 import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
 import com.kokostudio.matchandmix.scene.game.panel.GuessTheMissingLetterPanel;
@@ -50,7 +54,9 @@ public class GuessTheMissingLetter extends BaseScene {
 
 	@Override
 	public void disposeScene() {
-		
+		this.dispose();
+		this.detachSelf();
+		System.gc();
 	}
 	
 	// =====================================================================================================
@@ -76,6 +82,7 @@ public class GuessTheMissingLetter extends BaseScene {
 				super.preDraw(pGLState, pCamera);
 			}
 		};
+		//qHeader.registerEntityModifier(new ScaleModifier(0.5f, 0.1f, 1.0f));
 		attachChild(qHeader);
 		
 		// Create the 5x5 array of question frames
@@ -94,8 +101,6 @@ public class GuessTheMissingLetter extends BaseScene {
 							break;
 						case TouchEvent.ACTION_UP:
 							resourcesManager.click.play();
-							qFrames[index].setCurrentTileIndex(0);
-							qFrames[index].setScale(1.0f);
 							
 							// set the index variable to the GTMLPanel's getQuestionIndex()
 							GuessTheMissingLetterPanel.getQuestionIndex(index);
@@ -111,7 +116,8 @@ public class GuessTheMissingLetter extends BaseScene {
 					@Override
 					public void run() {
 						registerTouchArea(qFrames[index]);
-						attachChild(qFrames[index]);	
+						attachChild(qFrames[index]);
+						qFrames[index].registerEntityModifier(new ScaleModifier(0.5f, 0.1f, 1.0f));
 					}		
 				});
 				x += 110;
@@ -138,9 +144,7 @@ public class GuessTheMissingLetter extends BaseScene {
 					break;
 				case TouchEvent.ACTION_UP:
 					resourcesManager.click.play();
-					back.setCurrentTileIndex(0);
-					back.setScale(1.0f);
-					
+					disposeScene();
 					// unload the GTML textures / resources
 					//ResourcesManager.getInstance().unloadGTMLTextures();
 					// then reload the Game Menu SCENE

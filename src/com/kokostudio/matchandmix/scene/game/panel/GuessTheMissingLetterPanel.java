@@ -72,7 +72,9 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 
 	@Override
 	public void disposeScene() {
-		
+		this.dispose();
+		this.detachSelf();
+		System.gc();
 	}
 	
 	// ======================================================================================
@@ -100,8 +102,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 					break;
 				case TouchEvent.ACTION_UP:
 					resourcesManager.click.play();
-					back.setCurrentTileIndex(1);
-					back.setScale(0.9f);
+					
 					if(db.isBGMOn().compareTo("true")==0) {
 						engine.getMusicManager().setMasterVolume(0.70f);
 					}
