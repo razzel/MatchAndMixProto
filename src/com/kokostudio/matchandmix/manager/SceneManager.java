@@ -1,32 +1,34 @@
 package com.kokostudio.matchandmix.manager;
 
 import org.andengine.engine.Engine;
-import org.andengine.ui.IGameInterface.OnCreateResourcesCallback;
 import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
 
 import com.kokostudio.matchandmix.base.BaseScene;
 import com.kokostudio.matchandmix.scene.LoadingScene;
-//import com.kokostudio.matchandmix.scene.About;
 import com.kokostudio.matchandmix.scene.MainMenuScene;
 import com.kokostudio.matchandmix.scene.GameMenuScene;
 import com.kokostudio.matchandmix.scene.OptionScene;
 import com.kokostudio.matchandmix.scene.ProgressScene;
-//import com.kokostudio.matchandmix.scene.GameMenuScene;
 import com.kokostudio.matchandmix.scene.PlayMenuScene;
 import com.kokostudio.matchandmix.scene.SplashScene;
 
 import com.kokostudio.matchandmix.scene.game.GuessTheMissingLetter;
 import com.kokostudio.matchandmix.scene.game.MatchIt;
+import com.kokostudio.matchandmix.scene.game.SolveItAddition;
+import com.kokostudio.matchandmix.scene.game.SolveItDivision;
 import com.kokostudio.matchandmix.scene.game.SolveItMenu;
+import com.kokostudio.matchandmix.scene.game.SolveItMultiplication;
+import com.kokostudio.matchandmix.scene.game.SolveItSubtraction;
 import com.kokostudio.matchandmix.scene.game.ThatColorIs;
 import com.kokostudio.matchandmix.scene.game.countIt;
 import com.kokostudio.matchandmix.scene.game.panel.CountItPanel;
-//import com.kokostudio.matchandmix.scene.game.MatchIt;
 import com.kokostudio.matchandmix.scene.game.panel.GuessTheMissingLetterPanel;
 import com.kokostudio.matchandmix.scene.game.panel.MatchItPanel;
 import com.kokostudio.matchandmix.scene.game.panel.ThatColorIsPanel;
-
-//import com.kokostudio.matchandmix.scene.game.panel.MatchItPanel;
+import com.kokostudio.matchandmix.scene.game.panel.SolveItAddPanel;
+import com.kokostudio.matchandmix.scene.game.panel.SolveItSubPanel;
+import com.kokostudio.matchandmix.scene.game.panel.SolveItMulPanel;
+import com.kokostudio.matchandmix.scene.game.panel.SolveItDivPanel;
 
 public class SceneManager {
 	
@@ -52,12 +54,15 @@ public class SceneManager {
 		private BaseScene SolveItSubScene;
 		private BaseScene SolveItMulScene;
 		private BaseScene SolveItDivScene;
+			private BaseScene SolveItAddPanel;
+			private BaseScene SolveItSubPanel;
+			private BaseScene SolveItMulPanel;
+			private BaseScene SolveItDivPanel;
 	private BaseScene ThatColorIsScene;
 	// GAME PANELS
 	private BaseScene MatchItPanelScene;
 	private BaseScene GTMLPanelScene;
 	private BaseScene CountItPanelScene;
-	private BaseScene SolveItPanelScene;
 	private BaseScene ThatColorIsPanelScene;
 	
 	//---------------------------------
@@ -93,8 +98,12 @@ public class SceneManager {
 		SCENE_MATCHITPANEL,
 		SCENE_GTMLPANEL,
 		SCENE_COUNTITPANEL,
-		SCENE_SOLVEITPANEL,
-		SCENE_THATCOLORISPANEL
+		SCENE_THATCOLORISPANEL,
+		
+		SCENE_SOLVEITADDPANEL,
+		SCENE_SOLVEITSUBPANEL,
+		SCENE_SOLVEITMULPANEL,
+		SCENE_SOLVEITDIVPANEL
 	}
 	
 	//----------------------------------
@@ -150,18 +159,12 @@ public class SceneManager {
 	
 	// GAME MENU SCENE =========================================================================================================
 	public void loadGameMenuScene() {
-		// unload the MAIN MENU texture
-		//ResourcesManager.getInstance().unloadMainMenuTextures();	
-		// load the GAME MENU texture
-		//ResourcesManager.getInstance().loadGameMenuResources();
 		gameMenuScene = new GameMenuScene();
 		setScene(gameMenuScene);
 	}
 	
 	// OPTION SCENE ============================================================================================================
 	public void loadOptionScene() {
-		// unload main menu scene resources
-		//ResourcesManager.getInstance().unloadMainMenuTextures();
 		// load the option scene resources
 		ResourcesManager.getInstance().loadOptionResources();
 		optionScene = new OptionScene();
@@ -169,8 +172,6 @@ public class SceneManager {
 	}
 	
 	public void loadProgressScene() {
-		// unload main menu textures
-		//ResourcesManager.getInstance().unloadMainMenuTextures();
 		// load progress texture
 		ResourcesManager.getInstance().loadProgressResources();
 		// set scene
@@ -181,7 +182,7 @@ public class SceneManager {
 	// ABOUT ================================================================================================================
 	public void loadaboutScene() {
 		// unload the play menu texture
-		ResourcesManager.getInstance().unloadMainMenuTextures();	
+		//ResourcesManager.getInstance().unloadMainMenuTextures();	
 		// load the main menu texture
 		//ResourcesManager.getInstance().loadAboutPanelResources();
 		//aboutScene = new About();
@@ -193,10 +194,6 @@ public class SceneManager {
 	
 	// GUESS THE MISSING LETTER SCENE ===============================================================================================
 	public void loadGTMLScene() {
-		// unload the GAME MENU textures
-		//ResourcesManager.getInstance().unloadGameMenuTexture();
-		// load the guess the missing letter resources
-		//ResourcesManager.getInstance().loadGTMLResources();
 		GuessTheMissingLetterScene = new GuessTheMissingLetter();
 		setScene(GuessTheMissingLetterScene);
 		
@@ -204,40 +201,24 @@ public class SceneManager {
 	
 		// LOAD GTML  PANEL SCENE
 		public void loadGTMLPanelScene() {
-			// unload the GTML it textures
-			//ResourcesManager.getInstance().unloadGTMLTextures();
-			// load the GTML PANEL SCENE RESOURCES
-			//ResourcesManager.getInstance().loadGTMLPanelResources();
 			GTMLPanelScene = new GuessTheMissingLetterPanel();
 			setScene(GTMLPanelScene);	
 		}
 	
 	// MAtch IT SCENE ==============================================================================================================
 	public void loadMatchItScene() {
-		// unload the main menu textures
-		//ResourcesManager.getInstance().unloadGameMenuTexture();
-		// load the guess the missing letter resources
-		//ResourcesManager.getInstance().loadMatchItResources();
 		MatchItScene = new MatchIt();
 		setScene(MatchItScene);		
 	}
 	
 		// LOAD MATCH IT PANEL SCENE
 		public void loadMatchItPanelScene() {
-			// unload the match it textures
-			//ResourcesManager.getInstance().unloadMatchItResources();
-			// load the MATCH IT PANEL SCENE RESOURCES
-			//ResourcesManager.getInstance().loadMatchItPanelResources();
 			MatchItPanelScene = new MatchItPanel();
 			setScene(MatchItPanelScene);	
 		}
 	
 	// THAT COLOR IS SCENE =================================================================================================
 	public void loadThatColorIsScene() {
-		// unload the game menu textures
-		//ResourcesManager.getInstance().unloadGameMenuTexture();
-		// load that THAT COLOR IS SCENE RESOURCES
-		//ResourcesManager.getInstance().loadThatColorIsResources();
 		// set the scene
 		ThatColorIsScene = new ThatColorIs();
 		setScene(ThatColorIsScene);
@@ -258,63 +239,58 @@ public class SceneManager {
 	//SOLVE IT ====================================================================================================================
 	
 	public void loadSolveItMenuScene() {
-		// unload the game menu textures
-		//ResourcesManager.getInstance().unloadGameMenuTexture();
-		// load that THAT COLOR IS SCENE RESOURCES
-		//ResourcesManager.getInstance().loadSolveItResources();
 		// set the scene
 		SolveItMenuScene = new SolveItMenu();
 		setScene(SolveItMenuScene);
 	}
 	
 		public void loadSolveItAddScene() {
-			
+			SolveItAddScene = new SolveItAddition();
+			setScene(SolveItAddScene);
 		}
 		
 			public void loadSolveItAddPanelScene() {
-				
+				SolveItAddPanel = new SolveItAddPanel();
+				setScene(SolveItAddPanel);
 			}
 		
 		public void loadSolveItSubScene() {
-			
+			SolveItSubScene = new SolveItSubtraction();
+			setScene(SolveItSubScene);
 		}
 			public void loadSolveItSubPanelScene() {
-				
+				SolveItSubPanel = new SolveItSubPanel();
+				setScene(SolveItSubPanel);
 			}
 		
 		public void loadSolveItMulScene() {
-			
+			SolveItMulScene = new SolveItMultiplication();
+			setScene(SolveItMulScene);
 		}
 		
 			public void loadSolveItMulPanelScene() {
-				
+				SolveItMulPanel = new SolveItMulPanel();
+				setScene(SolveItMulPanel);
 			}
 		
 		public void loadSolveItDivScene() {
-			
+			SolveItDivScene = new SolveItDivision();
+			setScene(SolveItDivScene);
 		}
 		
 			public void loadSolveItDivPanelScene() {
-				
+				SolveItDivPanel = new SolveItDivPanel();
+				setScene(SolveItDivPanel);
 			}
 	
 	//COUNT IT ==================================================================================================
 	public void loadCountItScene() {
-		//unload the game textures
-		//ResourcesManager.getInstance().unloadGameMenuTexture();
-		//Load that Count it Scene Resources
-		ResourcesManager.getInstance().loadCountItResources();
 		// set the scene
 		CountItScene = new countIt();
 		setScene(CountItScene);
 	}
 	
 	public void loadCountItPanelScene() {
-		// unload Count it Textures
-		//ResourcesManager.getInstance().unloadCountItResources();
-		// load the count it panel scene resources
-		//ResourcesManager.getInstance().loadCountItPanelResources();
-		// set the scene
 		CountItPanelScene = new CountItPanel();
 		setScene(CountItPanelScene);
 	}
@@ -383,7 +359,6 @@ public class SceneManager {
 		case SCENE_ABOUT:
 			setScene(aboutScene);
 			break;
-		
 		//
 		default:
 			break;

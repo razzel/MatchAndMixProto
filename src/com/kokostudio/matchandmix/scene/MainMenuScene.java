@@ -1,6 +1,7 @@
 package com.kokostudio.matchandmix.scene;
 
 import org.andengine.engine.camera.Camera;
+import org.andengine.engine.camera.hud.HUD;
 import org.andengine.entity.modifier.MoveModifier;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
@@ -29,7 +30,7 @@ import com.kokostudio.matchandmix.base.BaseScene;
 import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
 
-public class MainMenuScene extends BaseScene implements IScrollDetectorListener, IOnSceneTouchListener, IClickDetectorListener {
+public class MainMenuScene extends BaseScene implements IScrollDetectorListener, IOnSceneTouchListener {
 	
 	private TiledSprite next, prev;
 	private TiledSprite games, progress, howTo, about, options, exit;
@@ -50,16 +51,17 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 	@Override
 	public void createScene() {
 		
-		//this.scrollDetector = new SurfaceScrollDetector(this);
-		//this.clickDetector = new ClickDetector(this);
+		this.scrollDetector = new SurfaceScrollDetector(this);
+		this.setOnSceneTouchListener(this);
+		this.setTouchAreaBindingOnActionMoveEnabled(true);
 		
-		this.sortChildren();
-		//this.setOnSceneTouchListener(this);
-		//this.setTouchAreaBindingOnActionMoveEnabled(true);
+		createMenuHeader();
+		createMenuBoxes();
+		createParallaxBackground();
 		
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 		
-		//createMenuScene();
+		/* //UNCOMMENT THIS SECTION TO REMOVE THE SCROLL IN THE GAME
 		createBackground();
 		createMenuHeader();
 		createMenuSelection();
@@ -69,13 +71,8 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 		about.setVisible(false);
 		options.setVisible(false);
 		exit.setVisible(false);
-		
 		unregisterTouchArea(options);
-		/*
-		createMenuHeader();
-		createMenuBoxes();
-		createParallaxBackground();*/
-		
+		*/
 	}	
 
 	@Override
@@ -104,7 +101,7 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 	// ===============================================================================================================================
 	// CLASS LOGIC
 	// ===============================================================================================================================
-	public void createBackground() {
+	private void createBackground() {
 		attachChild(new Sprite(400, 240, resourcesManager.bgTextureRegion, vbom) {
 			@Override
 			protected void preDraw(GLState pGLState, Camera pCamera) {
@@ -114,7 +111,7 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 		});
 	}
 	
-	public void createMenuHeader() {
+	private void createMenuHeader() {
 		menuHeader = new Sprite(400, 430, resourcesManager.menuHeaderTextureRegion, vbom) {
 			@Override
 			protected void preDraw(GLState pGLState, Camera pCamera) {
@@ -122,11 +119,10 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 				super.preDraw(pGLState, pCamera);
 			}	
 		};
-		//menuHeader.registerEntityModifier(new MoveModifier(.5f, -800, 430, 400, 430));
 		attachChild(menuHeader);
 	}
 	
-	public void createButtons() {
+	private void createButtons() {
 		next = new TiledSprite(765, 200, resourcesManager.nextTiledTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
@@ -212,7 +208,7 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 		attachChild(prev);	
 	}
 	
-	public void createMenuSelection() {
+	private void createMenuSelection() {
 		// 1ST MENU
 		games = new TiledSprite(185, 200, resourcesManager.gamesTiledTextureRegion, vbom) {
 			@Override
@@ -315,33 +311,28 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 	
 	@Override
 	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
-		/*
-		this.clickDetector.onTouchEvent(pSceneTouchEvent);
+		//this.clickDetector.onTouchEvent(pSceneTouchEvent);
 		this.scrollDetector.onTouchEvent(pSceneTouchEvent);
-		
-		this.sortChildren();
-		this.setOnSceneTouchListener(this);
-		this.setTouchAreaBindingOnActionMoveEnabled(true);
-		
 		this.setTouchAreaBindingOnActionDownEnabled(true);
+		this.sortChildren();
 		
 		Log.d("currentX", "currentX = " +currentX);
 		Log.d("currentX", "minX = " +minX);
 		Log.d("currentX", "maxX = " +maxX);
-		*/
+		
 		return true;
 		
 	}
 	
 	@Override
 	public void onScroll(ScrollDetector pScollDetector, int pPointerID, float pDistanceX, float pDistanceY) {
-		maxX = 1030;
+		//maxX = 1030;
 		if(camera.getXMin()<=15)
          	menuLeft.setVisible(false);
          else
          	menuLeft.setVisible(true);
     	 
-    	 if(camera.getXMin()>maxX-15)
+    	 if(camera.getXMin()>1100-15)
              menuRight.setVisible(false);
          else
         	 menuRight.setVisible(true);
@@ -350,7 +341,7 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
      	 if ( ((currentX - pDistanceX) < minX)) {
      		return;
      		
-     	 } else if( ((currentX - pDistanceX) > maxX)) {
+     	 } else if( ((currentX - pDistanceX) > 1100)) {
      		return;
      	 }
      		 
@@ -369,11 +360,6 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
     		currentX = 0;
     	}
     	
-	}
-
-	@Override
-	public void onClick(ClickDetector pClickDetector, int pPointerID, float pSceneX, float pSceneY) {
-		
 	}
 	
 	private void createMenuBoxes() {
@@ -395,20 +381,9 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 			menuSelectionTiledSprite[ctr] = new TiledSprite(spriteX, spriteY, menuSelectionTexture[ctr], vbom) {
 				@Override
 				public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
-					switch(pSceneTouchEvent.getAction()) {
-					case TouchEvent.ACTION_DOWN:
-						menuSelectionTiledSprite[index].setScale(0.9f);
-						menuSelectionTiledSprite[index].setCurrentTileIndex(1);
-						break;
-					case TouchEvent.ACTION_UP:
-						menuSelectionTiledSprite[index].setScale(1.0f);
-						menuSelectionTiledSprite[index].setCurrentTileIndex(0);
+					if(pSceneTouchEvent.isActionUp()) 
+						setTheScene(index);
 						
-						Log.d("position", "menuLeft " + (camera.getCenterX() - GameActivity.CAMERA_WIDTH/2 + 45));
-						Log.d("position", "menuRight " + (camera.getCenterX()+ GameActivity.CAMERA_WIDTH/2 - 45));
-						Log.d("GAME WIDTH", "test "+GameActivity.CAMERA_WIDTH);
-						break;
-					}
 					return false;
 				}	
 			};
@@ -421,7 +396,7 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 					menuSelectionTiledSprite[index].setZIndex(0);
 				}
 			});
-			spriteX += 300;
+			spriteX += 320;
 		}
 		
 		maxX = spriteX - GameActivity.CAMERA_WIDTH;
@@ -441,8 +416,52 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 		bg.attachParallaxEntity(new ParallaxEntity(0, new Sprite(400, 240, resourcesManager.bgTextureRegion, vbom)));
 		setBackground(bg);
 	}
-
-
+	
+	private void setTheScene(int i) {
+		/*
+		 * game
+		 * progress
+		 * how to
+		 * about
+		 * option
+		 * exit
+		 */
+		switch(i) {
+		case 0:
+			resourcesManager.click.play();
+			resetCamera();
+			SceneManager.getInstance().loadGameMenuScene();
+			break;
+		case 1:
+			resourcesManager.click.play();
+			resetCamera();
+			SceneManager.getInstance().loadProgressScene();
+			break;
+		case 2:
+			resourcesManager.click.play();
+			//resetCamera();
+			// HOW TO PLAY
+			break;
+		case 3:
+			resourcesManager.click.play();
+			//resetCamera();
+			//SceneManager.getInstance().loadaboutScene();
+			break;
+		case 4:
+			resourcesManager.click.play();
+			resetCamera();
+			SceneManager.getInstance().loadOptionScene();
+			break;
+		case 5:
+			System.exit(0);
+			break;
+		}
+	}
+	
+	private void resetCamera() {
+		camera.setCenter(GameActivity.CAMERA_WIDTH / 2, GameActivity.CAMERA_HEIGHT / 2);
+	}
+	
 	@Override
 	public void onScrollStarted(ScrollDetector pScollDetector, int pPointerID,
 			float pDistanceX, float pDistanceY) {
