@@ -229,6 +229,30 @@ public class SolveItMulPanel extends BaseScene {
 		else if(questionSet == 2) r = resourcesManager.mulQuestionImage3;
 		else if(questionSet == 3) r = resourcesManager.mulQuestionImage4;
 		else if(questionSet == 4) r = resourcesManager.mulQuestionImage5;
+		
+		else if(questionSet == 6) r = resourcesManager.mulQuestionImage6;
+		else if(questionSet == 7) r = resourcesManager.mulQuestionImage7;
+		else if(questionSet == 8) r = resourcesManager.mulQuestionImage8;
+		else if(questionSet == 9) r = resourcesManager.mulQuestionImage9;
+		else if(questionSet == 10) r = resourcesManager.mulQuestionImage10;
+		
+		else if(questionSet == 12) r = resourcesManager.mulQuestionImage11;
+		else if(questionSet == 13) r = resourcesManager.mulQuestionImage12;
+		else if(questionSet == 14) r = resourcesManager.mulQuestionImage13;
+		else if(questionSet == 15) r = resourcesManager.mulQuestionImage14;
+		else if(questionSet == 16) r = resourcesManager.mulQuestionImage15;
+		
+		else if(questionSet == 18) r = resourcesManager.mulQuestionImage16;
+		else if(questionSet == 19) r = resourcesManager.mulQuestionImage17;
+		else if(questionSet == 20) r = resourcesManager.mulQuestionImage18;
+		else if(questionSet == 21) r = resourcesManager.mulQuestionImage19;
+		else if(questionSet == 22) r = resourcesManager.mulQuestionImage20;
+		
+		else if(questionSet == 24) r = resourcesManager.mulQuestionImage21;
+		else if(questionSet == 25) r = resourcesManager.mulQuestionImage22;
+		else if(questionSet == 26) r = resourcesManager.mulQuestionImage23;
+		else if(questionSet == 27) r = resourcesManager.mulQuestionImage24;
+		else if(questionSet == 28) r = resourcesManager.mulQuestionImage25;
 			
 		return r;
 	}
@@ -240,6 +264,30 @@ public class SolveItMulPanel extends BaseScene {
 		else if(questionSet == 2) r = resourcesManager.mulQuestionText3;			
 		else if(questionSet == 3) r = resourcesManager.mulQuestionText4;
 		else if(questionSet == 4) r = resourcesManager.mulQuestionText5;
+		
+		else if(questionSet == 6) r = resourcesManager.mulQuestionText6;
+		else if(questionSet == 7) r = resourcesManager.mulQuestionText7;
+		else if(questionSet == 8) r = resourcesManager.mulQuestionText8;			
+		else if(questionSet == 9) r = resourcesManager.mulQuestionText9;
+		else if(questionSet == 10) r = resourcesManager.mulQuestionText10;
+		
+		else if(questionSet == 12) r = resourcesManager.mulQuestionText11;
+		else if(questionSet == 13) r = resourcesManager.mulQuestionText12;
+		else if(questionSet == 14) r = resourcesManager.mulQuestionText13;			
+		else if(questionSet == 15) r = resourcesManager.mulQuestionText14;
+		else if(questionSet == 16) r = resourcesManager.mulQuestionText15;
+		
+		else if(questionSet == 18) r = resourcesManager.mulQuestionText16;
+		else if(questionSet == 19) r = resourcesManager.mulQuestionText17;
+		else if(questionSet == 20) r = resourcesManager.mulQuestionText18;			
+		else if(questionSet == 21) r = resourcesManager.mulQuestionText19;
+		else if(questionSet == 22) r = resourcesManager.mulQuestionText20;
+		
+		else if(questionSet == 24) r = resourcesManager.mulQuestionText21;
+		else if(questionSet == 25) r = resourcesManager.mulQuestionText22;
+		else if(questionSet == 26) r = resourcesManager.mulQuestionText23;			
+		else if(questionSet == 27) r = resourcesManager.mulQuestionText24;
+		else if(questionSet == 28) r = resourcesManager.mulQuestionText25;
 			
 		return r;
 	}
@@ -251,6 +299,30 @@ public class SolveItMulPanel extends BaseScene {
 		else if(questionSet == 3) r = resourcesManager.ansTexture5;
 		else if(questionSet == 4) r = resourcesManager.ansTexture5;
 			
+		else if(questionSet == 6) r = resourcesManager.ansTexture7; 
+		else if(questionSet == 7) r = resourcesManager.ansTexture6;
+		else if(questionSet == 8) r = resourcesManager.ansTexture8;
+		else if(questionSet == 9) r = resourcesManager.ansTexture10;
+		else if(questionSet == 10) r = resourcesManager.ansTexture3;
+		
+		else if(questionSet == 12) r = resourcesManager.ansTexture6; 
+		else if(questionSet == 13) r = resourcesManager.ansTexture9;
+		else if(questionSet == 14) r = resourcesManager.ansTexture7;
+		else if(questionSet == 15) r = resourcesManager.ansTexture11;
+		else if(questionSet == 16) r = resourcesManager.ansTexture12;
+		
+		else if(questionSet == 18) r = resourcesManager.ansTexture15; 
+		else if(questionSet == 19) r = resourcesManager.ansTexture10;
+		else if(questionSet == 20) r = resourcesManager.ansTexture12;
+		else if(questionSet == 21) r = resourcesManager.ansTexture13;
+		else if(questionSet == 22) r = resourcesManager.ansTexture13;
+		
+		else if(questionSet == 24) r = resourcesManager.ansTexture14; 
+		else if(questionSet == 25) r = resourcesManager.ansTexture0;
+		else if(questionSet == 26) r = resourcesManager.ansTexture16;
+		else if(questionSet == 27) r = resourcesManager.ansTexture0;
+		else if(questionSet == 28) r = resourcesManager.ansTexture16;
+			
 		return r;
 	}
 		
@@ -261,6 +333,30 @@ public class SolveItMulPanel extends BaseScene {
 		else if(questionSet == 2) tr = resourcesManager.texture2;
 		else if(questionSet == 3) tr = resourcesManager.texture5;
 		else if(questionSet == 4) tr = resourcesManager.texture5;
+		
+		else if(questionSet == 6) tr = resourcesManager.texture7; 
+		else if(questionSet == 7) tr = resourcesManager.texture6;
+		else if(questionSet == 8) tr = resourcesManager.texture8;
+		else if(questionSet == 9) tr = resourcesManager.texture10;
+		else if(questionSet == 10) tr = resourcesManager.texture3;
+		
+		else if(questionSet == 12) tr = resourcesManager.texture6; 
+		else if(questionSet == 13) tr = resourcesManager.texture9;
+		else if(questionSet == 14) tr = resourcesManager.texture7;
+		else if(questionSet == 15) tr = resourcesManager.texture11;
+		else if(questionSet == 16) tr = resourcesManager.texture12;
+		
+		else if(questionSet == 18) tr = resourcesManager.texture15; 
+		else if(questionSet == 19) tr = resourcesManager.texture10;
+		else if(questionSet == 20) tr = resourcesManager.texture12;
+		else if(questionSet == 21) tr = resourcesManager.texture13;
+		else if(questionSet == 22) tr = resourcesManager.texture13;
+		
+		else if(questionSet == 24) tr = resourcesManager.texture14; 
+		else if(questionSet == 25) tr = resourcesManager.texture0;
+		else if(questionSet == 26) tr = resourcesManager.texture16;
+		else if(questionSet == 27) tr = resourcesManager.texture0;
+		else if(questionSet == 28) tr = resourcesManager.texture16;
 			
 		return tr;
 	}
@@ -271,6 +367,30 @@ public class SolveItMulPanel extends BaseScene {
 		else if(questionSet == 2) r = resourcesManager.texture3;
 		else if(questionSet == 3) r = resourcesManager.texture6;
 		else if(questionSet == 4) r = resourcesManager.texture6;
+		
+		else if(questionSet == 6) r = resourcesManager.texture5;
+		else if(questionSet == 7) r = resourcesManager.texture3;
+		else if(questionSet == 8) r = resourcesManager.texture4;
+		else if(questionSet == 9) r = resourcesManager.texture5;
+		else if(questionSet == 10) r = resourcesManager.texture1;
+		
+		else if(questionSet == 12) r = resourcesManager.texture1;
+		else if(questionSet == 13) r = resourcesManager.texture3;
+		else if(questionSet == 14) r = resourcesManager.texture1;
+		else if(questionSet == 15) r = resourcesManager.texture1;
+		else if(questionSet == 16) r = resourcesManager.texture15;
+		
+		else if(questionSet == 18) r = resourcesManager.texture12;
+		else if(questionSet == 19) r = resourcesManager.texture2;
+		else if(questionSet == 20) r = resourcesManager.texture6;
+		else if(questionSet == 21) r = resourcesManager.texture16;
+		else if(questionSet == 22) r = resourcesManager.texture1;
+		
+		else if(questionSet == 24) r = resourcesManager.texture2;
+		else if(questionSet == 25) r = resourcesManager.texture2;
+		else if(questionSet == 26) r = resourcesManager.texture1;
+		else if(questionSet == 27) r = resourcesManager.texture5;
+		else if(questionSet == 28) r = resourcesManager.texture8;
 			
 		return r;
 	}
@@ -281,7 +401,30 @@ public class SolveItMulPanel extends BaseScene {
 		else if(questionSet == 2) r = resourcesManager.texture6;
 		else if(questionSet == 3) r = resourcesManager.texture7;
 		else if(questionSet == 4) r = resourcesManager.texture1;
+		
+		else if(questionSet == 6) r = resourcesManager.texture1;
+		else if(questionSet == 7) r = resourcesManager.texture2;
+		else if(questionSet == 8) r = resourcesManager.texture2;
+		else if(questionSet == 9) r = resourcesManager.texture3;
+		else if(questionSet == 10) r = resourcesManager.texture7;
+		
+		else if(questionSet == 12) r = resourcesManager.texture5;
+		else if(questionSet == 13) r = resourcesManager.texture2;
+		else if(questionSet == 14) r = resourcesManager.texture0;
+		else if(questionSet == 15) r = resourcesManager.texture0;
+		else if(questionSet == 16) r = resourcesManager.texture3;
 			
+		else if(questionSet == 18) r = resourcesManager.texture3;
+		else if(questionSet == 19) r = resourcesManager.texture5;
+		else if(questionSet == 20) r = resourcesManager.texture2;
+		else if(questionSet == 21) r = resourcesManager.texture2;
+		else if(questionSet == 22) r = resourcesManager.texture11;
+		
+		else if(questionSet == 24) r = resourcesManager.texture5;
+		else if(questionSet == 25) r = resourcesManager.texture15;
+		else if(questionSet == 26) r = resourcesManager.texture2;
+		else if(questionSet == 27) r = resourcesManager.texture7;
+		else if(questionSet == 28) r = resourcesManager.texture5;
 		return r;
 	}
 		
@@ -292,6 +435,29 @@ public class SolveItMulPanel extends BaseScene {
 		else if(questionSet == 3) r = resourcesManager.texture1;
 		else if(questionSet == 4) r = resourcesManager.texture3;
 			
+		else if(questionSet == 6) r = resourcesManager.texture3;
+		else if(questionSet == 7) r = resourcesManager.texture5;
+		else if(questionSet == 8) r = resourcesManager.texture5;
+		else if(questionSet == 9) r = resourcesManager.texture7;
+		else if(questionSet == 10) r = resourcesManager.texture2;
+		
+		else if(questionSet == 12) r = resourcesManager.texture0;
+		else if(questionSet == 13) r = resourcesManager.texture5;
+		else if(questionSet == 14) r = resourcesManager.texture9;
+		else if(questionSet == 15) r = resourcesManager.texture2;
+		else if(questionSet == 16) r = resourcesManager.texture5;
+		
+		else if(questionSet == 18) r = resourcesManager.texture5;
+		else if(questionSet == 19) r = resourcesManager.texture4;
+		else if(questionSet == 20) r = resourcesManager.texture0;
+		else if(questionSet == 21) r = resourcesManager.texture3;
+		else if(questionSet == 22) r = resourcesManager.texture0;
+		
+		else if(questionSet == 24) r = resourcesManager.texture0;
+		else if(questionSet == 25) r = resourcesManager.texture16;
+		else if(questionSet == 26) r = resourcesManager.texture15;
+		else if(questionSet == 27) r = resourcesManager.texture2;
+		else if(questionSet == 28) r = resourcesManager.texture12;
 		return r;
 	}
 		
@@ -307,6 +473,29 @@ public class SolveItMulPanel extends BaseScene {
 		else if(questionSet == 3) pos = 550;
 		else if(questionSet == 4) pos = 450;
 		
+		else if(questionSet == 6) pos = 250;
+		else if(questionSet == 7) pos = 350;
+		else if(questionSet == 8) pos = 250;
+		else if(questionSet == 9) pos = 250;
+		else if(questionSet == 10) pos = 250;
+		
+		else if(questionSet == 12) pos = 350;
+		else if(questionSet == 13) pos = 250;
+		else if(questionSet == 14) pos = 350;
+		else if(questionSet == 15) pos = 550;
+		else if(questionSet == 16) pos = 450;
+		
+		else if(questionSet == 18) pos = 350;
+		else if(questionSet == 19) pos = 250;
+		else if(questionSet == 20) pos = 350;
+		else if(questionSet == 21) pos = 550;
+		else if(questionSet == 22) pos = 450;
+		
+		else if(questionSet == 24) pos = 350;
+		else if(questionSet == 25) pos = 250;
+		else if(questionSet == 26) pos = 350;
+		else if(questionSet == 27) pos = 550;
+		else if(questionSet == 28) pos = 450;
 		return pos;
 	}
 		
@@ -316,6 +505,32 @@ public class SolveItMulPanel extends BaseScene {
 		else if(questionSet == 2) pos = 250;
 		else if(questionSet == 3) pos = 250;
 		else if(questionSet == 4) pos = 250;
+		
+		else if(questionSet == 6) pos = 350;
+		else if(questionSet == 7) pos = 250;
+		else if(questionSet == 8) pos = 350;
+		else if(questionSet == 9) pos = 550;
+		else if(questionSet == 10) pos = 450;
+		
+		else if(questionSet == 12) pos = 250;
+		else if(questionSet == 13) pos = 350;
+		else if(questionSet == 14) pos = 250;
+		else if(questionSet == 15) pos = 250;
+		else if(questionSet == 16) pos = 250;
+		
+		else if(questionSet == 18) pos = 250;
+		else if(questionSet == 19) pos = 350;
+		else if(questionSet == 20) pos = 250;
+		else if(questionSet == 21) pos = 250;
+		else if(questionSet == 22) pos = 250;
+		
+		else if(questionSet == 24) pos = 550;
+		else if(questionSet == 25) pos = 550;
+		else if(questionSet == 26) pos = 550;
+		else if(questionSet == 27) pos = 450;
+		else if(questionSet == 28) pos = 550;
+		
+
 			
 		return pos;
 	}
@@ -326,6 +541,30 @@ public class SolveItMulPanel extends BaseScene {
 		else if(questionSet == 2) pos = 450;
 		else if(questionSet == 3) pos = 350;
 		else if(questionSet == 4) pos = 350;
+		
+		else if(questionSet == 6) pos = 450;
+		else if(questionSet == 7) pos = 450;
+		else if(questionSet == 8) pos = 450;
+		else if(questionSet == 9) pos = 350;
+		else if(questionSet == 10) pos = 350;
+		
+		else if(questionSet == 12) pos = 450;
+		else if(questionSet == 13) pos = 450;
+		else if(questionSet == 14) pos = 450;
+		else if(questionSet == 15) pos = 350;
+		else if(questionSet == 16) pos = 350;
+		
+		else if(questionSet == 18) pos = 450;
+		else if(questionSet == 19) pos = 450;
+		else if(questionSet == 20) pos = 450;
+		else if(questionSet == 21) pos = 350;
+		else if(questionSet == 22) pos = 350;
+		
+		else if(questionSet == 24) pos = 450;
+		else if(questionSet == 25) pos = 450;
+		else if(questionSet == 26) pos = 450;
+		else if(questionSet == 27) pos = 350;
+		else if(questionSet == 28) pos = 350;
 			
 		return pos;
 		
@@ -337,6 +576,31 @@ public class SolveItMulPanel extends BaseScene {
 		else if(questionSet == 2) pos = 550;
 		else if(questionSet == 3) pos = 450;
 		else if(questionSet == 4) pos = 550;
+		
+		else if(questionSet == 6) pos = 550;
+		else if(questionSet == 7) pos = 550;
+		else if(questionSet == 8) pos = 550;
+		else if(questionSet == 9) pos = 450;
+		else if(questionSet == 10) pos = 550;
+		
+		else if(questionSet == 12) pos = 550;
+		else if(questionSet == 13) pos = 550;
+		else if(questionSet == 14) pos = 550;
+		else if(questionSet == 15) pos = 450;
+		else if(questionSet == 16) pos = 550;
+		
+		else if(questionSet == 18) pos = 550;
+		else if(questionSet == 19) pos = 550;
+		else if(questionSet == 20) pos = 550;
+		else if(questionSet == 21) pos = 450;
+		else if(questionSet == 22) pos = 550;
+		
+		else if(questionSet == 24) pos = 250;
+		else if(questionSet == 25) pos = 350;
+		else if(questionSet == 26) pos = 250;
+		else if(questionSet == 27) pos = 250;
+		else if(questionSet == 28) pos = 250;
+	
 		
 		return pos;
 	}

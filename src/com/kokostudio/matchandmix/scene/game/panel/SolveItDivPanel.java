@@ -224,16 +224,35 @@ public class SolveItDivPanel extends BaseScene {
 	// TEXTURES
 	private ITextureRegion questionImage() {
 		r = null;
-		if (questionSet == 0)
-			r = resourcesManager.divQuestionImage1;
-		else if (questionSet == 1)
-			r = resourcesManager.divQuestionImage2;
-		else if (questionSet == 2)
-			r = resourcesManager.divQuestionImage3;
-		else if (questionSet == 3)
-			r = resourcesManager.divQuestionImage4;
-		else if (questionSet == 4)
-			r = resourcesManager.divQuestionImage5;
+		if (questionSet == 0) r = resourcesManager.divQuestionImage1;
+		else if (questionSet == 1) r = resourcesManager.divQuestionImage2;
+		else if (questionSet == 2) r  = resourcesManager.divQuestionImage3;
+		else if (questionSet == 3) r = resourcesManager.divQuestionImage4;
+		else if (questionSet == 4) r = resourcesManager.divQuestionImage5;
+		
+		else if (questionSet == 6) r = resourcesManager.divQuestionImage6;
+		else if (questionSet == 7) r = resourcesManager.divQuestionImage7;
+		else if (questionSet == 8) r  = resourcesManager.divQuestionImage8;
+		else if (questionSet == 9) r = resourcesManager.divQuestionImage9;
+		else if (questionSet == 10) r = resourcesManager.divQuestionImage10;
+		
+		else if (questionSet == 12) r = resourcesManager.divQuestionImage11;
+		else if (questionSet == 13) r = resourcesManager.divQuestionImage12;
+		else if (questionSet == 14) r = resourcesManager.divQuestionImage13;
+		else if (questionSet == 15) r = resourcesManager.divQuestionImage14;
+		else if (questionSet == 16) r = resourcesManager.divQuestionImage15;
+		
+		else if (questionSet == 18) r = resourcesManager.divQuestionImage16;
+		else if (questionSet == 19) r = resourcesManager.divQuestionImage17;
+		else if (questionSet == 20) r = resourcesManager.divQuestionImage18;
+		else if (questionSet == 21) r = resourcesManager.divQuestionImage19;
+		else if (questionSet == 22) r = resourcesManager.divQuestionImage20;
+		
+		else if (questionSet == 24) r = resourcesManager.divQuestionImage21;
+		else if (questionSet == 25) r = resourcesManager.divQuestionImage22;
+		else if (questionSet == 26) r = resourcesManager.divQuestionImage23;
+		else if (questionSet == 27) r = resourcesManager.divQuestionImage24;
+		else if (questionSet == 28) r = resourcesManager.divQuestionImage25;
 
 		return r;
 	}
@@ -251,37 +270,97 @@ public class SolveItDivPanel extends BaseScene {
 		else if (questionSet == 4)
 			r = resourcesManager.divQuestionText5;
 
+		else if (questionSet == 6) r = resourcesManager.divQuestionText6;
+		else if (questionSet == 7) r = resourcesManager.divQuestionText7;
+		else if (questionSet == 8) r = resourcesManager.divQuestionText8;
+		else if (questionSet == 9) r = resourcesManager.divQuestionText9;
+		else if (questionSet == 10) r = resourcesManager.divQuestionText10;
+		
+		else if (questionSet == 12) r = resourcesManager.divQuestionText11;
+		else if (questionSet == 13) r = resourcesManager.divQuestionText12;
+		else if (questionSet == 14) r = resourcesManager.divQuestionText13;
+		else if (questionSet == 15) r = resourcesManager.divQuestionText14;
+		else if (questionSet == 16) r = resourcesManager.divQuestionText15;
+		
+		else if (questionSet == 18) r = resourcesManager.divQuestionText16;
+		else if (questionSet == 19) r = resourcesManager.divQuestionText17;
+		else if (questionSet == 20) r = resourcesManager.divQuestionText18;
+		else if (questionSet == 21) r = resourcesManager.divQuestionText19;
+		else if (questionSet == 22) r = resourcesManager.divQuestionText20;
+		
+		else if (questionSet == 24) r = resourcesManager.divQuestionText21;
+		else if (questionSet == 25) r = resourcesManager.divQuestionText22;
+		else if (questionSet == 26) r = resourcesManager.divQuestionText23;
+		else if (questionSet == 27) r = resourcesManager.divQuestionText24;
+		else if (questionSet == 28) r = resourcesManager.divQuestionText25;
 		return r;
 	}
 
 	private ITextureRegion answerSprite() {
-		if (questionSet == 0)
-			r = resourcesManager.ansTexture1;
-		else if (questionSet == 1)
-			r = resourcesManager.ansTexture2;
-		else if (questionSet == 2)
-			r = resourcesManager.ansTexture3;
-		else if (questionSet == 3)
-			r = resourcesManager.ansTexture4;
-		else if (questionSet == 4)
-			r = resourcesManager.ansTexture5;
-
+		if (questionSet == 0) r = resourcesManager.ansTexture1;
+		else if (questionSet == 1) r = resourcesManager.ansTexture2;
+		else if (questionSet == 2) r = resourcesManager.ansTexture3;
+		else if (questionSet == 3) r = resourcesManager.ansTexture4;
+		else if (questionSet == 4) r = resourcesManager.ansTexture5;
+		
+		else if (questionSet == 6) r = resourcesManager.ansTexture3;
+		else if (questionSet == 7) r = resourcesManager.ansTexture2;
+		else if (questionSet == 8) r = resourcesManager.ansTexture1;
+		else if (questionSet == 9) r = resourcesManager.ansTexture2;
+		else if (questionSet == 10) r = resourcesManager.ansTexture4;
+		
+		else if (questionSet == 12) r = resourcesManager.ansTexture3;
+		else if (questionSet == 13) r = resourcesManager.ansTexture5;
+		else if (questionSet == 14) r = resourcesManager.ansTexture8;
+		else if (questionSet == 15) r = resourcesManager.ansTexture6;
+		else if (questionSet == 16) r = resourcesManager.ansTexture1;
+		
+		else if (questionSet == 18) r = resourcesManager.ansTexture1;
+		else if (questionSet == 19) r = resourcesManager.ansTexture9;
+		else if (questionSet == 20) r = resourcesManager.ansTexture2;
+		else if (questionSet == 21) r = resourcesManager.ansTexture1;
+		else if (questionSet == 22) r = resourcesManager.ansTexture10;
+		
+		else if (questionSet == 24) r = resourcesManager.ansTexture2;
+		else if (questionSet == 25) r = resourcesManager.ansTexture1;
+		else if (questionSet == 26) r = resourcesManager.ansTexture7;
+		else if (questionSet == 27) r = resourcesManager.ansTexture1;
+		else if (questionSet == 28) r = resourcesManager.ansTexture6;
+		
 		return r;
 	}
 
 	private TiledTextureRegion correctAnswerSprite() {
 		TiledTextureRegion tr = null;
-		if (questionSet == 0)
-			tr = resourcesManager.texture1;
-		else if (questionSet == 1)
-			tr = resourcesManager.texture2;
-		else if (questionSet == 2)
-			tr = resourcesManager.texture3;
-		else if (questionSet == 3)
-			tr = resourcesManager.texture4;
-		else if (questionSet == 4)
-			tr = resourcesManager.texture5;
-
+		if (questionSet == 0) tr = resourcesManager.texture1;
+		else if (questionSet == 1) tr = resourcesManager.texture2;
+		else if (questionSet == 2) tr = resourcesManager.texture3;
+		else if (questionSet == 3) tr = resourcesManager.texture4;
+		else if (questionSet == 4) tr = resourcesManager.texture5;
+		
+		else if (questionSet == 6) tr = resourcesManager.texture3;
+		else if (questionSet == 7) tr = resourcesManager.texture2;
+		else if (questionSet == 8) tr = resourcesManager.texture1;
+		else if (questionSet == 9) tr = resourcesManager.texture2;
+		else if (questionSet == 10) tr = resourcesManager.texture4;
+		
+		else if (questionSet == 12) tr = resourcesManager.texture3;
+		else if (questionSet == 13) tr = resourcesManager.texture5;
+		else if (questionSet == 14) tr = resourcesManager.texture8;
+		else if (questionSet == 15) tr = resourcesManager.texture6;
+		else if (questionSet == 16) tr = resourcesManager.texture1;
+		
+		else if (questionSet == 18) tr = resourcesManager.texture1;
+		else if (questionSet == 19) tr = resourcesManager.texture9;
+		else if (questionSet == 20) tr = resourcesManager.texture2;
+		else if (questionSet == 21) tr = resourcesManager.texture1;
+		else if (questionSet == 22) tr = resourcesManager.texture10;
+		
+		else if (questionSet == 24) tr = resourcesManager.texture2;
+		else if (questionSet == 25) tr = resourcesManager.texture1;
+		else if (questionSet == 26) tr = resourcesManager.texture7;
+		else if (questionSet == 27) tr = resourcesManager.texture1;
+		else if (questionSet == 28) tr = resourcesManager.texture6;
 		return tr;
 	}
 
@@ -296,7 +375,30 @@ public class SolveItDivPanel extends BaseScene {
 			r = resourcesManager.texture5;
 		else if (questionSet == 4)
 			r = resourcesManager.texture6;
-
+		
+		else if (questionSet == 6) r = resourcesManager.texture6;
+		else if (questionSet == 7) r = resourcesManager.texture5;
+		else if (questionSet == 8) r = resourcesManager.texture2;
+		else if (questionSet == 9) r = resourcesManager.texture3;
+		else if (questionSet == 10) r = resourcesManager.texture1;
+		
+		else if (questionSet == 12) r = resourcesManager.texture6;
+		else if (questionSet == 13) r = resourcesManager.texture9;
+		else if (questionSet == 14) r = resourcesManager.texture2;
+		else if (questionSet == 15) r = resourcesManager.texture3;
+		else if (questionSet == 16) r = resourcesManager.texture5;
+		
+		else if (questionSet == 18) r = resourcesManager.texture10;
+		else if (questionSet == 19) r = resourcesManager.texture3;
+		else if (questionSet == 20) r = resourcesManager.texture8;
+		else if (questionSet == 21) r = resourcesManager.texture2;
+		else if (questionSet == 22) r = resourcesManager.texture8;
+		
+		else if (questionSet == 24) r = resourcesManager.texture5;
+		else if (questionSet == 25) r = resourcesManager.texture3;
+		else if (questionSet == 26) r = resourcesManager.texture1;
+		else if (questionSet == 27) r = resourcesManager.texture6;
+		else if (questionSet == 28) r = resourcesManager.texture7;
 		return r;
 	}
 
@@ -311,7 +413,31 @@ public class SolveItDivPanel extends BaseScene {
 			r = resourcesManager.texture7;
 		else if (questionSet == 4)
 			r = resourcesManager.texture1;
-
+		
+		else if (questionSet == 6) r = resourcesManager.texture4;
+		else if (questionSet == 7) r = resourcesManager.texture4;
+		else if (questionSet == 8) r = resourcesManager.texture5;
+		else if (questionSet == 9) r = resourcesManager.texture1;
+		else if (questionSet == 10) r = resourcesManager.texture5;
+		
+		else if (questionSet == 12) r = resourcesManager.texture5;
+		else if (questionSet == 13) r = resourcesManager.texture1;
+		else if (questionSet == 14) r = resourcesManager.texture6;
+		else if (questionSet == 15) r = resourcesManager.texture2;
+		else if (questionSet == 16) r = resourcesManager.texture3;
+		
+		else if (questionSet == 18) r = resourcesManager.texture5;
+		else if (questionSet == 19) r = resourcesManager.texture6;
+		else if (questionSet == 20) r = resourcesManager.texture4;
+		else if (questionSet == 21) r = resourcesManager.texture4;
+		else if (questionSet == 22) r = resourcesManager.texture7;
+		
+		else if (questionSet == 24) r = resourcesManager.texture10;
+		else if (questionSet == 25) r = resourcesManager.texture6;
+		else if (questionSet == 26) r = resourcesManager.texture8;
+		else if (questionSet == 27) r = resourcesManager.texture3;
+		else if (questionSet == 28) r = resourcesManager.texture2;
+		
 		return r;
 	}
 
@@ -326,6 +452,30 @@ public class SolveItDivPanel extends BaseScene {
 			r = resourcesManager.texture1;
 		else if (questionSet == 4)
 			r = resourcesManager.texture3;
+		
+		else if (questionSet == 6) r = resourcesManager.texture8;
+		else if (questionSet == 7) r = resourcesManager.texture8;
+		else if (questionSet == 8) r = resourcesManager.texture7;
+		else if (questionSet == 9) r = resourcesManager.texture6;
+		else if (questionSet == 10) r = resourcesManager.texture2;
+		
+		else if (questionSet == 12) r = resourcesManager.texture9;
+		else if (questionSet == 13) r = resourcesManager.texture4;
+		else if (questionSet == 14) r = resourcesManager.texture1;
+		else if (questionSet == 15) r = resourcesManager.texture1;
+		else if (questionSet == 16) r = resourcesManager.texture2;
+		
+		else if (questionSet == 18) r = resourcesManager.texture2;
+		else if (questionSet == 19) r = resourcesManager.texture7;
+		else if (questionSet == 20) r = resourcesManager.texture6;
+		else if (questionSet == 21) r = resourcesManager.texture6;
+		else if (questionSet == 22) r = resourcesManager.texture9;
+		
+		else if (questionSet == 24) r = resourcesManager.texture1;
+		else if (questionSet == 25) r = resourcesManager.texture9;
+		else if (questionSet == 26) r = resourcesManager.texture2;
+		else if (questionSet == 27) r = resourcesManager.texture2;
+		else if (questionSet == 28) r = resourcesManager.texture5;
 
 		return r;
 	}
@@ -345,6 +495,30 @@ public class SolveItDivPanel extends BaseScene {
 			pos = 550;
 		else if (questionSet == 4)
 			pos = 450;
+		
+		else if (questionSet == 6) pos = 350;
+		else if (questionSet == 7) pos = 250;
+		else if (questionSet == 8) pos = 350;
+		else if (questionSet == 9) pos = 550;
+		else if (questionSet == 10) pos = 450;
+		
+		else if (questionSet == 12) pos = 350;
+		else if (questionSet == 13) pos = 250;
+		else if (questionSet == 14) pos = 350;
+		else if (questionSet == 15) pos = 550;
+		else if (questionSet == 16) pos = 450;
+		
+		else if (questionSet == 18) pos = 350;
+		else if (questionSet == 19) pos = 250;
+		else if (questionSet == 20) pos = 350;
+		else if (questionSet == 21) pos = 550;
+		else if (questionSet == 22) pos = 450;
+		
+		else if (questionSet == 24) pos = 350;
+		else if (questionSet == 25) pos = 250;
+		else if (questionSet == 26) pos = 350;
+		else if (questionSet == 27) pos = 550;
+		else if (questionSet == 28) pos = 450;
 
 		return pos;
 	}
@@ -360,21 +534,64 @@ public class SolveItDivPanel extends BaseScene {
 			pos = 250;
 		else if (questionSet == 4)
 			pos = 250;
+		
+		else if (questionSet == 6) pos = 250;
+		else if (questionSet == 7) pos = 350;
+		else if (questionSet == 8) pos = 250;
+		else if (questionSet == 9) pos = 250;
+		else if (questionSet == 10) pos = 250;
 
+		else if (questionSet == 12) pos = 250;
+		else if (questionSet == 13) pos = 350;
+		else if (questionSet == 14) pos = 250;
+		else if (questionSet == 15) pos = 250;
+		else if (questionSet == 16) pos = 250;
+		
+		else if (questionSet == 18) pos = 250;
+		else if (questionSet == 19) pos = 350;
+		else if (questionSet == 20) pos = 250;
+		else if (questionSet == 21) pos = 250;
+		else if (questionSet == 22) pos = 250;
+		
+		else if (questionSet == 24) pos = 250;
+		else if (questionSet == 25) pos = 350;
+		else if (questionSet == 26) pos = 250;
+		else if (questionSet == 27) pos = 250;
+		else if (questionSet == 28) pos = 250;
 		return pos;
 	}
 
 	private int setChoice2Position() {
-		if (questionSet == 0)
-			pos = 450;
-		else if (questionSet == 1)
-			pos = 450;
-		else if (questionSet == 2)
-			pos = 450;
-		else if (questionSet == 3)
-			pos = 350;
-		else if (questionSet == 4)
-			pos = 350;
+		if (questionSet == 0) pos = 450;
+		else if (questionSet == 1) pos = 450;
+		else if (questionSet == 2) pos = 450;
+		else if (questionSet == 3) pos = 350;
+		else if (questionSet == 4) pos = 350;
+		
+		else if (questionSet == 6) pos = 450;
+		else if (questionSet == 7) pos = 450;
+		else if (questionSet == 8) pos = 450;
+		else if (questionSet == 9) pos = 350;
+		else if (questionSet == 10) pos = 350;
+		
+		
+		else if (questionSet == 12) pos = 450;
+		else if (questionSet == 13) pos = 450;
+		else if (questionSet == 14) pos = 450;
+		else if (questionSet == 15) pos = 350;
+		else if (questionSet == 16) pos = 350;
+		
+		else if (questionSet == 18) pos = 450;
+		else if (questionSet == 19) pos = 450;
+		else if (questionSet == 20) pos = 450;
+		else if (questionSet == 21) pos = 350;
+		else if (questionSet == 22) pos = 350;
+		
+		else if (questionSet == 24) pos = 450;
+		else if (questionSet == 25) pos = 450;
+		else if (questionSet == 26) pos = 450;
+		else if (questionSet == 27) pos = 350;
+		else if (questionSet == 28) pos = 350;
 
 		return pos;
 
@@ -391,6 +608,33 @@ public class SolveItDivPanel extends BaseScene {
 			pos = 450;
 		else if (questionSet == 4)
 			pos = 550;
+		
+		else if (questionSet == 6) pos = 550;
+		else if (questionSet == 7) pos = 550;
+		else if (questionSet == 8) pos = 550;
+		else if (questionSet == 9) pos = 450;
+		else if (questionSet == 10) pos = 550;
+		
+		else if (questionSet == 12) pos = 550;
+		else if (questionSet == 13) pos = 550;
+		else if (questionSet == 14) pos = 550;
+		else if (questionSet == 15) pos = 450;
+		else if (questionSet == 16) pos = 550;
+
+		
+		else if (questionSet == 18) pos = 550;
+		else if (questionSet == 19) pos = 550;
+		else if (questionSet == 20) pos = 550;
+		else if (questionSet == 21) pos = 450;
+		else if (questionSet == 22) pos = 550;
+
+		else if (questionSet == 24) pos = 550;
+		else if (questionSet == 25) pos = 550;
+		else if (questionSet == 26) pos = 550;
+		else if (questionSet == 27) pos = 450;
+		else if (questionSet == 28) pos = 550;
+
+
 
 		return pos;
 	}
