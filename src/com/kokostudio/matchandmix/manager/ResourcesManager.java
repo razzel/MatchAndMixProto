@@ -2482,7 +2482,7 @@ public class ResourcesManager {
 				mulQuestionText13 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionTextAtlas, activity, "sim_p13.png");
 				mulQuestionText14 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionTextAtlas, activity, "sim_p14.png");
 				mulQuestionText15 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionTextAtlas, activity, "sim_p15.png");
-				/*mulQuestionText16 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionTextAtlas, activity, "sim_p16.png");
+				mulQuestionText16 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionTextAtlas, activity, "sim_p16.png");
 				mulQuestionText17 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionTextAtlas, activity, "sim_p17.png");
 				mulQuestionText18 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionTextAtlas, activity, "sim_p18.png");
 				mulQuestionText19 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionTextAtlas, activity, "sim_p19.png");
@@ -2492,7 +2492,7 @@ public class ResourcesManager {
 				mulQuestionText23 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionTextAtlas, activity, "sim_p23.png");
 				mulQuestionText24 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionTextAtlas, activity, "sim_p24.png");
 				mulQuestionText25 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionTextAtlas, activity, "sim_p25.png");
-				*/
+				
 				
 				try {
 					this.solveItQuestionTextAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
