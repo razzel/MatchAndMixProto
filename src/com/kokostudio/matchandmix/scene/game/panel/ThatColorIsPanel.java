@@ -25,6 +25,7 @@ public class ThatColorIsPanel extends BaseScene {
 	
 	private ITextureRegion r;
 	private int pos;
+	private int lives;
 	
 	// SPRITES
 	private Sprite question;
@@ -44,6 +45,7 @@ public class ThatColorIsPanel extends BaseScene {
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 		db = new myDatabase(activity);
+		lives = 3;
 		createBackground();
 		createButtons();
 		createChoices();
@@ -151,7 +153,7 @@ public class ThatColorIsPanel extends BaseScene {
 					resourcesManager.correct.play();
 					correctSprite.setCurrentTileIndex(1);
 					update(questionSet, "true");
-					lock();
+					lock();	
 					nextQuestion();
 					break;
 				}
@@ -170,6 +172,8 @@ public class ThatColorIsPanel extends BaseScene {
 					c1.setScale(1.0f);
 					// PLAY THE INCORRECT SOUND
 					resourcesManager.wrong.play();
+					lives--;
+					checkLives();
 					break;
 				}
 				return true;
@@ -187,6 +191,8 @@ public class ThatColorIsPanel extends BaseScene {
 					c2.setScale(1.0f);
 					// PLAY THE INCORRECT SOUND
 					resourcesManager.wrong.play();
+					lives--;
+					checkLives();
 					break;
 				}
 				return true;
@@ -203,6 +209,8 @@ public class ThatColorIsPanel extends BaseScene {
 					c3.setScale(1.0f);
 					// PLAY THE INCORRECT SOUND
 					resourcesManager.wrong.play();
+					lives--;
+					checkLives();
 					break;
 				}
 				return true;
@@ -219,6 +227,8 @@ public class ThatColorIsPanel extends BaseScene {
 					c4.setScale(1.0f);
 					// PLAY THE INCORRECT SOUND
 					resourcesManager.wrong.play();
+					lives--;
+					checkLives();
 					break;
 				}
 				return true;
@@ -243,6 +253,12 @@ public class ThatColorIsPanel extends BaseScene {
 	
 	public static void getQuestionIndex(int i) {
 		questionSet = i;
+	}
+	
+	private void checkLives() {
+		if(lives == 0) {
+			SceneManager.getInstance().loadThatColorIsScene();
+		}
 	}
 	
 	private void update(int id, String s) {
@@ -277,28 +293,26 @@ public class ThatColorIsPanel extends BaseScene {
 		this.registerUpdateHandler(new TimerHandler(1f, new ITimerCallback() {
 			@Override
 			public void onTimePassed(TimerHandler pTimerHandler) {
-				unregisterUpdateHandler(pTimerHandler);
-					x = 0;
-					if(db.colorGetAnswered()==25) {
-						SceneManager.getInstance().loadThatColorIsScene();
-					} else {
-						if(questionSet == 28 || questionSet+x>=28) {
-							while(db.colorIsAnswered(0+x).compareTo("true")==0) {
-								x++;
-							}
-							getQuestionIndex(0+x);
-						} else {
-							while(db.matchItIsAnswered(questionSet+x).compareTo("true")==0) {
-								x++;
-							}
-							getQuestionIndex(questionSet+x);
+				x = 0;
+				if(db.colorGetAnswered() == 25) {
+					SceneManager.getInstance().loadThatColorIsScene();
+				} else {
+					if(questionSet == 28 || questionSet+x>=28) {
+						while(db.colorIsAnswered(0+x).compareTo("true")==0) {
+							x++;
 						}
-					
+						getQuestionIndex(0+x);
+					} else {
+						while(db.colorIsAnswered(questionSet+x).compareTo("true")==0) {
+							x++;
+						}
+						getQuestionIndex(questionSet+x);
 					}
-					SceneManager.getInstance().loadThatColorIsPanelScene();		
+				
 				}
+				SceneManager.getInstance().loadThatColorIsPanelScene();		
+			}
 		}));
-		
 	}
 	
 	/* positions
@@ -508,7 +522,7 @@ public class ThatColorIsPanel extends BaseScene {
 		
 		else if (questionSet == 24) pos = 80;
 		
-		else if (questionSet == 25) pos = 160;
+		else if (questionSet == 25) pos = 240;
 		
 		else if (questionSet == 26) pos = 160;
 		

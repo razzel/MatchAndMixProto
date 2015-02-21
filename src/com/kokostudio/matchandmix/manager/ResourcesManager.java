@@ -277,8 +277,7 @@ public class ResourcesManager {
 			public ITextureRegion subQuestionImage23;
 			public ITextureRegion subQuestionImage24;
 			public ITextureRegion subQuestionImage25;
-			
-			
+				
 			// FOR MULTIPLICATION
 			public ITextureRegion mulQuestionImage1;
 			public ITextureRegion mulQuestionImage2;
@@ -361,8 +360,7 @@ public class ResourcesManager {
 			public ITextureRegion addQuestionText22;
 			public ITextureRegion addQuestionText23;
 			public ITextureRegion addQuestionText24;
-			public ITextureRegion addQuestionText25;
-			
+			public ITextureRegion addQuestionText25;		
 			
 			// FOR SUBTRACTION, USE THE SAME ATLAS --> solveItQuestionTextAtlas
 			public ITextureRegion subQuestionText1;
@@ -390,8 +388,7 @@ public class ResourcesManager {
 			public ITextureRegion subQuestionText23;
 			public ITextureRegion subQuestionText24;
 			public ITextureRegion subQuestionText25;
-			
-			
+						
 			// FOR MULTIPLICATION
 			public ITextureRegion mulQuestionText1;
 			public ITextureRegion mulQuestionText2;
@@ -446,9 +443,7 @@ public class ResourcesManager {
 			public ITextureRegion divQuestionText23;
 			public ITextureRegion divQuestionText24;
 			public ITextureRegion divQuestionText25;
-		
-		
-		
+			
 		// ANSWER IN THE SOLVE IT GAME, ALL CATEGORIES
 		public BuildableBitmapTextureAtlas solveItAnswersAtlas;
 		public ITextureRegion ansTexture0;
@@ -645,7 +640,6 @@ public class ResourcesManager {
 		public ITextureRegion coutItClueBirdTexture;
 		public ITextureRegion countITClueRectangle;
 		
-		
 		// QUESTION FOR COUNT IT
 		public BuildableBitmapTextureAtlas countItQuestionAtlas;
 		public ITextureRegion countItQuestion1;
@@ -673,9 +667,7 @@ public class ResourcesManager {
 		public ITextureRegion countItQuestion23;
 		public ITextureRegion countItQuestion24;
 		public ITextureRegion countItQuestion25;
-		
-		
-		
+			
 		// OBJECTS FOR COUNT IT
 		public BuildableBitmapTextureAtlas countItObjectAtlas;
 		public ITextureRegion countItObjectTriangle;
@@ -729,11 +721,15 @@ public class ResourcesManager {
 	public ITextureRegion onTextureRegion;
 	public ITextureRegion offTextureRegion;
 	
-	public BuildableBitmapTextureAtlas resetAtlas;
-	public TiledTextureRegion resetTextureRegion;
-	public TiledTextureRegion resetYesTextureRegion;
-	public TiledTextureRegion resetNoTextureRegion;
-	public ITextureRegion resetPanelTextureRegion;
+		public BuildableBitmapTextureAtlas resetAtlas;
+		public TiledTextureRegion resetTextureRegion;
+		public TiledTextureRegion resetYesTextureRegion;
+		public TiledTextureRegion resetNoTextureRegion;
+		public ITextureRegion resetPanelTextureRegion;
+		
+		public ITextureRegion exitPanelTexture;
+		public ITextureRegion tapItTexture;
+		
 	
 	// PROGRESS TEXTURES ***************************************************************************************************************
 	public BuildableBitmapTextureAtlas progressTextureAtlas;
@@ -741,8 +737,16 @@ public class ResourcesManager {
 	public ITextureRegion progressPanelTexture;
 	
 	// ABOUT PANELS ********************************************************************************************************
-	public BuildableBitmapTextureAtlas AboutSceneTextureAtlas;
+	public BitmapTextureAtlas AboutSceneTextureAtlas;
 	public ITextureRegion aboutpanelTextureRegion;
+	
+	// TRIVIAS
+	public BuildableBitmapTextureAtlas triviaAtlas;
+	public ITextureRegion triviaPanel;
+	public TiledTextureRegion triviaOK;
+	public ITextureRegion appleTrivia;
+	public ITextureRegion avocadoTrivia;
+	
 	
 	// ==========================================================================================================================================
 	// END OF TEXTURES & TEXTURE REGIONS VARIABLE DECLARATIONS
@@ -971,12 +975,13 @@ public class ResourcesManager {
 		// COMMON BUTTONS
 		private void createCommonButtons() {
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
-			commonButtonsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 512, 300);
+			commonButtonsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 720, 720, TextureOptions.BILINEAR);
 			backTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(commonButtonsTextureAtlas, activity, "back_btn.png", 2, 1);
 			nextTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(commonButtonsTextureAtlas, activity, "next_btn.png", 2, 1);
 			prevTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(commonButtonsTextureAtlas, activity, "prev_btn.png", 2, 1);
 			leftTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(commonButtonsTextureAtlas, activity, "menu_left.png");
 			rightTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(commonButtonsTextureAtlas, activity, "menu_right.png");
+			tapItTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(commonButtonsTextureAtlas, activity, "tap.png");
 			try {
 				this.commonButtonsTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 				this.commonButtonsTextureAtlas.load();
@@ -1299,11 +1304,12 @@ public class ResourcesManager {
 		loadMainMenuResources();
 		loadGameMenuResources();
 		//loadProgressResources();
-		//loadOptionResources();
+		loadOptionResources();
 		
 		createGeneralBackground();
 		createQuestionFrames();
 		createCommonButtons();
+		loadTrivias();
 		
 		// sounds
 		loadClickSound();
@@ -1432,6 +1438,7 @@ public class ResourcesManager {
 		createCommonButtons();
 		loadGameMenuGraphics();
 		loadGameMenuAudio();
+		loadExitConfirmationGraphics();
 	}
 	
 		private void loadGameMenuGraphics() {
@@ -1450,6 +1457,19 @@ public class ResourcesManager {
 			} catch(final TextureAtlasBuilderException e) {
 				Debug.e(e);
 			}
+		}
+		
+		private void loadExitConfirmationGraphics() {
+			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/option/");
+			resetAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 800, 480);
+			exitPanelTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(resetAtlas, activity, "quit_panel.png");
+			try {
+				this.resetAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+				this.resetAtlas.load();
+			} catch( final TextureAtlasBuilderException e) {
+				Debug.e(e);
+			}
+			
 		}
 		
 		private void loadGameMenuAudio() {
@@ -1543,6 +1563,39 @@ public class ResourcesManager {
 	// *************************************************************
 	// ABOUT SCENE
 	// *************************************************************
+	public void loadAboutResources() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+		AboutSceneTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 512, 464, TextureOptions.BILINEAR);
+		aboutpanelTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(AboutSceneTextureAtlas, activity, "about_panel.png", 0,0);
+		AboutSceneTextureAtlas.load();
+	}
+	
+	public void unloadAboutResources() {
+		AboutSceneTextureAtlas.unload();
+	}
+	// *************************************************************
+	// CREDITS
+	// *************************************************************
+	
+	// *************************************************************
+	// TRIVIAS
+	// *************************************************************
+	private void loadTrivias() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/trivia/");
+		triviaAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
+		triviaPanel = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "wood.png");
+		triviaOK = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(triviaAtlas, activity, "ok_btn.png", 2, 1);
+		appleTrivia = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "apple.png");
+		avocadoTrivia = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "avocado.png");
+		
+		try {
+			triviaAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			triviaAtlas.load();
+		} catch(final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+		
+	}
 	
 	// ============================================================================================================================
 	// GAMES RESOURCES LOADING AREA

@@ -20,6 +20,7 @@ public class SolveItAddPanel extends BaseScene {
 	
 	private ITextureRegion r;
 	private int pos;
+	private int lives;
 	
 	private Sprite bg;
 	private Sprite questionImage;
@@ -36,6 +37,7 @@ public class SolveItAddPanel extends BaseScene {
 	@Override
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
+		lives = 3;
 		createBackground();
 		createButtons();
 		createEquation();
@@ -153,6 +155,8 @@ public class SolveItAddPanel extends BaseScene {
 				case TouchEvent.ACTION_UP:
 					c1.setScale(1.0f);
 					resourcesManager.wrong.play();
+					lives--;
+					checkLives();
 					break;
 				}
 				return true;
@@ -171,6 +175,8 @@ public class SolveItAddPanel extends BaseScene {
 				case TouchEvent.ACTION_UP:
 					c2.setScale(1.0f);
 					resourcesManager.wrong.play();
+					lives--;
+					checkLives();
 					break;
 				}
 				return true;
@@ -189,6 +195,8 @@ public class SolveItAddPanel extends BaseScene {
 				case TouchEvent.ACTION_UP:
 					c3.setScale(1.0f);
 					resourcesManager.wrong.play();
+					lives--;
+					checkLives();
 					break;
 				}
 				return true;
@@ -219,6 +227,12 @@ public class SolveItAddPanel extends BaseScene {
 	
 	private void playAnimation() {
 		answerSprite.registerEntityModifier(new MoveModifier(0.5f, 600, 528, 600, 300, EaseBounceOut.getInstance()));
+	}
+	
+	private void checkLives() {
+		if(lives == 0) {
+			SceneManager.getInstance().loadSolveItAddScene();
+		}
 	}
 	
 	// TEXTURES

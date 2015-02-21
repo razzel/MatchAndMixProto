@@ -4,6 +4,7 @@ import org.andengine.engine.Engine;
 import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
 
 import com.kokostudio.matchandmix.base.BaseScene;
+import com.kokostudio.matchandmix.scene.AboutScene;
 import com.kokostudio.matchandmix.scene.LoadingScene;
 import com.kokostudio.matchandmix.scene.MainMenuScene;
 import com.kokostudio.matchandmix.scene.GameMenuScene;
@@ -184,8 +185,8 @@ public class SceneManager {
 		// unload the play menu texture
 		//ResourcesManager.getInstance().unloadMainMenuTextures();	
 		// load the main menu texture
-		//ResourcesManager.getInstance().loadAboutPanelResources();
-		//aboutScene = new About();
+		ResourcesManager.getInstance().loadAboutResources();
+		aboutScene = new AboutScene();
 		setScene(aboutScene);
 	}
 	

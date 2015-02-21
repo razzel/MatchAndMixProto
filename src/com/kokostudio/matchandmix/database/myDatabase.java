@@ -56,7 +56,49 @@ public class myDatabase extends SQLiteOpenHelper {
 													+fCount_isAnswered+ " TEXT "
 													+ ") ";
 	
-	
+	// SOLVE IT 
+		// ADD TABLE
+		public static final String table_SolveItAdd = "add";
+		public static final String fAdd_ID = "add_id";
+		public static final String fAdd_isAnswered = "isAnswered";
+		public static final String CREATE_SOLVEIT_ADD_TABLE = "CREATE TABLE IF NOT EXISTS " +table_SolveItAdd+ " ("
+															+fAdd_ID+ " INTEGER PRIMARY KEY, "
+															+fAdd_isAnswered+ " TEXT "
+															+ ") ";
+		// SUB TABLE
+		public static final String table_SolveItSub = "Sub";
+		public static final String fSub_ID = "Sub_id";
+		public static final String fSub_isAnswered = "isAnswered";
+		public static final String CREATE_SOLVEIT_SUB_TABLE = "CREATE TABLE IF NOT EXISTS " +table_SolveItSub+ " ("
+															+fSub_ID+ " INTEGER PRIMARY KEY, "
+															+fSub_isAnswered+ " TEXT "
+															+ ") ";
+		// MUL TABLE
+		public static final String table_SolveItMul = "Mul";
+		public static final String fMul_ID = "Mul_id";
+		public static final String fMul_isAnswered = "isAnswered";
+		public static final String CREATE_SOLVEIT_MUL_TABLE = "CREATE TABLE IF NOT EXISTS " +table_SolveItMul+ " ("
+															+fMul_ID+ " INTEGER PRIMARY KEY, "
+															+fMul_isAnswered+ " TEXT "
+															+ ") ";
+		// DIV TABLE
+		public static final String table_SolveItDiv = "Div";
+		public static final String fDiv_ID = "Div_id";
+		public static final String fDiv_isAnswered = "isAnswered";
+		public static final String CREATE_SOLVEIT_DIV_TABLE = "CREATE TABLE IF NOT EXISTS " +table_SolveItDiv+ " ("
+															+fDiv_ID+ " INTEGER PRIMARY KEY, "
+															+fDiv_isAnswered+ " TEXT "
+															+ ") ";
+		
+		// IS FIRST TIME FOR GAMES
+		public static final String table_isFirstTime = "first_time";
+		public static final String fFirstTime_ID = "id";
+		public static final String fIsFirstTime = "isFirstTime";
+		public static final String CREATE_FIRSTTIME_TABLE = "CREATE TABLE IF NOT EXISTS " +table_isFirstTime+ " ("
+															+fFirstTime_ID+ " INTEGER PRIMARY KEY, "
+															+fIsFirstTime+ " TEXT " 
+															+ ") ";
+		
 	public myDatabase(Context context) {
 		super(context, dbName, null, dbVersion);
 	}
@@ -89,15 +131,56 @@ public class myDatabase extends SQLiteOpenHelper {
 		db.execSQL(CREATE_COUNTIT_TABLE);
 		insertCountValues(db);
 		
+		// SOLVE IT
+			// ADD
+			//db.execSQL(CREATE_SOLVEIT_ADD_TABLE);
+			//insertSolveItAddValues(db);
+		
+		
+		// CREATE FIRSTTIME TABLE
+		ContentValues isFirstTimeCV = new ContentValues();
+		db.execSQL(CREATE_FIRSTTIME_TABLE);
+		/* 0 - match it
+		 * 1 - guess the missing letter
+		 * 2 - that color is
+		 * 3 - count it
+		 * 4 - solveit add
+		 * 5 - solveit sub
+		 * 6 - solveit mul
+		 * 7 - solveit div
+		 */
+		isFirstTimeCV.put(fFirstTime_ID, 0);
+		isFirstTimeCV.put(fIsFirstTime, "true");
+			db.insert(table_isFirstTime, null, isFirstTimeCV);
+		
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		db.execSQL("DROP TABLE IF EXISTS " + CREATE_ThatColorIs_TABLE);
-		db.execSQL("DROP TABLE IF EXISTS " + CREATE_OPTION_TABLE);
+		db.execSQL("DROP T=ABLE IF EXISTS " + CREATE_OPTION_TABLE);
 		db.execSQL("DROP TABLE IF EXISTS " + CREATE_GTML_TABLE);
 		db.execSQL("DROP TABLE IF EXISTS " + CREATE_MATCHIT_TABLE);
+		
+		db.execSQL("DROP TABLE IF EXISTS " + CREATE_FIRSTTIME_TABLE);
 		onCreate(db);
+	}
+	
+	public String checkIsFirstTime(int id) {
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor c = db.rawQuery("SELECT " + fIsFirstTime + " FROM " + table_isFirstTime + " WHERE " + fFirstTime_ID + " = " +id, null);
+		c.moveToFirst();
+		int index = c.getColumnIndex(fIsFirstTime);
+		String myReturn = c.getString(index);
+		c.close();
+		return myReturn;
+	}
+	
+	public void updateIsFirstTime(int id, String s) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put(fIsFirstTime, s);
+		db.update(table_isFirstTime, cv, fFirstTime_ID+"=" +id, null);
 	}
 	
 	// THAT COLOR IS ******************************************************************************************************************
@@ -750,6 +833,135 @@ public class myDatabase extends SQLiteOpenHelper {
 		db.close();
 		return count;
 	}
+	
+	// SOLVE IT *******************************************************************************************************
+		// ADD
+		public void insertSolveItAddValues(SQLiteDatabase db) {
+			ContentValues addCV = new ContentValues();
+			
+			addCV.put(fAdd_ID, 0);
+			addCV.put(fAdd_isAnswered, "false");
+				db.insert(table_SolveItAdd, null, addCV);
+			
+			addCV.put(fAdd_ID, 1);
+			addCV.put(fAdd_isAnswered, "false");
+				db.insert(table_SolveItAdd, null, addCV);
+			
+			addCV.put(fAdd_ID, 2);
+			addCV.put(fAdd_isAnswered, "false");
+				db.insert(table_SolveItAdd, null, addCV);
+	
+			addCV.put(fAdd_ID, 3);
+			addCV.put(fAdd_isAnswered, "false");
+				db.insert(table_SolveItAdd, null, addCV);
+	
+			addCV.put(fAdd_ID, 4);
+			addCV.put(fAdd_isAnswered, "false");
+				db.insert(table_SolveItAdd, null, addCV);
+	
+				addCV.put(fAdd_ID, 5);
+				addCV.put(fAdd_isAnswered, "true");
+					db.insert(table_SolveItAdd, null, addCV);
+	
+			addCV.put(fAdd_ID, 6);
+			addCV.put(fAdd_isAnswered, "false");
+				db.insert(table_SolveItAdd, null, addCV);
+	
+			addCV.put(fAdd_ID, 7);
+			addCV.put(fAdd_isAnswered, "false");
+				db.insert(table_SolveItAdd, null, addCV);
+	
+			addCV.put(fAdd_ID, 8);
+			addCV.put(fAdd_isAnswered, "false");
+				db.insert(table_SolveItAdd, null, addCV);
+	
+			addCV.put(fAdd_ID, 9);
+			addCV.put(fAdd_isAnswered, "false");
+				db.insert(table_SolveItAdd, null, addCV);
+	
+			addCV.put(fAdd_ID, 10);
+			addCV.put(fAdd_isAnswered, "false");
+				db.insert(table_SolveItAdd, null, addCV);
+	
+				addCV.put(fAdd_ID, 11);
+				addCV.put(fAdd_isAnswered, "true");
+					db.insert(table_SolveItAdd, null, addCV);
+	
+			addCV.put(fAdd_ID, 12);
+			addCV.put(fAdd_isAnswered, "false");
+				db.insert(table_SolveItAdd, null, addCV);
+	
+			addCV.put(fAdd_ID, 13);
+			addCV.put(fAdd_isAnswered, "false");
+				db.insert(table_SolveItAdd, null, addCV);
+	
+			addCV.put(fAdd_ID, 14);
+			addCV.put(fAdd_isAnswered, "false");
+				db.insert(table_SolveItAdd, null, addCV);
+	
+			addCV.put(fAdd_ID, 15);
+			addCV.put(fAdd_isAnswered, "false");
+				db.insert(table_SolveItAdd, null, addCV);
+	
+			addCV.put(fAdd_ID, 16);
+			addCV.put(fAdd_isAnswered, "false");
+				db.insert(table_SolveItAdd, null, addCV);
+	
+				addCV.put(fAdd_ID, 17);
+				addCV.put(fAdd_isAnswered, "true");
+					db.insert(table_SolveItAdd, null, addCV);
+	
+			addCV.put(fAdd_ID, 18);
+			addCV.put(fAdd_isAnswered, "false");
+				db.insert(table_SolveItAdd, null, addCV);
+	
+			addCV.put(fAdd_ID, 19);
+			addCV.put(fAdd_isAnswered, "false");
+				db.insert(table_SolveItAdd, null, addCV);
+	
+			addCV.put(fAdd_ID, 20);
+			addCV.put(fAdd_isAnswered, "false");
+				db.insert(table_SolveItAdd, null, addCV);
+	
+			addCV.put(fAdd_ID, 21);
+			addCV.put(fAdd_isAnswered, "false");
+				db.insert(table_SolveItAdd, null, addCV);
+	
+			addCV.put(fAdd_ID, 22);
+			addCV.put(fAdd_isAnswered, "false");
+				db.insert(table_SolveItAdd, null, addCV);
+	
+				addCV.put(fAdd_ID, 23);
+				addCV.put(fAdd_isAnswered, "true");
+					db.insert(table_SolveItAdd, null, addCV);
+	
+			addCV.put(fAdd_ID, 24);
+			addCV.put(fAdd_isAnswered, "false");
+				db.insert(table_SolveItAdd, null, addCV);
+	
+			addCV.put(fAdd_ID, 25);
+			addCV.put(fAdd_isAnswered, "false");
+				db.insert(table_SolveItAdd, null, addCV);
+	
+			addCV.put(fAdd_ID, 26);
+			addCV.put(fAdd_isAnswered, "false");
+				db.insert(table_SolveItAdd, null, addCV);
+	
+			addCV.put(fAdd_ID, 27);
+			addCV.put(fAdd_isAnswered, "false");
+				db.insert(table_SolveItAdd, null, addCV);
+	
+			addCV.put(fAdd_ID, 28);
+			addCV.put(fAdd_isAnswered, "false");
+				db.insert(table_SolveItAdd, null, addCV);
+			
+		}
+		
+		// SUB
+		public void insertSolveItSubValues(SQLiteDatabase db) {
+			
+		}
+		
 	
 	public String countItIsAnswered(int id) {
 		SQLiteDatabase db = this.getReadableDatabase();

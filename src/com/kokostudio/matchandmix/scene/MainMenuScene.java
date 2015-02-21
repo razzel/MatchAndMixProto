@@ -3,6 +3,7 @@ package com.kokostudio.matchandmix.scene;
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.camera.hud.HUD;
 import org.andengine.entity.modifier.MoveModifier;
+import org.andengine.entity.scene.CameraScene;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.ParallaxBackground;
@@ -38,6 +39,11 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 	private Sprite menuLeft;
 	private Sprite menuRight;
 	private Sprite menuHeader;
+	
+	private CameraScene exitConfirmationScene;
+	private Sprite exitPanel;
+	private TiledSprite yes;
+	private TiledSprite no;
 
 	public SurfaceScrollDetector scrollDetector;
 	public ClickDetector clickDetector;
@@ -58,6 +64,7 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 		createMenuHeader();
 		createMenuBoxes();
 		createParallaxBackground();
+		createExitPanel();
 		
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 		
@@ -417,6 +424,60 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 		setBackground(bg);
 	}
 	
+	private void createExitPanel() {
+		exitConfirmationScene = new CameraScene(camera);
+		
+		exitPanel = new Sprite(400, 240, resourcesManager.exitPanelTexture, vbom);		
+		yes = new TiledSprite(300, 170, resourcesManager.resetYesTextureRegion, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				switch(pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					yes.setScale(0.9f);
+					yes.setCurrentTileIndex(1);
+					break;
+				case TouchEvent.ACTION_UP:
+					System.exit(0);
+					break;
+				}
+				return true;
+			}
+		};
+		
+		no = new TiledSprite(500, 170, resourcesManager.resetNoTextureRegion, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				switch(pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					no.setScale(0.9f);
+					no.setCurrentTileIndex(1);
+					break;
+				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
+					no.setScale(1.0f);
+					no.setCurrentTileIndex(0);
+					MainMenuScene.this.clearChildScene();
+					break;
+				}
+				return true;
+			}
+		};
+		
+		exitPanel.setZIndex(0);
+		yes.setZIndex(1);
+		no.setZIndex(1);
+		
+		exitConfirmationScene.registerTouchArea(yes);
+		exitConfirmationScene.registerTouchArea(no);
+		
+		exitConfirmationScene.attachChild(exitPanel);
+		exitConfirmationScene.attachChild(yes);
+		exitConfirmationScene.attachChild(no);
+		exitConfirmationScene.setBackgroundEnabled(false);
+		
+		exitConfirmationScene.sortChildren();
+	}
+	
 	private void setTheScene(int i) {
 		/*
 		 * game
@@ -444,8 +505,8 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 			break;
 		case 3:
 			resourcesManager.click.play();
-			//resetCamera();
-			//SceneManager.getInstance().loadaboutScene();
+			resetCamera();
+			SceneManager.getInstance().loadaboutScene();
 			break;
 		case 4:
 			resourcesManager.click.play();
@@ -453,7 +514,8 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 			SceneManager.getInstance().loadOptionScene();
 			break;
 		case 5:
-			System.exit(0);
+			resourcesManager.click.play();
+			MainMenuScene.this.setChildScene(exitConfirmationScene, false, true, true );
 			break;
 		}
 	}

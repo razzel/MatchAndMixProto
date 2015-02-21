@@ -7,8 +7,6 @@ import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.util.GLState;
 
-import android.util.Log;
-
 import com.kokostudio.matchandmix.base.BaseScene;
 import com.kokostudio.matchandmix.database.myDatabase;
 import com.kokostudio.matchandmix.manager.SceneManager;
@@ -20,6 +18,7 @@ public class MatchIt extends BaseScene {
 	private Sprite qHeader;
 	private TiledSprite[] qFrames;
 	private TiledSprite back;
+	private Sprite tap;
 	
 	private myDatabase db;
 
@@ -29,9 +28,11 @@ public class MatchIt extends BaseScene {
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 		db = new myDatabase(activity);
+		checkIsFirstTime();
 		createBackground();
 		createQuestionHeader();
 		createButtons();
+		
 	}
 
 	@Override
@@ -122,6 +123,8 @@ public class MatchIt extends BaseScene {
 						registerTouchArea(qFrames[index]);
 						attachChild(qFrames[index]);
 						qFrames[index].registerEntityModifier(new ScaleModifier(0.5f, 0.1f, 1.0f));
+						qFrames[index].setZIndex(0);
+						sortChildren();
 					}
 				});
 				x += 110;
@@ -157,6 +160,13 @@ public class MatchIt extends BaseScene {
 		registerTouchArea(back);
 		attachChild(back);
 	}
+	
+
+	@Override
+	public boolean onSceneTouchEvent(TouchEvent pSceneTouchEvent) {
+		sortChildren();
+		return super.onSceneTouchEvent(pSceneTouchEvent);
+	}
 
 	// ------------------------------------------------------------
 	// DATABASE SECTION
@@ -165,5 +175,22 @@ public class MatchIt extends BaseScene {
 		String s = db.matchItIsAnswered(i);
 		db.close();
 		return s;
+	}
+	
+	private void checkIsFirstTime() {
+		if(db.checkIsFirstTime(0).compareTo("true") == 0) {
+			tap = new Sprite(340, 340, resourcesManager.tapItTexture, vbom);
+			tap.setZIndex(1);
+			attachChild(tap);
+			for(int i = 1; i < 29; i++) {
+				final int index = i;
+				engine.runOnUpdateThread(new Runnable() {
+					@Override
+					public void run() {
+						unregisterTouchArea(qFrames[index]);	
+					}
+				});			
+			}
+		}
 	}
 }

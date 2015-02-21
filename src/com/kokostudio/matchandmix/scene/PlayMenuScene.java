@@ -129,7 +129,7 @@ public class PlayMenuScene extends BaseScene {
 	
 	private void checkBGM() {
 		if(db.isBGMOn().compareTo("true") == 0) {
-			engine.getMusicManager().setMasterVolume(0.70f);
+			engine.getMusicManager().setMasterVolume(0.60f);
 		} else {
 			engine.getMusicManager().setMasterVolume(0.0f);
 		}

@@ -1,15 +1,11 @@
 package com.kokostudio.matchandmix.scene.game;
 
 import org.andengine.engine.camera.Camera;
-import org.andengine.entity.modifier.RotationByModifier;
-import org.andengine.entity.modifier.RotationModifier;
 import org.andengine.entity.modifier.ScaleModifier;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.util.GLState;
-import org.andengine.util.modifier.ease.EaseElasticInOut;
-import org.andengine.util.modifier.ease.EaseElasticOut;
 
 import com.kokostudio.matchandmix.base.BaseScene;
 import com.kokostudio.matchandmix.database.myDatabase;
@@ -26,6 +22,8 @@ public class GuessTheMissingLetter extends BaseScene {
 	private int x, y, rowCounter;
 	
 	private myDatabase db;
+	
+	private Sprite tap; // <-- this is supposed to be an AnimatedSprite. Just for testing only
 	
 	@Override
 	public void createScene() {
@@ -165,5 +163,10 @@ public class GuessTheMissingLetter extends BaseScene {
 		String s = db.gtmlIsAnswered(i);
 		db.close();
 		return s;
+	}
+	
+	private void createAnimation() {
+		tap = new Sprite(400, 240, resourcesManager.tapItTexture, vbom);
+		attachChild(tap);
 	}
 }

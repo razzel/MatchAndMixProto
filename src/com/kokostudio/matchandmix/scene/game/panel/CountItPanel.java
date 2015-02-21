@@ -42,11 +42,14 @@ public class CountItPanel extends BaseScene {
 	private myDatabase db;
 	
 	private int x;
+	
+	private int lives;
 
 	@Override
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 		db = new myDatabase(activity);
+		lives = 3;
 		createBackground();
 		createQuestions();
 		createButtons();
@@ -176,6 +179,8 @@ public class CountItPanel extends BaseScene {
 				case TouchEvent.ACTION_UP:
 					c1.setScale(1.0f);
 					resourcesManager.wrong.play();
+					lives--;
+					checkLives();
 					break;
 				}
 				return true;
@@ -195,6 +200,8 @@ public class CountItPanel extends BaseScene {
 				case TouchEvent.ACTION_UP:
 					c2.setScale(1.0f);
 					resourcesManager.wrong.play();
+					lives--;
+					checkLives();
 					break;
 				}
 				return true;
@@ -214,6 +221,8 @@ public class CountItPanel extends BaseScene {
 				case TouchEvent.ACTION_UP:
 					c3.setScale(1.0f);
 					resourcesManager.wrong.play();
+					lives--;
+					checkLives();
 					break;
 				}
 				return true;
@@ -233,6 +242,8 @@ public class CountItPanel extends BaseScene {
 				case TouchEvent.ACTION_UP:
 					c4.setScale(1.0f);
 					resourcesManager.wrong.play();
+					lives--;
+					checkLives();
 					break;
 				}
 				return true;
@@ -330,6 +341,12 @@ public class CountItPanel extends BaseScene {
 
 	public static void getQuestionIndex(int i) {
 		questionSet = i;
+	}
+	
+	private void checkLives() {
+		if(lives == 0) {
+			SceneManager.getInstance().loadCountItScene();
+		}
 	}
 	
 	private void lock() {

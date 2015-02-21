@@ -32,6 +32,8 @@ public class MatchItPanel extends BaseScene {
 	private ITextureRegion r;
 	private int pos;
 	
+	private int lives;
+	
 	// SPRITES
 	private TiledSprite question;
 	private Sprite c1, c2, c3, c4, c5;
@@ -50,6 +52,7 @@ public class MatchItPanel extends BaseScene {
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 		db = new myDatabase(activity);
+		lives = 3;
 		createBackground();
 		createButtons();
 		createChoices();
@@ -290,6 +293,15 @@ public class MatchItPanel extends BaseScene {
 				}
 		}));
 		
+	}
+	
+	private void checkIsFirstTime() {
+		
+	}
+	
+	private void updateIsFirstTime(String s) {
+		db.updateIsFirstTime(0, "false");
+		db.close();
 	}
 	
 	// POSITIONS 
@@ -1264,24 +1276,31 @@ public class MatchItPanel extends BaseScene {
 		else if(questionSet == 27) r = resourcesManager.choiceCornTexture;
 		
 		else if(questionSet == 28) r = resourcesManager.choiceAppleTexture;
-		
-		
-		
+			
 		return r;
 	}
 	
 	// BACK TO POSITION
 	private void checkPosition(Sprite sprite, float touchX, float touchY, int posX, int posY) {
-		if(touchX < 260 && touchX  > 240 && touchY < 260 && touchY > 240) {
+		if(touchX < 300 && touchX  > 200 && touchY < 300 && touchY > 200) {
 			sprite.detachSelf();
 			lock();
 			resourcesManager.correct.play();
 			update(questionSet, "true");
+			updateIsFirstTime("false");
 			
 		} else { 
 			// Back to Original Position
 			sprite.setPosition(posX, posY);
 			resourcesManager.wrong.play();
+			lives--;
+			checkLives();
+		}
+	}
+	
+	private void checkLives() {
+		if(lives == 0) {
+			SceneManager.getInstance().loadMatchItScene();
 		}
 	}
 	

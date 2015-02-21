@@ -236,7 +236,7 @@ public class OptionScene extends BaseScene {
 		
 		
 		resetPanel = new Sprite(400, 240, resourcesManager.resetPanelTextureRegion, vbom);
-		yes = new TiledSprite(350, 190, resourcesManager.resetYesTextureRegion, vbom) {
+		yes = new TiledSprite(300, 170, resourcesManager.resetYesTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				switch(pSceneTouchEvent.getAction()) {
@@ -248,6 +248,8 @@ public class OptionScene extends BaseScene {
 					resourcesManager.click.play();
 					yes.setScale(1.0f);
 					yes.setCurrentTileIndex(0);
+					unregisterTouchArea(yes);
+					unregisterTouchArea(no);
 					resetGames();
 					break;
 				}
@@ -255,7 +257,7 @@ public class OptionScene extends BaseScene {
 			}
 		};
 		
-		no = new TiledSprite(450, 190, resourcesManager.resetNoTextureRegion, vbom) {
+		no = new TiledSprite(500, 170, resourcesManager.resetNoTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				switch(pSceneTouchEvent.getAction()) {
@@ -294,21 +296,60 @@ public class OptionScene extends BaseScene {
 	// ========================================================================================================================
 	
 	private void resetGames() {
-		// RESET GUESS THE MISSING LETTER
+		// RESET GAMES
 		for(int i = 0; i < 29; i++) {
+			// GUESS THE MISSING LETTER
 			db.updateGTML(i, "false");
+			
+			// COUNT IT
+			db.updateCountIt(i, "false");
+			
+			// MATCH IT
+			db.updateMatchIt(i, "false");
+			
+			// THAT COLOR IS
+			db.updateThatColorIs(i, "false");
+			
+			// SOLVE IT 
+				// add
+				// sub
+				// mul
+				// div
 		}
+		// GTML
 		db.updateGTML(5, "true");
 		db.updateGTML(11, "true");
 		db.updateGTML(17, "true");
 		db.updateGTML(23, "true");
 		
+		// COUNT IT
+		db.updateCountIt(5, "true");
+		db.updateCountIt(11, "true");
+		db.updateCountIt(17, "true");
+		db.updateCountIt(23, "true");
+		
+		// MATCH IT
+		db.updateMatchIt(5, "true");
+		db.updateMatchIt(11, "true");
+		db.updateMatchIt(17, "true");
+		db.updateMatchIt(23, "true");
+		
+		// THAT COLOR IS
+		db.updateThatColorIs(5, "true");
+		db.updateThatColorIs(11, "true");
+		db.updateThatColorIs(17, "true");
+		db.updateThatColorIs(23, "true");
+		
+		// RESET IS FIRST TIME
+		for(int i = 0; i < 9; i++) {
+			db.updateIsFirstTime(i, "true");
+		}
 		
 		// BACK TO MAIN MENU SCENE
 		activity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				Toast.makeText(activity, "The Games has been successfully reset", Toast.LENGTH_SHORT).show();
+				Toast.makeText(activity, "The games has been successfully reset", Toast.LENGTH_LONG).show();
 				
 				engine.registerUpdateHandler(new TimerHandler(2f, new ITimerCallback() {
 					@Override
@@ -318,9 +359,7 @@ public class OptionScene extends BaseScene {
 					}
 				}));
 			}
-		});
-		
-		
+		});	
 	}
 	
 	private String isBGMOn() {
