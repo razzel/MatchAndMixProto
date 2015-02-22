@@ -60,7 +60,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 		checkStatus();
 		checkAudioStatus();
 		playSound();
-		showTrivia();
+		//showTrivia();
 		questionImage.setScale(0.8f);
 	}
 
@@ -177,7 +177,8 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 					questionImageSound().play();
 					update(questionSet, "true");
 					lock();
-					GuessTheMissingLetterPanel.this.setChildScene(triviaScene, false, true, true);
+					//GuessTheMissingLetterPanel.this.setChildScene(triviaScene, false, true, true);
+					nextQuestion(); // comment mo to pag kinoment out mo yung nsa taas, tska coment out mo yung showTrivia() sa may createScene()
 					break;
 				}
 				return true;

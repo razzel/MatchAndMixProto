@@ -1,29 +1,22 @@
 package com.kokostudio.matchandmix.scene;
 
 import org.andengine.engine.camera.Camera;
-import org.andengine.engine.camera.hud.HUD;
-import org.andengine.entity.modifier.MoveModifier;
 import org.andengine.entity.scene.CameraScene;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.ParallaxBackground;
 import org.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
-import org.andengine.entity.scene.menu.MenuScene;
-import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
-import org.andengine.entity.scene.menu.item.IMenuItem;
-import org.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.input.touch.detector.ClickDetector;
-import org.andengine.input.touch.detector.ClickDetector.IClickDetectorListener;
 import org.andengine.input.touch.detector.ScrollDetector;
 import org.andengine.input.touch.detector.ScrollDetector.IScrollDetectorListener;
 import org.andengine.input.touch.detector.SurfaceScrollDetector;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.util.GLState;
 
-import android.opengl.GLES20;
+
 import android.util.Log;
 
 import com.kokostudio.matchandmix.GameActivity;
@@ -53,6 +46,10 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 	public float currentX = 0;
 	
 	private TiledSprite[] menuSelectionTiledSprite;
+	
+	private boolean isOnClick;
+	private float mDownX;
+	private float mDownY;
 	
 	@Override
 	public void createScene() {
@@ -388,8 +385,22 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 			menuSelectionTiledSprite[ctr] = new TiledSprite(spriteX, spriteY, menuSelectionTexture[ctr], vbom) {
 				@Override
 				public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
-					if(pSceneTouchEvent.isActionUp()) 
-						setTheScene(index);
+					switch(pSceneTouchEvent.getAction()) {
+					case TouchEvent.ACTION_DOWN:
+						isOnClick = true;
+						if(isOnClick) {
+							menuSelectionTiledSprite[index].setScale(0.9f);
+							menuSelectionTiledSprite[index].setCurrentTileIndex(1);
+						}
+						break;
+					case TouchEvent.ACTION_UP:
+						if(isOnClick)
+							setTheScene(index);
+						
+					case TouchEvent.ACTION_MOVE:
+						isOnClick = false;
+						break;
+					}
 						
 					return false;
 				}	
@@ -401,6 +412,7 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 					attachChild(menuSelectionTiledSprite[index]);
 					registerTouchArea(menuSelectionTiledSprite[index]);
 					menuSelectionTiledSprite[index].setZIndex(0);
+					sortChildren();
 				}
 			});
 			spriteX += 320;

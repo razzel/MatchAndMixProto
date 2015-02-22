@@ -5,7 +5,6 @@ import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.modifier.AlphaModifier;
 import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.sprite.Sprite;
-import org.andengine.util.adt.color.Color;
 import com.kokostudio.matchandmix.base.BaseScene;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
 
