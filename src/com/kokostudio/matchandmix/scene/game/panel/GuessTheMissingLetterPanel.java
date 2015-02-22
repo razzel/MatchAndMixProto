@@ -60,7 +60,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 		checkStatus();
 		checkAudioStatus();
 		playSound();
-		//showTrivia();
+		showTrivia();
 		questionImage.setScale(0.8f);
 	}
 
@@ -177,8 +177,8 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 					questionImageSound().play();
 					update(questionSet, "true");
 					lock();
-					//GuessTheMissingLetterPanel.this.setChildScene(triviaScene, false, true, true);
-					nextQuestion(); // comment mo to pag kinoment out mo yung nsa taas, tska coment out mo yung showTrivia() sa may createScene()
+					GuessTheMissingLetterPanel.this.setChildScene(triviaScene, false, true, true);
+					//nextQuestion(); // comment mo to pag kinoment out mo yung nsa taas, tska coment out mo yung showTrivia() sa may createScene()
 					break;
 				}
 				return true;
@@ -395,8 +395,35 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 	
 	private ITextureRegion trivia() {
 		ITextureRegion t = null;
-		if(questionSet == 0) t = resourcesManager.appleTrivia;
-		else if(questionSet == 1) t = resourcesManager.avocadoTrivia;
+		if(questionSet == 0) t = resourcesManager.appleTriva;
+		else if(questionSet == 1) t = resourcesManager.avocadoTriva;
+		else if(questionSet == 2) t = resourcesManager.mangoTriva;
+		else if(questionSet == 3) t = resourcesManager.orangeTriva;
+		else if(questionSet == 4) t = resourcesManager.GrapesTriva;
+		
+		else if(questionSet == 6) t = resourcesManager.strawberryTriva;
+		else if(questionSet == 7) t = resourcesManager.pumpkinTriva;
+		else if(questionSet == 8) t = resourcesManager.zebreaTriva;
+		else if(questionSet == 9) t = resourcesManager.DiamondTriva;
+		else if(questionSet == 10) t = resourcesManager.CastleTriva;
+		
+		else if(questionSet == 12) t = resourcesManager.MouseTriva;
+		else if(questionSet == 13) t = resourcesManager.BoatTriva;
+		else if(questionSet == 14) t = resourcesManager.CupcakeTriva;
+		else if(questionSet == 15) t = resourcesManager.PigTriva;
+		else if(questionSet == 16) t = resourcesManager.turtleTriva;
+		
+		else if(questionSet == 18) t = resourcesManager.rabbitTriva;
+		else if(questionSet == 19) t = resourcesManager.flagTriva;
+		else if(questionSet == 20) t = resourcesManager.elephantTriva;
+		else if(questionSet == 21) t = resourcesManager.monkeyTriva;
+		else if(questionSet == 22) t = resourcesManager.pandaTriva;
+		
+		else if(questionSet == 24) t = resourcesManager.snakeTriva;
+		else if(questionSet == 25) t = resourcesManager.MoonTriva;
+		else if(questionSet == 26) t = resourcesManager.IglooTriva;
+		else if(questionSet == 27) t = resourcesManager.GiraffeTriva;
+		else if(questionSet == 28) t = resourcesManager.OwlTriva;
 		
 		return t;
 	}

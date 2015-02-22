@@ -381,7 +381,7 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 				};
 		for(int ctr = 0; ctr < menuSelectionTexture.length; ctr++) {
 			final int index = ctr;
-			
+			/*
 			menuSelectionTiledSprite[ctr] = new TiledSprite(spriteX, spriteY, menuSelectionTexture[ctr], vbom) {
 				@Override
 				public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
@@ -405,7 +405,16 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 					return false;
 				}	
 			};
-			
+			*/
+			menuSelectionTiledSprite[ctr] = new TiledSprite(spriteX, spriteY, menuSelectionTexture[ctr], vbom) {
+				@Override
+				public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+					if(pSceneTouchEvent.isActionUp())
+						setTheScene(index);
+						
+					return false;
+				}	
+			};
 			engine.runOnUpdateThread(new Runnable() {
 				@Override
 				public void run() {
