@@ -1318,7 +1318,33 @@ public class MatchItPanel extends BaseScene {
 		ITextureRegion t = null;
 		if(questionSet == 0) t = resourcesManager.PigTriva;
 		else if (questionSet == 1) t = resourcesManager.PigTriva;
+		else if (questionSet == 2) t = resourcesManager.AirplaneTriva;
+		else if (questionSet == 3) t = resourcesManager.StarTriva;
+		else if (questionSet == 4) t = resourcesManager.avocadoTriva;
 		
+		else if (questionSet == 6) t = resourcesManager.catTriva;
+		else if (questionSet == 7) t = resourcesManager.CornTriva;
+		else if (questionSet == 8) t = resourcesManager.birdTriva;
+		else if (questionSet == 9) t = resourcesManager.CircleTriva;
+		else if (questionSet == 10) t = resourcesManager.DogTriva;
+		
+		else if (questionSet == 12) t = resourcesManager.carrotTriva;
+		else if (questionSet == 13) t = resourcesManager.DoughnutTriva;
+		else if (questionSet == 14) t = resourcesManager.appleTriva;
+		else if (questionSet == 15) t = resourcesManager.strawberryTriva;
+		else if (questionSet == 16) t = resourcesManager.flowerTriva;
+		
+		else if (questionSet == 18) t = resourcesManager.mangoTriva;
+		else if (questionSet == 19) t = resourcesManager.bookTriva;
+		else if (questionSet == 20) t = resourcesManager.heartTriva;
+		else if (questionSet == 21) t = resourcesManager.mushroomTriva;
+		else if (questionSet == 22) t = resourcesManager.IcecreamTriva;
+		
+		else if (questionSet == 24) t = resourcesManager.GrapesTriva;
+		else if (questionSet == 25) t = resourcesManager.PigTriva;
+		else if (questionSet == 26) t = resourcesManager.pumpkinTriva;
+		else if (questionSet == 27) t = resourcesManager.eggplantTriva;
+		else if (questionSet == 28) t = resourcesManager.rabbitTriva;
 		return t;
 	}
 	

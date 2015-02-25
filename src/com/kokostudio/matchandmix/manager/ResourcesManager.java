@@ -797,6 +797,22 @@ public class ResourcesManager {
 	public ITextureRegion GiraffeTriva;
 	public ITextureRegion OwlTriva;
 	
+	public ITextureRegion birdTriva;
+	public ITextureRegion CornTriva;
+	public ITextureRegion catTriva;
+	public ITextureRegion StarTriva;
+	public ITextureRegion AirplaneTriva;
+	public ITextureRegion CircleTriva;
+	public ITextureRegion DogTriva;
+	public ITextureRegion carrotTriva;
+	public ITextureRegion DoughnutTriva;
+	public ITextureRegion flowerTriva;
+	public ITextureRegion bookTriva;
+	public ITextureRegion heartTriva;
+	public ITextureRegion mushroomTriva;
+	public ITextureRegion IcecreamTriva;
+	public ITextureRegion eggplantTriva;
+	
 	// ==========================================================================================================================================
 	// END OF TEXTURES & TEXTURE REGIONS VARIABLE DECLARATIONS
 	// ===========================================================================================================================================
@@ -969,6 +985,9 @@ public class ResourcesManager {
 	public Font font;
 	public Font soosFont;
 	public Font aklatanFont;
+
+	
+
 	
 	public void loadAklatanFont() {
 		FontFactory.setAssetBasePath("fonts/");
@@ -1779,10 +1798,10 @@ public class ResourcesManager {
 	private void loadTrivias2() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/trivia/");
 		triviaAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
-		CupcakeTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "pig.png");//pig
+		CupcakeTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "pig.png");//Cake
 		PigTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "pig.png");
 		turtleTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "pig.png");//Turtle
-		rabbitTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "pig.png");//Rabbit
+		rabbitTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "rabbit.png");//Rabbit
 		
 		
 		try {
@@ -1797,9 +1816,8 @@ public class ResourcesManager {
 	private void loadTrivias3() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/trivia/");
 		triviaAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
-		pumpkinTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "pumpkin.png");
 		zebreaTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "pig.png");//zebra
-		DiamondTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "pig.png");//Diamond
+		DiamondTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "diamond.png");//Diamond
 		CastleTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "castle.png");
 		MouseTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "mouse.png");
 		
@@ -1818,7 +1836,6 @@ public class ResourcesManager {
 	private void loadTrivias4() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/trivia/");
 		triviaAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
-		orangeTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "pig.png");//Orange
 		GrapesTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "grapes.png");
 		strawberryTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "strawberry.png");
 		pumpkinTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "pumpkin.png");
@@ -1838,7 +1855,6 @@ public class ResourcesManager {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/trivia/");
 		triviaAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 		snakeTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "snake.png");
-		MoonTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "pig.png");//Moon
 		IglooTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "igloo.png");
 		GiraffeTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "pig.png");//Girraffe
 		OwlTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "owl.png");
@@ -1871,6 +1887,97 @@ public class ResourcesManager {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/trivia/");
 		triviaAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 		pandaTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "panda.png");
+		AirplaneTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "airplane.png");
+		StarTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "star.png");
+		try {
+			triviaAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			triviaAtlas.load();
+		} catch(final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+		loadTrivias8(); 
+	}
+	private void loadTrivias8() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/trivia/");
+		triviaAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
+		catTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "cat.png");
+		CornTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "corn.png");
+		birdTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "birds.png");
+		try {
+			triviaAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			triviaAtlas.load();
+		} catch(final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+		loadTrivias9();
+	}
+	
+	private void loadTrivias9() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/trivia/");
+		triviaAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
+		CircleTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "pig.png");//Circle
+		CornTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "corn.png");
+		DogTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "dogs.png");
+		try {
+			triviaAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			triviaAtlas.load();
+		} catch(final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+		loadTrivias10();
+	}
+	
+	private void loadTrivias10() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/trivia/");
+		triviaAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
+		carrotTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "carrot.png");
+		DoughnutTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "doughnut.png");
+		appleTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "apple.png");
+		try {
+			triviaAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			triviaAtlas.load();
+		} catch(final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+		loadTrivias11();
+	}
+	
+	private void loadTrivias11() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/trivia/");
+		triviaAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
+		flowerTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "flowers.png");
+		bookTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "books.png");
+		heartTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "heart.png");
+		try {
+			triviaAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			triviaAtlas.load();
+		} catch(final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+		loadTrivias12();
+	}
+	
+	private void loadTrivias12() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/trivia/");
+		triviaAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
+		mushroomTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "mushroom.png");
+		IcecreamTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "icecream.png");
+		rabbitTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "rabbit.png");
+		try {
+			triviaAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			triviaAtlas.load();
+		} catch(final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+		loadTrivias13();
+	}
+	
+	private void loadTrivias13() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/trivia/");
+		triviaAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
+		orangeTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "orange.png");//Orange
+		MoonTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "moon.png");//Moon
+		rabbitTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "rabbit.png");
 		try {
 			triviaAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			triviaAtlas.load();
