@@ -47,16 +47,16 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 	
 	private TiledSprite[] menuSelectionTiledSprite;
 	
-	private boolean isOnClick;
-	private float mDownX;
-	private float mDownY;
+	private float mDownXCurrent;
+	private float mDownYCurrent;
+	private float mDownXLast;
+	private float mDownYLast;
 	
 	@Override
 	public void createScene() {
-		
 		this.scrollDetector = new SurfaceScrollDetector(this);
 		this.setOnSceneTouchListener(this);
-		this.setTouchAreaBindingOnActionMoveEnabled(true);
+		
 		
 		createMenuHeader();
 		createMenuBoxes();
@@ -64,7 +64,7 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 		createExitPanel();
 		
 		this.setTouchAreaBindingOnActionDownEnabled(true);
-		
+		this.setTouchAreaBindingOnActionMoveEnabled(true);
 		/* //UNCOMMENT THIS SECTION TO REMOVE THE SCROLL IN THE GAME
 		createBackground();
 		createMenuHeader();
@@ -336,7 +336,7 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
          else
          	menuLeft.setVisible(true);
     	 
-    	 if(camera.getXMin()>1100-15)
+    	 if(camera.getXMin()>1200-15)
              menuRight.setVisible(false);
          else
         	 menuRight.setVisible(true);
@@ -345,7 +345,7 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
      	 if ( ((currentX - pDistanceX) < minX)) {
      		return;
      		
-     	 } else if( ((currentX - pDistanceX) > 1100)) {
+     	 } else if( ((currentX - pDistanceX) > 1200)) {
      		return;
      	 }
      		 
@@ -370,47 +370,42 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 		int spriteX = 150;
 		int spriteY = 200;
 		
-		menuSelectionTiledSprite = new TiledSprite[6];
+		menuSelectionTiledSprite = new TiledSprite[7];
 		TiledTextureRegion[] menuSelectionTexture = {
 				resourcesManager.gamesTiledTextureRegion, 
 				resourcesManager.progressTiledTextureRegion,
 				resourcesManager.howtoTiledTextureRegion, 
-				resourcesManager.aboutTiledTextureRegion, 
+				resourcesManager.aboutTiledTextureRegion,
+				resourcesManager.creditsTiledTextureRegion,
 				resourcesManager.optionTiledTextureRegion, 
 				resourcesManager.exitTiledTextureRegion
 				};
 		for(int ctr = 0; ctr < menuSelectionTexture.length; ctr++) {
 			final int index = ctr;
-			/*
+			
 			menuSelectionTiledSprite[ctr] = new TiledSprite(spriteX, spriteY, menuSelectionTexture[ctr], vbom) {
+				
 				@Override
 				public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 					switch(pSceneTouchEvent.getAction()) {
 					case TouchEvent.ACTION_DOWN:
-						isOnClick = true;
-						if(isOnClick) {
-							menuSelectionTiledSprite[index].setScale(0.9f);
-							menuSelectionTiledSprite[index].setCurrentTileIndex(1);
-						}
+						this.setScale(0.9f);
+						this.setCurrentTileIndex(1);	
+						mDownXCurrent = pSceneTouchEvent.getX();
+						mDownYCurrent = pSceneTouchEvent.getY();
+						mDownXLast = mDownXCurrent;
+						mDownYLast = mDownYCurrent;
 						break;
-					case TouchEvent.ACTION_UP:
-						if(isOnClick)
+					case TouchEvent.ACTION_UP:	
+						if(mDownXLast == mDownXCurrent & mDownYCurrent == mDownYLast)
 							setTheScene(index);
-						
-					case TouchEvent.ACTION_MOVE:
-						isOnClick = false;
 						break;
-					}
+					case TouchEvent.ACTION_MOVE:
+						mDownXLast = pSceneTouchEvent.getX();
+						mDownYLast = pSceneTouchEvent.getY();
+						break;
 						
-					return false;
-				}	
-			};
-			*/
-			menuSelectionTiledSprite[ctr] = new TiledSprite(spriteX, spriteY, menuSelectionTexture[ctr], vbom) {
-				@Override
-				public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
-					if(pSceneTouchEvent.isActionUp())
-						setTheScene(index);
+					}
 						
 					return false;
 				}	
@@ -422,9 +417,11 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 					registerTouchArea(menuSelectionTiledSprite[index]);
 					menuSelectionTiledSprite[index].setZIndex(0);
 					sortChildren();
+					setTouchAreaBindingOnActionDownEnabled(true);
+					setTouchAreaBindingOnActionMoveEnabled(true);
 				}
 			});
-			spriteX += 320;
+			spriteX += 280;
 		}
 		
 		maxX = spriteX - GameActivity.CAMERA_WIDTH;
@@ -505,6 +502,7 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 		 * progress
 		 * how to
 		 * about
+		 * credits
 		 * option
 		 * exit
 		 */
@@ -532,9 +530,14 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 		case 4:
 			resourcesManager.click.play();
 			resetCamera();
-			SceneManager.getInstance().loadOptionScene();
+			SceneManager.getInstance().loadCreditScene();
 			break;
 		case 5:
+			resourcesManager.click.play();
+			resetCamera();
+			SceneManager.getInstance().loadOptionScene();
+			break;
+		case 6:
 			resourcesManager.click.play();
 			MainMenuScene.this.setChildScene(exitConfirmationScene, false, true, true );
 			break;
@@ -548,12 +551,17 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 	@Override
 	public void onScrollStarted(ScrollDetector pScollDetector, int pPointerID,
 			float pDistanceX, float pDistanceY) {
-		
 	}
 	
 	@Override
 	public void onScrollFinished(ScrollDetector pScollDetector, int pPointerID,
 			float pDistanceX, float pDistanceY) {
+		
+		for(int i = 0; i < menuSelectionTiledSprite.length; i++) {
+			final int index = i;
+			menuSelectionTiledSprite[index].setScale(1.0f);
+			menuSelectionTiledSprite[index].setCurrentTileIndex(0);
+		}
 		
 	}
 

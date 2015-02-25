@@ -4,6 +4,8 @@ import org.andengine.audio.sound.Sound;
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
+import org.andengine.entity.modifier.AlphaModifier;
+import org.andengine.entity.scene.CameraScene;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
@@ -41,9 +43,20 @@ public class CountItPanel extends BaseScene {
 	
 	private myDatabase db;
 	
+	private Sprite thatsCorrect;
+	private Sprite thatsWrong;
+	
 	private int x;
 	
 	private int lives;
+	
+	private Sprite sLife;
+	private TiledSprite sLifeValue;
+	
+	private TiledSprite OK;
+	
+	private CameraScene tryScene;
+	private Sprite tryMsg;
 
 	@Override
 	public void createScene() {
@@ -58,6 +71,9 @@ public class CountItPanel extends BaseScene {
 		createOtherObjects();
 		checkAudioStatus();
 		checkStatus();
+		createTryAgainScene();
+		thatsCorrect.setAlpha(0f);
+		thatsWrong.setAlpha(0f);
 	}
 
 	@Override
@@ -122,6 +138,20 @@ public class CountItPanel extends BaseScene {
 		};
 		registerTouchArea(back);
 		attachChild(back);
+		
+		thatsCorrect = new Sprite(410, 445, resourcesManager.thatsCorrectTexture, vbom);
+		attachChild(thatsCorrect);
+		thatsWrong = new Sprite(410, 445, resourcesManager.thatsWrongTexture, vbom);
+		attachChild(thatsWrong);
+		
+		
+		// LIFE SPRITE AND TEXT
+		sLife = new Sprite(690, 445, resourcesManager.lifeTexture, vbom);
+		sLife.setAlpha(0.7f);
+		attachChild(sLife);
+		sLifeValue = new TiledSprite(750, 450, resourcesManager.lifeValueTexture, vbom);
+		sLifeValue.setCurrentTileIndex(lives);
+		attachChild(sLifeValue);
 	}
 	
 	private void createQuestions() { // ALSO CLUE BOX AND CLUES WILL BE CREATED HERE
@@ -158,8 +188,11 @@ public class CountItPanel extends BaseScene {
 					correctSprite.setScale(1.0f);
 					resourcesManager.correct.play();
 					update(questionSet, "true");
+					updateIsFirstTime();
 					lock();
+					thatsCorrect.setAlpha(1.0f);
 					nextQuestion();
+					thatsCorrect.setAlpha(1.0f);
 					break;
 				}
 				return true;
@@ -181,6 +214,8 @@ public class CountItPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					sLifeValue.setCurrentTileIndex(lives);
+					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
 					break;
 				}
 				return true;
@@ -202,6 +237,8 @@ public class CountItPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					sLifeValue.setCurrentTileIndex(lives);
+					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
 					break;
 				}
 				return true;
@@ -223,6 +260,8 @@ public class CountItPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					sLifeValue.setCurrentTileIndex(lives);
+					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
 					break;
 				}
 				return true;
@@ -244,6 +283,8 @@ public class CountItPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					sLifeValue.setCurrentTileIndex(lives);
+					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
 					break;
 				}
 				return true;
@@ -345,7 +386,7 @@ public class CountItPanel extends BaseScene {
 	
 	private void checkLives() {
 		if(lives == 0) {
-			SceneManager.getInstance().loadCountItScene();
+			CountItPanel.this.setChildScene(tryScene, false, true, true);
 		}
 	}
 	
@@ -356,6 +397,41 @@ public class CountItPanel extends BaseScene {
 		unregisterTouchArea(c2);
 		unregisterTouchArea(c3);
 		unregisterTouchArea(c4);
+	}
+	
+	private void createTryAgainScene() {
+		tryScene = new CameraScene(camera);
+		
+		tryMsg = new Sprite(400, 240, resourcesManager.tryAgainWarningMsg, vbom);
+		tryScene.setZIndex(0);
+		tryScene.attachChild(tryMsg);
+		
+		OK = new TiledSprite(400, 100, resourcesManager.triviaOK, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				switch (pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					this.setScale(0.9f);
+					this.setCurrentTileIndex(1);
+					break;
+
+				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
+					CountItPanel.this.clearChildScene();
+					SceneManager.getInstance().loadCountItScene();
+					break;
+				}
+				return true;
+			}
+			
+		};
+		
+		OK.setZIndex(1);
+		tryScene.registerTouchArea(OK);
+		tryScene.attachChild(OK);
+		tryScene.setBackgroundEnabled(false);
+		
+		
 	}
 	
 	private void playNextSound() {
@@ -381,6 +457,11 @@ public class CountItPanel extends BaseScene {
 		if(cmp.compareTo("true")==0) {
 			lock();
 		}
+	}
+	
+	private void updateIsFirstTime() {
+		db.updateIsFirstTime(3, "false");
+		db.close();
 	}
 	
 	private void nextQuestion() {

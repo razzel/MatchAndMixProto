@@ -3,6 +3,8 @@ package com.kokostudio.matchandmix.scene.game.panel;
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
+import org.andengine.entity.modifier.AlphaModifier;
+import org.andengine.entity.scene.CameraScene;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
@@ -47,6 +49,20 @@ public class MatchItPanel extends BaseScene {
 	private myDatabase db;
 	
 	private int x;
+	
+	private Sprite thatsCorrect;
+	private Sprite thatsWrong;
+	
+	private Sprite sLife;
+	private TiledSprite sLifeValue;
+	
+	private CameraScene triviaScene;
+	private Sprite triviaPanel;
+	private Sprite trivia;
+	private TiledSprite OK;
+	
+	private CameraScene tryScene;
+	private Sprite tryMsg;
 
 	@Override
 	public void createScene() {
@@ -59,6 +75,11 @@ public class MatchItPanel extends BaseScene {
 		createQuestions();
 		checkStatus();
 		sortChildren();
+		createTryAgainScene();
+		showTrivia();
+		
+		thatsCorrect.setAlpha(0f);
+		thatsWrong.setAlpha(0f);
 	}
 
 	@Override
@@ -120,7 +141,20 @@ public class MatchItPanel extends BaseScene {
 			
 		};
 		registerTouchArea(back);
-		attachChild(back);				
+		attachChild(back);	
+		
+		thatsCorrect = new Sprite(410, 445, resourcesManager.thatsCorrectTexture, vbom);
+		thatsCorrect.setZIndex(2);
+		attachChild(thatsCorrect);
+		thatsWrong = new Sprite(410, 445, resourcesManager.thatsWrongTexture, vbom);
+		thatsWrong.setZIndex(2);
+		attachChild(thatsWrong);
+		// LIFE SPRITE AND TEXT
+		sLife = new Sprite(690, 445, resourcesManager.lifeTexture, vbom);
+		attachChild(sLife);
+		sLifeValue = new TiledSprite(750, 450, resourcesManager.lifeValueTexture, vbom);
+		sLifeValue.setCurrentTileIndex(lives);
+		attachChild(sLifeValue);
 	}
 	
 	private void createQuestions() {
@@ -299,7 +333,7 @@ public class MatchItPanel extends BaseScene {
 		
 	}
 	
-	private void updateIsFirstTime(String s) {
+	private void updateIsFirstTime() {
 		db.updateIsFirstTime(0, "false");
 		db.close();
 	}
@@ -1280,6 +1314,14 @@ public class MatchItPanel extends BaseScene {
 		return r;
 	}
 	
+	private ITextureRegion trivia() {
+		ITextureRegion t = null;
+		if(questionSet == 0) t = resourcesManager.PigTriva;
+		else if (questionSet == 1) t = resourcesManager.PigTriva;
+		
+		return t;
+	}
+	
 	// BACK TO POSITION
 	private void checkPosition(Sprite sprite, float touchX, float touchY, int posX, int posY) {
 		if(touchX < 300 && touchX  > 200 && touchY < 300 && touchY > 200) {
@@ -1287,7 +1329,9 @@ public class MatchItPanel extends BaseScene {
 			lock();
 			resourcesManager.correct.play();
 			update(questionSet, "true");
-			updateIsFirstTime("false");
+			updateIsFirstTime();
+			thatsCorrect.setAlpha(1.0f);
+			MatchItPanel.this.setChildScene(triviaScene, false, true, true);
 			
 		} else { 
 			// Back to Original Position
@@ -1295,13 +1339,86 @@ public class MatchItPanel extends BaseScene {
 			resourcesManager.wrong.play();
 			lives--;
 			checkLives();
+			sLifeValue.setCurrentTileIndex(lives);
+			thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
 		}
 	}
 	
 	private void checkLives() {
 		if(lives == 0) {
-			SceneManager.getInstance().loadMatchItScene();
+			MatchItPanel.this.setChildScene(tryScene, false, true, true);
 		}
+	}
+	
+	private void showTrivia() {
+		triviaScene = new CameraScene(camera);
+		
+		triviaPanel = new Sprite(400, 240, resourcesManager.triviaPanel, vbom);
+		triviaScene.attachChild(triviaPanel);
+		triviaPanel.setZIndex(0);
+		
+		trivia = new Sprite(400, 240, trivia(), vbom); 
+		triviaScene.attachChild(trivia);
+		trivia.setZIndex(1);
+		
+		OK = new TiledSprite(400, 80, resourcesManager.triviaOK, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				switch(pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					this.setScale(0.9f);
+					this.setCurrentTileIndex(1);
+					break;
+				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
+					updateIsFirstTime();
+					MatchItPanel.this.clearChildScene();
+					nextQuestion();
+					break;
+				}
+				return true;
+			}
+			
+		};
+		triviaScene.attachChild(OK);
+		triviaScene.registerTouchArea(OK);
+		OK.setZIndex(1);
+		
+		triviaScene.setBackgroundEnabled(false);
+		triviaScene.sortChildren();
+	}
+	
+	private void createTryAgainScene() {
+		tryScene = new CameraScene(camera);
+		
+		tryMsg = new Sprite(400, 240, resourcesManager.tryAgainWarningMsg, vbom);
+		tryScene.setZIndex(0);
+		tryScene.attachChild(tryMsg);
+		
+		OK = new TiledSprite(400, 100, resourcesManager.triviaOK, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				switch (pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					this.setScale(0.9f);
+					this.setCurrentTileIndex(1);
+					break;
+
+				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
+					MatchItPanel.this.clearChildScene();
+					SceneManager.getInstance().loadMatchItScene();
+					break;
+				}
+				return true;
+			}
+			
+		};
+		
+		OK.setZIndex(1);
+		tryScene.registerTouchArea(OK);
+		tryScene.attachChild(OK);
+		tryScene.setBackgroundEnabled(false);	
 	}
 	
 	private String isAnswered(int id) {
@@ -1323,9 +1440,9 @@ public class MatchItPanel extends BaseScene {
 	}
 	
 	private void lock() {
-		nextQuestion();
 		question.setCurrentTileIndex(1);
 		correctSprite.detachSelf();
+		unregisterTouchArea(correctSprite);
 		unregisterTouchArea(c1);
 		unregisterTouchArea(c2);
 		unregisterTouchArea(c3);

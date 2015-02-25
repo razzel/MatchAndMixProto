@@ -58,13 +58,13 @@ public class myDatabase extends SQLiteOpenHelper {
 	
 	// SOLVE IT 
 		// ADD TABLE
-		public static final String table_SolveItAdd = "add";
+		public static final String table_SolveItAdd = "Adding";
 		public static final String fAdd_ID = "add_id";
 		public static final String fAdd_isAnswered = "isAnswered";
 		public static final String CREATE_SOLVEIT_ADD_TABLE = "CREATE TABLE IF NOT EXISTS " +table_SolveItAdd+ " ("
-															+fAdd_ID+ " INTEGER PRIMARY KEY, "
-															+fAdd_isAnswered+ " TEXT "
-															+ ") ";
+													+fAdd_ID+ " INTEGER PRIMARY KEY, "
+													+fAdd_isAnswered+ " TEXT "
+													+ ") ";
 		// SUB TABLE
 		public static final String table_SolveItSub = "Sub";
 		public static final String fSub_ID = "Sub_id";
@@ -133,9 +133,20 @@ public class myDatabase extends SQLiteOpenHelper {
 		
 		// SOLVE IT
 			// ADD
-			//db.execSQL(CREATE_SOLVEIT_ADD_TABLE);
-			//insertSolveItAddValues(db);
-		
+			db.execSQL(CREATE_SOLVEIT_ADD_TABLE);
+			insertSolveItAddValues(db);
+			
+			// SUB
+			db.execSQL(CREATE_SOLVEIT_SUB_TABLE);
+			insertSolveItSubValues(db);
+			
+			// MUL
+			db.execSQL(CREATE_SOLVEIT_MUL_TABLE);
+			insertSolveItMulValues(db);
+			
+			// DIV
+			db.execSQL(CREATE_SOLVEIT_DIV_TABLE);
+			insertSolveItDiv(db);
 		
 		// CREATE FIRSTTIME TABLE
 		ContentValues isFirstTimeCV = new ContentValues();
@@ -152,7 +163,35 @@ public class myDatabase extends SQLiteOpenHelper {
 		isFirstTimeCV.put(fFirstTime_ID, 0);
 		isFirstTimeCV.put(fIsFirstTime, "true");
 			db.insert(table_isFirstTime, null, isFirstTimeCV);
-		
+			
+		isFirstTimeCV.put(fFirstTime_ID, 1);
+		isFirstTimeCV.put(fIsFirstTime, "true");
+			db.insert(table_isFirstTime, null, isFirstTimeCV);
+
+		isFirstTimeCV.put(fFirstTime_ID, 2);
+		isFirstTimeCV.put(fIsFirstTime, "true");
+			db.insert(table_isFirstTime, null, isFirstTimeCV);
+
+		isFirstTimeCV.put(fFirstTime_ID, 3);
+		isFirstTimeCV.put(fIsFirstTime, "true");
+			db.insert(table_isFirstTime, null, isFirstTimeCV);
+
+		isFirstTimeCV.put(fFirstTime_ID, 4);
+		isFirstTimeCV.put(fIsFirstTime, "true");
+			db.insert(table_isFirstTime, null, isFirstTimeCV);
+
+		isFirstTimeCV.put(fFirstTime_ID, 5);
+		isFirstTimeCV.put(fIsFirstTime, "true");
+			db.insert(table_isFirstTime, null, isFirstTimeCV);
+
+		isFirstTimeCV.put(fFirstTime_ID, 6);
+		isFirstTimeCV.put(fIsFirstTime, "true");
+			db.insert(table_isFirstTime, null, isFirstTimeCV);
+
+		isFirstTimeCV.put(fFirstTime_ID, 7);
+		isFirstTimeCV.put(fIsFirstTime, "true");
+			db.insert(table_isFirstTime, null, isFirstTimeCV);
+											
 	}
 
 	@Override
@@ -161,7 +200,10 @@ public class myDatabase extends SQLiteOpenHelper {
 		db.execSQL("DROP T=ABLE IF EXISTS " + CREATE_OPTION_TABLE);
 		db.execSQL("DROP TABLE IF EXISTS " + CREATE_GTML_TABLE);
 		db.execSQL("DROP TABLE IF EXISTS " + CREATE_MATCHIT_TABLE);
-		
+		db.execSQL("DROP TABLE IF EXISTS " + CREATE_SOLVEIT_ADD_TABLE);
+		db.execSQL("DROP TABLE IF EXISTS " + CREATE_SOLVEIT_SUB_TABLE);
+		db.execSQL("DROP TABLE IF EXISTS " + CREATE_SOLVEIT_MUL_TABLE);
+		db.execSQL("DROP TABLE IF EXISTS " + CREATE_SOLVEIT_DIV_TABLE);
 		db.execSQL("DROP TABLE IF EXISTS " + CREATE_FIRSTTIME_TABLE);
 		onCreate(db);
 	}
@@ -834,6 +876,16 @@ public class myDatabase extends SQLiteOpenHelper {
 		return count;
 	}
 	
+	public String countItIsAnswered(int id) {
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor c = db.rawQuery("SELECT " + fCount_isAnswered + " FROM " + table_CountIt + " WHERE " + fCount_ID + " = " +id, null);
+		c.moveToFirst();
+		int index = c.getColumnIndex(fCount_isAnswered);
+		String myReturn = c.getString(index);
+		c.close();
+		return myReturn;
+	}
+	
 	// SOLVE IT *******************************************************************************************************
 		// ADD
 		public void insertSolveItAddValues(SQLiteDatabase db) {
@@ -957,22 +1009,549 @@ public class myDatabase extends SQLiteOpenHelper {
 			
 		}
 		
-		// SUB
-		public void insertSolveItSubValues(SQLiteDatabase db) {
-			
+		public void updateSolveItAdd(int id, String s) {
+			SQLiteDatabase db = this.getWritableDatabase();
+			ContentValues cv = new ContentValues();
+			cv.put(fAdd_isAnswered, s);
+			db.update(table_SolveItAdd, cv, fAdd_ID+" = " +id, null);
 		}
 		
+		public int solveItAddGetAnswered() {
+			SQLiteDatabase db = this.getReadableDatabase();
+			String[] mySearch = new String[]{"true"};
+			Cursor c = db.rawQuery("SELECT count(*) FROM " +table_SolveItAdd+ " WHERE " +fAdd_isAnswered+ " =?", mySearch);
+			int count = 0;
+			while(c.moveToNext()) {
+				int countIndex = c.getColumnIndex("count(*)");
+				count = c.getInt(countIndex);
+			}
+			c.close();
+			db.close();
+			return count-4;
+		}
+		
+		public int solveItAddGetRemaining() {
+			SQLiteDatabase db = this.getReadableDatabase();
+			String[] mySearch = new String[]{"false"};
+			Cursor c = db.rawQuery("SELECT count(*) FROM " +table_SolveItAdd+ " WHERE " +fAdd_isAnswered+ " =?", mySearch);
+			int count = 0;
+			while(c.moveToNext()) {
+				int countIndex = c.getColumnIndex("count(*)");
+				count = c.getInt(countIndex);
+			}
+			c.close();
+			db.close();
+			return count;
+		}
+		
+		public String solveItAddIsAnswered(int id) {
+			SQLiteDatabase db = this.getReadableDatabase();
+			Cursor c = db.rawQuery("SELECT " + fAdd_isAnswered + " FROM " + table_SolveItAdd + " WHERE " + fAdd_ID + " = " +id, null);
+			c.moveToFirst();
+			int index = c.getColumnIndex(fAdd_isAnswered);
+			String myReturn = c.getString(index);
+			c.close();
+			return myReturn;
+		}
+		
+		// SUB
+		public void insertSolveItSubValues(SQLiteDatabase db) {
+			ContentValues subCV = new ContentValues();
+			
+			subCV.put(fSub_ID, 0);
+			subCV.put(fSub_isAnswered, "false");
+				db.insert(table_SolveItSub, null, subCV);
+			
+			subCV.put(fSub_ID, 1);
+			subCV.put(fSub_isAnswered, "false");
+				db.insert(table_SolveItSub, null, subCV);
+			
+			subCV.put(fSub_ID, 2);
+			subCV.put(fSub_isAnswered, "false");
+				db.insert(table_SolveItSub, null, subCV);
 	
-	public String countItIsAnswered(int id) {
-		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor c = db.rawQuery("SELECT " + fCount_isAnswered + " FROM " + table_CountIt + " WHERE " + fCount_ID + " = " +id, null);
-		c.moveToFirst();
-		int index = c.getColumnIndex(fCount_isAnswered);
-		String myReturn = c.getString(index);
-		c.close();
-		return myReturn;
-	}
+			subCV.put(fSub_ID, 3);
+			subCV.put(fSub_isAnswered, "false");
+				db.insert(table_SolveItSub, null, subCV);
 	
+			subCV.put(fSub_ID, 4);
+			subCV.put(fSub_isAnswered, "false");
+				db.insert(table_SolveItSub, null, subCV);
+	
+				subCV.put(fSub_ID, 5);
+				subCV.put(fSub_isAnswered, "true");
+					db.insert(table_SolveItSub, null, subCV);
+	
+			subCV.put(fSub_ID, 6);
+			subCV.put(fSub_isAnswered, "false");
+				db.insert(table_SolveItSub, null, subCV);
+	
+			subCV.put(fSub_ID, 7);
+			subCV.put(fSub_isAnswered, "false");
+				db.insert(table_SolveItSub, null, subCV);
+	
+			subCV.put(fSub_ID, 8);
+			subCV.put(fSub_isAnswered, "false");
+				db.insert(table_SolveItSub, null, subCV);
+	
+			subCV.put(fSub_ID, 9);
+			subCV.put(fSub_isAnswered, "false");
+				db.insert(table_SolveItSub, null, subCV);
+	
+			subCV.put(fSub_ID, 10);
+			subCV.put(fSub_isAnswered, "false");
+				db.insert(table_SolveItSub, null, subCV);
+	
+				subCV.put(fSub_ID, 11);
+				subCV.put(fSub_isAnswered, "true");
+					db.insert(table_SolveItSub, null, subCV);
+	
+			subCV.put(fSub_ID, 12);
+			subCV.put(fSub_isAnswered, "false");
+				db.insert(table_SolveItSub, null, subCV);
+	
+			subCV.put(fSub_ID, 13);
+			subCV.put(fSub_isAnswered, "false");
+				db.insert(table_SolveItSub, null, subCV);
+	
+			subCV.put(fSub_ID, 14);
+			subCV.put(fSub_isAnswered, "false");
+				db.insert(table_SolveItSub, null, subCV);
+	
+			subCV.put(fSub_ID, 15);
+			subCV.put(fSub_isAnswered, "false");
+				db.insert(table_SolveItSub, null, subCV);
+	
+			subCV.put(fSub_ID, 16);
+			subCV.put(fSub_isAnswered, "false");
+				db.insert(table_SolveItSub, null, subCV);
+	
+				subCV.put(fSub_ID, 17);
+				subCV.put(fSub_isAnswered, "true");
+					db.insert(table_SolveItSub, null, subCV);
+	
+			subCV.put(fSub_ID, 18);
+			subCV.put(fSub_isAnswered, "false");
+				db.insert(table_SolveItSub, null, subCV);
+	
+			subCV.put(fSub_ID, 19);
+			subCV.put(fSub_isAnswered, "false");
+				db.insert(table_SolveItSub, null, subCV);
+	
+			subCV.put(fSub_ID, 20);
+			subCV.put(fSub_isAnswered, "false");
+				db.insert(table_SolveItSub, null, subCV);
+	
+			subCV.put(fSub_ID, 21);
+			subCV.put(fSub_isAnswered, "false");
+				db.insert(table_SolveItSub, null, subCV);
+	
+			subCV.put(fSub_ID, 22);
+			subCV.put(fSub_isAnswered, "false");
+				db.insert(table_SolveItSub, null, subCV);
+	
+				subCV.put(fSub_ID, 23);
+				subCV.put(fSub_isAnswered, "true");
+					db.insert(table_SolveItSub, null, subCV);
+	
+			subCV.put(fSub_ID, 24);
+			subCV.put(fSub_isAnswered, "false");
+				db.insert(table_SolveItSub, null, subCV);
+	
+			subCV.put(fSub_ID, 25);
+			subCV.put(fSub_isAnswered, "false");
+				db.insert(table_SolveItSub, null, subCV);
+	
+			subCV.put(fSub_ID, 26);
+			subCV.put(fSub_isAnswered, "false");
+				db.insert(table_SolveItSub, null, subCV);
+	
+			subCV.put(fSub_ID, 27);
+			subCV.put(fSub_isAnswered, "false");
+				db.insert(table_SolveItSub, null, subCV);
+	
+			subCV.put(fSub_ID, 28);
+			subCV.put(fSub_isAnswered, "false");
+				db.insert(table_SolveItSub, null, subCV);
+		}
+	
+		public void updateSolveItSub(int id, String s) {
+			SQLiteDatabase db = this.getWritableDatabase();
+			ContentValues cv = new ContentValues();
+			cv.put(fSub_isAnswered, s);
+			db.update(table_SolveItSub, cv, fSub_ID+" = " +id, null);
+		}
+		
+		public int solveItSubGetAnswered() {
+			SQLiteDatabase db = this.getReadableDatabase();
+			String[] mySearch = new String[]{"true"};
+			Cursor c = db.rawQuery("SELECT count(*) FROM " +table_SolveItSub+ " WHERE " +fSub_isAnswered+ " =?", mySearch);
+			int count = 0;
+			while(c.moveToNext()) {
+				int countIndex = c.getColumnIndex("count(*)");
+				count = c.getInt(countIndex);
+			}
+			c.close();
+			db.close();
+			return count-4;
+		}
+		
+		public int solveItSubGetRemaining() {
+			SQLiteDatabase db = this.getReadableDatabase();
+			String[] mySearch = new String[]{"false"};
+			Cursor c = db.rawQuery("SELECT count(*) FROM " +table_SolveItSub+ " WHERE " +fSub_isAnswered+ " =?", mySearch);
+			int count = 0;
+			while(c.moveToNext()) {
+				int countIndex = c.getColumnIndex("count(*)");
+				count = c.getInt(countIndex);
+			}
+			c.close();
+			db.close();
+			return count;
+		}
+		
+		public String solveItSubIsAnswered(int id) {
+			SQLiteDatabase db = this.getReadableDatabase();
+			Cursor c = db.rawQuery("SELECT " + fSub_isAnswered + " FROM " + table_SolveItSub + " WHERE " + fSub_ID + " = " +id, null);
+			c.moveToFirst();
+			int index = c.getColumnIndex(fSub_isAnswered);
+			String myReturn = c.getString(index);
+			c.close();
+			return myReturn;
+		}
+		
+		// MUL
+		public void insertSolveItMulValues(SQLiteDatabase db) {
+			ContentValues mulCV = new ContentValues();
+			
+			mulCV.put(fMul_ID, 0);
+			mulCV.put(fMul_isAnswered, "false");
+				db.insert(table_SolveItMul, null, mulCV);
+			
+			mulCV.put(fMul_ID, 1);
+			mulCV.put(fMul_isAnswered, "false");
+				db.insert(table_SolveItMul, null, mulCV);
+			
+			mulCV.put(fMul_ID, 2);
+			mulCV.put(fMul_isAnswered, "false");
+				db.insert(table_SolveItMul, null, mulCV);
+	
+			mulCV.put(fMul_ID, 3);
+			mulCV.put(fMul_isAnswered, "false");
+				db.insert(table_SolveItMul, null, mulCV);
+	
+			mulCV.put(fMul_ID, 4);
+			mulCV.put(fMul_isAnswered, "false");
+				db.insert(table_SolveItMul, null, mulCV);
+	
+				mulCV.put(fMul_ID, 5);
+				mulCV.put(fMul_isAnswered, "true");
+					db.insert(table_SolveItMul, null, mulCV);
+	
+			mulCV.put(fMul_ID, 6);
+			mulCV.put(fMul_isAnswered, "false");
+				db.insert(table_SolveItMul, null, mulCV);
+	
+			mulCV.put(fMul_ID, 7);
+			mulCV.put(fMul_isAnswered, "false");
+				db.insert(table_SolveItMul, null, mulCV);
+	
+			mulCV.put(fMul_ID, 8);
+			mulCV.put(fMul_isAnswered, "false");
+				db.insert(table_SolveItMul, null, mulCV);
+	
+			mulCV.put(fMul_ID, 9);
+			mulCV.put(fMul_isAnswered, "false");
+				db.insert(table_SolveItMul, null, mulCV);
+	
+			mulCV.put(fMul_ID, 10);
+			mulCV.put(fMul_isAnswered, "false");
+				db.insert(table_SolveItMul, null, mulCV);
+	
+				mulCV.put(fMul_ID, 11);
+				mulCV.put(fMul_isAnswered, "true");
+					db.insert(table_SolveItMul, null, mulCV);
+	
+			mulCV.put(fMul_ID, 12);
+			mulCV.put(fMul_isAnswered, "false");
+				db.insert(table_SolveItMul, null, mulCV);
+	
+			mulCV.put(fMul_ID, 13);
+			mulCV.put(fMul_isAnswered, "false");
+				db.insert(table_SolveItMul, null, mulCV);
+	
+			mulCV.put(fMul_ID, 14);
+			mulCV.put(fMul_isAnswered, "false");
+				db.insert(table_SolveItMul, null, mulCV);
+	
+			mulCV.put(fMul_ID, 15);
+			mulCV.put(fMul_isAnswered, "false");
+				db.insert(table_SolveItMul, null, mulCV);
+	
+			mulCV.put(fMul_ID, 16);
+			mulCV.put(fMul_isAnswered, "false");
+				db.insert(table_SolveItMul, null, mulCV);
+	
+				mulCV.put(fMul_ID, 17);
+				mulCV.put(fMul_isAnswered, "true");
+					db.insert(table_SolveItMul, null, mulCV);
+	
+			mulCV.put(fMul_ID, 18);
+			mulCV.put(fMul_isAnswered, "false");
+				db.insert(table_SolveItMul, null, mulCV);
+	
+			mulCV.put(fMul_ID, 19);
+			mulCV.put(fMul_isAnswered, "false");
+				db.insert(table_SolveItMul, null, mulCV);
+	
+			mulCV.put(fMul_ID, 20);
+			mulCV.put(fMul_isAnswered, "false");
+				db.insert(table_SolveItMul, null, mulCV);
+	
+			mulCV.put(fMul_ID, 21);
+			mulCV.put(fMul_isAnswered, "false");
+				db.insert(table_SolveItMul, null, mulCV);
+	
+			mulCV.put(fMul_ID, 22);
+			mulCV.put(fMul_isAnswered, "false");
+				db.insert(table_SolveItMul, null, mulCV);
+	
+				mulCV.put(fMul_ID, 23);
+				mulCV.put(fMul_isAnswered, "true");
+					db.insert(table_SolveItMul, null, mulCV);
+	
+			mulCV.put(fMul_ID, 24);
+			mulCV.put(fMul_isAnswered, "false");
+				db.insert(table_SolveItMul, null, mulCV);
+	
+			mulCV.put(fMul_ID, 25);
+			mulCV.put(fMul_isAnswered, "false");
+				db.insert(table_SolveItMul, null, mulCV);
+	
+			mulCV.put(fMul_ID, 26);
+			mulCV.put(fMul_isAnswered, "false");
+				db.insert(table_SolveItMul, null, mulCV);
+	
+			mulCV.put(fMul_ID, 27);
+			mulCV.put(fMul_isAnswered, "false");
+				db.insert(table_SolveItMul, null, mulCV);
+	
+			mulCV.put(fMul_ID, 28);
+			mulCV.put(fMul_isAnswered, "false");
+				db.insert(table_SolveItMul, null, mulCV);
+		}
+		
+		public void updateSolveItMul(int id, String s) {
+			SQLiteDatabase db = this.getWritableDatabase();
+			ContentValues cv = new ContentValues();
+			cv.put(fMul_isAnswered, s);
+			db.update(table_SolveItMul, cv, fMul_ID+" = " +id, null);
+		}
+		
+		public int solveItMulGetAnswered() {
+			SQLiteDatabase db = this.getReadableDatabase();
+			String[] mySearch = new String[]{"true"};
+			Cursor c = db.rawQuery("SELECT count(*) FROM " +table_SolveItMul+ " WHERE " +fMul_isAnswered+ " =?", mySearch);
+			int count = 0;
+			while(c.moveToNext()) {
+				int countIndex = c.getColumnIndex("count(*)");
+				count = c.getInt(countIndex);
+			}
+			c.close();
+			db.close();
+			return count-4;
+		}
+		
+		public int solveItMulGetRemaining() {
+			SQLiteDatabase db = this.getReadableDatabase();
+			String[] mySearch = new String[]{"false"};
+			Cursor c = db.rawQuery("SELECT count(*) FROM " +table_SolveItMul+ " WHERE " +fMul_isAnswered+ " =?", mySearch);
+			int count = 0;
+			while(c.moveToNext()) {
+				int countIndex = c.getColumnIndex("count(*)");
+				count = c.getInt(countIndex);
+			}
+			c.close();
+			db.close();
+			return count;
+		}
+		
+		public String solveItMulIsAnswered(int id) {
+			SQLiteDatabase db = this.getReadableDatabase();
+			Cursor c = db.rawQuery("SELECT " + fMul_isAnswered + " FROM " + table_SolveItMul + " WHERE " + fMul_ID + " = " +id, null);
+			c.moveToFirst();
+			int index = c.getColumnIndex(fMul_isAnswered);
+			String myReturn = c.getString(index);
+			c.close();
+			return myReturn;
+		}
+		
+		// DIV
+		public void insertSolveItDiv(SQLiteDatabase db) {
+			ContentValues divCV = new ContentValues();
+			
+			divCV.put(fDiv_ID, 0);
+			divCV.put(fDiv_isAnswered, "false");
+				db.insert(table_SolveItDiv, null, divCV);
+			
+			divCV.put(fDiv_ID, 1);
+			divCV.put(fDiv_isAnswered, "false");
+				db.insert(table_SolveItDiv, null, divCV);
+			
+			divCV.put(fDiv_ID, 2);
+			divCV.put(fDiv_isAnswered, "false");
+				db.insert(table_SolveItDiv, null, divCV);
+	
+			divCV.put(fDiv_ID, 3);
+			divCV.put(fDiv_isAnswered, "false");
+				db.insert(table_SolveItDiv, null, divCV);
+	
+			divCV.put(fDiv_ID, 4);
+			divCV.put(fDiv_isAnswered, "false");
+				db.insert(table_SolveItDiv, null, divCV);
+	
+				divCV.put(fDiv_ID, 5);
+				divCV.put(fDiv_isAnswered, "true");
+					db.insert(table_SolveItDiv, null, divCV);
+	
+			divCV.put(fDiv_ID, 6);
+			divCV.put(fDiv_isAnswered, "false");
+				db.insert(table_SolveItDiv, null, divCV);
+	
+			divCV.put(fDiv_ID, 7);
+			divCV.put(fDiv_isAnswered, "false");
+				db.insert(table_SolveItDiv, null, divCV);
+	
+			divCV.put(fDiv_ID, 8);
+			divCV.put(fDiv_isAnswered, "false");
+				db.insert(table_SolveItDiv, null, divCV);
+	
+			divCV.put(fDiv_ID, 9);
+			divCV.put(fDiv_isAnswered, "false");
+				db.insert(table_SolveItDiv, null, divCV);
+	
+			divCV.put(fDiv_ID, 10);
+			divCV.put(fDiv_isAnswered, "false");
+				db.insert(table_SolveItDiv, null, divCV);
+	
+				divCV.put(fDiv_ID, 11);
+				divCV.put(fDiv_isAnswered, "true");
+					db.insert(table_SolveItDiv, null, divCV);
+	
+			divCV.put(fDiv_ID, 12);
+			divCV.put(fDiv_isAnswered, "false");
+				db.insert(table_SolveItDiv, null, divCV);
+	
+			divCV.put(fDiv_ID, 13);
+			divCV.put(fDiv_isAnswered, "false");
+				db.insert(table_SolveItDiv, null, divCV);
+	
+			divCV.put(fDiv_ID, 14);
+			divCV.put(fDiv_isAnswered, "false");
+				db.insert(table_SolveItDiv, null, divCV);
+	
+			divCV.put(fDiv_ID, 15);
+			divCV.put(fDiv_isAnswered, "false");
+				db.insert(table_SolveItDiv, null, divCV);
+	
+			divCV.put(fDiv_ID, 16);
+			divCV.put(fDiv_isAnswered, "false");
+				db.insert(table_SolveItDiv, null, divCV);
+	
+				divCV.put(fDiv_ID, 17);
+				divCV.put(fDiv_isAnswered, "true");
+					db.insert(table_SolveItDiv, null, divCV);
+	
+			divCV.put(fDiv_ID, 18);
+			divCV.put(fDiv_isAnswered, "false");
+				db.insert(table_SolveItDiv, null, divCV);
+	
+			divCV.put(fDiv_ID, 19);
+			divCV.put(fDiv_isAnswered, "false");
+				db.insert(table_SolveItDiv, null, divCV);
+	
+			divCV.put(fDiv_ID, 20);
+			divCV.put(fDiv_isAnswered, "false");
+				db.insert(table_SolveItDiv, null, divCV);
+	
+			divCV.put(fDiv_ID, 21);
+			divCV.put(fDiv_isAnswered, "false");
+				db.insert(table_SolveItDiv, null, divCV);
+	
+			divCV.put(fDiv_ID, 22);
+			divCV.put(fDiv_isAnswered, "false");
+				db.insert(table_SolveItDiv, null, divCV);
+	
+				divCV.put(fDiv_ID, 23);
+				divCV.put(fDiv_isAnswered, "true");
+					db.insert(table_SolveItDiv, null, divCV);
+	
+			divCV.put(fDiv_ID, 24);
+			divCV.put(fDiv_isAnswered, "false");
+				db.insert(table_SolveItDiv, null, divCV);
+	
+			divCV.put(fDiv_ID, 25);
+			divCV.put(fDiv_isAnswered, "false");
+				db.insert(table_SolveItDiv, null, divCV);
+	
+			divCV.put(fDiv_ID, 26);
+			divCV.put(fDiv_isAnswered, "false");
+				db.insert(table_SolveItDiv, null, divCV);
+	
+			divCV.put(fDiv_ID, 27);
+			divCV.put(fDiv_isAnswered, "false");
+				db.insert(table_SolveItDiv, null, divCV);
+	
+			divCV.put(fDiv_ID, 28);
+			divCV.put(fDiv_isAnswered, "false");
+				db.insert(table_SolveItDiv, null, divCV);
+		}
+		
+		public void updateSolveItDiv(int id, String s) {
+			SQLiteDatabase db = this.getWritableDatabase();
+			ContentValues cv = new ContentValues();
+			cv.put(fDiv_isAnswered, s);
+			db.update(table_SolveItDiv, cv, fDiv_ID+" = " +id, null);
+		}
+		
+		public int solveItDivGetAnswered() {
+			SQLiteDatabase db = this.getReadableDatabase();
+			String[] mySearch = new String[]{"true"};
+			Cursor c = db.rawQuery("SELECT count(*) FROM " +table_SolveItDiv+ " WHERE " +fDiv_isAnswered+ " =?", mySearch);
+			int count = 0;
+			while(c.moveToNext()) {
+				int countIndex = c.getColumnIndex("count(*)");
+				count = c.getInt(countIndex);
+			}
+			c.close();
+			db.close();
+			return count-4;
+		}
+		
+		public int solveItDivGetRemaining() {
+			SQLiteDatabase db = this.getReadableDatabase();
+			String[] mySearch = new String[]{"false"};
+			Cursor c = db.rawQuery("SELECT count(*) FROM " +table_SolveItDiv+ " WHERE " +fDiv_isAnswered+ " =?", mySearch);
+			int count = 0;
+			while(c.moveToNext()) {
+				int countIndex = c.getColumnIndex("count(*)");
+				count = c.getInt(countIndex);
+			}
+			c.close();
+			db.close();
+			return count;
+		}
+		
+		public String solveItDivIsAnswered(int id) {
+			SQLiteDatabase db = this.getReadableDatabase();
+			Cursor c = db.rawQuery("SELECT " + fDiv_isAnswered + " FROM " + table_SolveItDiv + " WHERE " + fDiv_ID + " = " +id, null);
+			c.moveToFirst();
+			int index = c.getColumnIndex(fDiv_isAnswered);
+			String myReturn = c.getString(index);
+			c.close();
+			return myReturn;
+		}
+		
 	// OPTIONS ********************************************************************************************************
 	public String isBGMOn() {
 		SQLiteDatabase db = this.getReadableDatabase();

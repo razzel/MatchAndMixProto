@@ -4,14 +4,19 @@ import org.andengine.audio.sound.Sound;
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
+import org.andengine.entity.modifier.AlphaModifier;
 import org.andengine.entity.scene.CameraScene;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
+import org.andengine.entity.text.Text;
 import org.andengine.input.touch.TouchEvent;
+import org.andengine.input.touch.detector.ScrollDetector;
+import org.andengine.input.touch.detector.ScrollDetector.IScrollDetectorListener;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.util.GLState;
 
+import android.text.method.Touch;
 import android.util.Log;
 
 import com.kokostudio.matchandmix.base.BaseScene;
@@ -30,6 +35,9 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 	private ITextureRegion r;
 	private int pos;
 	
+	private TiledSprite next;
+	private TiledSprite prev;
+	
 	// QUESTIONS AND CHOICES
 	private Sprite questionImage;
 	private TiledSprite question;
@@ -40,14 +48,26 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 	private myDatabase db;
 	
 	int x;
-	
 	private int lives;
 	
 	private CameraScene triviaScene;
 	private Sprite triviaPanel;
 	private Sprite trivia;
 	private TiledSprite OK;
-
+	
+	private CameraScene tryScene;
+	private Sprite tryMsg;
+	
+	private Sprite thatsWrong;
+	private Sprite thatsCorrect;
+	
+	private Sprite sLife;
+	private TiledSprite sLifeValue;
+	
+	private CameraScene htpScene;
+	private Sprite htp1;
+	private Sprite htp2;
+	
 	@Override
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
@@ -61,7 +81,24 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 		checkAudioStatus();
 		playSound();
 		showTrivia();
+		createTryAgainScene();
+		
+		if(db.checkIsFirstTime(1).compareTo("true")==0) {
+			createHowToScene();
+			
+			htp2.setVisible(false);
+			prev.setVisible(false);
+			OK.setVisible(false);
+			htpScene.unregisterTouchArea(OK);
+			htpScene.unregisterTouchArea(prev);
+			GuessTheMissingLetterPanel.this.setChildScene(htpScene, false, true, true);
+		}
+			
+		
 		questionImage.setScale(0.8f);
+		
+		thatsCorrect.setAlpha(0f);
+		thatsWrong.setAlpha(0f);
 	}
 
 	@Override
@@ -116,7 +153,6 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 					if(db.isBGMOn().compareTo("true")==0) {
 						engine.getMusicManager().setMasterVolume(0.70f);
 					}
-					
 					// unload the PANEL'S TEXUTRES / RESOURCES
 					//resourcesManager.unloadGTMLPanelTextures();
 					// then set the SCENE to GuessTheMissingLetter
@@ -128,6 +164,18 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 		};
 		registerTouchArea(back);
 		attachChild(back);
+		
+		//
+		thatsCorrect = new Sprite(410, 445, resourcesManager.thatsCorrectTexture, vbom);
+		attachChild(thatsCorrect);
+		thatsWrong = new Sprite(410, 445, resourcesManager.thatsWrongTexture, vbom);
+		attachChild(thatsWrong);
+		// LIFE SPRITE AND TEXT
+		sLife = new Sprite(690, 445, resourcesManager.lifeTexture, vbom);
+		attachChild(sLife);
+		sLifeValue = new TiledSprite(750, 450, resourcesManager.lifeValueTexture, vbom);
+		sLifeValue.setCurrentTileIndex(lives);
+		attachChild(sLifeValue);
 		
 	}
 	
@@ -179,6 +227,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 					lock();
 					GuessTheMissingLetterPanel.this.setChildScene(triviaScene, false, true, true);
 					//nextQuestion(); // comment mo to pag kinoment out mo yung nsa taas, tska coment out mo yung showTrivia() sa may createScene()
+					thatsCorrect.setAlpha(1.0f);
 					break;
 				}
 				return true;
@@ -200,6 +249,8 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					sLifeValue.setCurrentTileIndex(lives);
+					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
 					break;
 				}
 				return true;
@@ -221,6 +272,8 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					sLifeValue.setCurrentTileIndex(lives);
+					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
 					break;
 				}
 				return true;
@@ -242,6 +295,8 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					sLifeValue.setCurrentTileIndex(lives);
+					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
 					break;
 				}
 				return true;
@@ -263,6 +318,8 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					sLifeValue.setCurrentTileIndex(lives);
+					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
 					break;
 				}
 				return true;
@@ -292,9 +349,97 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 		questionSet = i;
 	}
 	
+	private void createHowToScene() {
+		htpScene = new CameraScene(camera);
+		
+		htp1 = new Sprite(400,  240, resourcesManager.GTMLhtp1, vbom);
+		htpScene.attachChild(htp1);
+		
+		htp2 = new Sprite(400, 240, resourcesManager.GTMLhtp2, vbom);
+		htpScene.attachChild(htp2);
+		
+		next = new TiledSprite(650, 240, resourcesManager.nextTiledTextureRegion, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {	
+				if(pSceneTouchEvent.isActionUp()) {
+					resourcesManager.click.play();
+					next.setScale(1.0f);
+					next.setCurrentTileIndex(0);
+					
+					htp1.setVisible(false);
+					next.setVisible(false);
+					htpScene.unregisterTouchArea(next);
+					
+					htp2.setVisible(true);
+					prev.setVisible(true);
+					OK.setVisible(true);
+					htpScene.registerTouchArea(OK);
+					htpScene.registerTouchArea(prev);	;
+				} else if (pSceneTouchEvent.isActionDown()) {
+					next.setScale(0.9f);
+					next.setCurrentTileIndex(1);
+				} 
+				return true;
+			}
+			
+		};
+		htpScene.registerTouchArea(next);
+		htpScene.attachChild(next);
+		
+		prev = new TiledSprite(100, 240, resourcesManager.prevTiledTextureRegion, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				if(pSceneTouchEvent.isActionUp()) {
+					resourcesManager.click.play();
+					prev.setScale(1.0f);
+					prev.setCurrentTileIndex(0);
+					
+					htp1.setVisible(true);
+					next.setVisible(true);
+					htpScene.registerTouchArea(next);
+					
+					htp2.setVisible(false);
+					prev.setVisible(false);
+					OK.setVisible(false);
+					htpScene.unregisterTouchArea(OK);
+					htpScene.unregisterTouchArea(prev);	
+					
+				} else if (pSceneTouchEvent.isActionDown()) {
+					prev.setScale(0.9f);
+					prev.setCurrentTileIndex(1);
+				}
+				return true;
+			}
+		};
+		htpScene.attachChild(prev);
+		
+		OK = new TiledSprite(400, 50, resourcesManager.triviaOK, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				switch(pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					this.setScale(0.9f);
+					this.setCurrentTileIndex(1);
+					break;
+				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
+					GuessTheMissingLetterPanel.this.clearChildScene();
+					break;
+				}
+				return true;
+			}
+			
+		};
+		htpScene.attachChild(OK);		
+		
+		htpScene.setBackgroundEnabled(false);
+		
+		
+	}
+	
 	private void checkLives() {
 		if(lives == 0) {
-			SceneManager.getInstance().loadGTMLScene();
+			GuessTheMissingLetterPanel.this.setChildScene(tryScene, false, true, true);
 		}
 	}
 	private void checkAudioStatus() {
@@ -308,6 +453,11 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 	
 	private void update(int id, String s) {
 		db.updateGTML(id, s);
+		db.close();
+	}
+	
+	private void updateIsFirstTime() {
+		db.updateIsFirstTime(1, "false");
 		db.close();
 	}
 	
@@ -367,16 +517,17 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 		triviaScene.attachChild(trivia);
 		trivia.setZIndex(1);
 		
-		OK = new TiledSprite(400, 100, resourcesManager.triviaOK, vbom) {
+		OK = new TiledSprite(400, 80, resourcesManager.triviaOK, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				switch(pSceneTouchEvent.getAction()) {
 				case TouchEvent.ACTION_DOWN:
-					OK.setScale(0.9f);
-					OK.setCurrentTileIndex(1);
+					this.setScale(0.9f);
+					this.setCurrentTileIndex(1);
 					break;
 				case TouchEvent.ACTION_UP:
 					resourcesManager.click.play();
+					updateIsFirstTime();
 					GuessTheMissingLetterPanel.this.clearChildScene();
 					nextQuestion();
 					break;
@@ -393,6 +544,40 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 		triviaScene.sortChildren();
 	}
 	
+	private void createTryAgainScene() {
+		tryScene = new CameraScene(camera);
+		
+		tryMsg = new Sprite(400, 240, resourcesManager.tryAgainWarningMsg, vbom);
+		tryScene.setZIndex(0);
+		tryScene.attachChild(tryMsg);
+		
+		OK = new TiledSprite(400, 100, resourcesManager.triviaOK, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				switch (pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					this.setScale(0.9f);
+					this.setCurrentTileIndex(1);
+					break;
+
+				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
+					GuessTheMissingLetterPanel.this.clearChildScene();
+					SceneManager.getInstance().loadGTMLScene();
+					break;
+				}
+				return true;
+			}
+			
+		};
+		
+		OK.setZIndex(1);
+		tryScene.registerTouchArea(OK);
+		tryScene.attachChild(OK);
+		tryScene.setBackgroundEnabled(false);
+		
+		
+	}
 	private ITextureRegion trivia() {
 		ITextureRegion t = null;
 		if(questionSet == 0) t = resourcesManager.appleTriva;

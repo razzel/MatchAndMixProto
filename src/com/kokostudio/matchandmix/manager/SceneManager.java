@@ -5,6 +5,7 @@ import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
 
 import com.kokostudio.matchandmix.base.BaseScene;
 import com.kokostudio.matchandmix.scene.AboutScene;
+import com.kokostudio.matchandmix.scene.CreditScene;
 import com.kokostudio.matchandmix.scene.LoadingScene;
 import com.kokostudio.matchandmix.scene.MainMenuScene;
 import com.kokostudio.matchandmix.scene.GameMenuScene;
@@ -43,6 +44,7 @@ public class SceneManager {
 	private BaseScene optionScene;
 	private BaseScene aboutScene;
 	private BaseScene gameMenuScene;
+	private BaseScene creditScene;
 	
 	private BaseScene loadingScene;
 	
@@ -84,6 +86,7 @@ public class SceneManager {
 		SCENE_LOADING,
 		SCENE_NEXT,
 		SCENE_GAMEMENU,
+		SCENE_CREDITS,
 		//GAME SCENES
 		SCENE_MATCHIT,
 		SCENE_GTML,
@@ -188,6 +191,13 @@ public class SceneManager {
 		ResourcesManager.getInstance().loadAboutResources();
 		aboutScene = new AboutScene();
 		setScene(aboutScene);
+	}
+	
+	// CREDITS
+	public void loadCreditScene() {
+		ResourcesManager.getInstance().loadCredits();
+		creditScene = new CreditScene();
+		setScene(creditScene);
 	}
 	
 	

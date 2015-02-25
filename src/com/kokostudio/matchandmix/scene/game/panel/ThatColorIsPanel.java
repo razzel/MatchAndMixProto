@@ -3,6 +3,8 @@ package com.kokostudio.matchandmix.scene.game.panel;
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
+import org.andengine.entity.modifier.AlphaModifier;
+import org.andengine.entity.scene.CameraScene;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
@@ -10,11 +12,8 @@ import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.util.GLState;
 
-import android.util.Log;
-
 import com.kokostudio.matchandmix.base.BaseScene;
 import com.kokostudio.matchandmix.database.myDatabase;
-import com.kokostudio.matchandmix.manager.ResourcesManager;
 import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
 
@@ -40,6 +39,23 @@ public class ThatColorIsPanel extends BaseScene {
 	private myDatabase db;
 	
 	private int x;
+	
+	private TiledSprite OK;
+	
+	private CameraScene tryScene;
+	private Sprite tryMsg;
+	
+	private Sprite thatsWrong;
+	private Sprite thatsCorrect;
+	
+	private Sprite sLife;
+	private TiledSprite sLifeValue;
+	
+	private CameraScene htpScene;
+	private Sprite htp1;
+	private Sprite htp2;
+	private TiledSprite next;
+	private TiledSprite prev;
 
 	@Override
 	public void createScene() {
@@ -51,6 +67,20 @@ public class ThatColorIsPanel extends BaseScene {
 		createChoices();
 		createQuestions();
 		checkStatus();
+		createTryAgainScene();
+		/*
+		if(db.checkIsFirstTime(2).compareTo("true")==0) {
+			createHowToScene();
+			htp2.setVisible(false);
+			prev.setVisible(false);
+			OK.setVisible(false);
+			htpScene.unregisterTouchArea(OK);
+			htpScene.unregisterTouchArea(prev);	
+			ThatColorIsPanel.this.setChildScene(htpScene, false, true, true);
+		}
+		*/
+		thatsCorrect.setAlpha(0f);
+		thatsWrong.setAlpha(0f);
 	}
 
 	@Override
@@ -79,14 +109,14 @@ public class ThatColorIsPanel extends BaseScene {
 	// CLASS LOGIC
 	// -----------------------------------------------------------------------------
 	private void createBackground() {
-		BG = new Sprite(400, 240, resourcesManager.thatColorIsBGTextureRegion, vbom) {
+		BG = new Sprite(400, 230, resourcesManager.thatColorIsBGTextureRegion, vbom) {
 			@Override
 			protected void preDraw(GLState pGLState, Camera pCamera) {
 				pGLState.enableDither();
 				super.preDraw(pGLState, pCamera);
 			}	
 		};
-		questionPlank = new Sprite(240, 70, resourcesManager.color_questionPlankTextureRegion, vbom);
+		questionPlank = new Sprite(230, 70, resourcesManager.color_questionPlankTextureRegion, vbom);
 		attachChild(BG);
 		attachChild(questionPlank);
 	}
@@ -115,27 +145,21 @@ public class ThatColorIsPanel extends BaseScene {
 		};
 		registerTouchArea(back);
 		attachChild(back);
+		
+		thatsCorrect = new Sprite(410, 445, resourcesManager.thatsCorrectTexture, vbom);
+		attachChild(thatsCorrect);
+		thatsWrong = new Sprite(410, 445, resourcesManager.thatsWrongTexture, vbom);
+		attachChild(thatsWrong);
+		
+		sLife = new Sprite(690, 445, resourcesManager.lifeTexture, vbom);
+		attachChild(sLife);
+		sLifeValue = new TiledSprite(750, 450, resourcesManager.lifeValueTexture, vbom);
+		sLifeValue.setCurrentTileIndex(lives);
+		attachChild(sLifeValue);
 	}
 	
 	private void createQuestions() {
-		question = new Sprite(250, 240, question(), vbom) {
-			@Override
-			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
-				switch(pSceneTouchEvent.getAction()) {
-				case TouchEvent.ACTION_DOWN:
-					question.setScale(1.1f);
-					break;
-				case TouchEvent.ACTION_UP:
-					question.setScale(1.0f);
-					// PLAY THE SOUND OF THE QUESTION
-					Log.d("database", isAnswred(questionSet));
-					break;
-				}
-				return true;
-			}
-			
-		};
-		registerTouchArea(question);
+		question = new Sprite(250, 230, question(), vbom);
 		attachChild(question);
 	}
 	
@@ -153,8 +177,10 @@ public class ThatColorIsPanel extends BaseScene {
 					resourcesManager.correct.play();
 					correctSprite.setCurrentTileIndex(1);
 					update(questionSet, "true");
+					updateIsFirstTime();
 					lock();	
 					nextQuestion();
+					thatsCorrect.setAlpha(1.0f);
 					break;
 				}
 				return true;
@@ -174,6 +200,8 @@ public class ThatColorIsPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					sLifeValue.setCurrentTileIndex(lives);
+					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
 					break;
 				}
 				return true;
@@ -193,6 +221,8 @@ public class ThatColorIsPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					sLifeValue.setCurrentTileIndex(lives);
+					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
 					break;
 				}
 				return true;
@@ -211,6 +241,8 @@ public class ThatColorIsPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					sLifeValue.setCurrentTileIndex(lives);
+					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
 					break;
 				}
 				return true;
@@ -229,6 +261,8 @@ public class ThatColorIsPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					sLifeValue.setCurrentTileIndex(lives);
+					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
 					break;
 				}
 				return true;
@@ -255,9 +289,46 @@ public class ThatColorIsPanel extends BaseScene {
 		questionSet = i;
 	}
 	
+	private void createTryAgainScene() {
+		tryScene = new CameraScene(camera);
+		
+		tryMsg = new Sprite(400, 230, resourcesManager.tryAgainWarningMsg, vbom);
+		tryScene.setZIndex(0);
+		tryScene.attachChild(tryMsg);
+		
+		OK = new TiledSprite(400, 100, resourcesManager.triviaOK, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				switch (pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					this.setScale(0.9f);
+					this.setCurrentTileIndex(1);
+					break;
+
+				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
+					ThatColorIsPanel.this.clearChildScene();
+					SceneManager.getInstance().loadThatColorIsScene();
+					break;
+				}
+				return true;
+			}
+			
+		};
+		
+		OK.setZIndex(1);
+		tryScene.registerTouchArea(OK);
+		tryScene.attachChild(OK);
+		tryScene.setBackgroundEnabled(false);
+	}
+	
+	private void createHowToScene() {
+		
+	}
+	
 	private void checkLives() {
 		if(lives == 0) {
-			SceneManager.getInstance().loadThatColorIsScene();
+			ThatColorIsPanel.this.setChildScene(tryScene, false, true, true);
 		}
 	}
 	
@@ -270,6 +341,11 @@ public class ThatColorIsPanel extends BaseScene {
 		String s = db.colorIsAnswered(id);
 		db.close();
 		return s;
+	}
+	
+	private void updateIsFirstTime() {
+		db.updateIsFirstTime(2, "false");
+		db.close();
 	}
 	
 	private void checkStatus() {
@@ -317,270 +393,270 @@ public class ThatColorIsPanel extends BaseScene {
 	
 	/* positions
 	 * 400 pos1
-	 * 320 pos2
-	 * 240 pos3
-	 * 160 pos4
-	 * 80 pos5
+	 * 310 pos2
+	 * 230 pos3
+	 * 150 pos4
+	 * 70 pos5
 	 */
 	
 	private int correctSpritePosition() {
-		if(questionSet == 0) pos = 160;
+		if(questionSet == 0) pos = 150;
 		
-		else if (questionSet == 1) pos = 320;
+		else if (questionSet == 1) pos = 310;
 		
-		else if (questionSet == 2) pos = 240;
+		else if (questionSet == 2) pos = 230;
 		
-		else if (questionSet == 3) pos = 160;
+		else if (questionSet == 3) pos = 150;
 		
-		else if (questionSet == 4) pos = 80;
+		else if (questionSet == 4) pos = 70;
 		
-		else if (questionSet == 6) pos = 400;
+		else if (questionSet == 6) pos = 390;
 		
-		else if (questionSet == 7) pos = 320;
+		else if (questionSet == 7) pos = 310;
 		
-		else if (questionSet == 8) pos = 320;
+		else if (questionSet == 8) pos = 310;
 		
-		else if (questionSet == 9) pos = 80;
+		else if (questionSet == 9) pos = 70;
 		
-		else if (questionSet == 10) pos = 240;
+		else if (questionSet == 10) pos = 230;
 		
-		else if (questionSet == 12) pos = 240;
+		else if (questionSet == 12) pos = 230;
 		
-		else if (questionSet == 13) pos = 400;
+		else if (questionSet == 13) pos = 390;
 		
-		else if (questionSet == 14) pos = 160;
+		else if (questionSet == 14) pos = 150;
 		
-		else if (questionSet == 15) pos = 320;
+		else if (questionSet == 15) pos = 310;
 		
-		else if (questionSet == 16) pos = 80;
+		else if (questionSet == 16) pos = 70;
 		
-		else if (questionSet == 18) pos = 400;
+		else if (questionSet == 18) pos = 390;
 		
-		else if (questionSet == 19) pos = 160;
+		else if (questionSet == 19) pos = 150;
 		
-		else if (questionSet == 20) pos = 240;
+		else if (questionSet == 20) pos = 230;
 		
-		else if (questionSet == 21) pos = 80;
+		else if (questionSet == 21) pos = 70;
 		
-		else if (questionSet == 22) pos = 240;
+		else if (questionSet == 22) pos = 230;
 		
-		else if (questionSet == 24) pos = 80;
+		else if (questionSet == 24) pos = 70;
 		
-		else if (questionSet == 25) pos = 320;
+		else if (questionSet == 25) pos = 310;
 		
-		else if (questionSet == 26) pos = 240;
+		else if (questionSet == 26) pos = 230;
 		
-		else if (questionSet == 27) pos = 400;
+		else if (questionSet == 27) pos = 390;
 		
-		else if (questionSet == 28) pos = 400;
+		else if (questionSet == 28) pos = 390;
 		return pos;
 	}
 	private int setColor1Position() {
-		if(questionSet == 0) pos = 400;
+		if(questionSet == 0) pos = 390;
 		
-		else if (questionSet == 1) pos = 400;
+		else if (questionSet == 1) pos = 390;
 		
-		else if (questionSet == 2) pos = 400;
+		else if (questionSet == 2) pos = 390;
 		
-		else if (questionSet == 3) pos = 400;
+		else if (questionSet == 3) pos = 390;
 		
-		else if (questionSet == 4) pos = 160;
+		else if (questionSet == 4) pos = 150;
 		
-		else if (questionSet == 6) pos = 320;
+		else if (questionSet == 6) pos = 310;
 		
-		else if (questionSet == 7) pos = 400;
+		else if (questionSet == 7) pos = 390;
 		
-		else if (questionSet == 8) pos = 400;
+		else if (questionSet == 8) pos = 390;
 		
-		else if (questionSet == 9) pos = 320;
+		else if (questionSet == 9) pos = 310;
 		
-		else if (questionSet == 10) pos = 160;
+		else if (questionSet == 10) pos = 150;
 		
-		else if (questionSet == 12) pos = 320;
+		else if (questionSet == 12) pos = 310;
 		
-		else if (questionSet == 13) pos = 320;
+		else if (questionSet == 13) pos = 310;
 		
-		else if (questionSet == 14) pos = 400;
+		else if (questionSet == 14) pos = 390;
 		
-		else if (questionSet == 15) pos = 400;
+		else if (questionSet == 15) pos = 390;
 		
-		else if (questionSet == 16) pos = 320;
+		else if (questionSet == 16) pos = 310;
 		
-		else if (questionSet == 18) pos = 320;
+		else if (questionSet == 18) pos = 310;
 		
-		else if (questionSet == 19) pos = 400;
+		else if (questionSet == 19) pos = 390;
 		
-		else if (questionSet == 20) pos = 320;
+		else if (questionSet == 20) pos = 310;
 		
-		else if (questionSet == 21) pos = 320;
+		else if (questionSet == 21) pos = 310;
 		
-		else if (questionSet == 22) pos = 80;
+		else if (questionSet == 22) pos = 70;
 		
-		else if (questionSet == 24) pos = 320;
+		else if (questionSet == 24) pos = 310;
 		
-		else if (questionSet == 25) pos = 400;
+		else if (questionSet == 25) pos = 390;
 		
-		else if (questionSet == 26) pos = 320;
+		else if (questionSet == 26) pos = 310;
 		
-		else if (questionSet == 27) pos = 320;
+		else if (questionSet == 27) pos = 310;
 		
-		else if (questionSet == 28) pos = 320;
+		else if (questionSet == 28) pos = 310;
 		return pos;
 	}
 	private int setColor2Position() {
-		if(questionSet == 0) pos = 320;
+		if(questionSet == 0) pos = 310;
 		
-		else if (questionSet == 1) pos = 240;
+		else if (questionSet == 1) pos = 230;
 		
-		else if (questionSet == 2) pos = 320;
+		else if (questionSet == 2) pos = 310;
 		
-		else if (questionSet == 3) pos = 240;
+		else if (questionSet == 3) pos = 230;
 		
-		else if (questionSet == 4) pos = 320;
+		else if (questionSet == 4) pos = 310;
 		
-		else if (questionSet == 6) pos = 240;
+		else if (questionSet == 6) pos = 230;
 		
-		else if (questionSet == 7) pos = 240;
+		else if (questionSet == 7) pos = 230;
 		
-		else if (questionSet == 8) pos = 240;
+		else if (questionSet == 8) pos = 230;
 		
-		else if (questionSet == 9) pos = 240;
+		else if (questionSet == 9) pos = 230;
 		
-		else if (questionSet == 10) pos = 320;
+		else if (questionSet == 10) pos = 310;
 		
-		else if (questionSet == 12) pos = 400;
+		else if (questionSet == 12) pos = 390;
 		
-		else if (questionSet == 13) pos = 240;
+		else if (questionSet == 13) pos = 230;
 		
-		else if (questionSet == 14) pos = 320;
+		else if (questionSet == 14) pos = 310;
 		
-		else if (questionSet == 15) pos = 240;
+		else if (questionSet == 15) pos = 230;
 		
-		else if (questionSet == 16) pos = 240;
+		else if (questionSet == 16) pos = 230;
 		
-		else if (questionSet == 18) pos = 240;
+		else if (questionSet == 18) pos = 230;
 		
-		else if (questionSet == 19) pos = 320;
+		else if (questionSet == 19) pos = 310;
 		
-		else if (questionSet == 20) pos = 400;
+		else if (questionSet == 20) pos = 390;
 		
-		else if (questionSet == 21) pos = 240;
+		else if (questionSet == 21) pos = 230;
 		
-		else if (questionSet == 22) pos = 160;
+		else if (questionSet == 22) pos = 150;
 		
-		else if (questionSet == 24) pos = 240;
+		else if (questionSet == 24) pos = 230;
 
-		else if (questionSet == 25) pos = 240;
+		else if (questionSet == 25) pos = 230;
 		
-		else if (questionSet == 26) pos = 400;
+		else if (questionSet == 26) pos = 390;
 		
-		else if (questionSet == 27) pos = 240;
+		else if (questionSet == 27) pos = 230;
 		
-		else if (questionSet == 28) pos = 240;
+		else if (questionSet == 28) pos = 230;
 		return pos;
 	}
 	private int setColor3Position() {
-		if(questionSet == 0) pos = 240;
+		if(questionSet == 0) pos = 230;
 		
-		else if (questionSet == 1) pos = 160;
+		else if (questionSet == 1) pos = 150;
 		
-		else if (questionSet == 2) pos = 160;
+		else if (questionSet == 2) pos = 150;
 		
-		else if (questionSet == 3) pos = 320;
+		else if (questionSet == 3) pos = 310;
 		
-		else if (questionSet == 4) pos = 240;
+		else if (questionSet == 4) pos = 230;
 		
-		else if (questionSet == 6) pos = 160;
+		else if (questionSet == 6) pos = 150;
 		
-		else if (questionSet == 7) pos = 160;
+		else if (questionSet == 7) pos = 150;
 		
-		else if (questionSet == 8) pos = 160;
+		else if (questionSet == 8) pos = 150;
 		
-		else if (questionSet == 9) pos = 160;
+		else if (questionSet == 9) pos = 150;
 		
-		else if (questionSet == 10) pos = 400;
+		else if (questionSet == 10) pos = 390;
 		
-		else if (questionSet == 12) pos = 160;
+		else if (questionSet == 12) pos = 150;
 		
-		else if (questionSet == 13) pos = 160;
+		else if (questionSet == 13) pos = 150;
 		
-		else if (questionSet == 14) pos = 240;
+		else if (questionSet == 14) pos = 230;
 		
-		else if (questionSet == 15) pos = 160;
+		else if (questionSet == 15) pos = 150;
 		
-		else if (questionSet == 16) pos = 160;
+		else if (questionSet == 16) pos = 150;
 		
-		else if (questionSet == 18) pos = 160;
+		else if (questionSet == 18) pos = 150;
 		
-		else if (questionSet == 19) pos = 240;
+		else if (questionSet == 19) pos = 230;
 		
-		else if (questionSet == 20) pos = 160;
+		else if (questionSet == 20) pos = 150;
 		
-		else if (questionSet == 21) pos = 160;
+		else if (questionSet == 21) pos = 150;
 		
-		else if (questionSet == 22) pos = 320;
+		else if (questionSet == 22) pos = 310;
 		
-		else if (questionSet == 24) pos = 80;
+		else if (questionSet == 24) pos = 70;
 		
-		else if (questionSet == 25) pos = 240;
+		else if (questionSet == 25) pos = 230;
 		
-		else if (questionSet == 26) pos = 160;
+		else if (questionSet == 26) pos = 150;
 		
-		else if (questionSet == 27) pos = 160;
+		else if (questionSet == 27) pos = 150;
 		
-		else if (questionSet == 28) pos = 160;
+		else if (questionSet == 28) pos = 150;
 		return pos;
 	}
 	private int setColor4Position() {
-		if(questionSet == 0) pos = 80;
+		if(questionSet == 0) pos = 70;
 		
-		else if (questionSet == 1) pos = 80;
+		else if (questionSet == 1) pos = 70;
 		
-		else if (questionSet == 2) pos = 80;
+		else if (questionSet == 2) pos = 70;
 		
-		else if (questionSet == 3) pos = 80;
+		else if (questionSet == 3) pos = 70;
 		
-		else if (questionSet == 4) pos = 400;
+		else if (questionSet == 4) pos = 390;
 		
-		else if (questionSet == 6) pos = 80;
+		else if (questionSet == 6) pos = 70;
 		
-		else if (questionSet == 7) pos = 80;
+		else if (questionSet == 7) pos = 70;
 		
-		else if (questionSet == 8) pos = 80;
+		else if (questionSet == 8) pos = 70;
 		
-		else if (questionSet == 9) pos = 400;
+		else if (questionSet == 9) pos = 390;
 		
-		else if (questionSet == 10) pos = 80;
+		else if (questionSet == 10) pos = 70;
 		
-		else if (questionSet == 12) pos = 80;
+		else if (questionSet == 12) pos = 70;
 		
-		else if (questionSet == 13) pos = 80;
+		else if (questionSet == 13) pos = 70;
 		
-		else if (questionSet == 14) pos = 80;
+		else if (questionSet == 14) pos = 70;
 		
-		else if (questionSet == 15) pos = 80;
+		else if (questionSet == 15) pos = 70;
 		
-		else if (questionSet == 16) pos = 400;
+		else if (questionSet == 16) pos = 390;
 		
-		else if (questionSet == 18) pos = 80;
+		else if (questionSet == 18) pos = 70;
 		
-		else if (questionSet == 19) pos = 80;
+		else if (questionSet == 19) pos = 70;
 		
-		else if (questionSet == 20) pos = 80;
+		else if (questionSet == 20) pos = 70;
 		
-		else if (questionSet == 21) pos = 400;
+		else if (questionSet == 21) pos = 390;
 		
-		else if (questionSet == 22) pos = 400;
+		else if (questionSet == 22) pos = 390;
 		
-		else if (questionSet == 24) pos = 400;
+		else if (questionSet == 24) pos = 390;
 		
-		else if (questionSet == 25) pos = 80;
+		else if (questionSet == 25) pos = 70;
 		
-		else if (questionSet == 26) pos = 80;
+		else if (questionSet == 26) pos = 70;
 		
-		else if (questionSet == 27) pos = 80;
+		else if (questionSet == 27) pos = 70;
 		
-		else if (questionSet == 28) pos = 80;
+		else if (questionSet == 28) pos = 70;
 		return pos;
 	}
 	

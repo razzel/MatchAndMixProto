@@ -3,16 +3,13 @@ package com.kokostudio.matchandmix.scene;
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
-import org.andengine.entity.modifier.ScaleModifier;
 import org.andengine.entity.scene.CameraScene;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.util.GLState;
-import org.andengine.util.modifier.ease.EaseBounceOut;
 
 import android.util.Log;
-import android.view.animation.ScaleAnimation;
 import android.widget.Toast;
 
 import com.kokostudio.matchandmix.base.BaseScene;
@@ -138,6 +135,7 @@ public class OptionScene extends BaseScene {
 					reset.setCurrentTileIndex(1);
 					break;
 				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
 					reset.setScale(1.0f);
 					reset.setCurrentTileIndex(0);
 					OptionScene.this.setChildScene(resetScene, false, true, true);
@@ -312,9 +310,13 @@ public class OptionScene extends BaseScene {
 			
 			// SOLVE IT 
 				// add
+				db.updateSolveItAdd(i, "false");
 				// sub
+				db.updateSolveItSub(i, "false");
 				// mul
+				db.updateSolveItMul(i, "false");
 				// div
+				db.updateSolveItDiv(i, "false");
 		}
 		// GTML
 		db.updateGTML(5, "true");
@@ -339,6 +341,28 @@ public class OptionScene extends BaseScene {
 		db.updateThatColorIs(11, "true");
 		db.updateThatColorIs(17, "true");
 		db.updateThatColorIs(23, "true");
+		
+		// SOLVE IT
+		// ADD
+		db.updateSolveItAdd(5, "true");
+		db.updateSolveItAdd(11, "true");
+		db.updateSolveItAdd(17, "true");
+		db.updateSolveItAdd(23, "true");
+		//SUB
+		db.updateSolveItSub(5, "true");
+		db.updateSolveItSub(11, "true");
+		db.updateSolveItSub(17, "true");
+		db.updateSolveItSub(23, "true");
+		// MUL
+		db.updateSolveItMul(5, "true");
+		db.updateSolveItMul(11, "true");
+		db.updateSolveItMul(17, "true");
+		db.updateSolveItMul(23, "true");
+		// DIV
+		db.updateSolveItDiv(5, "true");
+		db.updateSolveItDiv(11, "true");
+		db.updateSolveItDiv(17, "true");
+		db.updateSolveItDiv(23, "true");
 		
 		// RESET IS FIRST TIME
 		for(int i = 0; i < 9; i++) {

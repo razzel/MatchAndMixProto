@@ -2,6 +2,7 @@ package com.kokostudio.matchandmix.scene.game;
 
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.modifier.ScaleModifier;
+import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
@@ -18,12 +19,12 @@ public class MatchIt extends BaseScene {
 	private Sprite qHeader;
 	private TiledSprite[] qFrames;
 	private TiledSprite back;
-	private Sprite tap;
+	private AnimatedSprite tap;
 	
 	private myDatabase db;
 
 	private int x, y, rowCounter;
-
+	
 	@Override
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
@@ -179,7 +180,8 @@ public class MatchIt extends BaseScene {
 	
 	private void checkIsFirstTime() {
 		if(db.checkIsFirstTime(0).compareTo("true") == 0) {
-			tap = new Sprite(340, 340, resourcesManager.tapItTexture, vbom);
+			tap = new AnimatedSprite(340, 340, resourcesManager.tapItTexture, vbom);
+			tap.animate(500);
 			tap.setZIndex(1);
 			attachChild(tap);
 			for(int i = 1; i < 29; i++) {

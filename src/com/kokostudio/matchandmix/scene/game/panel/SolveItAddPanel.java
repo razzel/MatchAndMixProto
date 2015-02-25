@@ -1,6 +1,8 @@
 package com.kokostudio.matchandmix.scene.game.panel;
 
 import org.andengine.engine.camera.Camera;
+import org.andengine.engine.handler.timer.ITimerCallback;
+import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.modifier.MoveModifier;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
@@ -11,6 +13,7 @@ import org.andengine.opengl.util.GLState;
 import org.andengine.util.modifier.ease.EaseBounceOut;
 
 import com.kokostudio.matchandmix.base.BaseScene;
+import com.kokostudio.matchandmix.database.myDatabase;
 import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
 
@@ -21,6 +24,7 @@ public class SolveItAddPanel extends BaseScene {
 	private ITextureRegion r;
 	private int pos;
 	private int lives;
+	private int x;
 	
 	private Sprite bg;
 	private Sprite questionImage;
@@ -30,6 +34,8 @@ public class SolveItAddPanel extends BaseScene {
 	private TiledSprite back;
 	private Sprite plank;
 	
+	private myDatabase db;
+	
 	// CHOICES
 	private TiledSprite correctAnswerSprite;
 	private Sprite c1, c2, c3;
@@ -37,13 +43,13 @@ public class SolveItAddPanel extends BaseScene {
 	@Override
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
+		db = new myDatabase(activity);
 		lives = 3;
 		createBackground();
 		createButtons();
 		createEquation();
 		createChoices();
-		
-		answerSprite.setVisible(false);
+		checkStatus();
 	}
 
 	@Override
@@ -63,7 +69,9 @@ public class SolveItAddPanel extends BaseScene {
 
 	@Override
 	public void disposeScene() {
-		
+		this.dispose();
+		this.detachSelf();
+		System.gc();
 	}
 	
 	// ====================================================================
@@ -135,8 +143,11 @@ public class SolveItAddPanel extends BaseScene {
 				case TouchEvent.ACTION_UP:
 					correctAnswerSprite.setScale(1.0f);
 					resourcesManager.correct.play();
+					update(questionSet, "true");
+					updateIsFirstTime();
 					lock();
 					playAnimation();
+					nextQuestion();
 					break;
 				}
 				return true;
@@ -215,6 +226,35 @@ public class SolveItAddPanel extends BaseScene {
 		questionSet = i;
 	}
 	
+	private void nextQuestion() {
+		this.registerUpdateHandler(new TimerHandler(1f, new ITimerCallback() {
+			@Override
+			public void onTimePassed(TimerHandler pTimerHandler) {
+				unregisterUpdateHandler(pTimerHandler);
+					x = 0;
+					if(db.solveItAddGetAnswered()==25) {
+						// if the questions are finished go back to the question frams
+						SceneManager.getInstance().loadSolveItAddScene();
+					} else {
+						if(questionSet == 28 || questionSet+x>=28) {
+							while(db.solveItAddIsAnswered(0+x).compareTo("true")==0) {
+								x++;
+							}
+							getQuestionIndex(0+x);
+						} else {
+							while(db.solveItAddIsAnswered(questionSet+x).compareTo("true")==0) {
+								x++;
+							}
+							getQuestionIndex(questionSet+x);
+						}
+					
+					}
+					SceneManager.getInstance().loadSolveItAddPanelScene();		
+				}
+		}));
+		
+	}
+	
 	private void lock() {
 		answerSprite.setVisible(true);
 		detachChild(equals);
@@ -230,9 +270,24 @@ public class SolveItAddPanel extends BaseScene {
 	}
 	
 	private void checkLives() {
-		if(lives == 0) {
-			SceneManager.getInstance().loadSolveItAddScene();
-		}
+		if(lives == 0) SceneManager.getInstance().loadSolveItAddScene();
+	}
+	
+	private void checkStatus() {
+		String cmp = db.solveItAddIsAnswered(questionSet);
+		if(cmp.compareTo("true")==0)
+			lock();
+		else answerSprite.setVisible(false);
+	}
+	
+	private void update(int id, String s) {
+		db.updateSolveItAdd(id, s);
+		db.close();
+	}
+	
+	private void updateIsFirstTime() {
+		db.updateIsFirstTime(4, "false");
+		db.close();
 	}
 	
 	// TEXTURES

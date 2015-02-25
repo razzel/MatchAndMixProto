@@ -2,6 +2,7 @@ package com.kokostudio.matchandmix.scene.game;
 
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.modifier.ScaleModifier;
+import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
@@ -23,12 +24,13 @@ public class GuessTheMissingLetter extends BaseScene {
 	
 	private myDatabase db;
 	
-	private Sprite tap; // <-- this is supposed to be an AnimatedSprite. Just for testing only
+	private AnimatedSprite tap; // <-- this is supposed to be an AnimatedSprite. Just for testing only
 	
 	@Override
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 		db = new myDatabase(activity);
+		checkIsFirstTime();
 		createBackground();
 		createQuestionHeader();
 		createButtons();	
@@ -80,7 +82,6 @@ public class GuessTheMissingLetter extends BaseScene {
 				super.preDraw(pGLState, pCamera);
 			}
 		};
-		//qHeader.registerEntityModifier(new ScaleModifier(0.5f, 0.1f, 1.0f));
 		attachChild(qHeader);
 		
 		// Create the 5x5 array of question frames
@@ -116,6 +117,8 @@ public class GuessTheMissingLetter extends BaseScene {
 						registerTouchArea(qFrames[index]);
 						attachChild(qFrames[index]);
 						qFrames[index].registerEntityModifier(new ScaleModifier(0.5f, 0.1f, 1.0f));
+						qFrames[index].setZIndex(0);
+						sortChildren();
 					}		
 				});
 				x += 110;
@@ -165,8 +168,21 @@ public class GuessTheMissingLetter extends BaseScene {
 		return s;
 	}
 	
-	private void createAnimation() {
-		tap = new Sprite(400, 240, resourcesManager.tapItTexture, vbom);
-		attachChild(tap);
+	private void checkIsFirstTime() {
+		if(db.checkIsFirstTime(1).compareTo("true") == 0) {
+			tap = new AnimatedSprite(340, 340, resourcesManager.tapItTexture, vbom);
+			tap.animate(500);
+			tap.setZIndex(1);
+			attachChild(tap);
+			for(int i = 1; i < 29; i++) {
+				final int index = i;
+				engine.runOnUpdateThread(new Runnable() {
+					@Override
+					public void run() {
+						unregisterTouchArea(qFrames[index]);	
+					}
+				});			
+			}
+		}
 	}
 }
