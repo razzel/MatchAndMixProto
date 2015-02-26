@@ -1343,7 +1343,7 @@ public class MatchItPanel extends BaseScene {
 		else if (questionSet == 24) t = resourcesManager.GrapesTriva;
 		else if (questionSet == 25) t = resourcesManager.PigTriva;
 		else if (questionSet == 26) t = resourcesManager.pumpkinTriva;
-		else if (questionSet == 27) t = resourcesManager.eggplantTriva;
+		else if (questionSet == 27) t = resourcesManager.rabbitTriva;
 		else if (questionSet == 28) t = resourcesManager.rabbitTriva;
 		return t;
 	}

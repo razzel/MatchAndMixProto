@@ -1,6 +1,7 @@
 package com.kokostudio.matchandmix.scene;
 
 import org.andengine.engine.camera.Camera;
+import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.entity.text.Text;
@@ -21,12 +22,18 @@ public class ProgressScene extends BaseScene {
 	private TiledSprite back;
 	private Sprite progressHeader;
 	private Sprite progressPanel;
+	private Sprite progressLegend;
+	private Sprite remarkStar;
+	private Sprite remarkVGood;
+	private Sprite remarkGood;
+	private Sprite remarkFair;
 	
 	private myDatabase db;
 	
 	// TEXT
 	private Text colorAnswered;
 	private Text colorRemaining;
+	private Rectangle colorGraph;
 	
 	private Text matchAnswered;
 	private Text matchRemaining;
@@ -124,6 +131,7 @@ public class ProgressScene extends BaseScene {
 		};
 		attachChild(progressHeader);
 		
+		// 470
 		progressPanel = new Sprite(410,195, resourcesManager.progressPanelTexture, vbom) {
 			@Override
 			protected void preDraw(GLState pGLState, Camera pCamera) {
@@ -134,10 +142,13 @@ public class ProgressScene extends BaseScene {
 		};
 		attachChild(progressPanel);
 		
+		//progressLegend = new Sprite(100, 230, resourcesManager.progressLegendTexture, vbom);
+		//attachChild(progressLegend);
+		
 	}
 	
 	private void createText() {
-		int textX = 450;
+		int textX = 510;
 		
 		// MATCH IT COUNT
 		matchAnswered = new Text(textX, 358, resourcesManager.aklatanFont, " " + db.matchGetAnswered(), vbom);
@@ -158,19 +169,27 @@ public class ProgressScene extends BaseScene {
 		attachChild(countRemaining);
 		
 		// SOLVE IT COUNT
-		//solveAnswered = new Text(550, 135, resourcesManager.aklatanFont, "For Finals Defense!", vbom);
-		//attachChild(solveAnswered);
+		int totalAns = db.solveItAddGetAnswered() + db.solveItSubGetAnswered() + db.solveItMulGetAnswered() + db.solveItDivGetAnswered();
+		solveAnswered = new Text(textX, 135, resourcesManager.aklatanFont, " " + totalAns, vbom);
+		attachChild(solveAnswered);
 				
 		// THAT COLOR IS COUNT
-		colorAnswered = new Text(textX, 68, resourcesManager.aklatanFont, " " + db.colorGetAnswered() , vbom);
+		//colorGraph = new Rectangle(560, 68, 20, 20, vbom);
+		//colorGraph.setColor(0,0,1);
+		//attachChild(colorGraph);
+		colorAnswered = new Text(textX, 68, resourcesManager.aklatanFont, " " + db.colorGetAnswered(), vbom);
 		attachChild(colorAnswered);
 		colorRemaining = new Text(textX, 40, resourcesManager.aklatanFont, " " + db.colorGetRemaining(), vbom);
 		attachChild(colorRemaining);
-		
+	}
+
+	@Override
+	public boolean onSceneTouchEvent(TouchEvent pSceneTouchEvent) {
+		return super.onSceneTouchEvent(pSceneTouchEvent);
 	}
 	
 	// =============================================================================================
 	// DATABASE SECTION
 	// =============================================================================================
-
+	
 }

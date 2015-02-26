@@ -99,6 +99,23 @@ public class myDatabase extends SQLiteOpenHelper {
 															+fIsFirstTime+ " TEXT " 
 															+ ") ";
 		
+	// RATING
+	public static final String table_Rating = "rating";
+	public static final String fRating_ID = "id";
+	public static final String fRate = "rate";
+	public static final String CREATE_RATING_TABLE = "CREATE TABLE IF NOT EXISTS " +table_Rating+ " ("
+													+fRating_ID+ " INTEGER PRIMARY KEY, "
+													+fRate+ " FLOAT " 
+													+ ") ";
+	// TRY
+	public static final String table_Try = "try";
+	public static final String fTry_ID = "id";
+	public static final String fTry = "try";
+	public static final String CREATE_TRY_TABLE = "CREATE TABLE IF NOT EXISTS " +table_Try+ " ("
+													+fTry_ID+ " INTEGER PRIMARY KEY, "
+													+fTry+ " FLOAT " 
+													+ ") ";
+		
 	public myDatabase(Context context) {
 		super(context, dbName, null, dbVersion);
 	}
@@ -191,6 +208,13 @@ public class myDatabase extends SQLiteOpenHelper {
 		isFirstTimeCV.put(fFirstTime_ID, 7);
 		isFirstTimeCV.put(fIsFirstTime, "true");
 			db.insert(table_isFirstTime, null, isFirstTimeCV);
+			
+			
+		db.execSQL(CREATE_RATING_TABLE);
+		insertRating(db);
+		
+		db.execSQL(CREATE_TRY_TABLE);
+		insertTry(db);
 											
 	}
 
@@ -205,8 +229,135 @@ public class myDatabase extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + CREATE_SOLVEIT_MUL_TABLE);
 		db.execSQL("DROP TABLE IF EXISTS " + CREATE_SOLVEIT_DIV_TABLE);
 		db.execSQL("DROP TABLE IF EXISTS " + CREATE_FIRSTTIME_TABLE);
+		db.execSQL("DROP TABLE IF EXISTS " + CREATE_RATING_TABLE);
+		db.execSQL("DROP TABLE IF EXISTS " + CREATE_TRY_TABLE);
 		onCreate(db);
 	}
+	
+	private void insertRating(SQLiteDatabase db) {
+		ContentValues cv = new ContentValues();
+		
+		/* 0 - match it
+		 * 1 - guess the missing letter
+		 * 2 - that color is
+		 * 3 - count it
+		 * 4 - solveit add
+		 * 5 - solveit sub
+		 * 6 - solveit mul
+		 * 7 - solveit div
+		 */
+		
+		cv.put(fRating_ID, 0);
+		cv.put(fRate, 0);
+		db.insert(table_Rating, null, cv);
+
+		cv.put(fRating_ID, 1);
+		cv.put(fRate, 0);
+		db.insert(table_Rating, null, cv);
+
+		cv.put(fRating_ID, 2);
+		cv.put(fRate, 0);
+		db.insert(table_Rating, null, cv);
+
+		cv.put(fRating_ID, 3);
+		cv.put(fRate, 0);
+		db.insert(table_Rating, null, cv);
+
+		cv.put(fRating_ID, 4);
+		cv.put(fRate, 0);
+		db.insert(table_Rating, null, cv);
+
+		cv.put(fRating_ID, 5);
+		cv.put(fRate, 0);
+		db.insert(table_Rating, null, cv);
+
+		cv.put(fRating_ID, 5);
+		cv.put(fRate, 0);
+		db.insert(table_Rating, null, cv);
+
+		cv.put(fRating_ID, 6);
+		cv.put(fRate, 0);
+		db.insert(table_Rating, null, cv);
+		
+		cv.put(fRating_ID, 7);
+		cv.put(fRate, 0);
+			db.insert(table_Rating, null, cv);
+		
+	}
+	public float getRate(int id) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor c = db.rawQuery("SELECT "+fRate+ " FROM " +table_Rating+ " WHERE "+fRating_ID+ " = "+id, null);
+		c.moveToFirst();
+		int getColumn = c.getColumnIndex(fRate);
+		float getNum = c.getInt(getColumn);
+		c.close();
+		return getNum;
+	}
+	
+	public void updateRate(int id, float f) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put(fRating_ID, id);
+		cv.put(fRate, getRate(id) + f);
+			db.update(table_Rating, cv, fRating_ID +" = "+id, null);
+	}
+	
+	public void insertTry(SQLiteDatabase db) {
+		ContentValues cv = new ContentValues();
+		cv.put(fTry_ID, 0);
+		cv.put(fRate, 0);
+		db.insert(table_Try, null, cv);
+
+		cv.put(fTry_ID, 1);
+		cv.put(fRate, 0);
+		db.insert(table_Try, null, cv);
+
+		cv.put(fTry_ID, 2);
+		cv.put(fRate, 0);
+		db.insert(table_Try, null, cv);
+
+		cv.put(fTry_ID, 3);
+		cv.put(fRate, 0);
+		db.insert(table_Try, null, cv);
+
+		cv.put(fTry_ID, 4);
+		cv.put(fRate, 0);
+		db.insert(table_Try, null, cv);
+
+		cv.put(fTry_ID, 5);
+		cv.put(fRate, 0);
+		db.insert(table_Try, null, cv);
+
+		cv.put(fTry_ID, 5);
+		cv.put(fRate, 0);
+		db.insert(table_Try, null, cv);
+
+		cv.put(fTry_ID, 6);
+		cv.put(fRate, 0);
+		db.insert(table_Try, null, cv);
+		
+		cv.put(fTry_ID, 7);
+		cv.put(fRate, 0);
+			db.insert(table_Try, null, cv);
+	}
+	
+	public float getTry(int id) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor c = db.rawQuery("SELECT "+fTry+ " FROM " +table_Try+ " WHERE "+fTry_ID+ " = "+id, null);
+		c.moveToFirst();
+		int getColumn = c.getColumnIndex(fTry);
+		float getNum = c.getInt(getColumn);
+		c.close();
+		return getNum;
+	}
+	
+	public void updateTry(int id, float f) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put(fTry_ID, id);
+		cv.put(fTry, getRate(id) + f);
+			db.update(table_Try, cv, fTry_ID +" = "+id, null);
+	} 
 	
 	public String checkIsFirstTime(int id) {
 		SQLiteDatabase db = this.getReadableDatabase();

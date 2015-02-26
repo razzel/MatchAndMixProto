@@ -813,6 +813,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 		else if (questionSet == 15) r = resourcesManager.iTexture;
 		
 		else if (questionSet == 16) r = resourcesManager.lTexture;
+
 		
 		else if (questionSet == 18) r = resourcesManager.rTexture;
 		

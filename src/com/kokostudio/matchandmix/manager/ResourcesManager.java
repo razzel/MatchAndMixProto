@@ -762,6 +762,11 @@ public class ResourcesManager {
 	public BuildableBitmapTextureAtlas progressTextureAtlas;
 	public ITextureRegion progressHeaderTexture;
 	public ITextureRegion progressPanelTexture;
+	public ITextureRegion progressLegendTexture;
+	public ITextureRegion progressExcellent;
+	public ITextureRegion progressVGood;
+	public ITextureRegion progressGood;
+	public ITextureRegion progressFair;
 	
 	// ABOUT PANELS ********************************************************************************************************
 	public BitmapTextureAtlas AboutSceneTextureAtlas;
@@ -985,13 +990,10 @@ public class ResourcesManager {
 	public Font font;
 	public Font soosFont;
 	public Font aklatanFont;
-
-	
-
 	
 	public void loadAklatanFont() {
 		FontFactory.setAssetBasePath("fonts/");
-		final ITexture soosFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		final ITexture soosFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 512, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		aklatanFont = FontFactory.createFromAsset(activity.getFontManager(), soosFontTexture, activity.getAssets(), "aklatan.ttf", 28, true, Color.rgb(46, 33, 14));
 		aklatanFont.load();
 	}
@@ -1642,7 +1644,6 @@ public class ResourcesManager {
 			} catch( final TextureAtlasBuilderException e) {
 				Debug.e(e);
 			}
-			
 		}
 		
 		private void loadGameMenuAudio() {
@@ -1674,10 +1675,18 @@ public class ResourcesManager {
 			} catch(final TextureAtlasBuilderException e) {
 				Debug.e(e);
 			}
+			
+			progressTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 512, 512);
+			progressLegendTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(progressTextureAtlas, activity, "prog_legends.png");
+			try {
+				this.progressTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+				this.progressTextureAtlas.load();
+			} catch(final TextureAtlasBuilderException e) {
+				Debug.e(e);
+			}
 		}
-		
 		private void loadProgressFonts() {
-			//loadAklatanFont();
+			loadAklatanFont();
 		}
 	
 	public void unloadProgressResources() {

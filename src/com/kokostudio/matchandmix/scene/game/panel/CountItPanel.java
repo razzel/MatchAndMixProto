@@ -8,6 +8,7 @@ import org.andengine.entity.modifier.AlphaModifier;
 import org.andengine.entity.scene.CameraScene;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
+import org.andengine.entity.text.Text;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
@@ -57,6 +58,8 @@ public class CountItPanel extends BaseScene {
 	
 	private CameraScene tryScene;
 	private Sprite tryMsg;
+	
+	Text t;
 
 	@Override
 	public void createScene() {

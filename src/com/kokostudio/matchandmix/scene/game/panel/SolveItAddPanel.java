@@ -3,7 +3,9 @@ package com.kokostudio.matchandmix.scene.game.panel;
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
+import org.andengine.entity.modifier.AlphaModifier;
 import org.andengine.entity.modifier.MoveModifier;
+import org.andengine.entity.scene.CameraScene;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
@@ -39,6 +41,17 @@ public class SolveItAddPanel extends BaseScene {
 	// CHOICES
 	private TiledSprite correctAnswerSprite;
 	private Sprite c1, c2, c3;
+	
+	private CameraScene tryScene;
+	private Sprite tryMsg;
+	
+	private TiledSprite OK;
+	
+	private Sprite thatsWrong;
+	private Sprite thatsCorrect;
+	
+	private Sprite sLife;
+	private TiledSprite sLifeValue;
 
 	@Override
 	public void createScene() {
@@ -50,6 +63,10 @@ public class SolveItAddPanel extends BaseScene {
 		createEquation();
 		createChoices();
 		checkStatus();
+		createTryAgainScene();
+		
+		thatsWrong.setAlpha(0f);
+		thatsCorrect.setAlpha(0f);
 	}
 
 	@Override
@@ -86,7 +103,6 @@ public class SolveItAddPanel extends BaseScene {
 				super.preDraw(pGLState, pCamera);
 			}
 		};
-		
 		attachChild(bg);
 	}
 	
@@ -112,6 +128,18 @@ public class SolveItAddPanel extends BaseScene {
 		};
 		registerTouchArea(back);
 		attachChild(back);
+		
+		//
+		thatsCorrect = new Sprite(410, 445, resourcesManager.thatsCorrectTexture, vbom);
+		attachChild(thatsCorrect);
+		thatsWrong = new Sprite(410, 445, resourcesManager.thatsWrongTexture, vbom);
+		attachChild(thatsWrong);
+		// LIFE SPRITE AND TEXT
+		sLife = new Sprite(690, 445, resourcesManager.lifeTexture, vbom);
+		attachChild(sLife);
+		sLifeValue = new TiledSprite(750, 450, resourcesManager.lifeValueTexture, vbom);
+		sLifeValue.setCurrentTileIndex(lives);
+		attachChild(sLifeValue);
 	}
 	
 	private void createEquation() {
@@ -148,6 +176,7 @@ public class SolveItAddPanel extends BaseScene {
 					lock();
 					playAnimation();
 					nextQuestion();
+					thatsCorrect.setAlpha(1.0f);
 					break;
 				}
 				return true;
@@ -168,6 +197,8 @@ public class SolveItAddPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					sLifeValue.setCurrentTileIndex(lives);
+					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
 					break;
 				}
 				return true;
@@ -188,6 +219,8 @@ public class SolveItAddPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					sLifeValue.setCurrentTileIndex(lives);
+					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
 					break;
 				}
 				return true;
@@ -208,6 +241,8 @@ public class SolveItAddPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					sLifeValue.setCurrentTileIndex(lives);
+					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
 					break;
 				}
 				return true;
@@ -255,6 +290,41 @@ public class SolveItAddPanel extends BaseScene {
 		
 	}
 	
+	private void createTryAgainScene() {
+		tryScene = new CameraScene(camera);
+		
+		tryMsg = new Sprite(400, 240, resourcesManager.tryAgainWarningMsg, vbom);
+		tryScene.setZIndex(0);
+		tryScene.attachChild(tryMsg);
+		
+		OK = new TiledSprite(400, 100, resourcesManager.triviaOK, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				switch (pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					this.setScale(0.9f);
+					this.setCurrentTileIndex(1);
+					break;
+
+				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
+					SolveItAddPanel.this.clearChildScene();
+					SceneManager.getInstance().loadSolveItAddScene();
+					break;
+				}
+				return true;
+			}
+			
+		};
+		
+		OK.setZIndex(1);
+		tryScene.registerTouchArea(OK);
+		tryScene.attachChild(OK);
+		tryScene.setBackgroundEnabled(false);
+		
+		
+	}
+	
 	private void lock() {
 		answerSprite.setVisible(true);
 		detachChild(equals);
@@ -270,7 +340,7 @@ public class SolveItAddPanel extends BaseScene {
 	}
 	
 	private void checkLives() {
-		if(lives == 0) SceneManager.getInstance().loadSolveItAddScene();
+		if(lives == 0) SolveItAddPanel.this.setChildScene(tryScene, false, true, true);
 	}
 	
 	private void checkStatus() {
