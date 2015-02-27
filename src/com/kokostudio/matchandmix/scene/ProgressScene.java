@@ -47,8 +47,14 @@ public class ProgressScene extends BaseScene {
 	private Text guessAnswered;
 	private Text guessRemaining;
 	
+	private float grade;
 	
-
+	private Text t;
+	
+	float totalRate;
+	float totalTry;
+	float totalGrade;
+	
 	@Override
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
@@ -132,7 +138,7 @@ public class ProgressScene extends BaseScene {
 		attachChild(progressHeader);
 		
 		// 470
-		progressPanel = new Sprite(410,195, resourcesManager.progressPanelTexture, vbom) {
+		progressPanel = new Sprite(470,195, resourcesManager.progressPanelTexture, vbom) {
 			@Override
 			protected void preDraw(GLState pGLState, Camera pCamera) {
 				pGLState.enableDither();
@@ -142,54 +148,207 @@ public class ProgressScene extends BaseScene {
 		};
 		attachChild(progressPanel);
 		
-		//progressLegend = new Sprite(100, 230, resourcesManager.progressLegendTexture, vbom);
-		//attachChild(progressLegend);
+		progressLegend = new Sprite(100, 230, resourcesManager.progressLegendTexture, vbom);
+		attachChild(progressLegend);
 		
 	}
 	
 	private void createText() {
-		int textX = 510;
+		int textX = 520;
 		
 		// MATCH IT COUNT
-		matchAnswered = new Text(textX, 358, resourcesManager.aklatanFont, " " + db.matchGetAnswered(), vbom);
+		matchAnswered = new Text(textX, 358, resourcesManager.aklatanFont, " " + (db.matchGetAnswered()*100)/25+" %", vbom);
 		attachChild(matchAnswered);
-		matchRemaining = new Text(textX, 330, resourcesManager.aklatanFont, " " + db.matchGetRemaining(), vbom);
-		attachChild(matchRemaining);
+		grade = db.getRate(0) / db.getTry(0);
+		evaluate(0);
+		//matchRemaining = new Text(textX, 330, resourcesManager.aklatanFont, " " + grade, vbom);
+		//attachChild(matchRemaining);
 		
 		// GTML COUNT
-		guessAnswered = new Text(textX, 283, resourcesManager.aklatanFont, " " + db.gtmlGetAnswered(), vbom);
+		guessAnswered = new Text(textX, 283, resourcesManager.aklatanFont, " " + (db.gtmlGetAnswered()*100)/25+" %", vbom);
 		attachChild(guessAnswered);
-		guessRemaining = new Text(textX, 255, resourcesManager.aklatanFont, " " + db.gtmlGetRemaining(), vbom);
-		attachChild(guessRemaining);
+		grade = db.getRate(1) / db.getTry(1);
+		evaluate(1);
+		//guessRemaining = new Text(textX, 255, resourcesManager.aklatanFont, " " + db.gtmlGetRemaining(), vbom);
+		//attachChild(guessRemaining);
 		
 		// COUNT IT COUNT
-		countAnswered = new Text(textX, 210, resourcesManager.aklatanFont, " "+ db.countGetAnswered(), vbom);
+		countAnswered = new Text(textX, 210, resourcesManager.aklatanFont, " "+ (db.countGetAnswered()*100)/25+" %", vbom);
 		attachChild(countAnswered);
-		countRemaining = new Text(textX, 182, resourcesManager.aklatanFont, " " + db.countGetRemaining(), vbom);
-		attachChild(countRemaining);
+		grade = db.getRate(3) / db.getTry(3);
+		evaluate(3);
+		//countRemaining = new Text(textX, 182, resourcesManager.aklatanFont, " " + db.countGetRemaining(), vbom);
+		//attachChild(countRemaining);
 		
 		// SOLVE IT COUNT
 		int totalAns = db.solveItAddGetAnswered() + db.solveItSubGetAnswered() + db.solveItMulGetAnswered() + db.solveItDivGetAnswered();
-		solveAnswered = new Text(textX, 135, resourcesManager.aklatanFont, " " + totalAns, vbom);
+		solveAnswered = new Text(textX, 135, resourcesManager.aklatanFont, " " + totalAns+" %", vbom);
+		totalRate = db.getRate(4) + db.getRate(5) + db.getRate(6) + db.getRate(7);
+		totalTry = db.getTry(4) + db.getTry(5) + db.getTry(6) + db.getTry(7);
+		totalGrade = totalRate / totalTry;
+		evaluate(4);
 		attachChild(solveAnswered);
 				
 		// THAT COLOR IS COUNT
 		//colorGraph = new Rectangle(560, 68, 20, 20, vbom);
 		//colorGraph.setColor(0,0,1);
 		//attachChild(colorGraph);
-		colorAnswered = new Text(textX, 68, resourcesManager.aklatanFont, " " + db.colorGetAnswered(), vbom);
+		colorAnswered = new Text(textX, 68, resourcesManager.aklatanFont, " " + (db.colorGetAnswered()*100)/25+" %", vbom);
 		attachChild(colorAnswered);
-		colorRemaining = new Text(textX, 40, resourcesManager.aklatanFont, " " + db.colorGetRemaining(), vbom);
-		attachChild(colorRemaining);
+		grade = db.getRate(2) / db.getTry(2);
+		evaluate(2);
+		//colorRemaining = new Text(textX, 40, resourcesManager.aklatanFont, " " + db.colorGetRemaining(), vbom);
+		//attachChild(colorRemaining);
+	}
+	
+	private void evaluate(int id) {
+		
+		/* 0 - match it
+		 * 1 - guess the missing letter
+		 * 2 - that color is
+		 * 3 - count it
+		 * 4 - solveit add
+		 * 5 - solveit sub
+		 * 6 - solveit mul
+		 * 7 - solveit div
+		 */
+		
+		switch(id) {
+		case 0:
+			if(db.matchGetAnswered()==25) {
+				if(grade >= 0 & grade <= 0.33333333334) {
+					// draw excellent remark
+					remarkStar = new Sprite(510, 330, resourcesManager.progressExcellent, vbom);
+					attachChild(remarkStar);
+				} else if (grade > 0.33333333334 & grade <= 0.66666666667) {
+					remarkVGood = new Sprite(510, 330, resourcesManager.progressVGood, vbom);
+					attachChild(remarkGood);
+				} else if (grade > 0.66666666667 & grade <= 1) {
+					remarkGood = new Sprite(510, 330, resourcesManager.progressGood, vbom);
+					attachChild(remarkGood);
+				} else {
+					remarkFair = new Sprite(510, 330, resourcesManager.progressFair, vbom);
+					attachChild(remarkGood);
+				}
+				
+			} else {
+				t = new Text(560, 330, resourcesManager.aklatanFont, "UNRATED" + grade, vbom);
+				attachChild(t);
+			}
+ 			break;
+ 			
+		case 1:
+			if(db.gtmlGetAnswered()==25) {
+				if(grade >= 0 & grade <= 0.33333333334) {
+					// draw excellent remark
+					remarkStar = new Sprite(510, 255, resourcesManager.progressExcellent, vbom);
+					attachChild(remarkStar);
+				} else if (grade > 0.33333333334 & grade <= 0.66666666667) {
+					remarkVGood = new Sprite(510, 255, resourcesManager.progressVGood, vbom);
+					attachChild(remarkGood);
+				} else if (grade > 0.66666666667 & grade <= 1) {
+					remarkGood = new Sprite(510, 255, resourcesManager.progressGood, vbom);
+					attachChild(remarkGood);
+				} else {
+					remarkFair = new Sprite(510, 255, resourcesManager.progressFair, vbom);
+					attachChild(remarkGood);
+				}
+				
+			} else {
+				t = new Text(560, 255, resourcesManager.aklatanFont, "UNRATED" + grade, vbom);
+				attachChild(t);
+			}
+			break;
+			
+		case 2:
+			if(db.colorGetAnswered()==25) {
+				if(grade >= 0 & grade <= 0.33333333334) {
+					// draw excellent remark
+					remarkStar = new Sprite(510, 40, resourcesManager.progressExcellent, vbom);
+					attachChild(remarkStar);
+				} else if (grade > 0.33333333334 & grade <= 0.66666666667) {
+					remarkVGood = new Sprite(510, 40, resourcesManager.progressVGood, vbom);
+					attachChild(remarkGood);
+				} else if (grade > 0.66666666667 & grade <= 1) {
+					remarkGood = new Sprite(510, 40, resourcesManager.progressGood, vbom);
+					attachChild(remarkGood);
+				} else {
+					remarkFair = new Sprite(510, 40, resourcesManager.progressFair, vbom);
+					attachChild(remarkGood);
+				}
+			
+			} else {
+				t = new Text(560, 40, resourcesManager.aklatanFont, "UNRATED" + grade, vbom);
+				attachChild(t);
+			}
+			break;
+			
+		case 3:
+			if(db.countGetAnswered()==25) {
+				if(grade >= 0 & grade <= 0.3333334) {
+					if(grade >= 0 & grade <= 0.33333333334) {
+						// draw excellent remark
+						remarkStar = new Sprite(510, 182, resourcesManager.progressExcellent, vbom);
+						attachChild(remarkStar);
+					} else if (grade > 0.33333333334 & grade <= 0.66666666667) {
+						remarkVGood = new Sprite(510, 18, resourcesManager.progressVGood, vbom);
+						attachChild(remarkGood);
+					} else if (grade > 0.66666666667 & grade <= 1) {
+						remarkGood = new Sprite(510, 182, resourcesManager.progressGood, vbom);
+						attachChild(remarkGood);
+					} else {
+						remarkFair = new Sprite(510, 182, resourcesManager.progressFair, vbom);
+						attachChild(remarkGood);
+					}
+					
+				} 
+				
+			} else {
+				t = new Text(560, 182, resourcesManager.aklatanFont, "UNRATED" + grade, vbom);
+				attachChild(t);
+			}
+			break;
+			
+		case 4:
+			int totalAns = db.solveItAddGetAnswered() + db.solveItSubGetAnswered() + db.solveItMulGetAnswered() + db.solveItDivGetAnswered();
+			if(totalAns == 100) {
+				if(totalGrade >= 0 & totalGrade <= 0.33333333334) {
+					// draw excellent remark
+					remarkStar = new Sprite(510, 182, resourcesManager.progressExcellent, vbom);
+					attachChild(remarkStar);
+				} else if (totalGrade > 0.33333333334 & totalGrade <= 0.66666666667) {
+					remarkVGood = new Sprite(510, 18, resourcesManager.progressVGood, vbom);
+					attachChild(remarkGood);
+				} else if (totalGrade > 0.66666666667 & totalGrade <= 1) {
+					remarkGood = new Sprite(510, 182, resourcesManager.progressGood, vbom);
+					attachChild(remarkGood);
+				} else {
+					remarkFair = new Sprite(510, 182, resourcesManager.progressFair, vbom);
+					attachChild(remarkGood);
+				}
+				
+			} else {
+				t = new Text(560, 113, resourcesManager.aklatanFont, "UNRATED" + totalGrade, vbom);
+				attachChild(t);
+			}
+			break;
+		}
 	}
 
 	@Override
 	public boolean onSceneTouchEvent(TouchEvent pSceneTouchEvent) {
+		Log.d("solveitrate", "totalRate: "+totalRate);
+		Log.d("try", "totalTry: "+totalTry);
+		Log.d("grade", "totalGrade: "+totalGrade);
+		
+		
 		return super.onSceneTouchEvent(pSceneTouchEvent);
 	}
 	
 	// =============================================================================================
 	// DATABASE SECTION
 	// =============================================================================================
+	
+
 	
 }

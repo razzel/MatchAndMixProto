@@ -48,16 +48,13 @@ public class ResourcesManager {
 	public ITextureRegion bgTextureRegion;
 	
 	public BuildableBitmapTextureAtlas mGameTextureAtlas;
+	
 	// HOW TO
-	
-	// GTML
-	public ITextureRegion GTMLhtp1;
-	public ITextureRegion GTMLhtp2;
-	
-	// THAT COLOR IS
-	public ITextureRegion colorHtp1;
-	public ITextureRegion colorHtp2;
-	public ITextureRegion colorHtp3;
+	public TiledTextureRegion GTMLHTP;
+	public TiledTextureRegion colorHTP;
+	public TiledTextureRegion matchHTP;
+	public TiledTextureRegion countHTP;
+	public TiledTextureRegion addHTP;
 	
 	// CORRECT WRONG CONTINUE
 	public ITextureRegion thatsCorrectTexture;
@@ -124,7 +121,10 @@ public class ResourcesManager {
 	public TiledTextureRegion matchItTextureRegion;
 	public TiledTextureRegion countItTextureRegion;
 	
+	// CREDITS
 	public ITextureRegion creditsHeaderTexture;
+	public TiledTextureRegion creditsBodyTexture;
+	
 	
 	// GUESS THE MISSING LETTER TEXTURES ******************************************************************************************
 	public BitmapTextureAtlas GTMLAtlas;
@@ -1027,7 +1027,7 @@ public class ResourcesManager {
 		// QUESTION FRAMES
 		private void createQuestionFrames() {
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
-			qFrameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 256);
+			qFrameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 256, TextureOptions.BILINEAR);
 			qHeaderTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(qFrameTextureAtlas, activity, "question_header.png");
 			answeredTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(qFrameTextureAtlas, activity, "ans.png", 2,1);	
 			notAnsweredTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(qFrameTextureAtlas, activity, "not_ans.png", 2,1);
@@ -1062,6 +1062,9 @@ public class ResourcesManager {
 			creatCommonButtons2();
 			howToPlayGTML();
 			howToPlayThatColorIs();
+			howToPlayMatchIt();
+			howToPlayCountIt();
+			howToPlaySolveItAdd();
 		}
 		private void creatCommonButtons2() {
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
@@ -1078,23 +1081,10 @@ public class ResourcesManager {
 			}	
 		}
 		
-		private void createCommonButton3() {
-			
-		}
-		
 		private void howToPlayGTML() {
-			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_GTML/how_to_play/");
-			mGameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 690, 360);
-			GTMLhtp1 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mGameTextureAtlas, activity, "1.png");
-			try {
-				this.mGameTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
-				this.mGameTextureAtlas.load();
-			} catch (final TextureAtlasBuilderException e) {
-				Debug.e(e);
-			}
-			
-			mGameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 690, 360);
-			GTMLhtp2 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mGameTextureAtlas, activity, "2.png");
+			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/how_to_play/");
+			mGameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 360, TextureOptions.BILINEAR);
+			GTMLHTP = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mGameTextureAtlas, activity, "htp_gml.png", 2, 1);
 			try {
 				this.mGameTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 				this.mGameTextureAtlas.load();
@@ -1104,36 +1094,52 @@ public class ResourcesManager {
 		}
 		
 		private void howToPlayThatColorIs() {
-			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_color/how_to_play/");
-			mGameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 690, 360);
-			colorHtp1 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mGameTextureAtlas, activity, "1.png");
+			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/how_to_play/");
+			mGameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 720, TextureOptions.BILINEAR);
+			colorHTP = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mGameTextureAtlas, activity, "htp_tci.png", 2, 2);
 			try {
 				this.mGameTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 				this.mGameTextureAtlas.load();
 			} catch (final TextureAtlasBuilderException e) {
 				Debug.e(e);
-			}
-			
-			mGameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 690, 360);
-			colorHtp2 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mGameTextureAtlas, activity, "2.png");
-			try {
-				this.mGameTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
-				this.mGameTextureAtlas.load();
-			} catch (final TextureAtlasBuilderException e) {
-				Debug.e(e);
-			}
-			
-			
-			mGameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 690, 360);
-			colorHtp3 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mGameTextureAtlas, activity, "3.png");
-			try {
-				this.mGameTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
-				this.mGameTextureAtlas.load();
-			} catch (final TextureAtlasBuilderException e) {
-				Debug.e(e);
-			}			
+			}		
 		}
 		
+		private void howToPlayMatchIt() {
+			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/how_to_play/");
+			mGameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 720, TextureOptions.BILINEAR);
+			matchHTP = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mGameTextureAtlas, activity, "htp_mi.png", 2, 2);
+			try {
+				this.mGameTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+				this.mGameTextureAtlas.load();
+			} catch (final TextureAtlasBuilderException e) {
+				Debug.e(e);
+			}
+		}
+		
+		private void howToPlayCountIt() {
+			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/how_to_play/");
+			mGameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 720, TextureOptions.BILINEAR);
+			countHTP = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mGameTextureAtlas, activity, "htp_ci.png", 2, 2);
+			try {
+				this.mGameTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+				this.mGameTextureAtlas.load();
+			} catch (final TextureAtlasBuilderException e) {
+				Debug.e(e);
+			}
+		}
+		
+		private void howToPlaySolveItAdd() {
+			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/how_to_play/");
+			mGameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 720, TextureOptions.BILINEAR);
+			addHTP = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mGameTextureAtlas, activity, "htp_si.png", 2, 2);
+			try {
+				this.mGameTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+				this.mGameTextureAtlas.load();
+			} catch (final TextureAtlasBuilderException e) {
+				Debug.e(e);
+			}
+		}
 		
 		private void loadWarningMsg() {
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
@@ -1155,7 +1161,7 @@ public class ResourcesManager {
 		}
 			private void loadShape1() {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/shapes/");
-				shapeAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				shapeAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				cirleTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(shapeAtlas, activity, "a_circle.png");
 				diamondTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(shapeAtlas, activity, "a_diamond.png");
 				heartTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(shapeAtlas, activity, "a_heart.png");
@@ -1169,7 +1175,7 @@ public class ResourcesManager {
 			}
 			private void loadShape2() {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/shapes/");
-				shapeAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				shapeAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				rectangleTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(shapeAtlas, activity, "a_rectangle.png");
 				squareTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(shapeAtlas, activity, "a_square.png");
 				starTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(shapeAtlas, activity, "a_star.png");
@@ -1184,7 +1190,7 @@ public class ResourcesManager {
 			
 			private void loadShape3() {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/shapes/");
-				shapeAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				shapeAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				triangleTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(shapeAtlas, activity, "a_triangle.png");
 				try {
 					this.shapeAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
@@ -1206,7 +1212,7 @@ public class ResourcesManager {
 		}
 			private void loadfruitsNvegs1(){
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/fruitsNvegs/");
-				fruitNvegsatlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				fruitNvegsatlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				beanTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(fruitNvegsatlas, activity, "a_bean.png");
 				orangesTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(fruitNvegsatlas, activity, "a_orange.png");
 				bananaTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(fruitNvegsatlas, activity, "a_banana.png");
@@ -1226,7 +1232,7 @@ public class ResourcesManager {
 			
 			private void loadFruitsNvegs2() {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/fruitsNvegs/");
-				fruitNvegsatlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				fruitNvegsatlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				appleTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(fruitNvegsatlas, activity, "a_apple.png");
 				avocadoTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(fruitNvegsatlas, activity, "a_avocado.png");
 				mangoTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(fruitNvegsatlas, activity, "a_mango.png");
@@ -1251,7 +1257,7 @@ public class ResourcesManager {
 		}
 			private void loadAnimals1(){
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/animals/");
-				AnimalsAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				AnimalsAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				zebraTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(AnimalsAtlas, activity, "a_zebra.png");
 				bearTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(AnimalsAtlas, activity, "a_bear.png");
 				mouseTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(AnimalsAtlas, activity, "a_mouse.png");
@@ -1273,7 +1279,7 @@ public class ResourcesManager {
 			
 			private void loadAnimals2(){
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/animals/");
-				AnimalsAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				AnimalsAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				//pandaTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(AnimalsAtlas, activity, "a_panda.png");
 				
 				snakeTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(AnimalsAtlas, activity, "a_snake.png");
@@ -1300,7 +1306,7 @@ public class ResourcesManager {
 		}
 			private void loadOthers1(){
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/others/");
-				OthersAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				OthersAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				balloonTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(OthersAtlas, activity, "a_balloon.png");
 				candyTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(OthersAtlas, activity, "a_candy.png");
 				castleTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(OthersAtlas, activity, "a_castle.png");
@@ -1314,7 +1320,7 @@ public class ResourcesManager {
 			}
 			private void loadOthers2(){
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/others/");
-				OthersAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				OthersAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				boneTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(OthersAtlas, activity, "a_bone.png");
 				stoneTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(OthersAtlas, activity, "a_stone.png");
 				ribbonTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(OthersAtlas, activity, "a_ribbon.png");
@@ -1332,7 +1338,7 @@ public class ResourcesManager {
 			}
 			private void loadOthers3(){
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/others/");
-				OthersAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				OthersAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				iglooTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(OthersAtlas, activity, "a_igloo.png");
 				ballTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(OthersAtlas, activity, "a_ball.png");
 				cheeseTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(OthersAtlas, activity, "a_cheese.png");
@@ -1356,7 +1362,7 @@ public class ResourcesManager {
 		// LETTERS
 		private void loadLetters() {
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/letters/");
-			lettersAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+			lettersAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 			aTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(lettersAtlas, activity, "A.png", 2, 1);
 			bTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(lettersAtlas, activity, "B.png", 2, 1);
 			cTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(lettersAtlas, activity, "C.png", 2, 1);
@@ -1398,7 +1404,7 @@ public class ResourcesManager {
 		// NUMBERS 
 		private void loadNumbers() {
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/numbers/");
-			numberAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+			numberAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 			texture0 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(numberAtlas, activity, "0.png", 2, 1);
 			texture1 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(numberAtlas, activity, "1.png", 2, 1);
 			texture2 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(numberAtlas, activity, "2.png", 2, 1);
@@ -1619,7 +1625,7 @@ public class ResourcesManager {
 	
 		private void loadGameMenuGraphics() {
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu_games/");
-			gameMenuTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+			gameMenuTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 			gameHeaderTextureReion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameMenuTextureAtlas, activity, "games_header.png");
 			guessTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameMenuTextureAtlas, activity, "gml_btn.png", 2, 1);
 			thatColorIsTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameMenuTextureAtlas, activity, "tci_btn.png", 2, 1);
@@ -1636,7 +1642,7 @@ public class ResourcesManager {
 		
 		private void loadExitConfirmationGraphics() {
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/option/");
-			resetAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 800, 480);
+			resetAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 800, 480, TextureOptions.BILINEAR);
 			exitPanelTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(resetAtlas, activity, "quit_panel.png");
 			try {
 				this.resetAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
@@ -1666,7 +1672,7 @@ public class ResourcesManager {
 	
 		private void loadProgressGraphics() {
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/progress/");
-			progressTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+			progressTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 			progressHeaderTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(progressTextureAtlas, activity, "progress_header.png");
 			progressPanelTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(progressTextureAtlas, activity, "prog_panel.png");
 			try {
@@ -1676,8 +1682,12 @@ public class ResourcesManager {
 				Debug.e(e);
 			}
 			
-			progressTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 512, 512);
+			progressTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 256, 512, TextureOptions.BILINEAR);
 			progressLegendTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(progressTextureAtlas, activity, "prog_legends.png");
+			progressExcellent = BitmapTextureAtlasTextureRegionFactory.createFromAsset(progressTextureAtlas, activity, "prog_excellent.png");
+			progressVGood = BitmapTextureAtlasTextureRegionFactory.createFromAsset(progressTextureAtlas, activity, "prog_vgood.png");
+			progressGood = BitmapTextureAtlasTextureRegionFactory.createFromAsset(progressTextureAtlas, activity, "prog_good.png");
+			progressFair = BitmapTextureAtlasTextureRegionFactory.createFromAsset(progressTextureAtlas, activity, "prog_fair.png");
 			try {
 				this.progressTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 				this.progressTextureAtlas.load();
@@ -1707,7 +1717,7 @@ public class ResourcesManager {
 	
 		private void loadOptionGraphics() {
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/option/");
-			optionTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 768, 768); // 768x768
+			optionTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 768, 768, TextureOptions.BILINEAR); // 768x768
 			optionBoardTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(optionTextureAtlas, activity, "option_board.png");
 			onTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(optionTextureAtlas, activity, "on_btn.png");
 			offTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(optionTextureAtlas, activity, "off_btn.png");	
@@ -1760,7 +1770,16 @@ public class ResourcesManager {
 	// *************************************************************
 	public void loadCredits() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/credits/");
-		mGameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 800, 100);
+		mGameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 720, TextureOptions.BILINEAR);
+		creditsBodyTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mGameTextureAtlas, activity, "credits.png", 2, 2);
+		try {
+			mGameTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			mGameTextureAtlas.load();
+		} catch (final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+		
+		mGameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 800, 100, TextureOptions.BILINEAR);
 		creditsHeaderTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mGameTextureAtlas, activity, "credits_header.png");
 		
 		try {
@@ -1793,7 +1812,7 @@ public class ResourcesManager {
 	}
 	private void loadContBtn() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/trivia/");
-		triviaAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 720, 80);
+		triviaAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 720, 80, TextureOptions.BILINEAR);
 		triviaOK =  BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(triviaAtlas, activity, "cont_btn.png", 2, 1);
 		
 		try {
@@ -2032,7 +2051,7 @@ public class ResourcesManager {
 		
 		private void loadMatchItPanelGraphics() {
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_matchit/");
-			matchItBGTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+			matchItBGTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 			matchItBGTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(matchItBGTextureAtlas, activity, "mi_bg.png");
 			match_questionPlank = BitmapTextureAtlasTextureRegionFactory.createFromAsset(matchItBGTextureAtlas, activity, "question_plank.png");
 			matchItChoiceBox = BitmapTextureAtlasTextureRegionFactory.createFromAsset(matchItBGTextureAtlas, activity, "mi_choiceBox.png");
@@ -2061,7 +2080,7 @@ public class ResourcesManager {
 		
 			private void loadMatchItQuestions1() {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_matchit/questions/");
-				questionAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				questionAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				questionAirplaneTexture= BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_airplane.png", 2,1);
 				questionAppleTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_apple.png", 2,1);
 				questionAvocadoTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_avocado.png", 2,1);
@@ -2077,7 +2096,7 @@ public class ResourcesManager {
 			
 			private void loadMatchItQuestions2() {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_matchit/questions/");
-				questionAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				questionAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				questionBirdTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_bird.png", 2,1);
 				questionBookTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_book.png", 2,1);
 				questionCarrotTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_carrot.png", 2,1);	
@@ -2093,7 +2112,7 @@ public class ResourcesManager {
 			
 			private void loadMatchItQuestions3() {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_matchit/questions/");
-				questionAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				questionAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				questionCatTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_cat.png", 2,1);
 				questionCircleTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_circle.png", 2,1);
 				questionCornTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_corn.png", 2,1);
@@ -2108,7 +2127,7 @@ public class ResourcesManager {
 			
 			private void loadMatchItQuestions4() {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_matchit/questions/");
-				questionAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				questionAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				questionDogTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_dog.png", 2,1);
 				questionDoughnutTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_doughnut.png", 2,1);
 				questionEggplantTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_eggplant.png", 2,1);
@@ -2123,7 +2142,7 @@ public class ResourcesManager {
 			
 			private void loadMatchItQuestions5() {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_matchit/questions/");
-				questionAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				questionAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				questionFlowerTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_flower.png", 2,1);
 				questionGrapesTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_grapes.png", 2,1);
 				questionHeartTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_heart.png", 2,1);
@@ -2138,7 +2157,7 @@ public class ResourcesManager {
 			
 			private void loadMatchItQuestions6() {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_matchit/questions/");
-				questionAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				questionAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				questionIcecreamTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_icecream.png", 2,1);
 				questionMangoTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_mango.png", 2,1);
 				questionMushroomTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_mushroom.png", 2,1);
@@ -2153,7 +2172,7 @@ public class ResourcesManager {
 			
 			private void loadMatchItQuestions7() {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_matchit/questions/");
-				questionAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				questionAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				questionPigTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_pig.png", 2,1);
 				questionPumpkinTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_pumpkin.png", 2,1);
 				questionRabbitTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_rabbit.png", 2,1);
@@ -2168,7 +2187,7 @@ public class ResourcesManager {
 			
 			private void loadMatchItQuestions8() {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_matchit/questions/");
-				questionAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				questionAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				questionSquareTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_square.png", 2,1);
 				questionStarTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_star.png", 2,1);
 				questionStrawberryTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_strawberry.png", 2,1);
@@ -2183,7 +2202,7 @@ public class ResourcesManager {
 			
 			private void loadMatchItQuestions9() {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_matchit/questions/");
-				questionAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 800, 512);
+				questionAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 800, 512, TextureOptions.BILINEAR);
 				questionTriangleTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(questionAtlas, activity, "g_triangle.png", 2,1);
 				try {
 					this.questionAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
@@ -2196,7 +2215,7 @@ public class ResourcesManager {
 		
 		private void loadChoices() {
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_matchit/choices/");
-			choiceAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+			choiceAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 			choiceAirplane = BitmapTextureAtlasTextureRegionFactory.createFromAsset(choiceAtlas, activity, "c_airplane.png");
 			choiceAppleTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(choiceAtlas, activity, "c_apple.png");
 			choiceAvocadoTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(choiceAtlas, activity, "c_avocado.png");
@@ -2284,7 +2303,7 @@ public class ResourcesManager {
 		
 			private void loadGTMLQuestions() {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_GTML/questions/");
-				gtmlQuestions = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				gtmlQuestions = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				appleQuestionTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gtmlQuestions, activity, "gm_apple.png", 2, 1);
 				avocadoQuestionTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gtmlQuestions, activity, "gm_avocado.png", 2, 1);
 				mangoQuestionTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gtmlQuestions, activity, "gm_mango.png", 2, 1);
@@ -2368,7 +2387,7 @@ public class ResourcesManager {
 		
 			private void loadCountItPanelGraphics() {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_countit/");
-				countItAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				countItAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				countItBGTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItAtlas, activity, "ci_bg.png");
 				countItClueBox = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItAtlas, activity, "clue_box.png");
 				countItQuestionPad = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItAtlas, activity, "plank.png");
@@ -2387,7 +2406,7 @@ public class ResourcesManager {
 		
 			private void loadCountItQuestions() {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_countit/questions/");
-				countItQuestionAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				countItQuestionAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				countItQuestion1 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItQuestionAtlas, activity, "ci_q1.png");
 				countItQuestion2 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItQuestionAtlas, activity, "ci_q2.png");
 				countItQuestion3 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItQuestionAtlas, activity, "ci_p3.png");
@@ -2425,7 +2444,7 @@ public class ResourcesManager {
 			
 			private void loadClues() {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_countit/clues/");
-				countItClueAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				countItClueAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				countItClueTriangleTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_triangle.png");
 				countItClueSquareTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_square.png");
 				countItClueCirceTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_circle.png");
@@ -2480,7 +2499,7 @@ public class ResourcesManager {
 			
 			private void loadCountItOjects() {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_countit/objects_small/");
-				countItObjectAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				countItObjectAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				countItObjectTriangle = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_triangle.png");
 				countItObjectSquare = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_square.png");
 				countItObjectCircle = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItObjectAtlas, activity, "s_circle.png");
@@ -2568,7 +2587,7 @@ public class ResourcesManager {
 	
 		private void loadSolveItGraphics() {
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_solveit/");
-			solveItMenuAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+			solveItMenuAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 			addTiledTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(solveItMenuAtlas, activity, "add_btn.png", 1, 2);
 			subTiledTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(solveItMenuAtlas, activity, "sub_btn.png", 1, 2);
 			multiTiledTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(solveItMenuAtlas, activity, "mul_btn.png", 1, 2);
@@ -2587,7 +2606,7 @@ public class ResourcesManager {
 		
 		private void loadSolveItAnswers() {
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_solveit/answers/");
-			solveItAnswersAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+			solveItAnswersAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 			ansTexture0 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItAnswersAtlas, activity, "ans0.png");
 			ansTexture1 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItAnswersAtlas, activity, "ans1.png");
 			ansTexture2 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItAnswersAtlas, activity, "ans2.png");
@@ -3102,7 +3121,7 @@ public class ResourcesManager {
 		
 			private void loadThatColorIsPanelGraphics() {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_color/");
-				thatColorIsBGTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				thatColorIsBGTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				thatColorIsBGTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(thatColorIsBGTextureAtlas, activity, "tci_bg.png");
 				color_questionPlankTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(thatColorIsBGTextureAtlas, activity, "question_plank.png");
 				try {
@@ -3121,7 +3140,7 @@ public class ResourcesManager {
 			
 			private void loadColor1() {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_color/");
-				colorTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				colorTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				blackTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(colorTextureAtlas, activity, "black_btn.png", 2, 1);
 				blueTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(colorTextureAtlas, activity, "blue_btn.png", 2, 1);
 				brownTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(colorTextureAtlas, activity, "brown_btn.png", 2, 1);
@@ -3137,7 +3156,7 @@ public class ResourcesManager {
 			
 			private void loadColor2() {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_color/");
-				colorTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				colorTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				greenTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(colorTextureAtlas, activity, "green_btn.png", 2, 1);
 				orangeTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(colorTextureAtlas, activity, "orange_btn.png", 2, 1);
 				pinkTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(colorTextureAtlas, activity, "pink_btn.png", 2, 1);
@@ -3151,7 +3170,7 @@ public class ResourcesManager {
 			}
 			private void loadColor3() {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_color/");
-				colorTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024);
+				colorTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				redTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(colorTextureAtlas, activity, "red_btn.png", 2, 1);
 				violetTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(colorTextureAtlas, activity, "violet_btn.png", 2, 1);
 				whiteTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(colorTextureAtlas, activity, "white_btn.png", 2, 1);

@@ -27,6 +27,9 @@ public class SolveItDivPanel extends BaseScene {
 	private int pos;
 	private int lives;
 	private int x;
+	private float totalLives;
+	private float liveSpent;
+	private float rate;
 	
 	private Sprite bg;
 	private Sprite questionImage;
@@ -57,15 +60,17 @@ public class SolveItDivPanel extends BaseScene {
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 		db = new myDatabase(activity);
+		totalLives = 3;
 		lives = 3;
+		liveSpent = 0;
 		createBackground();
 		createButtons();
 		createEquation();
 		createChoices();
 		checkStatus();
 		createTryAgainScene();
-		thatsCorrect.setAlpha(1.0f);
-		thatsWrong.setAlpha(1.0f);
+		thatsCorrect.setAlpha(0.0f);
+		thatsWrong.setAlpha(0.0f);
 	}
 
 	@Override
@@ -170,6 +175,8 @@ public class SolveItDivPanel extends BaseScene {
 					resourcesManager.correct.play();
 					update(questionSet, "true");
 					updateIsFirstTime();
+					db.updateRate(7, computeRate());
+					db.updateTry(7, 1);
 					lock();
 					playAnimation();
 					nextQuestion();
@@ -194,6 +201,7 @@ public class SolveItDivPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					liveSpent++;
 					sLifeValue.setCurrentTileIndex(lives);
 					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
 					break;
@@ -217,6 +225,7 @@ public class SolveItDivPanel extends BaseScene {
 					lives--;
 					checkLives();
 					sLifeValue.setCurrentTileIndex(lives);
+					liveSpent++;
 					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
 					break;
 				}
@@ -239,6 +248,7 @@ public class SolveItDivPanel extends BaseScene {
 					lives--;
 					checkLives();
 					sLifeValue.setCurrentTileIndex(lives);
+					liveSpent++;
 					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
 					break;
 				}
@@ -337,7 +347,16 @@ public class SolveItDivPanel extends BaseScene {
 	}
 	
 	private void checkLives() {
-		if(lives == 0) SolveItDivPanel.this.setChildScene(tryScene, false, true, true);
+		if(lives == 0) {
+			db.updateTry(7, 1);
+			db.updateRate(7, computeRate());
+			SolveItDivPanel.this.setChildScene(tryScene, false, true, true);
+		}
+	}
+	
+	private float computeRate() {
+		rate = (liveSpent / totalLives);
+		return rate;
 	}
 	
 	private void checkStatus() {

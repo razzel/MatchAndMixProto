@@ -25,6 +25,9 @@ public class SolveItSubPanel extends BaseScene {
 	private int pos;
 	private int lives;
 	private int x;
+	private float totalLives;
+	private float liveSpent;
+	private float rate;
 	
 	public static int questionSet;
 
@@ -57,7 +60,9 @@ public class SolveItSubPanel extends BaseScene {
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 		db = new myDatabase(activity);
+		totalLives = 3;
 		lives  = 3;
+		liveSpent = 0;
 		createBackground();
 		createButtons();
 		createEquation();
@@ -172,6 +177,8 @@ public class SolveItSubPanel extends BaseScene {
 					resourcesManager.correct.play();
 					update(questionSet, "true");
 					updateIsFirstTime();
+					db.updateRate(5, computeRate());
+					db.updateTry(5, 1);
 					lock();
 					playAnimation();
 					nextQuestion();
@@ -196,6 +203,7 @@ public class SolveItSubPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					liveSpent++;
 					sLifeValue.setCurrentTileIndex(lives);
 					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
 					break;
@@ -218,6 +226,7 @@ public class SolveItSubPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					liveSpent++;
 					sLifeValue.setCurrentTileIndex(lives);
 					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
 					break;
@@ -240,6 +249,7 @@ public class SolveItSubPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					liveSpent++;
 					sLifeValue.setCurrentTileIndex(lives);
 					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
 					break;
@@ -339,7 +349,16 @@ public class SolveItSubPanel extends BaseScene {
 	}
 	
 	private void checkLives() {
-		if(lives == 0) SolveItSubPanel.this.setChildScene(tryScene, false, true, true);
+		if(lives == 0) {
+			db.updateTry(5, 1);
+			db.updateRate(5, computeRate());
+			SolveItSubPanel.this.setChildScene(tryScene, false, true, true);
+		}
+	}
+	
+	private float computeRate() {
+		rate = (liveSpent / totalLives);
+		return rate;
 	}
 	
 	private void checkStatus() {

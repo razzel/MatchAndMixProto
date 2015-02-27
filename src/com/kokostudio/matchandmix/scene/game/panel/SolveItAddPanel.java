@@ -27,6 +27,9 @@ public class SolveItAddPanel extends BaseScene {
 	private int pos;
 	private int lives;
 	private int x;
+	private float totalLives;
+	private float liveSpent;
+	private float rate;
 	
 	private Sprite bg;
 	private Sprite questionImage;
@@ -52,18 +55,32 @@ public class SolveItAddPanel extends BaseScene {
 	
 	private Sprite sLife;
 	private TiledSprite sLifeValue;
+	
+	private int currentTile;
+	
+	private CameraScene htpScene;
+	private TiledSprite htp;
+	private TiledSprite next;
+	private TiledSprite prev;
 
 	@Override
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 		db = new myDatabase(activity);
+		totalLives = 3;
 		lives = 3;
+		liveSpent = 0;
 		createBackground();
 		createButtons();
 		createEquation();
 		createChoices();
 		checkStatus();
 		createTryAgainScene();
+		
+		if(db.checkIsFirstTime(4).compareTo("true")==0) {
+			createHowToScene();	
+			SolveItAddPanel.this.setChildScene(htpScene, false, true, true);
+		}
 		
 		thatsWrong.setAlpha(0f);
 		thatsCorrect.setAlpha(0f);
@@ -173,6 +190,8 @@ public class SolveItAddPanel extends BaseScene {
 					resourcesManager.correct.play();
 					update(questionSet, "true");
 					updateIsFirstTime();
+					db.updateRate(4, computeRate());
+					db.updateTry(4, 1);
 					lock();
 					playAnimation();
 					nextQuestion();
@@ -197,6 +216,7 @@ public class SolveItAddPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					liveSpent++;
 					sLifeValue.setCurrentTileIndex(lives);
 					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
 					break;
@@ -219,6 +239,7 @@ public class SolveItAddPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					liveSpent++;
 					sLifeValue.setCurrentTileIndex(lives);
 					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
 					break;
@@ -241,6 +262,7 @@ public class SolveItAddPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					liveSpent++;
 					sLifeValue.setCurrentTileIndex(lives);
 					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
 					break;
@@ -321,8 +343,96 @@ public class SolveItAddPanel extends BaseScene {
 		tryScene.registerTouchArea(OK);
 		tryScene.attachChild(OK);
 		tryScene.setBackgroundEnabled(false);
+	}
+	
+	private void createHowToScene() {
+		htpScene = new CameraScene(camera);
+		currentTile = 0;
 		
+		htp = new TiledSprite(400, 240, resourcesManager.addHTP, vbom);
+		htpScene.attachChild(htp);
 		
+		next = new TiledSprite(660, 240, resourcesManager.nextTiledTextureRegion, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {	
+				if(pSceneTouchEvent.isActionUp()) {
+					currentTile++;
+					htp.setCurrentTileIndex(currentTile);
+					
+					if(currentTile == 1) {				
+						prev.setVisible(true);
+						htpScene.registerTouchArea(prev);
+					} else if (currentTile == 2) {
+						next.setVisible(false);
+						htpScene.unregisterTouchArea(next);
+						
+						OK.setVisible(true);
+						htpScene.registerTouchArea(OK);
+					}
+					
+					next.setScale(1.0f);
+					next.setCurrentTileIndex(0);
+				} else if (pSceneTouchEvent.isActionDown()) {
+					next.setScale(0.9f);
+					next.setCurrentTileIndex(1);
+				} 
+				return true;
+			}
+			
+		};
+		htpScene.registerTouchArea(next);
+		htpScene.attachChild(next);
+		
+		prev = new TiledSprite(120, 240, resourcesManager.prevTiledTextureRegion, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				if(pSceneTouchEvent.isActionUp()) {
+					currentTile--;
+					htp.setCurrentTileIndex(currentTile);
+					
+					if(currentTile == 0) {
+						next.setVisible(true);
+						htpScene.registerTouchArea(next);
+						
+						prev.setVisible(false);
+						htpScene.unregisterTouchArea(prev);
+						OK.setVisible(false);
+						htpScene.unregisterTouchArea(OK);
+					}
+					
+					prev.setScale(1.0f);
+					prev.setCurrentTileIndex(0);
+				} else if (pSceneTouchEvent.isActionDown()) {
+					prev.setScale(0.9f);
+					prev.setCurrentTileIndex(1);
+				}
+				return true;
+			}
+		};
+		prev.setVisible(false);
+		htpScene.attachChild(prev);
+		
+		OK = new TiledSprite(400, 50, resourcesManager.triviaOK, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				switch(pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					this.setScale(0.9f);
+					this.setCurrentTileIndex(1);
+					break;
+				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
+					SolveItAddPanel.this.clearChildScene();
+					break;
+				}
+				return true;
+			}
+			
+		};
+		OK.setVisible(false);
+		htpScene.attachChild(OK);	
+		
+		htpScene.setBackgroundEnabled(false);
 	}
 	
 	private void lock() {
@@ -340,7 +450,16 @@ public class SolveItAddPanel extends BaseScene {
 	}
 	
 	private void checkLives() {
-		if(lives == 0) SolveItAddPanel.this.setChildScene(tryScene, false, true, true);
+		if(lives == 0) {
+			db.updateTry(4, 1);
+			db.updateRate(4, computeRate());
+			SolveItAddPanel.this.setChildScene(tryScene, false, true, true);
+		}
+	}
+	
+	private float computeRate() {
+		rate = (liveSpent / totalLives);
+		return rate;
 	}
 	
 	private void checkStatus() {

@@ -369,6 +369,16 @@ public class OptionScene extends BaseScene {
 			db.updateIsFirstTime(i, "true");
 		}
 		
+		// RESET SOUNDS
+		toggleBGMButton();
+		toggleSFXButton();
+		
+		//RESET TRIES AND RATES
+		for(int i = 0; i < 8; i++) {
+			db.resetRate(i);
+			db.resetTry(i);
+		}
+		
 		// BACK TO MAIN MENU SCENE
 		activity.runOnUiThread(new Runnable() {
 			@Override
@@ -412,7 +422,7 @@ public class OptionScene extends BaseScene {
 		String cmp = isBGMOn();
 		if(cmp.compareTo("true") == 0) {
 			bgmOn.setVisible(true);
-			bgmOff.setVisible(false);		
+			bgmOff.setVisible(false);
 		}
 		else {
 			bgmOn.setVisible(false);
@@ -475,4 +485,11 @@ public class OptionScene extends BaseScene {
 			engine.getSoundManager().setMasterVolume(1.0f);
 		}
 	}	
+	
+	@Override
+	public boolean onSceneTouchEvent(TouchEvent pSceneTouchEvent) {
+		float rate = db.getRate(3) / db.getTry(3);
+		Log.d("remarks", "remarks: "+rate );
+		return super.onSceneTouchEvent(pSceneTouchEvent);
+	}
 }

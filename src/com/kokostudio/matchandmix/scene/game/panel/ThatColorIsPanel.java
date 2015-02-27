@@ -25,6 +25,9 @@ public class ThatColorIsPanel extends BaseScene {
 	private ITextureRegion r;
 	private int pos;
 	private int lives;
+	private float totalLives;
+	private float liveSpent;
+	private float rate;
 	
 	// SPRITES
 	private Sprite question;
@@ -51,9 +54,10 @@ public class ThatColorIsPanel extends BaseScene {
 	private Sprite sLife;
 	private TiledSprite sLifeValue;
 	
+	private int currentTile;
+	
 	private CameraScene htpScene;
-	private Sprite htp1;
-	private Sprite htp2;
+	private TiledSprite htp;
 	private TiledSprite next;
 	private TiledSprite prev;
 
@@ -61,24 +65,21 @@ public class ThatColorIsPanel extends BaseScene {
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 		db = new myDatabase(activity);
+		totalLives = 3;
 		lives = 3;
+		liveSpent = 0;
 		createBackground();
 		createButtons();
 		createChoices();
 		createQuestions();
 		checkStatus();
 		createTryAgainScene();
-		/*
+		
 		if(db.checkIsFirstTime(2).compareTo("true")==0) {
-			createHowToScene();
-			htp2.setVisible(false);
-			prev.setVisible(false);
-			OK.setVisible(false);
-			htpScene.unregisterTouchArea(OK);
-			htpScene.unregisterTouchArea(prev);	
+			createHowToScene();	
 			ThatColorIsPanel.this.setChildScene(htpScene, false, true, true);
 		}
-		*/
+		
 		thatsCorrect.setAlpha(0f);
 		thatsWrong.setAlpha(0f);
 	}
@@ -116,7 +117,7 @@ public class ThatColorIsPanel extends BaseScene {
 				super.preDraw(pGLState, pCamera);
 			}	
 		};
-		questionPlank = new Sprite(230, 70, resourcesManager.color_questionPlankTextureRegion, vbom);
+		questionPlank = new Sprite(250, 70, resourcesManager.color_questionPlankTextureRegion, vbom);
 		attachChild(BG);
 		attachChild(questionPlank);
 	}
@@ -180,6 +181,8 @@ public class ThatColorIsPanel extends BaseScene {
 					updateIsFirstTime();
 					lock();	
 					nextQuestion();
+					db.updateRate(2, computeRate());
+					db.updateTry(2, 1);
 					thatsCorrect.setAlpha(1.0f);
 					break;
 				}
@@ -200,8 +203,9 @@ public class ThatColorIsPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					liveSpent++;
 					sLifeValue.setCurrentTileIndex(lives);
-					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
+					thatsWrong.registerEntityModifier(new AlphaModifier(0.8f, 1.0f, 0));
 					break;
 				}
 				return true;
@@ -222,7 +226,8 @@ public class ThatColorIsPanel extends BaseScene {
 					lives--;
 					checkLives();
 					sLifeValue.setCurrentTileIndex(lives);
-					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
+					liveSpent++;
+					thatsWrong.registerEntityModifier(new AlphaModifier(0.8f, 1.0f, 0));
 					break;
 				}
 				return true;
@@ -242,7 +247,8 @@ public class ThatColorIsPanel extends BaseScene {
 					lives--;
 					checkLives();
 					sLifeValue.setCurrentTileIndex(lives);
-					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
+					liveSpent++;
+					thatsWrong.registerEntityModifier(new AlphaModifier(0.8f, 1.0f, 0));
 					break;
 				}
 				return true;
@@ -262,7 +268,8 @@ public class ThatColorIsPanel extends BaseScene {
 					lives--;
 					checkLives();
 					sLifeValue.setCurrentTileIndex(lives);
-					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
+					liveSpent++;
+					thatsWrong.registerEntityModifier(new AlphaModifier(0.8f, 1.0f, 0));
 					break;
 				}
 				return true;
@@ -323,13 +330,115 @@ public class ThatColorIsPanel extends BaseScene {
 	}
 	
 	private void createHowToScene() {
+		htpScene = new CameraScene(camera);
+		currentTile = 0;
 		
+		htp = new TiledSprite(400, 240, resourcesManager.colorHTP, vbom);
+		htpScene.attachChild(htp);
+		
+		next = new TiledSprite(660, 240, resourcesManager.nextTiledTextureRegion, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {	
+				if(pSceneTouchEvent.isActionUp()) {
+					currentTile++;
+					htp.setCurrentTileIndex(currentTile);
+					
+					if(currentTile == 1) {
+						
+						prev.setVisible(true);
+						htpScene.registerTouchArea(prev);
+						
+					} else if (currentTile == 2) {
+						
+						next.setVisible(false);
+						htpScene.unregisterTouchArea(next);
+						
+						OK.setVisible(true);
+						htpScene.registerTouchArea(OK); 
+					} /*else if  (currentTile == 3) {
+						next.setVisible(false);
+						htpScene.unregisterTouchArea(next);
+						
+						OK.setVisible(true);
+						htpScene.registerTouchArea(OK);
+					}*/
+					
+					next.setScale(1.0f);
+					next.setCurrentTileIndex(0);
+				} else if (pSceneTouchEvent.isActionDown()) {
+					next.setScale(0.9f);
+					next.setCurrentTileIndex(1);
+				} 
+				return true;
+			}
+			
+		};
+		htpScene.registerTouchArea(next);
+		htpScene.attachChild(next);
+		
+		prev = new TiledSprite(120, 240, resourcesManager.prevTiledTextureRegion, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				if(pSceneTouchEvent.isActionUp()) {
+					currentTile--;
+					htp.setCurrentTileIndex(currentTile);
+					
+					if(currentTile == 0) {
+						next.setVisible(true);
+						htpScene.registerTouchArea(next);
+						
+						prev.setVisible(false);
+						htpScene.unregisterTouchArea(prev);
+						OK.setVisible(false);
+						htpScene.unregisterTouchArea(OK);
+					}
+					
+					prev.setScale(1.0f);
+					prev.setCurrentTileIndex(0);
+				} else if (pSceneTouchEvent.isActionDown()) {
+					prev.setScale(0.9f);
+					prev.setCurrentTileIndex(1);
+				}
+				return true;
+			}
+		};
+		prev.setVisible(false);
+		htpScene.attachChild(prev);
+		
+		OK = new TiledSprite(400, 50, resourcesManager.triviaOK, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				switch(pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					this.setScale(0.9f);
+					this.setCurrentTileIndex(1);
+					break;
+				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
+					ThatColorIsPanel.this.clearChildScene();
+					break;
+				}
+				return true;
+			}
+			
+		};
+		OK.setVisible(false);
+		htpScene.attachChild(OK);	
+		
+		htpScene.setBackgroundEnabled(false);
 	}
 	
 	private void checkLives() {
 		if(lives == 0) {
+			db.updateRate(2, computeRate());
+			db.updateTry(2, 1);
 			ThatColorIsPanel.this.setChildScene(tryScene, false, true, true);
 		}
+	}
+	
+	private float computeRate() {
+		rate = (liveSpent / totalLives);
+		return rate;
 	}
 	
 	private void update(int id, String s) {

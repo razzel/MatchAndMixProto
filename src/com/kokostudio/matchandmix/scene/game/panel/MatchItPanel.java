@@ -16,7 +16,6 @@ import android.util.Log;
 
 import com.kokostudio.matchandmix.base.BaseScene;
 import com.kokostudio.matchandmix.database.myDatabase;
-import com.kokostudio.matchandmix.manager.ResourcesManager;
 import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
 
@@ -34,7 +33,10 @@ public class MatchItPanel extends BaseScene {
 	private ITextureRegion r;
 	private int pos;
 	
+	private float totalLives;
 	private int lives;
+	private float liveSpent;
+	private float rate;
 	
 	// SPRITES
 	private TiledSprite question;
@@ -63,12 +65,22 @@ public class MatchItPanel extends BaseScene {
 	
 	private CameraScene tryScene;
 	private Sprite tryMsg;
+	
+	private CameraScene htpScene;
+	private TiledSprite htp;
+	
+	private int currentTile;
+	
+	private TiledSprite next;
+	private TiledSprite prev;
 
 	@Override
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 		db = new myDatabase(activity);
+		totalLives = 3;
 		lives = 3;
+		liveSpent = 0;
 		createBackground();
 		createButtons();
 		createChoices();
@@ -77,6 +89,11 @@ public class MatchItPanel extends BaseScene {
 		sortChildren();
 		createTryAgainScene();
 		showTrivia();
+		
+		if(db.checkIsFirstTime(0).compareTo("true")==0) {
+			createHowToScene();
+			MatchItPanel.this.setChildScene(htpScene, false, true, true);
+		}
 		
 		thatsCorrect.setAlpha(0f);
 		thatsWrong.setAlpha(0f);
@@ -329,13 +346,247 @@ public class MatchItPanel extends BaseScene {
 		
 	}
 	
-	private void checkIsFirstTime() {
-		
-	}
-	
 	private void updateIsFirstTime() {
 		db.updateIsFirstTime(0, "false");
 		db.close();
+	}
+	
+	
+	// BACK TO POSITION
+	private void checkPosition(Sprite sprite, float touchX, float touchY, int posX, int posY) {
+		if(touchX < 300 && touchX  > 200 && touchY < 300 && touchY > 200) {
+			sprite.detachSelf();
+			lock();
+			resourcesManager.correct.play();
+			update(questionSet, "true");
+			updateIsFirstTime();
+			db.updateRate(0, computeRate());
+			db.updateTry(0, 1);
+			thatsCorrect.setAlpha(1.0f);
+			MatchItPanel.this.setChildScene(triviaScene, false, true, true);
+			
+		} else { 
+			// Back to Original Position
+			sprite.setPosition(posX, posY);
+			resourcesManager.wrong.play();
+			lives--;
+			liveSpent++;
+			checkLives();
+			sLifeValue.setCurrentTileIndex(lives);
+			thatsWrong.registerEntityModifier(new AlphaModifier(0.8f, 1.0f, 0));
+		}
+	}
+	
+	private void checkLives() {
+		if(lives == 0) {
+			db.updateTry(0, 1);
+			db.updateRate(0, computeRate());
+			MatchItPanel.this.setChildScene(tryScene, false, true, true);
+		}
+	}
+	
+	private float computeRate() {
+		rate = (liveSpent / totalLives);
+		return rate;
+	}
+	
+	private void createHowToScene() {
+		htpScene = new CameraScene(camera);
+		currentTile = 0;
+		
+		htp = new TiledSprite(400, 240, resourcesManager.matchHTP, vbom);
+		htpScene.attachChild(htp);
+		
+		next = new TiledSprite(660, 240, resourcesManager.nextTiledTextureRegion, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {	
+				if(pSceneTouchEvent.isActionUp()) {
+					currentTile++;
+					htp.setCurrentTileIndex(currentTile);
+					
+					if(currentTile == 1) {
+						//next.setVisible(false);
+						//htpScene.unregisterTouchArea(next);
+						
+						prev.setVisible(true);
+						htpScene.registerTouchArea(prev);
+						
+						//OK.setVisible(true);
+						//htpScene.registerTouchArea(OK);
+					} else if (currentTile == 2) {
+						next.setVisible(false);
+						htpScene.unregisterTouchArea(next);
+						
+						OK.setVisible(true);
+						htpScene.registerTouchArea(OK);
+					}
+					
+					next.setScale(1.0f);
+					next.setCurrentTileIndex(0);
+				} else if (pSceneTouchEvent.isActionDown()) {
+					next.setScale(0.9f);
+					next.setCurrentTileIndex(1);
+				} 
+				return true;
+			}
+			
+		};
+		htpScene.registerTouchArea(next);
+		htpScene.attachChild(next);
+		
+		prev = new TiledSprite(120, 240, resourcesManager.prevTiledTextureRegion, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				if(pSceneTouchEvent.isActionUp()) {
+					currentTile--;
+					htp.setCurrentTileIndex(currentTile);
+					
+					if(currentTile == 0) {
+						next.setVisible(true);
+						htpScene.registerTouchArea(next);
+						
+						prev.setVisible(false);
+						htpScene.unregisterTouchArea(prev);
+						OK.setVisible(false);
+						htpScene.unregisterTouchArea(OK);
+					}
+					
+					prev.setScale(1.0f);
+					prev.setCurrentTileIndex(0);
+				} else if (pSceneTouchEvent.isActionDown()) {
+					prev.setScale(0.9f);
+					prev.setCurrentTileIndex(1);
+				}
+				return true;
+			}
+		};
+		prev.setVisible(false);
+		htpScene.attachChild(prev);
+		
+		OK = new TiledSprite(400, 50, resourcesManager.triviaOK, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				switch(pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					this.setScale(0.9f);
+					this.setCurrentTileIndex(1);
+					break;
+				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
+					MatchItPanel.this.clearChildScene();
+					break;
+				}
+				return true;
+			}
+			
+		};
+		OK.setVisible(false);
+		htpScene.attachChild(OK);	
+		
+		htpScene.setBackgroundEnabled(false);
+	}
+	
+	private void showTrivia() {
+		triviaScene = new CameraScene(camera);
+		
+		triviaPanel = new Sprite(400, 240, resourcesManager.triviaPanel, vbom);
+		triviaScene.attachChild(triviaPanel);
+		triviaPanel.setZIndex(0);
+		
+		trivia = new Sprite(400, 240, trivia(), vbom); 
+		triviaScene.attachChild(trivia);
+		trivia.setZIndex(1);
+		
+		OK = new TiledSprite(400, 80, resourcesManager.triviaOK, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				switch(pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					this.setScale(0.9f);
+					this.setCurrentTileIndex(1);
+					break;
+				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
+					updateIsFirstTime();
+					MatchItPanel.this.clearChildScene();
+					if(db.matchGetAnswered()==25) {
+						SceneManager.getInstance().loadMatchItScene();
+					}
+					nextQuestion();
+					break;
+				}
+				return true;
+			}
+			
+		};
+		triviaScene.attachChild(OK);
+		triviaScene.registerTouchArea(OK);
+		OK.setZIndex(1);
+		
+		triviaScene.setBackgroundEnabled(false);
+		triviaScene.sortChildren();
+	}
+	
+	private void createTryAgainScene() {
+		tryScene = new CameraScene(camera);
+		
+		tryMsg = new Sprite(400, 240, resourcesManager.tryAgainWarningMsg, vbom);
+		tryScene.setZIndex(0);
+		tryScene.attachChild(tryMsg);
+		
+		OK = new TiledSprite(400, 100, resourcesManager.triviaOK, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				switch (pSceneTouchEvent.getAction()) {
+				case TouchEvent.ACTION_DOWN:
+					this.setScale(0.9f);
+					this.setCurrentTileIndex(1);
+					break;
+
+				case TouchEvent.ACTION_UP:
+					resourcesManager.click.play();
+					MatchItPanel.this.clearChildScene();
+					SceneManager.getInstance().loadMatchItScene();
+					break;
+				}
+				return true;
+			}
+			
+		};
+		
+		OK.setZIndex(1);
+		tryScene.registerTouchArea(OK);
+		tryScene.attachChild(OK);
+		tryScene.setBackgroundEnabled(false);	
+	}
+	
+	private String isAnswered(int id) {
+		String s = db.matchItIsAnswered(id);
+		db.close();
+		return s;
+	}
+	
+	private void update(int id, String s) {
+		db.updateMatchIt(id, s);
+		db.close();
+	}
+	
+	private void checkStatus() {
+		String cmp = db.matchItIsAnswered(questionSet);
+		if(cmp.compareTo("true") == 0) {
+			lock();
+		} else return;
+	}
+	
+	private void lock() {
+		question.setCurrentTileIndex(1);
+		correctSprite.detachSelf();
+		unregisterTouchArea(correctSprite);
+		unregisterTouchArea(c1);
+		unregisterTouchArea(c2);
+		unregisterTouchArea(c3);
+		unregisterTouchArea(c4);
+		unregisterTouchArea(c5);
 	}
 	
 	// POSITIONS 
@@ -1348,131 +1599,4 @@ public class MatchItPanel extends BaseScene {
 		return t;
 	}
 	
-	// BACK TO POSITION
-	private void checkPosition(Sprite sprite, float touchX, float touchY, int posX, int posY) {
-		if(touchX < 300 && touchX  > 200 && touchY < 300 && touchY > 200) {
-			sprite.detachSelf();
-			lock();
-			resourcesManager.correct.play();
-			update(questionSet, "true");
-			updateIsFirstTime();
-			thatsCorrect.setAlpha(1.0f);
-			MatchItPanel.this.setChildScene(triviaScene, false, true, true);
-			
-		} else { 
-			// Back to Original Position
-			sprite.setPosition(posX, posY);
-			resourcesManager.wrong.play();
-			lives--;
-			checkLives();
-			sLifeValue.setCurrentTileIndex(lives);
-			thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
-		}
-	}
-	
-	private void checkLives() {
-		if(lives == 0) {
-			MatchItPanel.this.setChildScene(tryScene, false, true, true);
-		}
-	}
-	
-	private void showTrivia() {
-		triviaScene = new CameraScene(camera);
-		
-		triviaPanel = new Sprite(400, 240, resourcesManager.triviaPanel, vbom);
-		triviaScene.attachChild(triviaPanel);
-		triviaPanel.setZIndex(0);
-		
-		trivia = new Sprite(400, 240, trivia(), vbom); 
-		triviaScene.attachChild(trivia);
-		trivia.setZIndex(1);
-		
-		OK = new TiledSprite(400, 80, resourcesManager.triviaOK, vbom) {
-			@Override
-			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
-				switch(pSceneTouchEvent.getAction()) {
-				case TouchEvent.ACTION_DOWN:
-					this.setScale(0.9f);
-					this.setCurrentTileIndex(1);
-					break;
-				case TouchEvent.ACTION_UP:
-					resourcesManager.click.play();
-					updateIsFirstTime();
-					MatchItPanel.this.clearChildScene();
-					nextQuestion();
-					break;
-				}
-				return true;
-			}
-			
-		};
-		triviaScene.attachChild(OK);
-		triviaScene.registerTouchArea(OK);
-		OK.setZIndex(1);
-		
-		triviaScene.setBackgroundEnabled(false);
-		triviaScene.sortChildren();
-	}
-	
-	private void createTryAgainScene() {
-		tryScene = new CameraScene(camera);
-		
-		tryMsg = new Sprite(400, 240, resourcesManager.tryAgainWarningMsg, vbom);
-		tryScene.setZIndex(0);
-		tryScene.attachChild(tryMsg);
-		
-		OK = new TiledSprite(400, 100, resourcesManager.triviaOK, vbom) {
-			@Override
-			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
-				switch (pSceneTouchEvent.getAction()) {
-				case TouchEvent.ACTION_DOWN:
-					this.setScale(0.9f);
-					this.setCurrentTileIndex(1);
-					break;
-
-				case TouchEvent.ACTION_UP:
-					resourcesManager.click.play();
-					MatchItPanel.this.clearChildScene();
-					SceneManager.getInstance().loadMatchItScene();
-					break;
-				}
-				return true;
-			}
-			
-		};
-		
-		OK.setZIndex(1);
-		tryScene.registerTouchArea(OK);
-		tryScene.attachChild(OK);
-		tryScene.setBackgroundEnabled(false);	
-	}
-	
-	private String isAnswered(int id) {
-		String s = db.matchItIsAnswered(id);
-		db.close();
-		return s;
-	}
-	
-	private void update(int id, String s) {
-		db.updateMatchIt(id, s);
-		db.close();
-	}
-	
-	private void checkStatus() {
-		String cmp = db.matchItIsAnswered(questionSet);
-		if(cmp.compareTo("true") == 0) {
-			lock();
-		} else return;
-	}
-	
-	private void lock() {
-		question.setCurrentTileIndex(1);
-		correctSprite.detachSelf();
-		unregisterTouchArea(correctSprite);
-		unregisterTouchArea(c1);
-		unregisterTouchArea(c2);
-		unregisterTouchArea(c3);
-		unregisterTouchArea(c4);
-		unregisterTouchArea(c5);
-	}
 }

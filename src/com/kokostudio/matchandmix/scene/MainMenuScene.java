@@ -474,6 +474,8 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 					resourcesManager.click.play();
 					no.setScale(1.0f);
 					no.setCurrentTileIndex(0);
+					menuSelectionTiledSprite[6].setScale(1.0f);
+					menuSelectionTiledSprite[6].setCurrentTileIndex(0);
 					MainMenuScene.this.clearChildScene();
 					break;
 				}

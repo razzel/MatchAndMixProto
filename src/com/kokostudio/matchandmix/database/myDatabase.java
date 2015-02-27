@@ -284,12 +284,13 @@ public class myDatabase extends SQLiteOpenHelper {
 			db.insert(table_Rating, null, cv);
 		
 	}
+	
 	public float getRate(int id) {
 		SQLiteDatabase db = this.getWritableDatabase();
-		Cursor c = db.rawQuery("SELECT "+fRate+ " FROM " +table_Rating+ " WHERE "+fRating_ID+ " = "+id, null);
+		Cursor c = db.rawQuery("SELECT "+fRate+ " FROM " +table_Rating+ " WHERE "+fRating_ID+ " = ?", new String[]{String.valueOf(id)});
 		c.moveToFirst();
 		int getColumn = c.getColumnIndex(fRate);
-		float getNum = c.getInt(getColumn);
+		float getNum = c.getFloat(getColumn);
 		c.close();
 		return getNum;
 	}
@@ -302,51 +303,59 @@ public class myDatabase extends SQLiteOpenHelper {
 			db.update(table_Rating, cv, fRating_ID +" = "+id, null);
 	}
 	
+	public void resetRate(int id) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put(fRating_ID, id);
+		cv.put(fRate, 0);
+			db.update(table_Rating, cv, fRating_ID +" = "+id, null);
+	}
+	
 	public void insertTry(SQLiteDatabase db) {
 		ContentValues cv = new ContentValues();
 		cv.put(fTry_ID, 0);
-		cv.put(fRate, 0);
+		cv.put(fTry, 0);
 		db.insert(table_Try, null, cv);
 
 		cv.put(fTry_ID, 1);
-		cv.put(fRate, 0);
+		cv.put(fTry, 0);
 		db.insert(table_Try, null, cv);
 
 		cv.put(fTry_ID, 2);
-		cv.put(fRate, 0);
+		cv.put(fTry, 0);
 		db.insert(table_Try, null, cv);
 
 		cv.put(fTry_ID, 3);
-		cv.put(fRate, 0);
+		cv.put(fTry, 0);
 		db.insert(table_Try, null, cv);
 
 		cv.put(fTry_ID, 4);
-		cv.put(fRate, 0);
+		cv.put(fTry, 0);
 		db.insert(table_Try, null, cv);
 
 		cv.put(fTry_ID, 5);
-		cv.put(fRate, 0);
+		cv.put(fTry, 0);
 		db.insert(table_Try, null, cv);
 
 		cv.put(fTry_ID, 5);
-		cv.put(fRate, 0);
+		cv.put(fTry, 0);
 		db.insert(table_Try, null, cv);
 
 		cv.put(fTry_ID, 6);
-		cv.put(fRate, 0);
+		cv.put(fTry, 0);
 		db.insert(table_Try, null, cv);
 		
 		cv.put(fTry_ID, 7);
-		cv.put(fRate, 0);
+		cv.put(fTry, 0);
 			db.insert(table_Try, null, cv);
 	}
 	
 	public float getTry(int id) {
 		SQLiteDatabase db = this.getWritableDatabase();
-		Cursor c = db.rawQuery("SELECT "+fTry+ " FROM " +table_Try+ " WHERE "+fTry_ID+ " = "+id, null);
+		Cursor c = db.rawQuery("SELECT "+fTry+ " FROM " +table_Try+ " WHERE "+fTry_ID+ " = ?", new String[]{String.valueOf(id)});
 		c.moveToFirst();
 		int getColumn = c.getColumnIndex(fTry);
-		float getNum = c.getInt(getColumn);
+		float getNum = c.getFloat(getColumn);
 		c.close();
 		return getNum;
 	}
@@ -355,9 +364,17 @@ public class myDatabase extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues cv = new ContentValues();
 		cv.put(fTry_ID, id);
-		cv.put(fTry, getRate(id) + f);
+		cv.put(fTry, getTry(id) + f);
 			db.update(table_Try, cv, fTry_ID +" = "+id, null);
 	} 
+	
+	public void resetTry(int id) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put(fTry_ID, id);
+		cv.put(fTry, 0);
+			db.update(table_Try, cv, fTry_ID +" = "+id, null);
+	}
 	
 	public String checkIsFirstTime(int id) {
 		SQLiteDatabase db = this.getReadableDatabase();

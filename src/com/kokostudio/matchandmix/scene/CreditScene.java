@@ -1,6 +1,7 @@
 package com.kokostudio.matchandmix.scene;
 
 import org.andengine.engine.camera.Camera;
+import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
@@ -15,10 +16,17 @@ public class CreditScene extends BaseScene {
 	private TiledSprite back;
 	private Sprite creditHeader;
 	
+	private AnimatedSprite credits;
+	
+	private TiledSprite next;
+	private TiledSprite prev;
+	
+	private int currentTile;
 
 	@Override
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
+		currentTile = 0;
 		createBackground();
 		createButtons();
 		createBody();
@@ -85,6 +93,10 @@ public class CreditScene extends BaseScene {
 	private void createBody() {
 		creditHeader = new Sprite(400, 430, resourcesManager.creditsHeaderTexture, vbom);
 		attachChild(creditHeader);
+		
+		credits = new AnimatedSprite(400, 200, resourcesManager.creditsBodyTexture, vbom);
+		credits.animate(2000);
+		attachChild(credits);
 	}
 
 }

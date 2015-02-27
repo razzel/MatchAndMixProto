@@ -16,6 +16,7 @@ import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.util.GLState;
 
+import android.net.http.SslCertificate;
 import android.text.method.Touch;
 import android.util.Log;
 
@@ -49,6 +50,9 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 	
 	int x;
 	private int lives;
+	private float totalLives;
+	private float liveSpent;
+	private float rate;
 	
 	private CameraScene triviaScene;
 	private Sprite triviaPanel;
@@ -65,14 +69,17 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 	private TiledSprite sLifeValue;
 	
 	private CameraScene htpScene;
-	private Sprite htp1;
-	private Sprite htp2;
+	private TiledSprite htp;
+	
+	private int currentTile;
 	
 	@Override
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 		db = new myDatabase(activity);
+		totalLives = 3;
 		lives = 3;
+		liveSpent = 0;
 		createBackground();
 		createButtons();	
 		createQuestion();
@@ -85,12 +92,6 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 		
 		if(db.checkIsFirstTime(1).compareTo("true")==0) {
 			createHowToScene();
-			
-			htp2.setVisible(false);
-			prev.setVisible(false);
-			OK.setVisible(false);
-			htpScene.unregisterTouchArea(OK);
-			htpScene.unregisterTouchArea(prev);
 			GuessTheMissingLetterPanel.this.setChildScene(htpScene, false, true, true);
 		}
 			
@@ -225,6 +226,8 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 					questionImageSound().play();
 					update(questionSet, "true");
 					lock();
+					db.updateRate(1, computeRate());
+					db.updateTry(1, 1);
 					GuessTheMissingLetterPanel.this.setChildScene(triviaScene, false, true, true);
 					//nextQuestion(); // comment mo to pag kinoment out mo yung nsa taas, tska coment out mo yung showTrivia() sa may createScene()
 					thatsCorrect.setAlpha(1.0f);
@@ -249,8 +252,9 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					liveSpent++;
 					sLifeValue.setCurrentTileIndex(lives);
-					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
+					thatsWrong.registerEntityModifier(new AlphaModifier(0.8f, 1.0f, 0));
 					break;
 				}
 				return true;
@@ -272,8 +276,9 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					liveSpent++;
 					sLifeValue.setCurrentTileIndex(lives);
-					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
+					thatsWrong.registerEntityModifier(new AlphaModifier(0.8f, 1.0f, 0));
 					break;
 				}
 				return true;
@@ -295,8 +300,9 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					liveSpent++;
 					sLifeValue.setCurrentTileIndex(lives);
-					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
+					thatsWrong.registerEntityModifier(new AlphaModifier(0.8f, 1.0f, 0));
 					break;
 				}
 				return true;
@@ -318,8 +324,9 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 					resourcesManager.wrong.play();
 					lives--;
 					checkLives();
+					liveSpent++;
 					sLifeValue.setCurrentTileIndex(lives);
-					thatsWrong.registerEntityModifier(new AlphaModifier(1.8f, 1.0f, 0));
+					thatsWrong.registerEntityModifier(new AlphaModifier(0.8f, 1.0f, 0));
 					break;
 				}
 				return true;
@@ -351,30 +358,31 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 	
 	private void createHowToScene() {
 		htpScene = new CameraScene(camera);
+		currentTile = 0;
 		
-		htp1 = new Sprite(400,  240, resourcesManager.GTMLhtp1, vbom);
-		htpScene.attachChild(htp1);
+		htp = new TiledSprite(400, 240, resourcesManager.GTMLHTP, vbom);
+		htpScene.attachChild(htp);
 		
-		htp2 = new Sprite(400, 240, resourcesManager.GTMLhtp2, vbom);
-		htpScene.attachChild(htp2);
-		
-		next = new TiledSprite(650, 240, resourcesManager.nextTiledTextureRegion, vbom) {
+		next = new TiledSprite(660, 240, resourcesManager.nextTiledTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {	
 				if(pSceneTouchEvent.isActionUp()) {
-					resourcesManager.click.play();
+					currentTile++;
+					htp.setCurrentTileIndex(currentTile);
+					
+					if(currentTile == 1) {
+						next.setVisible(false);
+						htpScene.unregisterTouchArea(next);
+						
+						prev.setVisible(true);
+						htpScene.registerTouchArea(prev);
+						
+						OK.setVisible(true);
+						htpScene.registerTouchArea(OK);
+					}
+					
 					next.setScale(1.0f);
 					next.setCurrentTileIndex(0);
-					
-					htp1.setVisible(false);
-					next.setVisible(false);
-					htpScene.unregisterTouchArea(next);
-					
-					htp2.setVisible(true);
-					prev.setVisible(true);
-					OK.setVisible(true);
-					htpScene.registerTouchArea(OK);
-					htpScene.registerTouchArea(prev);	;
 				} else if (pSceneTouchEvent.isActionDown()) {
 					next.setScale(0.9f);
 					next.setCurrentTileIndex(1);
@@ -386,24 +394,25 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 		htpScene.registerTouchArea(next);
 		htpScene.attachChild(next);
 		
-		prev = new TiledSprite(100, 240, resourcesManager.prevTiledTextureRegion, vbom) {
+		prev = new TiledSprite(120, 240, resourcesManager.prevTiledTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				if(pSceneTouchEvent.isActionUp()) {
-					resourcesManager.click.play();
+					currentTile--;
+					htp.setCurrentTileIndex(currentTile);
+					
+					if(currentTile == 0) {
+						next.setVisible(true);
+						htpScene.registerTouchArea(next);
+						
+						prev.setVisible(false);
+						htpScene.unregisterTouchArea(prev);
+						OK.setVisible(false);
+						htpScene.unregisterTouchArea(OK);
+					}
+					
 					prev.setScale(1.0f);
 					prev.setCurrentTileIndex(0);
-					
-					htp1.setVisible(true);
-					next.setVisible(true);
-					htpScene.registerTouchArea(next);
-					
-					htp2.setVisible(false);
-					prev.setVisible(false);
-					OK.setVisible(false);
-					htpScene.unregisterTouchArea(OK);
-					htpScene.unregisterTouchArea(prev);	
-					
 				} else if (pSceneTouchEvent.isActionDown()) {
 					prev.setScale(0.9f);
 					prev.setCurrentTileIndex(1);
@@ -411,6 +420,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 				return true;
 			}
 		};
+		prev.setVisible(false);
 		htpScene.attachChild(prev);
 		
 		OK = new TiledSprite(400, 50, resourcesManager.triviaOK, vbom) {
@@ -430,17 +440,23 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 			}
 			
 		};
-		htpScene.attachChild(OK);		
+		OK.setVisible(false);
+		htpScene.attachChild(OK);	
 		
 		htpScene.setBackgroundEnabled(false);
-		
-		
 	}
 	
 	private void checkLives() {
 		if(lives == 0) {
+			db.updateTry(1, 1);
+			db.updateRate(1, computeRate());
 			GuessTheMissingLetterPanel.this.setChildScene(tryScene, false, true, true);
 		}
+	}
+	
+	private float computeRate() {
+		rate = (liveSpent / totalLives);
+		return rate;
 	}
 	private void checkAudioStatus() {
 		if(db.isBGMOn().compareTo("true")==0) {
@@ -529,6 +545,9 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 					resourcesManager.click.play();
 					updateIsFirstTime();
 					GuessTheMissingLetterPanel.this.clearChildScene();
+					if(db.gtmlGetAnswered()==25) {
+						SceneManager.getInstance().loadGTMLScene();
+					}
 					nextQuestion();
 					break;
 				}
