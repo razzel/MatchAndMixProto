@@ -655,7 +655,7 @@ public class ThatColorIsPanel extends BaseScene {
 		
 		else if (questionSet == 24) pos = 230;
 
-		else if (questionSet == 25) pos = 230;
+		else if (questionSet == 25) pos = 150;
 		
 		else if (questionSet == 26) pos = 390;
 		
@@ -849,7 +849,7 @@ public class ThatColorIsPanel extends BaseScene {
 		else if (questionSet == 22) r = resourcesManager.yellowTextureRegion;
 		else if (questionSet == 24) r = resourcesManager.pinkTextureRegion;
 		else if (questionSet == 25) r = resourcesManager.grayTextureRegion;
-		else if (questionSet == 26) r = resourcesManager.greenTextureRegion;
+		else if (questionSet == 26) r = resourcesManager.brownTextureRegion;
 		else if (questionSet == 27) r = resourcesManager.brownTextureRegion;
 		else if (questionSet == 28) r = resourcesManager.blackTextureRegion;
 		return r;
@@ -900,7 +900,7 @@ public class ThatColorIsPanel extends BaseScene {
 		
 		else if (questionSet == 25) r = resourcesManager.redTextureRegion;
 		
-		else if (questionSet == 26) r = resourcesManager.whiteTextureRegion;
+		else if (questionSet == 26) r = resourcesManager.greenTextureRegion;
 		
 		else if (questionSet == 27) r = resourcesManager.blueTextureRegion;
 		
@@ -1006,7 +1006,7 @@ public class ThatColorIsPanel extends BaseScene {
 		
 		else if (questionSet == 25) r = resourcesManager.blackTextureRegion;
 		
-		else if (questionSet == 26) r = resourcesManager.brownTextureRegion;
+		else if (questionSet == 26) r = resourcesManager.whiteTextureRegion;
 		
 		else if (questionSet == 27) r = resourcesManager.greenTextureRegion;
 		
