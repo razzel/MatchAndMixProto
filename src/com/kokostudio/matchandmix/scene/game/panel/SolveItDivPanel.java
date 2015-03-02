@@ -524,7 +524,7 @@ public class SolveItDivPanel extends BaseScene {
 		if (questionSet == 0)
 			r = resourcesManager.texture5;
 		else if (questionSet == 1)
-			r = resourcesManager.texture2;
+			r = resourcesManager.texture10;
 		else if (questionSet == 2)
 			r = resourcesManager.texture1;
 		else if (questionSet == 3)

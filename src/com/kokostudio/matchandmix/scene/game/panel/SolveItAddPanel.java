@@ -672,14 +672,14 @@ public class SolveItAddPanel extends BaseScene {
 		else if(questionSet == 3) r = resourcesManager.texture7;
 		else if(questionSet == 4) r = resourcesManager.texture5;
 		
-		else if(questionSet == 6) r = resourcesManager.texture2;
+		else if(questionSet == 6) r = resourcesManager.texture3;
 		else if(questionSet == 7) r = resourcesManager.texture5;
 		else if(questionSet == 8) r = resourcesManager.texture8;
 		else if(questionSet == 9) r = resourcesManager.texture4;
 		else if(questionSet == 10) r = resourcesManager.texture8;
 		
 		else if(questionSet == 12) r = resourcesManager.texture1;
-		else if(questionSet == 13) r = resourcesManager.texture3;
+		else if(questionSet == 13) r = resourcesManager.texture1;
 		else if(questionSet == 14) r = resourcesManager.texture7;
 		else if(questionSet == 15) r = resourcesManager.texture9;
 		else if(questionSet == 16) r = resourcesManager.texture11;
@@ -707,7 +707,7 @@ public class SolveItAddPanel extends BaseScene {
 		else if(questionSet == 4) r = resourcesManager.texture3;
 		
 		else if(questionSet == 6) r = resourcesManager.texture2;
-		else if(questionSet == 7) r = resourcesManager.texture8;
+		else if(questionSet == 7) r = resourcesManager.texture3;
 		else if(questionSet == 8) r = resourcesManager.texture5;
 		else if(questionSet == 9) r = resourcesManager.texture14;
 		else if(questionSet == 10) r = resourcesManager.texture13;

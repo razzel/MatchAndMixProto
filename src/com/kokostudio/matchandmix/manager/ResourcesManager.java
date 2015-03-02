@@ -1860,7 +1860,7 @@ public class ResourcesManager {
 	private void loadTrivias2() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/trivia/");
 		triviaAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
-		CupcakeTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "pig.png");//Cake
+		CupcakeTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "cupcake.png");//Cake
 		PigTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "pig.png");
 		turtleTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "pig.png");//Turtle
 		rabbitTriva = BitmapTextureAtlasTextureRegionFactory.createFromAsset(triviaAtlas, activity, "rabbit.png");//Rabbit
@@ -2535,7 +2535,7 @@ public class ResourcesManager {
 				countItClueRectangleTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_rectangle.png");
 				countItClueLollipopTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_lollipop.png");
 				countItClueIglooTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_igloo.png");
-				countItClueDolphinTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_crab.png");
+				countItClueDolphinTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(countItClueAtlas, activity, "cc_igloo.png");
 				try {
 					this.countItClueAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 					this.countItClueAtlas.load();
@@ -2824,6 +2824,7 @@ public class ResourcesManager {
 		private void loadSolveItSubGraphics() {
 			loadSubQuestionImage();
 			loadSubQuestionImage2();
+			loadSubQuestionImage3();
 			loadSubQuestionText();
 			loadSubQuestionText2();
 			loadSubQuestionText3();
@@ -2832,6 +2833,28 @@ public class ResourcesManager {
 			private void loadSubQuestionImage() {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_solveit/subtract/question_image/");
 				solveItQuestionImageAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
+				
+				subQuestionImage12 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionImageAtlas, activity, "sis_q12.png");
+				subQuestionImage13 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionImageAtlas, activity, "sis_q13.png");
+				subQuestionImage14 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionImageAtlas, activity, "sis_q14.png");
+				subQuestionImage15 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionImageAtlas, activity, "sis_q15.png");
+				subQuestionImage16 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionImageAtlas, activity, "sis_q16.png");
+				subQuestionImage17 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionImageAtlas, activity, "sis_q17.png");
+				subQuestionImage18 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionImageAtlas, activity, "sis_q18.png");
+				
+				try {
+					this.solveItQuestionImageAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+					this.solveItQuestionImageAtlas.load();
+				} catch(final TextureAtlasBuilderException e) {
+					Debug.e(e);
+				}
+				
+			}
+			
+			private void loadSubQuestionImage3() {
+				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_solveit/subtract/question_image/");
+				solveItQuestionImageAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
+				
 				subQuestionImage1 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionImageAtlas, activity, "sis_q1.png");
 				subQuestionImage2 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionImageAtlas, activity, "sis_q2.png");
 				subQuestionImage3 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionImageAtlas, activity, "sis_q3.png");
@@ -2843,15 +2866,6 @@ public class ResourcesManager {
 				subQuestionImage9 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionImageAtlas, activity, "sis_q9.png");
 				subQuestionImage10 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionImageAtlas, activity, "sis_q10.png");
 				subQuestionImage11 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionImageAtlas, activity, "sis_q11.png");
-				subQuestionImage12 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionImageAtlas, activity, "sis_q12.png");
-				subQuestionImage13 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionImageAtlas, activity, "sis_q13.png");
-				subQuestionImage14 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionImageAtlas, activity, "sis_q14.png");
-				subQuestionImage15 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionImageAtlas, activity, "sis_q15.png");
-				subQuestionImage16 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionImageAtlas, activity, "sis_q16.png");
-				subQuestionImage17 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionImageAtlas, activity, "sis_q17.png");
-				subQuestionImage18 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionImageAtlas, activity, "sis_q18.png");
-				subQuestionImage19 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionImageAtlas, activity, "sis_q19.png");
-				
 				try {
 					this.solveItQuestionImageAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 					this.solveItQuestionImageAtlas.load();
@@ -2880,9 +2894,26 @@ public class ResourcesManager {
 				
 			}
 			
-			
-			
 			private void loadSubQuestionText() {
+				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_solveit/subtract/question_text/");
+				solveItQuestionTextAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
+				subQuestionText1 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionTextAtlas, activity, "sis_p1.png");
+				subQuestionText2 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionTextAtlas, activity, "sis_p2.png");
+				subQuestionText3 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionTextAtlas, activity, "sis_p3.png");
+				subQuestionText4 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionTextAtlas, activity, "sis_p4.png");
+				subQuestionText5 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionTextAtlas, activity, "sis_p5.png");
+		
+				
+				try {
+					this.solveItQuestionTextAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+					this.solveItQuestionTextAtlas.load();
+				} catch(final TextureAtlasBuilderException e) {
+					
+				}
+				
+			}
+			
+			private void loadSubQuestionText2() {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_solveit/subtract/question_text/");
 				solveItQuestionTextAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				
@@ -2906,25 +2937,8 @@ public class ResourcesManager {
 				
 			}
 			
-			private void loadSubQuestionText3() {
-				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_solveit/subtract/question_text/");
-				solveItQuestionTextAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
-				subQuestionText1 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionTextAtlas, activity, "sis_p1.png");
-				subQuestionText2 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionTextAtlas, activity, "sis_p2.png");
-				subQuestionText3 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionTextAtlas, activity, "sis_p3.png");
-				subQuestionText4 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionTextAtlas, activity, "sis_p4.png");
-				subQuestionText5 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionTextAtlas, activity, "sis_p5.png");
 		
-				
-				try {
-					this.solveItQuestionTextAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
-					this.solveItQuestionTextAtlas.load();
-				} catch(final TextureAtlasBuilderException e) {
-					
-				}
-				
-			}
-			private void loadSubQuestionText2() {
+			private void loadSubQuestionText3() {
 				BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game_solveit/subtract/question_text/");
 				solveItQuestionTextAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
 				

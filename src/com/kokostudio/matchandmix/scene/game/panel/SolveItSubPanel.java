@@ -476,13 +476,13 @@ public class SolveItSubPanel extends BaseScene {
 		else if (questionSet == 12) r = resourcesManager.ansTexture7;
 		else if (questionSet == 13) r = resourcesManager.ansTexture6;
 		else if (questionSet == 14) r = resourcesManager.ansTexture4;
-		else if (questionSet == 15) r = resourcesManager.ansTexture0;
-		else if (questionSet == 16) r = resourcesManager.ansTexture10;
+		else if (questionSet == 15) r = resourcesManager.ansTexture6;
+		else if (questionSet == 16) r = resourcesManager.ansTexture0;
 		
-		else if (questionSet == 18) r = resourcesManager.ansTexture9;
-		else if (questionSet == 19) r = resourcesManager.ansTexture13;
-		else if (questionSet == 20) r = resourcesManager.ansTexture16;
-		else if (questionSet == 21) r = resourcesManager.ansTexture9;
+		else if (questionSet == 18) r = resourcesManager.ansTexture10;
+		else if (questionSet == 19) r = resourcesManager.ansTexture9;
+		else if (questionSet == 20) r = resourcesManager.ansTexture13;
+		else if (questionSet == 21) r = resourcesManager.ansTexture16;
 		else if (questionSet == 22) r = resourcesManager.ansTexture13;
 		
 		else if (questionSet == 24) r = resourcesManager.ansTexture12;
@@ -518,13 +518,13 @@ public class SolveItSubPanel extends BaseScene {
 		else if (questionSet == 12) tr = resourcesManager.texture7;
 		else if (questionSet == 13) tr = resourcesManager.texture6;
 		else if (questionSet == 14) tr = resourcesManager.texture4;
-		else if (questionSet == 15) tr = resourcesManager.texture0;
-		else if (questionSet == 16) tr = resourcesManager.texture10;
+		else if (questionSet == 15) tr = resourcesManager.texture6;
+		else if (questionSet == 16) tr = resourcesManager.texture0;
 		
-		else if (questionSet == 18) tr = resourcesManager.texture9;
-		else if (questionSet == 19) tr = resourcesManager.texture13;
-		else if (questionSet == 20) tr = resourcesManager.texture16;
-		else if (questionSet == 21) tr = resourcesManager.texture9;
+		else if (questionSet == 18) tr = resourcesManager.texture10;
+		else if (questionSet == 19) tr = resourcesManager.texture9;
+		else if (questionSet == 20) tr = resourcesManager.texture13;
+		else if (questionSet == 21) tr = resourcesManager.texture16;
 		else if (questionSet == 22) tr = resourcesManager.texture13;
 		
 		else if (questionSet == 24) tr = resourcesManager.texture12;

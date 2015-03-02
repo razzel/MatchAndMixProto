@@ -476,7 +476,7 @@ public class SolveItMulPanel extends BaseScene {
 		else if(questionSet == 22) r = resourcesManager.ansTexture13;
 		
 		else if(questionSet == 24) r = resourcesManager.ansTexture14; 
-		else if(questionSet == 25) r = resourcesManager.ansTexture0;
+		else if(questionSet == 25) r = resourcesManager.ansTexture16;
 		else if(questionSet == 26) r = resourcesManager.ansTexture16;
 		else if(questionSet == 27) r = resourcesManager.ansTexture0;
 		else if(questionSet == 28) r = resourcesManager.ansTexture16;
@@ -511,7 +511,7 @@ public class SolveItMulPanel extends BaseScene {
 		else if(questionSet == 22) tr = resourcesManager.texture13;
 		
 		else if(questionSet == 24) tr = resourcesManager.texture14; 
-		else if(questionSet == 25) tr = resourcesManager.texture0;
+		else if(questionSet == 25) tr = resourcesManager.texture16;
 		else if(questionSet == 26) tr = resourcesManager.texture16;
 		else if(questionSet == 27) tr = resourcesManager.texture0;
 		else if(questionSet == 28) tr = resourcesManager.texture16;
@@ -612,7 +612,7 @@ public class SolveItMulPanel extends BaseScene {
 		else if(questionSet == 22) r = resourcesManager.texture0;
 		
 		else if(questionSet == 24) r = resourcesManager.texture0;
-		else if(questionSet == 25) r = resourcesManager.texture16;
+		else if(questionSet == 25) r = resourcesManager.texture0;
 		else if(questionSet == 26) r = resourcesManager.texture15;
 		else if(questionSet == 27) r = resourcesManager.texture2;
 		else if(questionSet == 28) r = resourcesManager.texture12;
