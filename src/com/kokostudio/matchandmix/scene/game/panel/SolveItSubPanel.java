@@ -291,9 +291,8 @@ public class SolveItSubPanel extends BaseScene {
 							}
 							getQuestionIndex(questionSet+x);
 						}
-					
-					}
-					SceneManager.getInstance().loadSolveItSubPanelScene();		
+						SceneManager.getInstance().loadSolveItSubPanelScene();	
+					}				
 				}
 		}));
 		
@@ -318,7 +317,7 @@ public class SolveItSubPanel extends BaseScene {
 				case TouchEvent.ACTION_UP:
 					resourcesManager.click.play();
 					SolveItSubPanel.this.clearChildScene();
-					SceneManager.getInstance().loadGTMLScene();
+					SceneManager.getInstance().loadSolveItSubScene();
 					break;
 				}
 				return true;
@@ -352,6 +351,7 @@ public class SolveItSubPanel extends BaseScene {
 		if(lives == 0) {
 			db.updateTry(5, 1);
 			db.updateRate(5, computeRate());
+			resourcesManager.sorry.play();
 			SolveItSubPanel.this.setChildScene(tryScene, false, true, true);
 		}
 	}

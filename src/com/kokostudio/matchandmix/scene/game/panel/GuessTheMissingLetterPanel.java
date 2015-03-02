@@ -380,7 +380,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 						OK.setVisible(true);
 						htpScene.registerTouchArea(OK);
 					}
-					
+					resourcesManager.click.play();
 					next.setScale(1.0f);
 					next.setCurrentTileIndex(0);
 				} else if (pSceneTouchEvent.isActionDown()) {
@@ -410,7 +410,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 						OK.setVisible(false);
 						htpScene.unregisterTouchArea(OK);
 					}
-					
+					resourcesManager.click.play();
 					prev.setScale(1.0f);
 					prev.setCurrentTileIndex(0);
 				} else if (pSceneTouchEvent.isActionDown()) {
@@ -450,6 +450,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 		if(lives == 0) {
 			db.updateTry(1, 1);
 			db.updateRate(1, computeRate());
+			resourcesManager.sorry.play();
 			GuessTheMissingLetterPanel.this.setChildScene(tryScene, false, true, true);
 		}
 	}
@@ -504,9 +505,10 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 						}
 						getQuestionIndex(questionSet+x);
 					}
+					SceneManager.getInstance().loadGTMLPanelScene();
 				
 				}
-				SceneManager.getInstance().loadGTMLPanelScene();		
+				
 			}
 		}));
 	}
@@ -545,9 +547,6 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 					resourcesManager.click.play();
 					updateIsFirstTime();
 					GuessTheMissingLetterPanel.this.clearChildScene();
-					if(db.gtmlGetAnswered()==25) {
-						SceneManager.getInstance().loadGTMLScene();
-					}
 					nextQuestion();
 					break;
 				}

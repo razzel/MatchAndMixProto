@@ -521,8 +521,8 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 			break;
 		case 2:
 			resourcesManager.click.play();
-			//resetCamera();
-			// HOW TO PLAY
+			resetCamera();
+			SceneManager.getInstance().loadHowToPlayScene();
 			break;
 		case 3:
 			resourcesManager.click.play();

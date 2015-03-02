@@ -6,6 +6,12 @@ import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
 import com.kokostudio.matchandmix.base.BaseScene;
 import com.kokostudio.matchandmix.scene.AboutScene;
 import com.kokostudio.matchandmix.scene.CreditScene;
+import com.kokostudio.matchandmix.scene.HowToPlayScene;
+import com.kokostudio.matchandmix.scene.HtpColorScene;
+import com.kokostudio.matchandmix.scene.HtpCountScene;
+import com.kokostudio.matchandmix.scene.HtpGTML;
+import com.kokostudio.matchandmix.scene.HtpMatchScene;
+import com.kokostudio.matchandmix.scene.HtpSolveScene;
 import com.kokostudio.matchandmix.scene.LoadingScene;
 import com.kokostudio.matchandmix.scene.MainMenuScene;
 import com.kokostudio.matchandmix.scene.GameMenuScene;
@@ -45,6 +51,13 @@ public class SceneManager {
 	private BaseScene aboutScene;
 	private BaseScene gameMenuScene;
 	private BaseScene creditScene;
+	
+	private BaseScene howToPlayScene;
+		private BaseScene htpMatch;
+		private BaseScene htpGTML;
+		private BaseScene htpColor;
+		private BaseScene htpCount;
+		private BaseScene htpSolve;
 	
 	private BaseScene loadingScene;
 	
@@ -87,6 +100,12 @@ public class SceneManager {
 		SCENE_NEXT,
 		SCENE_GAMEMENU,
 		SCENE_CREDITS,
+		SCENE_HOWTOPLAY,
+		SCENE_HTPMATCH,
+		SCENE_HTPGTML,
+		SCENE_HTPCOLOR,
+		SCENE_HTPCOUNT,
+		SCENE_HTPSOLVE,
 		//GAME SCENES
 		SCENE_MATCHIT,
 		SCENE_GTML,
@@ -193,12 +212,44 @@ public class SceneManager {
 		setScene(aboutScene);
 	}
 	
-	// CREDITS
+	// CREDITS ===============================================================================================================
 	public void loadCreditScene() {
 		ResourcesManager.getInstance().loadCredits();
 		creditScene = new CreditScene();
 		setScene(creditScene);
 	}
+	
+	// HOW TO PLAY
+	public void loadHowToPlayScene() {
+		ResourcesManager.getInstance().loadHowToPlayResources();
+		howToPlayScene = new HowToPlayScene();
+		setScene(howToPlayScene);
+	}
+	
+		public void loadHtpMatch() {
+			htpMatch = new HtpMatchScene();
+			setScene(htpMatch);
+		}
+		
+		public void loadHtpGTML() {
+			htpGTML = new HtpGTML();
+			setScene(htpGTML);
+		}
+		
+		public void loadHtpCount() {
+			htpCount = new HtpCountScene();
+			setScene(htpCount);
+		}
+		
+		public void loadHtpSolve() {
+			htpSolve = new HtpSolveScene();
+			setScene(htpSolve);
+		}
+		
+		public void loadHtpColor() {
+			htpColor = new HtpColorScene();
+			setScene(htpColor);
+		}
 	
 	
 	// GAMES SCENES MANAGEMENT

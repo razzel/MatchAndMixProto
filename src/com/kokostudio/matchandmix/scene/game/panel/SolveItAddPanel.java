@@ -304,9 +304,10 @@ public class SolveItAddPanel extends BaseScene {
 							}
 							getQuestionIndex(questionSet+x);
 						}
+						SceneManager.getInstance().loadSolveItAddPanelScene();	
 					
 					}
-					SceneManager.getInstance().loadSolveItAddPanelScene();		
+						
 				}
 		}));
 		
@@ -359,17 +360,26 @@ public class SolveItAddPanel extends BaseScene {
 					currentTile++;
 					htp.setCurrentTileIndex(currentTile);
 					
-					if(currentTile == 1) {				
+					if(currentTile == 1) {
+						
 						prev.setVisible(true);
 						htpScene.registerTouchArea(prev);
+						
 					} else if (currentTile == 2) {
+						
+						next.setVisible(false);
+						htpScene.unregisterTouchArea(next);
+						
+						OK.setVisible(true);
+						htpScene.registerTouchArea(OK); 
+					} /*else if  (currentTile == 3) {
 						next.setVisible(false);
 						htpScene.unregisterTouchArea(next);
 						
 						OK.setVisible(true);
 						htpScene.registerTouchArea(OK);
-					}
-					
+					}*/
+					resourcesManager.click.play();
 					next.setScale(1.0f);
 					next.setCurrentTileIndex(0);
 				} else if (pSceneTouchEvent.isActionDown()) {
@@ -399,7 +409,11 @@ public class SolveItAddPanel extends BaseScene {
 						OK.setVisible(false);
 						htpScene.unregisterTouchArea(OK);
 					}
-					
+					if (currentTile == 1) {
+						OK.setVisible(false);
+						htpScene.unregisterTouchArea(OK);
+					}
+					resourcesManager.click.play();
 					prev.setScale(1.0f);
 					prev.setCurrentTileIndex(0);
 				} else if (pSceneTouchEvent.isActionDown()) {
@@ -453,6 +467,7 @@ public class SolveItAddPanel extends BaseScene {
 		if(lives == 0) {
 			db.updateTry(4, 1);
 			db.updateRate(4, computeRate());
+			resourcesManager.sorry.play();
 			SolveItAddPanel.this.setChildScene(tryScene, false, true, true);
 		}
 	}

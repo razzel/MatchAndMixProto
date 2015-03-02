@@ -291,9 +291,10 @@ public class SolveItMulPanel extends BaseScene {
 							}
 							getQuestionIndex(questionSet+x);
 						}
+						SceneManager.getInstance().loadSolveItMulPanelScene();	
 					
 					}
-					SceneManager.getInstance().loadSolveItMulPanelScene();		
+						
 				}
 		}));
 		
@@ -352,6 +353,7 @@ public class SolveItMulPanel extends BaseScene {
 		if(lives == 0) {
 			db.updateTry(6, 1);
 			db.updateRate(6, computeRate());
+			resourcesManager.sorry.play();
 			SolveItMulPanel.this.setChildScene(tryScene, false, true, true);
 		}
 	}

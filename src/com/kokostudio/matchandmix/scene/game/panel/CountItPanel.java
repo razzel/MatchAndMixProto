@@ -417,6 +417,7 @@ public class CountItPanel extends BaseScene {
 		if(lives == 0) {
 			db.updateRate(3, computeRate());
 			db.updateTry(3, 1);
+			resourcesManager.sorry.play();
 			CountItPanel.this.setChildScene(tryScene, false, true, true);
 		}
 	}
@@ -503,7 +504,7 @@ public class CountItPanel extends BaseScene {
 						OK.setVisible(true);
 						htpScene.registerTouchArea(OK);
 					}
-					
+					resourcesManager.click.play();
 					next.setScale(1.0f);
 					next.setCurrentTileIndex(0);
 				} else if (pSceneTouchEvent.isActionDown()) {
@@ -533,7 +534,11 @@ public class CountItPanel extends BaseScene {
 						OK.setVisible(false);
 						htpScene.unregisterTouchArea(OK);
 					}
-					
+					if (currentTile == 2 | currentTile == 1) {
+						OK.setVisible(false);
+						htpScene.unregisterTouchArea(OK);
+					}
+					resourcesManager.click.play();
 					prev.setScale(1.0f);
 					prev.setCurrentTileIndex(0);
 				} else if (pSceneTouchEvent.isActionDown()) {
@@ -578,7 +583,10 @@ public class CountItPanel extends BaseScene {
 	
 	private void checkAudioStatus() {
 		if(db.isBGMOn().compareTo("true")==0) {
-			engine.getMusicManager().setMasterVolume(0.10f);
+			engine.getMusicManager().setMasterVolume(0.50f);
+		}
+		if(db.isSFXOn().compareTo("true")==0) {
+			engine.getSoundManager().setMasterVolume(1.5f);
 		}
 	}
 	
@@ -618,9 +626,9 @@ public class CountItPanel extends BaseScene {
 						}
 						getQuestionIndex(questionSet+x);
 					}
-				
+					SceneManager.getInstance().loadCountItPanelScene();	
 				}
-				SceneManager.getInstance().loadCountItPanelScene();		
+					
 			}
 		}));
 	}

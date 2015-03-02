@@ -338,9 +338,10 @@ public class MatchItPanel extends BaseScene {
 							}
 							getQuestionIndex(questionSet+x);
 						}
+						SceneManager.getInstance().loadMatchItPanelScene();	
 					
 					}
-					SceneManager.getInstance().loadMatchItPanelScene();		
+						
 				}
 		}));
 		
@@ -381,6 +382,7 @@ public class MatchItPanel extends BaseScene {
 		if(lives == 0) {
 			db.updateTry(0, 1);
 			db.updateRate(0, computeRate());
+			resourcesManager.sorry.play();
 			MatchItPanel.this.setChildScene(tryScene, false, true, true);
 		}
 	}
@@ -405,22 +407,25 @@ public class MatchItPanel extends BaseScene {
 					htp.setCurrentTileIndex(currentTile);
 					
 					if(currentTile == 1) {
-						//next.setVisible(false);
-						//htpScene.unregisterTouchArea(next);
 						
 						prev.setVisible(true);
 						htpScene.registerTouchArea(prev);
 						
-						//OK.setVisible(true);
-						//htpScene.registerTouchArea(OK);
 					} else if (currentTile == 2) {
+						/*
+						next.setVisible(false);
+						htpScene.unregisterTouchArea(next);
+						
+						OK.setVisible(true);
+						htpScene.registerTouchArea(OK); */
+					} else if  (currentTile == 3) {
 						next.setVisible(false);
 						htpScene.unregisterTouchArea(next);
 						
 						OK.setVisible(true);
 						htpScene.registerTouchArea(OK);
 					}
-					
+					resourcesManager.click.play();
 					next.setScale(1.0f);
 					next.setCurrentTileIndex(0);
 				} else if (pSceneTouchEvent.isActionDown()) {
@@ -449,8 +454,12 @@ public class MatchItPanel extends BaseScene {
 						htpScene.unregisterTouchArea(prev);
 						OK.setVisible(false);
 						htpScene.unregisterTouchArea(OK);
+					} 
+					if (currentTile == 2 | currentTile ==1) {
+						OK.setVisible(false);
+						htpScene.unregisterTouchArea(OK);
 					}
-					
+					resourcesManager.click.play();
 					prev.setScale(1.0f);
 					prev.setCurrentTileIndex(0);
 				} else if (pSceneTouchEvent.isActionDown()) {
@@ -509,9 +518,6 @@ public class MatchItPanel extends BaseScene {
 					resourcesManager.click.play();
 					updateIsFirstTime();
 					MatchItPanel.this.clearChildScene();
-					if(db.matchGetAnswered()==25) {
-						SceneManager.getInstance().loadMatchItScene();
-					}
 					nextQuestion();
 					break;
 				}
@@ -1594,7 +1600,7 @@ public class MatchItPanel extends BaseScene {
 		else if (questionSet == 24) t = resourcesManager.GrapesTriva;
 		else if (questionSet == 25) t = resourcesManager.PigTriva;
 		else if (questionSet == 26) t = resourcesManager.pumpkinTriva;
-		else if (questionSet == 27) t = resourcesManager.eggplantTriva;
+		else if (questionSet == 27) t = resourcesManager.rabbitTriva;
 		else if (questionSet == 28) t = resourcesManager.rabbitTriva;
 		return t;
 	}

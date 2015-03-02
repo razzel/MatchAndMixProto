@@ -289,9 +289,9 @@ public class SolveItDivPanel extends BaseScene {
 							}
 							getQuestionIndex(questionSet+x);
 						}
-					
+						SceneManager.getInstance().loadSolveItDivPanelScene();	
 					}
-					SceneManager.getInstance().loadSolveItDivPanelScene();		
+						
 				}
 		}));
 		
@@ -350,6 +350,7 @@ public class SolveItDivPanel extends BaseScene {
 		if(lives == 0) {
 			db.updateTry(7, 1);
 			db.updateRate(7, computeRate());
+			resourcesManager.sorry.play();
 			SolveItDivPanel.this.setChildScene(tryScene, false, true, true);
 		}
 	}

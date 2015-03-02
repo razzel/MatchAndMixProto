@@ -362,7 +362,7 @@ public class ThatColorIsPanel extends BaseScene {
 						OK.setVisible(true);
 						htpScene.registerTouchArea(OK);
 					}*/
-					
+					resourcesManager.click.play();
 					next.setScale(1.0f);
 					next.setCurrentTileIndex(0);
 				} else if (pSceneTouchEvent.isActionDown()) {
@@ -392,7 +392,40 @@ public class ThatColorIsPanel extends BaseScene {
 						OK.setVisible(false);
 						htpScene.unregisterTouchArea(OK);
 					}
+					resourcesManager.click.play();
+					prev.setScale(1.0f);
+					prev.setCurrentTileIndex(0);
+				} else if (pSceneTouchEvent.isActionDown()) {
+					prev.setScale(0.9f);
+					prev.setCurrentTileIndex(1);
+				}
+				return true;
+			}
+		};
+		prev.setVisible(false);
+		htpScene.attachChild(prev);
+		
+		prev = new TiledSprite(120, 240, resourcesManager.prevTiledTextureRegion, vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				if(pSceneTouchEvent.isActionUp()) {
+					currentTile--;
+					htp.setCurrentTileIndex(currentTile);
 					
+					if(currentTile == 0) {
+						next.setVisible(true);
+						htpScene.registerTouchArea(next);
+						
+						prev.setVisible(false);
+						htpScene.unregisterTouchArea(prev);
+						OK.setVisible(false);
+						htpScene.unregisterTouchArea(OK);
+					}
+					if (currentTile == 1) {
+						OK.setVisible(false);
+						htpScene.unregisterTouchArea(OK);
+					}
+					resourcesManager.click.play();
 					prev.setScale(1.0f);
 					prev.setCurrentTileIndex(0);
 				} else if (pSceneTouchEvent.isActionDown()) {
@@ -432,6 +465,7 @@ public class ThatColorIsPanel extends BaseScene {
 		if(lives == 0) {
 			db.updateRate(2, computeRate());
 			db.updateTry(2, 1);
+			resourcesManager.sorry.play();
 			ThatColorIsPanel.this.setChildScene(tryScene, false, true, true);
 		}
 	}
@@ -493,9 +527,9 @@ public class ThatColorIsPanel extends BaseScene {
 						}
 						getQuestionIndex(questionSet+x);
 					}
-				
+					SceneManager.getInstance().loadThatColorIsPanelScene();		
 				}
-				SceneManager.getInstance().loadThatColorIsPanelScene();		
+				
 			}
 		}));
 	}

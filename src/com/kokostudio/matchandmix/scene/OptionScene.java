@@ -150,7 +150,7 @@ public class OptionScene extends BaseScene {
 		
 		// ON AND OFF FOR BGM
 		// create on and off button	
-		bgmOn = new Sprite(440, 233, resourcesManager.onTextureRegion, vbom) {
+		bgmOn = new Sprite(440, 258, resourcesManager.onTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				switch(pSceneTouchEvent.getAction()) {
@@ -169,7 +169,7 @@ public class OptionScene extends BaseScene {
 		registerTouchArea(bgmOn);
 		attachChild(bgmOn);
 		
-		bgmOff = new Sprite(440,  233, resourcesManager.offTextureRegion, vbom) {
+		bgmOff = new Sprite(440,  258, resourcesManager.offTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				switch(pSceneTouchEvent.getAction()) {
@@ -189,7 +189,7 @@ public class OptionScene extends BaseScene {
 		attachChild(bgmOff);
 		
 		// ON AND OFF FOR SFX
-		sfxOn = new Sprite(440, 167, resourcesManager.onTextureRegion, vbom) {
+		sfxOn = new Sprite(440, 200, resourcesManager.onTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				switch(pSceneTouchEvent.getAction()) {
@@ -208,7 +208,7 @@ public class OptionScene extends BaseScene {
 		registerTouchArea(sfxOn);
 		attachChild(sfxOn);
 		
-		sfxOff = new Sprite(440,  167, resourcesManager.offTextureRegion, vbom) {
+		sfxOff = new Sprite(440,  200, resourcesManager.offTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				switch(pSceneTouchEvent.getAction()) {
@@ -370,8 +370,10 @@ public class OptionScene extends BaseScene {
 		}
 		
 		// RESET SOUNDS
-		toggleBGMButton();
-		toggleSFXButton();
+		if(db.isBGMOn().compareTo("false")==0) toggleBGMButton();
+
+		if(db.isSFXOn().compareTo("false")==0) toggleSFXButton();
+		
 		
 		//RESET TRIES AND RATES
 		for(int i = 0; i < 8; i++) {
@@ -383,9 +385,9 @@ public class OptionScene extends BaseScene {
 		activity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				Toast.makeText(activity, "The games has been successfully reset", Toast.LENGTH_LONG).show();
+				Toast.makeText(activity, "Reset has been successful!", Toast.LENGTH_LONG).show();
 				
-				engine.registerUpdateHandler(new TimerHandler(2f, new ITimerCallback() {
+				engine.registerUpdateHandler(new TimerHandler(1f, new ITimerCallback() {
 					@Override
 					public void onTimePassed(TimerHandler pTimerHandler) {
 						unregisterUpdateHandler(pTimerHandler);

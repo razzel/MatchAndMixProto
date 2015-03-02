@@ -56,6 +56,12 @@ public class ResourcesManager {
 	public TiledTextureRegion countHTP;
 	public TiledTextureRegion addHTP;
 	
+	public TiledTextureRegion btnMatchHTP;
+	public TiledTextureRegion btnCountHTP;
+	public TiledTextureRegion btnSolveHTP;
+	public TiledTextureRegion btnGTMLHTP;
+	public TiledTextureRegion btnColorHTP;
+	
 	// CORRECT WRONG CONTINUE
 	public ITextureRegion thatsCorrectTexture;
 	public ITextureRegion thatsWrongTexture;
@@ -831,6 +837,8 @@ public class ResourcesManager {
 	public Sound click;
 	public Sound correct;
 	public Sound wrong;
+	public Sound sorry;
+	public Sound selectagame;;
 	
 	public void loadBGM() {
 		MusicFactory.setAssetBasePath("sfx/");
@@ -854,6 +862,9 @@ public class ResourcesManager {
 		try {
 			this.correct = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "correct.mp3");
 			this.wrong = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "wrong.mp3");
+			this.sorry = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "SorryTryAgain.mp3");
+			this.selectagame = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "Selectagame.mp3");
+			
 		} catch(final IOException e) {
 			Debug.e(e);
 		}
@@ -1787,6 +1798,26 @@ public class ResourcesManager {
 			mGameTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			mGameTextureAtlas.load();
 		} catch (final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+	}
+	
+	// ***************************************************************
+	// HOW TO PLAY
+	// ***************************************************************
+	
+	public void loadHowToPlayResources() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/how_to_play/");
+		mGameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 630, 370, TextureOptions.BILINEAR);
+		btnMatchHTP = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mGameTextureAtlas, activity, "htp_miBtn.png", 2, 1);
+		btnColorHTP = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mGameTextureAtlas, activity, "htp_tciBtn.png", 2, 1);
+		btnCountHTP = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mGameTextureAtlas, activity, "htp_ciBtn.png", 2, 1);
+		btnGTMLHTP = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mGameTextureAtlas, activity, "htp_gmlBtn.png", 2, 1);
+		btnSolveHTP = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mGameTextureAtlas, activity, "htp_siBtn.png", 2, 1);
+		try {
+			mGameTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			mGameTextureAtlas.load();
+		} catch(final TextureAtlasBuilderException e) {
 			Debug.e(e);
 		}
 	}
