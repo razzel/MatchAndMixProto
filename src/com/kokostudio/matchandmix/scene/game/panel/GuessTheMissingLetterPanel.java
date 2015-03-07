@@ -666,6 +666,34 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 		Sound trivia = null;
 		if(questionSet == 0) trivia = resourcesManager.appleTriviaSound;
 		else if(questionSet == 1) trivia = resourcesManager.avocadoTriviaSound;
+		else if(questionSet == 2) trivia = resourcesManager.mangoTriviaSound;
+		else if(questionSet == 3) trivia = resourcesManager.orangeTriviaSound;
+		else if(questionSet == 4) trivia = resourcesManager.grapesTriviaSound;
+		
+		else if(questionSet == 6) trivia = resourcesManager.strawberryTriviaSound;
+		else if(questionSet == 7) trivia = resourcesManager.pumpkinTriviaSound;
+		else if(questionSet == 8) trivia = resourcesManager.zebraTriviaSound;
+		else if(questionSet == 9) trivia = resourcesManager.diamondTriviaSound;
+		else if(questionSet == 10) trivia = resourcesManager.castleTriviaSound;
+		
+		else if(questionSet == 12) trivia = resourcesManager.mouseTriviaSound;
+		else if(questionSet == 13) trivia = resourcesManager.BoatTriviaSound;
+		else if(questionSet == 14) trivia = resourcesManager.cupcakeTriviaSound;
+		else if(questionSet == 15) trivia = resourcesManager.pigTriviaSound;
+		else if(questionSet == 16) trivia = resourcesManager.turtleTriviaSound;
+		
+		else if(questionSet == 18) trivia = resourcesManager.rabbitTriviaSound;
+		else if(questionSet == 19) trivia = resourcesManager.flagTriviaSound;
+		else if(questionSet == 20) trivia = resourcesManager.elephantTriviaSound;
+		else if(questionSet == 21) trivia = resourcesManager.monkeyTriviaSound;
+		else if(questionSet == 22) trivia = resourcesManager.PandaTriviaSound;
+		
+		else if(questionSet == 24) trivia = resourcesManager.snakeTriviaSound;
+		else if(questionSet == 25) trivia = resourcesManager.moonTriviaSound;
+		else if(questionSet == 26) trivia = resourcesManager.iglooTriviaSound;
+		else if(questionSet == 27) trivia = resourcesManager.giraffeTriviaSound;
+		else if(questionSet == 28) trivia = resourcesManager.owlTriviaSound;
+		
 		
 		return trivia;
 	}

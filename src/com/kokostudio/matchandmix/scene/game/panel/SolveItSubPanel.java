@@ -488,7 +488,7 @@ public class SolveItSubPanel extends BaseScene {
 	}
 
 	private ITextureRegion questionText() {
-
+		r = null;
 		if (questionSet == 0)
 			r = resourcesManager.subQuestionText1;
 		else if (questionSet == 1)

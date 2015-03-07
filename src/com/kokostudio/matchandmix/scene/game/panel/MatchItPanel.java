@@ -638,7 +638,34 @@ public class MatchItPanel extends BaseScene {
 	private Sound playTrivia() {
 		Sound trivia = null;
 		if(questionSet == 0) trivia = resourcesManager.triangleTriviaSound;
-		else if(questionSet == 1) trivia = resourcesManager.squareTriviaSound;
+		else if (questionSet == 1) trivia = resourcesManager.squareTriviaSound;
+		else if (questionSet == 2) trivia = resourcesManager.airplaneTriviaSound;
+		else if (questionSet == 3) trivia = resourcesManager.starTriviaSound;
+		else if (questionSet == 4) trivia = resourcesManager.avocadoTriviaSound;
+		
+		else if (questionSet == 6) trivia = resourcesManager.catTriviaSound;
+		else if (questionSet == 7) trivia = resourcesManager.cornTriviaSound;
+		else if (questionSet == 8) trivia = resourcesManager.birdTriviaSound;
+		else if (questionSet == 9) trivia = resourcesManager.circleTriviaSound;
+		else if (questionSet == 10) trivia = resourcesManager.dogTriviaSound;
+		
+		else if (questionSet == 12) trivia = resourcesManager.carrotTriviaSound;
+		else if (questionSet == 13) trivia = resourcesManager.doughnutTriviaSound;
+		else if (questionSet == 14) trivia = resourcesManager.appleTriviaSound;
+		else if (questionSet == 15) trivia = resourcesManager.strawberryTriviaSound;
+		else if (questionSet == 16) trivia = resourcesManager.flowerTriviaSound;
+		
+		else if (questionSet == 18) trivia = resourcesManager.mangoTriviaSound;
+		else if (questionSet == 19) trivia = resourcesManager.bookTriviaSound;
+		else if (questionSet == 20) trivia = resourcesManager.heartTriviaSound;
+		else if (questionSet == 21) trivia = resourcesManager.mushroomTriviaSound;
+		else if (questionSet == 22) trivia = resourcesManager.icecreamTriviaSound;
+		
+		else if (questionSet == 24) trivia = resourcesManager.grapesTriviaSound;
+		else if (questionSet == 25) trivia = resourcesManager.pigTriviaSound;
+		else if (questionSet == 26) trivia = resourcesManager.pumpkinTriviaSound;
+		else if (questionSet == 27) trivia = resourcesManager.eggplantTriviaSound;
+		else if (questionSet == 28) trivia = resourcesManager.rabbitTriviaSound;
 		
 		return trivia;
 	}

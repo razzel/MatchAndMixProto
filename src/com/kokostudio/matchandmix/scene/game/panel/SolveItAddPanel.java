@@ -608,7 +608,7 @@ public class SolveItAddPanel extends BaseScene {
 	}
 	
 	private ITextureRegion questionText() {
-		
+		r = null;
 		if(questionSet == 0) r = resourcesManager.addQuestionText1;
 		else if(questionSet == 1) r = resourcesManager.addQuestionText2;
 		else if(questionSet == 2) r = resourcesManager.addQuestionText3;

@@ -915,7 +915,7 @@ public class CountItPanel extends BaseScene {
 		else if(questionSet == 15) r = resourcesManager.countItClueAirplaneTexture;
 		else if(questionSet == 16) r = resourcesManager.countItClueKoalaTexture;
 		//
-		else if(questionSet == 18) r = resourcesManager.countItClueCaterpillarTexture;
+		else if(questionSet == 18) r = resourcesManager.countItClueBeesTexture;
 		else if(questionSet == 19) r = resourcesManager.countItClueFanTexture;
 		else if(questionSet == 20) r = resourcesManager.coutItClueBirdTexture;
 		//milk to BREAD <-- ako nagpalit. 
@@ -950,7 +950,7 @@ public class CountItPanel extends BaseScene {
 		else if(questionSet == 15) r = resourcesManager.countItObjectCar;
 		else if(questionSet == 16) r = resourcesManager.countItObjectRaccoon;
 		//
-		else if(questionSet == 18) r = resourcesManager.countItObjectCatterpillar;
+		else if(questionSet == 18) r = resourcesManager.countItObjectBee;
 		else if(questionSet == 19) r = resourcesManager.countItObjectEgg;
 		else if(questionSet == 20) r = resourcesManager.countItObjectKite;
 		else if(questionSet == 21) r = resourcesManager.countItObjectMilk;

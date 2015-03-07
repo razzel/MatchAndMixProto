@@ -482,7 +482,7 @@ public class SolveItDivPanel extends BaseScene {
 	}
 
 	private ITextureRegion questionText() {
-
+		r = null;
 		if (questionSet == 0)
 			r = resourcesManager.divQuestionText1;
 		else if (questionSet == 1)
