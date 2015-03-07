@@ -3,8 +3,10 @@ package com.kokostudio.matchandmix.scene.game.panel;
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
+import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.AlphaModifier;
 import org.andengine.entity.modifier.MoveModifier;
+import org.andengine.entity.modifier.ScaleModifier;
 import org.andengine.entity.scene.CameraScene;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
@@ -55,6 +57,15 @@ public class SolveItDivPanel extends BaseScene {
 	
 	private Sprite sLife;
 	private TiledSprite sLifeValue;
+	
+	// congrats scene
+	private CameraScene congratsScene;
+	private Sprite congratsPanel;
+	private Sprite pop;
+	private Sprite stars;
+	private TiledSprite viewProg;
+	
+	private int total;
 
 	@Override
 	public void createScene() {
@@ -69,6 +80,8 @@ public class SolveItDivPanel extends BaseScene {
 		createChoices();
 		checkStatus();
 		createTryAgainScene();
+		
+		total = db.solveItAddGetAnswered() + db.solveItDivGetAnswered() + db.solveItMulGetAnswered() + db.solveItSubGetAnswered();
 		thatsCorrect.setAlpha(0.0f);
 		thatsWrong.setAlpha(0.0f);
 	}
@@ -275,8 +288,13 @@ public class SolveItDivPanel extends BaseScene {
 				unregisterUpdateHandler(pTimerHandler);
 					x = 0;
 					if(db.solveItDivGetAnswered()==25) {
-						// if the questions are finished go back to the question frams
-						SceneManager.getInstance().loadSolveItDivScene();
+						if(total == 99) {
+							resourcesManager.congratulations.play();
+							createCongratsScene();
+							SolveItDivPanel.this.setChildScene(congratsScene, false, true, true);
+						} else {
+							SceneManager.getInstance().loadSolveItDivScene();
+						}	
 					} else {
 						if(questionSet == 28 || questionSet+x>=28) {
 							while(db.solveItDivIsAnswered(0+x).compareTo("true")==0) {
@@ -327,9 +345,59 @@ public class SolveItDivPanel extends BaseScene {
 		OK.setZIndex(1);
 		tryScene.registerTouchArea(OK);
 		tryScene.attachChild(OK);
-		tryScene.setBackgroundEnabled(false);
+		tryScene.setBackgroundEnabled(false);	
 		
+	}
+	
+	private void createCongratsScene() {
+		congratsScene = new CameraScene(camera);
 		
+		congratsPanel = new Sprite(400, 240, resourcesManager.congratsPanel, vbom);
+		congratsScene.attachChild(congratsPanel);
+		congratsPanel.setZIndex(0);
+		
+		stars = new Sprite(80, 370, resourcesManager.congratsStars, vbom);
+		congratsScene.attachChild(stars);
+		stars.setZIndex(1);
+		stars.registerEntityModifier(new ScaleModifier(0.3f, 0f, 1.0f) {
+			@Override
+			protected void onModifierFinished(IEntity pItem) {
+				pop = new Sprite(700, 170, resourcesManager.congratsPop, vbom);
+				congratsScene.attachChild(pop);
+				pop.setZIndex(1);
+				pop.registerEntityModifier(new ScaleModifier(0.3f, 0f, 1.0f) {
+					@Override
+					protected void onModifierFinished(IEntity pItem) {
+						
+						viewProg = new TiledSprite(400, 100, resourcesManager.viewProgress, vbom) {
+							@Override
+							public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+								switch (pSceneTouchEvent.getAction()) {
+								case TouchEvent.ACTION_DOWN:
+									this.setScale(0.9f);
+									this.setCurrentTileIndex(1);
+									break;
+
+								case TouchEvent.ACTION_UP:
+									resourcesManager.click.play();
+									SceneManager.getInstance().loadProgressScene();
+									break;
+								}
+								return true;
+							}
+							
+						};
+						congratsScene.registerTouchArea(viewProg);
+						congratsScene.attachChild(viewProg);
+						viewProg.setZIndex(1);
+						viewProg.registerEntityModifier(new ScaleModifier(0.3f, 0f, 1.0f));
+					}			
+				}); 
+			}		
+		});
+		
+		congratsScene.sortChildren();
+		congratsScene.setBackgroundEnabled(false);
 	}
 	
 	private void lock() {

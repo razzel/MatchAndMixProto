@@ -105,7 +105,7 @@ public class myDatabase extends SQLiteOpenHelper {
 	public static final String fRate = "rate";
 	public static final String CREATE_RATING_TABLE = "CREATE TABLE IF NOT EXISTS " +table_Rating+ " ("
 													+fRating_ID+ " INTEGER PRIMARY KEY, "
-													+fRate+ " FLOAT " 
+													+fRate+ " DOUBLE " 
 													+ ") ";
 	// TRY
 	public static final String table_Try = "try";

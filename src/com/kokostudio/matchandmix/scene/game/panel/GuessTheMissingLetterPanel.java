@@ -4,7 +4,9 @@ import org.andengine.audio.sound.Sound;
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
+import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.AlphaModifier;
+import org.andengine.entity.modifier.ScaleModifier;
 import org.andengine.entity.scene.CameraScene;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
@@ -73,6 +75,13 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 	
 	private int currentTile;
 	
+	// congrats scene
+	private CameraScene congratsScene;
+	private Sprite congratsPanel;
+	private Sprite pop;
+	private Sprite stars;
+	private TiledSprite viewProg;
+	
 	@Override
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
@@ -87,7 +96,6 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 		checkStatus();
 		checkAudioStatus();
 		playSound();
-		showTrivia();
 		createTryAgainScene();
 		
 		if(db.checkIsFirstTime(1).compareTo("true")==0) {
@@ -152,7 +160,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 					resourcesManager.click.play();
 					
 					if(db.isBGMOn().compareTo("true")==0) {
-						engine.getMusicManager().setMasterVolume(0.70f);
+						engine.getMusicManager().setMasterVolume(0.20f);
 					}
 					// unload the PANEL'S TEXUTRES / RESOURCES
 					//resourcesManager.unloadGTMLPanelTextures();
@@ -228,6 +236,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 					lock();
 					db.updateRate(1, computeRate());
 					db.updateTry(1, 1);
+					showTrivia();
 					GuessTheMissingLetterPanel.this.setChildScene(triviaScene, false, true, true);
 					//nextQuestion(); // comment mo to pag kinoment out mo yung nsa taas, tska coment out mo yung showTrivia() sa may createScene()
 					thatsCorrect.setAlpha(1.0f);
@@ -461,10 +470,10 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 	}
 	private void checkAudioStatus() {
 		if(db.isBGMOn().compareTo("true")==0) {
-			engine.getMusicManager().setMasterVolume(0.50f);
+			engine.getMusicManager().setMasterVolume(0.15f);
 		}
 		if(db.isSFXOn().compareTo("true")==0) {
-			engine.getSoundManager().setMasterVolume(1.5f);
+			engine.getSoundManager().setMasterVolume(1.2f);
 		}
 	}
 	
@@ -492,7 +501,9 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 			public void onTimePassed(TimerHandler pTimerHandler) {
 				x = 0;
 				if(db.gtmlGetAnswered()==25) {
-					SceneManager.getInstance().loadGTMLScene();
+					resourcesManager.congratulations.play();
+					createCongratsScene();
+					GuessTheMissingLetterPanel.this.setChildScene(congratsScene, false, true, true);
 				} else {
 					if(questionSet == 28 || questionSet+x>=28) {
 						while(db.gtmlIsAnswered(0+x).compareTo("true")==0) {
@@ -526,7 +537,8 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 	
 	private void showTrivia() {
 		triviaScene = new CameraScene(camera);
-		
+			
+		playTrivia().play();		
 		triviaPanel = new Sprite(400, 240, resourcesManager.triviaPanel, vbom);
 		triviaScene.attachChild(triviaPanel);
 		triviaPanel.setZIndex(0);
@@ -547,6 +559,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 					resourcesManager.click.play();
 					updateIsFirstTime();
 					GuessTheMissingLetterPanel.this.clearChildScene();
+					playTrivia().stop();
 					nextQuestion();
 					break;
 				}
@@ -596,6 +609,67 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 		
 		
 	}
+	
+	private void createCongratsScene() {
+		congratsScene = new CameraScene(camera);
+		
+		congratsPanel = new Sprite(400, 240, resourcesManager.congratsPanel, vbom);
+		congratsScene.attachChild(congratsPanel);
+		congratsPanel.setZIndex(0);
+		
+		stars = new Sprite(80, 370, resourcesManager.congratsStars, vbom);
+		congratsScene.attachChild(stars);
+		stars.setZIndex(1);
+		stars.registerEntityModifier(new ScaleModifier(0.3f, 0f, 1.0f) {
+			@Override
+			protected void onModifierFinished(IEntity pItem) {
+				pop = new Sprite(700, 170, resourcesManager.congratsPop, vbom);
+				congratsScene.attachChild(pop);
+				pop.setZIndex(1);
+				pop.registerEntityModifier(new ScaleModifier(0.3f, 0f, 1.0f) {
+					@Override
+					protected void onModifierFinished(IEntity pItem) {
+						
+						viewProg = new TiledSprite(400, 100, resourcesManager.viewProgress, vbom) {
+							@Override
+							public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+								switch (pSceneTouchEvent.getAction()) {
+								case TouchEvent.ACTION_DOWN:
+									this.setScale(0.9f);
+									this.setCurrentTileIndex(1);
+									break;
+
+								case TouchEvent.ACTION_UP:
+									playTrivia().stop();
+									resourcesManager.click.play();
+									SceneManager.getInstance().loadProgressScene();
+									break;
+								}
+								return true;
+							}
+							
+						};
+						congratsScene.registerTouchArea(viewProg);
+						congratsScene.attachChild(viewProg);
+						viewProg.setZIndex(1);
+						viewProg.registerEntityModifier(new ScaleModifier(0.3f, 0f, 1.0f));
+					}			
+				}); 
+			}		
+		});
+		
+		congratsScene.sortChildren();
+		congratsScene.setBackgroundEnabled(false);
+	}
+	
+	private Sound playTrivia() {
+		Sound trivia = null;
+		if(questionSet == 0) trivia = resourcesManager.appleTriviaSound;
+		else if(questionSet == 1) trivia = resourcesManager.avocadoTriviaSound;
+		
+		return trivia;
+	}
+	
 	private ITextureRegion trivia() {
 		ITextureRegion t = null;
 		if(questionSet == 0) t = resourcesManager.appleTriva;

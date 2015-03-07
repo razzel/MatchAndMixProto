@@ -48,7 +48,7 @@ public class ResourcesManager {
 	public ITextureRegion bgTextureRegion;
 	
 	public BuildableBitmapTextureAtlas mGameTextureAtlas;
-	
+	public ITextureRegion htpHeader;
 	// HOW TO
 	public TiledTextureRegion GTMLHTP;
 	public TiledTextureRegion colorHTP;
@@ -73,6 +73,12 @@ public class ResourcesManager {
 	
 	// WARNING MSG
 	public ITextureRegion tryAgainWarningMsg;
+	
+	// CONGRATULATIONS
+	public ITextureRegion congratsPanel;
+	public ITextureRegion congratsPop;
+	public ITextureRegion congratsStars;
+	public TiledTextureRegion viewProgress;
 	
 	
 	// ENTITIES
@@ -841,6 +847,7 @@ public class ResourcesManager {
 	public Sound wrong;
 	public Sound sorry;
 	public Sound selectagame;;
+	public Sound congratulations;
 	
 	public void loadBGM() {
 		MusicFactory.setAssetBasePath("sfx/");
@@ -866,6 +873,7 @@ public class ResourcesManager {
 			this.wrong = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "wrong.mp3");
 			this.sorry = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "SorryTryAgain.mp3");
 			this.selectagame = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "Selectagame.mp3");
+			this.congratulations = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "congratulations.mp3");
 			
 		} catch(final IOException e) {
 			Debug.e(e);
@@ -994,6 +1002,25 @@ public class ResourcesManager {
 		}
 	}
 	
+	
+	public Sound appleTriviaSound, avocadoTriviaSound; // eto for GTML
+	public Sound triangleTriviaSound, squareTriviaSound; // eto for match it, pero kht san nmn yan, pinaghiwalay ko lng para mdling mkita
+	
+	public void loadTriviaSounds() {
+		SoundFactory.setAssetBasePath("sfx/trivia/");
+		try {
+			this.appleTriviaSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "AppleTrivia.mp3");
+			this.avocadoTriviaSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "AvocadoTrivia.mp3");
+			
+			this.triangleTriviaSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "TriangleTrivia.mp3");
+			this.squareTriviaSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "SqurareTrivia.mp3");
+		} catch(final IOException e) {
+			Debug.e(e);
+		}
+		
+		
+	}
+	
 	// ==========================================================================================================================================
 	// END OF SFX & MFX VARIABLE DECLARATION
 	// ===========================================================================================================================================
@@ -1079,6 +1106,7 @@ public class ResourcesManager {
 			howToPlayMatchIt();
 			howToPlayCountIt();
 			howToPlaySolveItAdd();
+			loadCongratulationMsg();
 		}
 		private void creatCommonButtons2() {
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
@@ -1159,6 +1187,22 @@ public class ResourcesManager {
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 			mGameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 800, 480, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 			tryAgainWarningMsg = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mGameTextureAtlas, activity, "try.png");
+			try {
+				this.mGameTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+				this.mGameTextureAtlas.load();
+			} catch(final TextureAtlasBuilderException e) {
+				Debug.e(e);
+			}
+		}
+		
+		private void loadCongratulationMsg() {
+			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/congratulations/");
+			mGameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
+			congratsPanel = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mGameTextureAtlas, activity, "cong_panel.png");
+			congratsPop = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mGameTextureAtlas, activity, "cong_pop.png");
+			congratsStars = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mGameTextureAtlas, activity, "cong_stars.png");
+			viewProgress = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mGameTextureAtlas, activity, "cong_prog.png", 2, 1);
+			
 			try {
 				this.mGameTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 				this.mGameTextureAtlas.load();
@@ -1481,6 +1525,7 @@ public class ResourcesManager {
 		loadOptionResources();
 		
 		loadWarningMsg();
+		loadCongratulationMsg();
 		
 		createGeneralBackground();
 		createQuestionFrames();
@@ -1497,6 +1542,8 @@ public class ResourcesManager {
 		// sounds
 		loadClickSound();
 		loadCorrectWrongSound();
+		// trivias
+		loadTriviaSounds();
 		
 		// fonts
 		loadAklatanFont();
@@ -1810,7 +1857,8 @@ public class ResourcesManager {
 	
 	public void loadHowToPlayResources() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/how_to_play/");
-		mGameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 630, 370, TextureOptions.BILINEAR);
+		mGameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 800, 470, TextureOptions.BILINEAR);
+		htpHeader = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mGameTextureAtlas, activity, "htp_header.png");
 		btnMatchHTP = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mGameTextureAtlas, activity, "htp_miBtn.png", 2, 1);
 		btnColorHTP = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mGameTextureAtlas, activity, "htp_tciBtn.png", 2, 1);
 		btnCountHTP = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mGameTextureAtlas, activity, "htp_ciBtn.png", 2, 1);
@@ -3167,11 +3215,6 @@ public class ResourcesManager {
 				divQuestionText3 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionTextAtlas, activity, "siq_p3.png");
 				divQuestionText4 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionTextAtlas, activity, "siq_p4.png");
 				divQuestionText5 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(solveItQuestionTextAtlas, activity, "siq_p5.png");
-			
-			
-		
-		
-				
 			
 				try {
 					this.solveItQuestionTextAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));

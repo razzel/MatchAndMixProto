@@ -3,7 +3,9 @@ package com.kokostudio.matchandmix.scene.game.panel;
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
+import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.AlphaModifier;
+import org.andengine.entity.modifier.ScaleModifier;
 import org.andengine.entity.scene.CameraScene;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
@@ -60,6 +62,14 @@ public class ThatColorIsPanel extends BaseScene {
 	private TiledSprite htp;
 	private TiledSprite next;
 	private TiledSprite prev;
+	
+	// congrats scene
+	private CameraScene congratsScene;
+	private Sprite congratsPanel;
+	private Sprite pop;
+	private Sprite stars;
+	private TiledSprite viewProg;
+
 
 	@Override
 	public void createScene() {
@@ -514,7 +524,9 @@ public class ThatColorIsPanel extends BaseScene {
 			public void onTimePassed(TimerHandler pTimerHandler) {
 				x = 0;
 				if(db.colorGetAnswered() == 25) {
-					SceneManager.getInstance().loadThatColorIsScene();
+					resourcesManager.congratulations.play();
+					createCongratsScene();
+					ThatColorIsPanel.this.setChildScene(congratsScene, false, true, true);
 				} else {
 					if(questionSet == 28 || questionSet+x>=28) {
 						while(db.colorIsAnswered(0+x).compareTo("true")==0) {
@@ -534,6 +546,56 @@ public class ThatColorIsPanel extends BaseScene {
 		}));
 	}
 	
+	private void createCongratsScene() {
+		congratsScene = new CameraScene(camera);
+		
+		congratsPanel = new Sprite(400, 240, resourcesManager.congratsPanel, vbom);
+		congratsScene.attachChild(congratsPanel);
+		congratsPanel.setZIndex(0);
+		
+		stars = new Sprite(80, 370, resourcesManager.congratsStars, vbom);
+		congratsScene.attachChild(stars);
+		stars.setZIndex(1);
+		stars.registerEntityModifier(new ScaleModifier(0.3f, 0f, 1.0f) {
+			@Override
+			protected void onModifierFinished(IEntity pItem) {
+				pop = new Sprite(700, 170, resourcesManager.congratsPop, vbom);
+				congratsScene.attachChild(pop);
+				pop.setZIndex(1);
+				pop.registerEntityModifier(new ScaleModifier(0.3f, 0f, 1.0f) {
+					@Override
+					protected void onModifierFinished(IEntity pItem) {
+						
+						viewProg = new TiledSprite(400, 100, resourcesManager.viewProgress, vbom) {
+							@Override
+							public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+								switch (pSceneTouchEvent.getAction()) {
+								case TouchEvent.ACTION_DOWN:
+									this.setScale(0.9f);
+									this.setCurrentTileIndex(1);
+									break;
+
+								case TouchEvent.ACTION_UP:
+									resourcesManager.click.play();
+									SceneManager.getInstance().loadProgressScene();
+									break;
+								}
+								return true;
+							}
+							
+						};
+						congratsScene.registerTouchArea(viewProg);
+						congratsScene.attachChild(viewProg);
+						viewProg.setZIndex(1);
+						viewProg.registerEntityModifier(new ScaleModifier(0.3f, 0f, 1.0f));
+					}			
+				}); 
+			}		
+		});
+		
+		congratsScene.sortChildren();
+		congratsScene.setBackgroundEnabled(false);
+	}
 	/* positions
 	 * 400 pos1
 	 * 310 pos2
@@ -739,7 +801,7 @@ public class ThatColorIsPanel extends BaseScene {
 		
 		else if (questionSet == 22) pos = 310;
 		
-		else if (questionSet == 24) pos = 70;
+		else if (questionSet == 24) pos = 150; // 70 
 		
 		else if (questionSet == 25) pos = 230;
 		
@@ -750,6 +812,7 @@ public class ThatColorIsPanel extends BaseScene {
 		else if (questionSet == 28) pos = 150;
 		return pos;
 	}
+	
 	private int setColor4Position() {
 		if(questionSet == 0) pos = 70;
 		

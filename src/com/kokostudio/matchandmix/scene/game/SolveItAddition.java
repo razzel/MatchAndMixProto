@@ -2,6 +2,7 @@ package com.kokostudio.matchandmix.scene.game;
 
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.modifier.ScaleModifier;
+import org.andengine.entity.scene.CameraScene;
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
@@ -11,6 +12,7 @@ import com.kokostudio.matchandmix.base.BaseScene;
 import com.kokostudio.matchandmix.database.myDatabase;
 import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
+import com.kokostudio.matchandmix.scene.game.panel.CountItPanel;
 import com.kokostudio.matchandmix.scene.game.panel.SolveItAddPanel;
 
 public class SolveItAddition extends BaseScene {

@@ -1,5 +1,7 @@
 package com.kokostudio.matchandmix.scene;
 
+import java.text.DecimalFormat;
+
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.sprite.Sprite;
@@ -30,6 +32,8 @@ public class ProgressScene extends BaseScene {
 	
 	private myDatabase db;
 	
+	private DecimalFormat df;
+	
 	// TEXT
 	private Text colorAnswered;
 	private Text colorRemaining;
@@ -47,7 +51,7 @@ public class ProgressScene extends BaseScene {
 	private Text guessAnswered;
 	private Text guessRemaining;
 	
-	private float grade;
+	private double grade;
 	
 	private Text t;
 	
@@ -59,6 +63,7 @@ public class ProgressScene extends BaseScene {
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 		db = new myDatabase(activity);
+		df = new DecimalFormat("0.00");
 		createBackground();
 		createButtons();
 		createProgress();
@@ -216,95 +221,88 @@ public class ProgressScene extends BaseScene {
 		switch(id) {
 		case 0:
 			if(db.matchGetAnswered()==25) {
-				if(grade >= 0 & grade <= 0.33333333334) {
+				if(roundOffTo2DecimalPlace(grade) >= 0.00 & roundOffTo2DecimalPlace(grade) <= 0.34) {
 					// draw excellent remark
 					remarkStar = new Sprite(510, 330, resourcesManager.progressExcellent, vbom);
 					attachChild(remarkStar);
-				} else if (grade > 0.33333333334 & grade <= 0.66666666667) {
+				} else if (roundOffTo2DecimalPlace(grade) > 0.34 & roundOffTo2DecimalPlace(grade) <= 0.67) {
 					remarkVGood = new Sprite(510, 330, resourcesManager.progressVGood, vbom);
-					attachChild(remarkGood);
-				} else if (grade > 0.66666666667 & grade <= 1) {
+					attachChild(remarkVGood);
+				} else if (roundOffTo2DecimalPlace(grade) > 0.67 & roundOffTo2DecimalPlace(grade) <= 1.00) {
 					remarkGood = new Sprite(510, 330, resourcesManager.progressGood, vbom);
 					attachChild(remarkGood);
 				} else {
 					remarkFair = new Sprite(510, 330, resourcesManager.progressFair, vbom);
-					attachChild(remarkGood);
+					attachChild(remarkFair);
 				}
-				
 			} else {
-				t = new Text(560, 330, resourcesManager.aklatanFont, "UNRATED" + grade, vbom);
+				t = new Text(560, 330, resourcesManager.aklatanFont, "UNRATED" + roundOffTo2DecimalPlace(grade), vbom);
 				attachChild(t);
 			}
  			break;
  			
 		case 1:
 			if(db.gtmlGetAnswered()==25) {
-				if(grade >= 0 & grade <= 0.33333333334) {
+				if(roundOffTo2DecimalPlace(grade) >= 0.00 & roundOffTo2DecimalPlace(grade) <= 0.34) {
 					// draw excellent remark
 					remarkStar = new Sprite(510, 255, resourcesManager.progressExcellent, vbom);
 					attachChild(remarkStar);
-				} else if (grade > 0.33333333334 & grade <= 0.66666666667) {
+				} else if (roundOffTo2DecimalPlace(grade) > 0.34 & roundOffTo2DecimalPlace(grade) <= 0.67) {
 					remarkVGood = new Sprite(510, 255, resourcesManager.progressVGood, vbom);
-					attachChild(remarkGood);
-				} else if (grade > 0.66666666667 & grade <= 1) {
+					attachChild(remarkVGood);
+				} else if (roundOffTo2DecimalPlace(grade) > 0.67 & roundOffTo2DecimalPlace(grade) <= 1.00) {
 					remarkGood = new Sprite(510, 255, resourcesManager.progressGood, vbom);
 					attachChild(remarkGood);
 				} else {
 					remarkFair = new Sprite(510, 255, resourcesManager.progressFair, vbom);
-					attachChild(remarkGood);
+					attachChild(remarkFair);
 				}
-				
 			} else {
-				t = new Text(560, 255, resourcesManager.aklatanFont, "UNRATED" + grade, vbom);
+				t = new Text(560, 255, resourcesManager.aklatanFont, "UNRATED" + roundOffTo2DecimalPlace(grade), vbom);
 				attachChild(t);
 			}
 			break;
 			
 		case 2:
 			if(db.colorGetAnswered()==25) {
-				if(grade >= 0 & grade <= 0.33333333334) {
+				if(roundOffTo2DecimalPlace(grade) >= 0.00 & roundOffTo2DecimalPlace(grade) <= 0.34) {
 					// draw excellent remark
 					remarkStar = new Sprite(510, 40, resourcesManager.progressExcellent, vbom);
 					attachChild(remarkStar);
-				} else if (grade > 0.33333333334 & grade <= 0.66666666667) {
+				} else if (roundOffTo2DecimalPlace(grade) > 0.34 & roundOffTo2DecimalPlace(grade) <= 0.67) {
 					remarkVGood = new Sprite(510, 40, resourcesManager.progressVGood, vbom);
-					attachChild(remarkGood);
-				} else if (grade > 0.66666666667 & grade <= 1) {
+					attachChild(remarkVGood);
+				} else if (roundOffTo2DecimalPlace(grade) > 0.67 & roundOffTo2DecimalPlace(grade) <= 1.00) {
 					remarkGood = new Sprite(510, 40, resourcesManager.progressGood, vbom);
 					attachChild(remarkGood);
 				} else {
 					remarkFair = new Sprite(510, 40, resourcesManager.progressFair, vbom);
-					attachChild(remarkGood);
+					attachChild(remarkFair);
 				}
-			
 			} else {
-				t = new Text(560, 40, resourcesManager.aklatanFont, "UNRATED" + grade, vbom);
+				t = new Text(560, 40, resourcesManager.aklatanFont, "UNRATED" + roundOffTo2DecimalPlace(grade), vbom);
 				attachChild(t);
 			}
 			break;
 			
 		case 3:
 			if(db.countGetAnswered()==25) {
-				if(grade >= 0 & grade <= 0.3333334) {
-					if(grade >= 0 & grade <= 0.33333333334) {
-						// draw excellent remark
-						remarkStar = new Sprite(510, 182, resourcesManager.progressExcellent, vbom);
-						attachChild(remarkStar);
-					} else if (grade > 0.33333333334 & grade <= 0.66666666667) {
-						remarkVGood = new Sprite(510, 18, resourcesManager.progressVGood, vbom);
-						attachChild(remarkGood);
-					} else if (grade > 0.66666666667 & grade <= 1) {
-						remarkGood = new Sprite(510, 182, resourcesManager.progressGood, vbom);
-						attachChild(remarkGood);
-					} else {
-						remarkFair = new Sprite(510, 182, resourcesManager.progressFair, vbom);
-						attachChild(remarkGood);
-					}
-					
-				} 
-				
+				if(roundOffTo2DecimalPlace(grade) >= 0.00 & roundOffTo2DecimalPlace(grade) <= 0.34) {
+					// draw excellent remark
+					remarkStar = new Sprite(510, 182, resourcesManager.progressExcellent, vbom);
+					attachChild(remarkStar);
+				} else if (roundOffTo2DecimalPlace(grade) > 0.34 & roundOffTo2DecimalPlace(grade) <= 0.67) {
+					remarkVGood = new Sprite(510, 182, resourcesManager.progressVGood, vbom);
+					attachChild(remarkVGood);
+				} else if (roundOffTo2DecimalPlace(grade) > 0.67 & roundOffTo2DecimalPlace(grade) <= 1.00) {
+					remarkGood = new Sprite(510, 182, resourcesManager.progressGood, vbom);
+					attachChild(remarkGood);
+				} else {
+					remarkFair = new Sprite(510, 182, resourcesManager.progressFair, vbom);
+					attachChild(remarkFair);
+				}
 			} else {
-				t = new Text(560, 182, resourcesManager.aklatanFont, "UNRATED" + grade, vbom);
+				t = new Text(560, 182, resourcesManager.aklatanFont, "UNRATED" + roundOffTo2DecimalPlace(grade), vbom);
 				attachChild(t);
 			}
 			break;
@@ -312,23 +310,22 @@ public class ProgressScene extends BaseScene {
 		case 4:
 			int totalAns = db.solveItAddGetAnswered() + db.solveItSubGetAnswered() + db.solveItMulGetAnswered() + db.solveItDivGetAnswered();
 			if(totalAns == 100) {
-				if(totalGrade >= 0 & totalGrade <= 0.33333333334) {
+				if(roundOffTo2DecimalPlace(totalGrade) >= 0.00 & roundOffTo2DecimalPlace(totalGrade) <= 0.34) {
 					// draw excellent remark
-					remarkStar = new Sprite(510, 182, resourcesManager.progressExcellent, vbom);
+					remarkStar = new Sprite(510, 113, resourcesManager.progressExcellent, vbom);
 					attachChild(remarkStar);
-				} else if (totalGrade > 0.33333333334 & totalGrade <= 0.66666666667) {
-					remarkVGood = new Sprite(510, 18, resourcesManager.progressVGood, vbom);
-					attachChild(remarkGood);
-				} else if (totalGrade > 0.66666666667 & totalGrade <= 1) {
-					remarkGood = new Sprite(510, 182, resourcesManager.progressGood, vbom);
+				} else if (roundOffTo2DecimalPlace(totalGrade) > 0.34 & roundOffTo2DecimalPlace(totalGrade) <= 0.67) {
+					remarkVGood = new Sprite(510, 113, resourcesManager.progressVGood, vbom);
+					attachChild(remarkVGood);
+				} else if (roundOffTo2DecimalPlace(totalGrade) > 0.67 & roundOffTo2DecimalPlace(totalGrade) <= 1.00) {
+					remarkGood = new Sprite(510, 113, resourcesManager.progressGood, vbom);
 					attachChild(remarkGood);
 				} else {
-					remarkFair = new Sprite(510, 182, resourcesManager.progressFair, vbom);
-					attachChild(remarkGood);
+					remarkFair = new Sprite(510, 113, resourcesManager.progressFair, vbom);
+					attachChild(remarkFair);
 				}
-				
 			} else {
-				t = new Text(560, 113, resourcesManager.aklatanFont, "UNRATED" + totalGrade, vbom);
+				t = new Text(560, 113, resourcesManager.aklatanFont, "UNRATED" + roundOffTo2DecimalPlace(grade), vbom);
 				attachChild(t);
 			}
 			break;
@@ -343,6 +340,10 @@ public class ProgressScene extends BaseScene {
 		
 		
 		return super.onSceneTouchEvent(pSceneTouchEvent);
+	}
+	
+	private double roundOffTo2DecimalPlace(double d) {
+		return (double)Math.round(d * 100) / 100;
 	}
 	
 	// =============================================================================================

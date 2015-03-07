@@ -4,7 +4,9 @@ import org.andengine.audio.sound.Sound;
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
+import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.AlphaModifier;
+import org.andengine.entity.modifier.ScaleModifier;
 import org.andengine.entity.scene.CameraScene;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
@@ -70,7 +72,13 @@ public class CountItPanel extends BaseScene {
 	private TiledSprite next;
 	private TiledSprite prev;
 	
-	Text t;
+	// congrats scene
+	private CameraScene congratsScene;
+	private Sprite congratsPanel;
+	private Sprite pop;
+	private Sprite stars;
+	private TiledSprite viewProg;
+
 
 	@Override
 	public void createScene() {
@@ -148,7 +156,7 @@ public class CountItPanel extends BaseScene {
 					resourcesManager.click.play();
 					
 					if(db.isBGMOn().compareTo("true")==0) {
-						engine.getMusicManager().setMasterVolume(0.70f);
+						engine.getMusicManager().setMasterVolume(0.20f);
 					}
 					
 					SceneManager.getInstance().loadCountItScene();
@@ -583,10 +591,10 @@ public class CountItPanel extends BaseScene {
 	
 	private void checkAudioStatus() {
 		if(db.isBGMOn().compareTo("true")==0) {
-			engine.getMusicManager().setMasterVolume(0.50f);
+			engine.getMusicManager().setMasterVolume(0.15f);
 		}
 		if(db.isSFXOn().compareTo("true")==0) {
-			engine.getSoundManager().setMasterVolume(1.5f);
+			engine.getSoundManager().setMasterVolume(1.2f);
 		}
 	}
 	
@@ -613,7 +621,9 @@ public class CountItPanel extends BaseScene {
 			public void onTimePassed(TimerHandler pTimerHandler) {
 				x = 0;
 				if(db.countGetAnswered()==25) {
-					SceneManager.getInstance().loadCountItScene();
+					resourcesManager.congratulations.play();
+					createCongratsScene();
+					CountItPanel.this.setChildScene(congratsScene, false, true, true);
 				} else {
 					if(questionSet == 28 || questionSet+x>=28) {
 						while(db.countItIsAnswered(0+x).compareTo("true")==0) {
@@ -631,6 +641,57 @@ public class CountItPanel extends BaseScene {
 					
 			}
 		}));
+	}
+	
+	private void createCongratsScene() {
+		congratsScene = new CameraScene(camera);
+		
+		congratsPanel = new Sprite(400, 240, resourcesManager.congratsPanel, vbom);
+		congratsScene.attachChild(congratsPanel);
+		congratsPanel.setZIndex(0);
+		
+		stars = new Sprite(80, 370, resourcesManager.congratsStars, vbom);
+		congratsScene.attachChild(stars);
+		stars.setZIndex(1);
+		stars.registerEntityModifier(new ScaleModifier(0.3f, 0f, 1.0f) {
+			@Override
+			protected void onModifierFinished(IEntity pItem) {
+				pop = new Sprite(700, 170, resourcesManager.congratsPop, vbom);
+				congratsScene.attachChild(pop);
+				pop.setZIndex(1);
+				pop.registerEntityModifier(new ScaleModifier(0.3f, 0f, 1.0f) {
+					@Override
+					protected void onModifierFinished(IEntity pItem) {
+						
+						viewProg = new TiledSprite(400, 100, resourcesManager.viewProgress, vbom) {
+							@Override
+							public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+								switch (pSceneTouchEvent.getAction()) {
+								case TouchEvent.ACTION_DOWN:
+									this.setScale(0.9f);
+									this.setCurrentTileIndex(1);
+									break;
+
+								case TouchEvent.ACTION_UP:
+									resourcesManager.click.play();
+									SceneManager.getInstance().loadProgressScene();
+									break;
+								}
+								return true;
+							}
+							
+						};
+						congratsScene.registerTouchArea(viewProg);
+						congratsScene.attachChild(viewProg);
+						viewProg.setZIndex(1);
+						viewProg.registerEntityModifier(new ScaleModifier(0.3f, 0f, 1.0f));
+					}			
+				}); 
+			}		
+		});
+		
+		congratsScene.sortChildren();
+		congratsScene.setBackgroundEnabled(false);
 	}
 	
 	private int setHowManyCorrectObject() {

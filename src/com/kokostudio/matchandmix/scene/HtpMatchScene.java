@@ -67,7 +67,7 @@ public class HtpMatchScene extends BaseScene {
 			}		
 		});
 			
-		htpHeader = new Sprite(400, 430, resourcesManager.qHeaderTextureRegion, vbom) {
+		htpHeader = new Sprite(400, 430, resourcesManager.htpHeader, vbom) {
 			@Override
 			protected void preDraw(GLState pGLState, Camera pCamera) {
 				pGLState.enableDither();

@@ -3,8 +3,10 @@ package com.kokostudio.matchandmix.scene.game.panel;
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
+import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.AlphaModifier;
 import org.andengine.entity.modifier.MoveModifier;
+import org.andengine.entity.modifier.ScaleModifier;
 import org.andengine.entity.scene.CameraScene;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
@@ -13,6 +15,8 @@ import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.util.GLState;
 import org.andengine.util.modifier.ease.EaseBounceOut;
+
+import android.util.Log;
 
 import com.kokostudio.matchandmix.base.BaseScene;
 import com.kokostudio.matchandmix.database.myDatabase;
@@ -62,6 +66,15 @@ public class SolveItAddPanel extends BaseScene {
 	private TiledSprite htp;
 	private TiledSprite next;
 	private TiledSprite prev;
+	
+	// congrats scene
+	private CameraScene congratsScene;
+	private Sprite congratsPanel;
+	private Sprite pop;
+	private Sprite stars;
+	private TiledSprite viewProg;
+	
+	private int total;
 
 	@Override
 	public void createScene() {
@@ -82,6 +95,7 @@ public class SolveItAddPanel extends BaseScene {
 			SolveItAddPanel.this.setChildScene(htpScene, false, true, true);
 		}
 		
+		total = db.solveItAddGetAnswered() + db.solveItDivGetAnswered() + db.solveItMulGetAnswered() + db.solveItSubGetAnswered();
 		thatsWrong.setAlpha(0f);
 		thatsCorrect.setAlpha(0f);
 	}
@@ -290,8 +304,13 @@ public class SolveItAddPanel extends BaseScene {
 				unregisterUpdateHandler(pTimerHandler);
 					x = 0;
 					if(db.solveItAddGetAnswered()==25) {
-						// if the questions are finished go back to the question frams
-						SceneManager.getInstance().loadSolveItAddScene();
+						if(total == 99) {
+							resourcesManager.congratulations.play();
+							createCongratsScene();
+							SolveItAddPanel.this.setChildScene(congratsScene, false, true, true);
+						} else {
+							SceneManager.getInstance().loadSolveItAddScene();
+						}	
 					} else {
 						if(questionSet == 28 || questionSet+x>=28) {
 							while(db.solveItAddIsAnswered(0+x).compareTo("true")==0) {
@@ -306,8 +325,7 @@ public class SolveItAddPanel extends BaseScene {
 						}
 						SceneManager.getInstance().loadSolveItAddPanelScene();	
 					
-					}
-						
+					}			
 				}
 		}));
 		
@@ -449,6 +467,57 @@ public class SolveItAddPanel extends BaseScene {
 		htpScene.setBackgroundEnabled(false);
 	}
 	
+	private void createCongratsScene() {
+		congratsScene = new CameraScene(camera);
+		
+		congratsPanel = new Sprite(400, 240, resourcesManager.congratsPanel, vbom);
+		congratsScene.attachChild(congratsPanel);
+		congratsPanel.setZIndex(0);
+		
+		stars = new Sprite(80, 370, resourcesManager.congratsStars, vbom);
+		congratsScene.attachChild(stars);
+		stars.setZIndex(1);
+		stars.registerEntityModifier(new ScaleModifier(0.3f, 0f, 1.0f) {
+			@Override
+			protected void onModifierFinished(IEntity pItem) {
+				pop = new Sprite(700, 170, resourcesManager.congratsPop, vbom);
+				congratsScene.attachChild(pop);
+				pop.setZIndex(1);
+				pop.registerEntityModifier(new ScaleModifier(0.3f, 0f, 1.0f) {
+					@Override
+					protected void onModifierFinished(IEntity pItem) {
+						
+						viewProg = new TiledSprite(400, 100, resourcesManager.viewProgress, vbom) {
+							@Override
+							public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+								switch (pSceneTouchEvent.getAction()) {
+								case TouchEvent.ACTION_DOWN:
+									this.setScale(0.9f);
+									this.setCurrentTileIndex(1);
+									break;
+
+								case TouchEvent.ACTION_UP:
+									resourcesManager.click.play();
+									SceneManager.getInstance().loadProgressScene();
+									break;
+								}
+								return true;
+							}
+							
+						};
+						congratsScene.registerTouchArea(viewProg);
+						congratsScene.attachChild(viewProg);
+						viewProg.setZIndex(1);
+						viewProg.registerEntityModifier(new ScaleModifier(0.3f, 0f, 1.0f));
+					}			
+				}); 
+			}		
+		});
+		
+		congratsScene.sortChildren();
+		congratsScene.setBackgroundEnabled(false);
+	}
+	
 	private void lock() {
 		answerSprite.setVisible(true);
 		detachChild(equals);
@@ -494,6 +563,14 @@ public class SolveItAddPanel extends BaseScene {
 		db.close();
 	}
 	
+	
+	
+	@Override
+	public boolean onSceneTouchEvent(TouchEvent pSceneTouchEvent) {
+		Log.d("total", "test: " +total);
+		return super.onSceneTouchEvent(pSceneTouchEvent);
+	}
+
 	// TEXTURES
 	private ITextureRegion questionImage() {
 		r = null;

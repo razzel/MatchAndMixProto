@@ -2,6 +2,7 @@ package com.kokostudio.matchandmix.scene.game;
 
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.modifier.ScaleModifier;
+import org.andengine.entity.scene.CameraScene;
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
@@ -33,7 +34,7 @@ public class MatchIt extends BaseScene {
 		createBackground();
 		createQuestionHeader();
 		createButtons();
-		
+			
 	}
 
 	@Override
@@ -195,4 +196,5 @@ public class MatchIt extends BaseScene {
 			}
 		}
 	}
+	
 }

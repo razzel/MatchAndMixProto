@@ -2,6 +2,7 @@ package com.kokostudio.matchandmix.scene.game;
 
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.modifier.MoveModifier;
+import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
@@ -9,6 +10,7 @@ import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.util.GLState;
 
 import com.kokostudio.matchandmix.base.BaseScene;
+import com.kokostudio.matchandmix.database.myDatabase;
 import com.kokostudio.matchandmix.manager.ResourcesManager;
 import com.kokostudio.matchandmix.manager.SceneManager;
 import com.kokostudio.matchandmix.manager.SceneManager.SceneType;
@@ -18,12 +20,17 @@ public class SolveItMenu extends BaseScene {
 	private TiledSprite back;
 	private TiledSprite add,divide,sub,multi;
 	
+	private AnimatedSprite tap;
+	private myDatabase db;
+	
 	@Override
 	public void createScene() {
 		this.setTouchAreaBindingOnActionDownEnabled(true);
+		db = new myDatabase(activity);
 		createBackground();
 		createGameSelection();
 		createButtons();
+		checkIsFirstTime();
 	}
 
 	@Override
@@ -174,4 +181,16 @@ public class SolveItMenu extends BaseScene {
 		attachChild(divide);
 
 	}	
+	
+	private void checkIsFirstTime() {
+		if(db.checkIsFirstTime(4).compareTo("true") == 0) {
+			tap = new AnimatedSprite(480, 420, resourcesManager.tapItTexture, vbom);
+			tap.animate(500);
+			tap.setZIndex(1);
+			attachChild(tap);
+			unregisterTouchArea(sub);
+			unregisterTouchArea(multi);
+			unregisterTouchArea(divide);
+		}
+	}
 }

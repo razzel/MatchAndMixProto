@@ -71,6 +71,7 @@ public class GameMenuScene extends BaseScene implements IScrollDetectorListener,
 		this.scrollDetector = new SurfaceScrollDetector(this);
 		this.setOnSceneTouchListener(this);
 		
+		resourcesManager.selectagame.play();
 		
 		createMenuBoxes();
 		createParallaxBackground();
@@ -81,9 +82,6 @@ public class GameMenuScene extends BaseScene implements IScrollDetectorListener,
 
 	@Override
 	public void onBackKeyPressed() {
-		// unload the GameMenuTextures
-		//ResourcesManager.getInstance().unloadGameMenuTexture();
-		
 		
 	}
 
@@ -141,6 +139,7 @@ public class GameMenuScene extends BaseScene implements IScrollDetectorListener,
 				case TouchEvent.ACTION_UP:
 					resourcesManager.click.play();
 					disposeScene();
+					resourcesManager.selectagame.stop();
 					camera.setCenter(GameActivity.CAMERA_WIDTH / 2, GameActivity.CAMERA_HEIGHT / 2);
 					SceneManager.getInstance().loadMainMenuScene();
 					break;
@@ -474,26 +473,31 @@ public class GameMenuScene extends BaseScene implements IScrollDetectorListener,
 		
 		switch(i) {
 		case 0:
+			resourcesManager.selectagame.stop();
 			resourcesManager.click.play();
 			resetCamera();
 			SceneManager.getInstance().loadMatchItScene();
 			break;
 		case 1:
+			resourcesManager.selectagame.stop();
 			resourcesManager.click.play();
 			resetCamera();
 			SceneManager.getInstance().loadGTMLScene();
 			break;
 		case 2:
+			resourcesManager.selectagame.stop();
 			resourcesManager.click.play();
 			resetCamera();
 			SceneManager.getInstance().loadCountItScene();
 			break;
 		case 3:
+			resourcesManager.selectagame.stop();
 			resourcesManager.click.play();
 			resetCamera();
 			SceneManager.getInstance().loadSolveItMenuScene();
 			break;
 		case 4:
+			resourcesManager.selectagame.stop();
 			resourcesManager.click.play();
 			resetCamera();
 			SceneManager.getInstance().loadThatColorIsScene();

@@ -126,7 +126,7 @@ public class OptionScene extends BaseScene {
 		attachChild(optionBoard);
 		
 		// RESET BUTTON
-		reset = new TiledSprite(380, 100, resourcesManager.resetTextureRegion, vbom) {
+		reset = new TiledSprite(380, 125, resourcesManager.resetTextureRegion, vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				switch(pSceneTouchEvent.getAction()) {
@@ -462,7 +462,7 @@ public class OptionScene extends BaseScene {
 				bgmOff.setVisible(false);
 				bgmOn.setVisible(true);
 			}
-			engine.getMusicManager().setMasterVolume(0.70f);
+			engine.getMusicManager().setMasterVolume(0.15f);
 		}
 	}
 	
@@ -490,8 +490,6 @@ public class OptionScene extends BaseScene {
 	
 	@Override
 	public boolean onSceneTouchEvent(TouchEvent pSceneTouchEvent) {
-		float rate = db.getRate(3) / db.getTry(3);
-		Log.d("remarks", "remarks: "+rate );
 		return super.onSceneTouchEvent(pSceneTouchEvent);
 	}
 }
