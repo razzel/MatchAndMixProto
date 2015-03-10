@@ -55,6 +55,8 @@ public class SolveItMulPanel extends BaseScene {
 	private Sprite thatsWrong;
 	private Sprite thatsCorrect;
 	
+	private Sprite blank;
+	
 	private Sprite sLife;
 	private TiledSprite sLifeValue;
 	

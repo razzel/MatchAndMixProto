@@ -53,6 +53,8 @@ public class SolveItSubPanel extends BaseScene {
 	
 	private TiledSprite OK;
 	
+	private Sprite blank;
+	
 	private Sprite thatsWrong;
 	private Sprite thatsCorrect;
 	

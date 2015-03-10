@@ -62,6 +62,7 @@ public class ThatColorIsPanel extends BaseScene {
 	private TiledSprite htp;
 	private TiledSprite next;
 	private TiledSprite prev;
+	private Sprite blank;
 	
 	// congrats scene
 	private CameraScene congratsScene;
@@ -342,6 +343,15 @@ public class ThatColorIsPanel extends BaseScene {
 	private void createHowToScene() {
 		htpScene = new CameraScene(camera);
 		currentTile = 0;
+		
+		blank = new Sprite(400, 240, resourcesManager.blankBG, vbom){
+			@Override
+			protected void preDraw(GLState pGLState, Camera pCamera) {
+				pGLState.enableDither();
+				super.preDraw(pGLState, pCamera);
+			}
+		};
+		htpScene.attachChild(blank);
 		
 		htp = new TiledSprite(400, 240, resourcesManager.colorHTP, vbom);
 		htpScene.attachChild(htp);

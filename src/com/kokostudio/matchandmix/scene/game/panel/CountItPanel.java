@@ -66,6 +66,7 @@ public class CountItPanel extends BaseScene {
 	
 	private CameraScene htpScene;
 	private TiledSprite htp;
+	private Sprite blank;
 	
 	private int currentTile;
 	
@@ -172,17 +173,23 @@ public class CountItPanel extends BaseScene {
 		
 		thatsCorrect = new Sprite(410, 445, resourcesManager.thatsCorrectTexture, vbom);
 		attachChild(thatsCorrect);
+		thatsCorrect.setZIndex(1);
 		thatsWrong = new Sprite(410, 445, resourcesManager.thatsWrongTexture, vbom);
 		attachChild(thatsWrong);
+		thatsWrong.setZIndex(1);
 		
 		
 		// LIFE SPRITE AND TEXT
 		sLife = new Sprite(400, 445, resourcesManager.lifeTexture, vbom);
 		sLife.setAlpha(1.0f);
 		attachChild(sLife);
+		sLife.setZIndex(0);
 		sLifeValue = new TiledSprite(460, 450, resourcesManager.lifeValueTexture, vbom);
 		sLifeValue.setCurrentTileIndex(lives);
 		attachChild(sLifeValue);
+		sLifeValue.setZIndex(0);
+		
+		sortChildren();
 	}
 	
 	private void createQuestions() { // ALSO CLUE BOX AND CLUES WILL BE CREATED HERE
@@ -483,6 +490,15 @@ public class CountItPanel extends BaseScene {
 	private void createHowToScene() {
 		htpScene = new CameraScene(camera);
 		currentTile = 0;
+		
+		blank = new Sprite(400, 240, resourcesManager.blankBG, vbom){
+			@Override
+			protected void preDraw(GLState pGLState, Camera pCamera) {
+				pGLState.enableDither();
+				super.preDraw(pGLState, pCamera);
+			}
+		};
+		htpScene.attachChild(blank);
 		
 		htp = new TiledSprite(400, 240, resourcesManager.countHTP, vbom);
 		htpScene.attachChild(htp);

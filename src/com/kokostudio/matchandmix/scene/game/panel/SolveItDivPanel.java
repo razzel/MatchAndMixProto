@@ -52,6 +52,8 @@ public class SolveItDivPanel extends BaseScene {
 	
 	private TiledSprite OK;
 	
+	private Sprite blank;
+	
 	private Sprite thatsWrong;
 	private Sprite thatsCorrect;
 	

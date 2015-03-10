@@ -10,16 +10,11 @@ import org.andengine.entity.modifier.ScaleModifier;
 import org.andengine.entity.scene.CameraScene;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
-import org.andengine.entity.text.Text;
 import org.andengine.input.touch.TouchEvent;
-import org.andengine.input.touch.detector.ScrollDetector;
-import org.andengine.input.touch.detector.ScrollDetector.IScrollDetectorListener;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.util.GLState;
 
-import android.net.http.SslCertificate;
-import android.text.method.Touch;
 import android.util.Log;
 
 import com.kokostudio.matchandmix.base.BaseScene;
@@ -72,6 +67,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 	
 	private CameraScene htpScene;
 	private TiledSprite htp;
+	private Sprite blank;
 	
 	private int currentTile;
 	
@@ -369,6 +365,15 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 		htpScene = new CameraScene(camera);
 		currentTile = 0;
 		
+		blank = new Sprite(400, 240, resourcesManager.blankBG, vbom){
+			@Override
+			protected void preDraw(GLState pGLState, Camera pCamera) {
+				pGLState.enableDither();
+				super.preDraw(pGLState, pCamera);
+			}
+		};
+		htpScene.attachChild(blank);
+		
 		htp = new TiledSprite(400, 240, resourcesManager.GTMLHTP, vbom);
 		htpScene.attachChild(htp);
 		
@@ -525,7 +530,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 	}
 	
 	private void playSound() {
-		this.registerUpdateHandler(new TimerHandler(1f, new ITimerCallback() {	
+		this.registerUpdateHandler(new TimerHandler(0.5f, new ITimerCallback() {	
 			@Override
 			public void onTimePassed(TimerHandler pTimerHandler) {
 				unregisterUpdateHandler(pTimerHandler);
@@ -612,6 +617,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 	
 	private void createCongratsScene() {
 		congratsScene = new CameraScene(camera);
+		
 		
 		congratsPanel = new Sprite(400, 240, resourcesManager.congratsPanel, vbom);
 		congratsScene.attachChild(congratsPanel);

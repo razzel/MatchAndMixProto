@@ -56,6 +56,8 @@ public class ResourcesManager {
 	public TiledTextureRegion countHTP;
 	public TiledTextureRegion addHTP;
 	
+	public ITextureRegion blankBG;
+	
 	public TiledTextureRegion btnMatchHTP;
 	public TiledTextureRegion btnCountHTP;
 	public TiledTextureRegion btnSolveHTP;
@@ -1171,6 +1173,7 @@ public class ResourcesManager {
 			howToPlayCountIt();
 			howToPlaySolveItAdd();
 			loadCongratulationMsg();
+			loadBlankBG();
 		}
 		private void creatCommonButtons2() {
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
@@ -1179,6 +1182,18 @@ public class ResourcesManager {
 			thatsWrongTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mGameTextureAtlas, activity, "wrong.png");
 			lifeTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mGameTextureAtlas, activity, "life.png");
 			lifeValueTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mGameTextureAtlas, activity, "l.png", 4, 1);
+			try {
+				this.mGameTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+				this.mGameTextureAtlas.load();
+			} catch(final TextureAtlasBuilderException e) {
+				Debug.e(e);
+			}	
+		}
+		
+		private void loadBlankBG() {
+			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+			mGameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 800, 480, TextureOptions.BILINEAR);
+			blankBG = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mGameTextureAtlas, activity, "black.png");
 			try {
 				this.mGameTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 				this.mGameTextureAtlas.load();

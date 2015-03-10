@@ -73,6 +73,7 @@ public class MatchItPanel extends BaseScene {
 	
 	private CameraScene htpScene;
 	private TiledSprite htp;
+	private Sprite blank;
 	
 	private int currentTile;
 	
@@ -204,9 +205,10 @@ public class MatchItPanel extends BaseScene {
 				switch(pSceneTouchEvent.getAction()) {
 				case TouchEvent.ACTION_DOWN:
 					correctSprite.setScale(3.5f);
+					correctSpriteClicked();
 					break;
 				case TouchEvent.ACTION_UP:
-					correctSprite.setScale(1.0f);
+					correctSprite.setScale(1.0f);	
 					checkPosition(correctSprite, pSceneTouchEvent.getX(), pSceneTouchEvent.getY(), correctSpriteXPosition(), correctSpriteYPosition());
 					break;
 				}
@@ -215,7 +217,7 @@ public class MatchItPanel extends BaseScene {
 		};
 		registerTouchArea(correctSprite);
 		attachChild(correctSprite);
-		correctSprite.setZIndex(3);
+		//correctSprite.setZIndex(2);
 		
 		c1 = new Sprite(setChoice1XPosition(), setChoice1YPosition() ,Choice1(), vbom) {
 			@Override
@@ -224,6 +226,7 @@ public class MatchItPanel extends BaseScene {
 				switch(pSceneTouchEvent.getAction()) {
 				case TouchEvent.ACTION_DOWN:
 					c1.setScale(3.5f);
+					c1Clicked();
 					break;
 				case TouchEvent.ACTION_UP:
 					c1.setScale(1.0f);
@@ -236,7 +239,7 @@ public class MatchItPanel extends BaseScene {
 		};
 		registerTouchArea(c1);
 		attachChild(c1);
-		c1.setZIndex(2);
+		//c1.setZIndex(2);
 		
 		c2 = new Sprite(setChoice2XPosition(), setChoice2YPosition() ,Choice2(), vbom) {
 			@Override
@@ -245,6 +248,7 @@ public class MatchItPanel extends BaseScene {
 				switch(pSceneTouchEvent.getAction()) {
 				case TouchEvent.ACTION_DOWN:
 					c2.setScale(3.5f);
+					c2Clicked();
 					break;
 				case TouchEvent.ACTION_UP:
 					c2.setScale(1.0f);
@@ -256,7 +260,7 @@ public class MatchItPanel extends BaseScene {
 		};
 		registerTouchArea(c2);
 		attachChild(c2);
-		c2.setZIndex(2);
+		//c2.setZIndex(2);
 		
 		c3 = new Sprite(setChoice3XPosition(), setChoice3YPosition() ,Choice3(), vbom) {
 			@Override
@@ -266,9 +270,10 @@ public class MatchItPanel extends BaseScene {
 				switch(pSceneTouchEvent.getAction()) {
 				case TouchEvent.ACTION_DOWN:
 					c3.setScale(3.5f);
+					c3Clicked();
 					break;
 				case TouchEvent.ACTION_UP:
-					c3.setScale(1.0f);
+					c3.setScale(1.0f);	
 					checkPosition(c3, 0, 0, setChoice3XPosition(), setChoice3YPosition());
 					break;
 				}
@@ -277,7 +282,7 @@ public class MatchItPanel extends BaseScene {
 		};
 		registerTouchArea(c3);
 		attachChild(c3);
-		c3.setZIndex(2);
+		//c3.setZIndex(2);
 		
 		c4 = new Sprite(setChoice4XPosition(), setChoice4YPosition() ,Choice4(), vbom) {
 			@Override
@@ -286,6 +291,7 @@ public class MatchItPanel extends BaseScene {
 				switch(pSceneTouchEvent.getAction()) {
 				case TouchEvent.ACTION_DOWN:
 					c4.setScale(3.5f);
+					c4Clicked();
 					break;
 				case TouchEvent.ACTION_UP:
 					c4.setScale(1.0f);
@@ -297,7 +303,7 @@ public class MatchItPanel extends BaseScene {
 		};
 		registerTouchArea(c4);
 		attachChild(c4);
-		c4.setZIndex(2);
+		//c4.setZIndex(2);
 		
 		c5 = new Sprite(setChoice5XPosition(), setChoice5YPosition() ,Choice5(), vbom) {
 			@Override
@@ -306,6 +312,7 @@ public class MatchItPanel extends BaseScene {
 				switch(pSceneTouchEvent.getAction()) {
 				case TouchEvent.ACTION_DOWN:
 					c5.setScale(3.5f);
+					c5Clicked();
 					break;
 				case TouchEvent.ACTION_UP:
 					c5.setScale(1.0f);
@@ -317,7 +324,7 @@ public class MatchItPanel extends BaseScene {
 		};
 		registerTouchArea(c5);
 		attachChild(c5);
-		c5.setZIndex(2);
+		//c5.setZIndex(2);
 	}
 	
 	// ========================================================================================
@@ -325,6 +332,66 @@ public class MatchItPanel extends BaseScene {
 	// ========================================================================================
 	public static void getQuestionIndex(int i) {
 		questionSet = i;
+	}
+	
+	public void correctSpriteClicked() {
+		correctSprite.setZIndex(3);
+		c1.setZIndex(2);
+		c2.setZIndex(2);
+		c3.setZIndex(2);
+		c4.setZIndex(2);
+		c5.setZIndex(2);
+		sortChildren();
+	}
+	
+	public void c1Clicked() {
+		correctSprite.setZIndex(2);
+		c1.setZIndex(3);
+		c2.setZIndex(2);
+		c3.setZIndex(2);
+		c4.setZIndex(2);
+		c5.setZIndex(2);
+		sortChildren();
+	}
+	
+	public void c2Clicked() {
+		correctSprite.setZIndex(2);
+		c1.setZIndex(2);
+		c2.setZIndex(3);
+		c3.setZIndex(2);
+		c4.setZIndex(2);
+		c5.setZIndex(2);
+		sortChildren();
+	}
+	
+	public void c3Clicked() {
+		correctSprite.setZIndex(2);
+		c1.setZIndex(2);
+		c2.setZIndex(2);
+		c3.setZIndex(3);
+		c4.setZIndex(2);
+		c5.setZIndex(2);
+		sortChildren();
+	}
+	
+	public void c4Clicked() {
+		correctSprite.setZIndex(2);
+		c1.setZIndex(2);
+		c2.setZIndex(2);
+		c3.setZIndex(2);
+		c4.setZIndex(3);
+		c5.setZIndex(2);
+		sortChildren();
+	}
+	
+	public void c5Clicked() {
+		correctSprite.setZIndex(2);
+		c1.setZIndex(2);
+		c2.setZIndex(2);
+		c3.setZIndex(2);
+		c4.setZIndex(2);
+		c5.setZIndex(3);
+		sortChildren();
 	}
 	
 	private void nextQuestion() {
@@ -407,6 +474,15 @@ public class MatchItPanel extends BaseScene {
 	private void createHowToScene() {
 		htpScene = new CameraScene(camera);
 		currentTile = 0;
+		
+		blank = new Sprite(400, 240, resourcesManager.blankBG, vbom){
+			@Override
+			protected void preDraw(GLState pGLState, Camera pCamera) {
+				pGLState.enableDither();
+				super.preDraw(pGLState, pCamera);
+			}
+		};
+		htpScene.attachChild(blank);
 		
 		htp = new TiledSprite(400, 240, resourcesManager.matchHTP, vbom);
 		htpScene.attachChild(htp);
@@ -583,7 +659,7 @@ public class MatchItPanel extends BaseScene {
 	}
 	
 	private void createCongratsScene() {
-		congratsScene = new CameraScene(camera);
+		congratsScene = new CameraScene(camera);		
 		
 		congratsPanel = new Sprite(400, 240, resourcesManager.congratsPanel, vbom);
 		congratsScene.attachChild(congratsPanel);
