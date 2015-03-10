@@ -236,7 +236,7 @@ public class ProgressScene extends BaseScene {
 					attachChild(remarkFair);
 				}
 			} else {
-				t = new Text(560, 330, resourcesManager.aklatanFont, "UNRATED" + roundOffTo2DecimalPlace(grade), vbom);
+				t = new Text(560, 330, resourcesManager.aklatanFont, "UNRATED", vbom);
 				attachChild(t);
 			}
  			break;
@@ -258,7 +258,7 @@ public class ProgressScene extends BaseScene {
 					attachChild(remarkFair);
 				}
 			} else {
-				t = new Text(560, 255, resourcesManager.aklatanFont, "UNRATED" + roundOffTo2DecimalPlace(grade), vbom);
+				t = new Text(560, 255, resourcesManager.aklatanFont, "UNRATED", vbom);
 				attachChild(t);
 			}
 			break;
@@ -280,7 +280,7 @@ public class ProgressScene extends BaseScene {
 					attachChild(remarkFair);
 				}
 			} else {
-				t = new Text(560, 40, resourcesManager.aklatanFont, "UNRATED" + roundOffTo2DecimalPlace(grade), vbom);
+				t = new Text(560, 40, resourcesManager.aklatanFont, "UNRATED", vbom);
 				attachChild(t);
 			}
 			break;
@@ -302,7 +302,7 @@ public class ProgressScene extends BaseScene {
 					attachChild(remarkFair);
 				}
 			} else {
-				t = new Text(560, 182, resourcesManager.aklatanFont, "UNRATED" + roundOffTo2DecimalPlace(grade), vbom);
+				t = new Text(560, 182, resourcesManager.aklatanFont, "UNRATED", vbom);
 				attachChild(t);
 			}
 			break;
@@ -325,7 +325,7 @@ public class ProgressScene extends BaseScene {
 					attachChild(remarkFair);
 				}
 			} else {
-				t = new Text(560, 113, resourcesManager.aklatanFont, "UNRATED" + roundOffTo2DecimalPlace(grade), vbom);
+				t = new Text(560, 113, resourcesManager.aklatanFont, "UNRATED", vbom);
 				attachChild(t);
 			}
 			break;
@@ -334,11 +334,6 @@ public class ProgressScene extends BaseScene {
 
 	@Override
 	public boolean onSceneTouchEvent(TouchEvent pSceneTouchEvent) {
-		Log.d("solveitrate", "totalRate: "+totalRate);
-		Log.d("try", "totalTry: "+totalTry);
-		Log.d("grade", "totalGrade: "+totalGrade);
-		
-		
 		return super.onSceneTouchEvent(pSceneTouchEvent);
 	}
 	

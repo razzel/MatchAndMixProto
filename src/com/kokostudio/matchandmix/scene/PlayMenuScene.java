@@ -138,7 +138,7 @@ public class PlayMenuScene extends BaseScene {
 	}
 	private void checkSFX() {
 		if(db.isSFXOn().compareTo("true") == 0) {
-			engine.getSoundManager().setMasterVolume(1.0f);
+			engine.getSoundManager().setMasterVolume(1.6f);
 		} else {
 			engine.getSoundManager().setMasterVolume(0.0f);
 		}

@@ -215,7 +215,7 @@ public class MatchItPanel extends BaseScene {
 		};
 		registerTouchArea(correctSprite);
 		attachChild(correctSprite);
-		correctSprite.setZIndex(1);
+		correctSprite.setZIndex(3);
 		
 		c1 = new Sprite(setChoice1XPosition(), setChoice1YPosition() ,Choice1(), vbom) {
 			@Override
@@ -236,7 +236,7 @@ public class MatchItPanel extends BaseScene {
 		};
 		registerTouchArea(c1);
 		attachChild(c1);
-		c1.setZIndex(1);
+		c1.setZIndex(2);
 		
 		c2 = new Sprite(setChoice2XPosition(), setChoice2YPosition() ,Choice2(), vbom) {
 			@Override
@@ -256,7 +256,7 @@ public class MatchItPanel extends BaseScene {
 		};
 		registerTouchArea(c2);
 		attachChild(c2);
-		c2.setZIndex(1);
+		c2.setZIndex(2);
 		
 		c3 = new Sprite(setChoice3XPosition(), setChoice3YPosition() ,Choice3(), vbom) {
 			@Override
@@ -277,7 +277,7 @@ public class MatchItPanel extends BaseScene {
 		};
 		registerTouchArea(c3);
 		attachChild(c3);
-		c3.setZIndex(1);
+		c3.setZIndex(2);
 		
 		c4 = new Sprite(setChoice4XPosition(), setChoice4YPosition() ,Choice4(), vbom) {
 			@Override
@@ -297,7 +297,7 @@ public class MatchItPanel extends BaseScene {
 		};
 		registerTouchArea(c4);
 		attachChild(c4);
-		c4.setZIndex(1);
+		c4.setZIndex(2);
 		
 		c5 = new Sprite(setChoice5XPosition(), setChoice5YPosition() ,Choice5(), vbom) {
 			@Override
@@ -317,9 +317,7 @@ public class MatchItPanel extends BaseScene {
 		};
 		registerTouchArea(c5);
 		attachChild(c5);
-		c5.setZIndex(1);
-		
-		
+		c5.setZIndex(2);
 	}
 	
 	// ========================================================================================
@@ -1191,6 +1189,7 @@ public class MatchItPanel extends BaseScene {
 			else if(questionSet == 1) pos = 115;
 				
 			else if(questionSet == 2) pos = 115;
+			
 			else if(questionSet == 3) pos = 115;
 			
 			else if(questionSet == 4) pos = 240;

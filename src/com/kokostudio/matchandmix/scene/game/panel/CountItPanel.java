@@ -104,6 +104,7 @@ public class CountItPanel extends BaseScene {
 		
 		thatsCorrect.setAlpha(0f);
 		thatsWrong.setAlpha(0f);
+		thatsCorrect.setZIndex(2);
 	}
 
 	@Override
@@ -176,10 +177,10 @@ public class CountItPanel extends BaseScene {
 		
 		
 		// LIFE SPRITE AND TEXT
-		sLife = new Sprite(690, 445, resourcesManager.lifeTexture, vbom);
-		sLife.setAlpha(0.7f);
+		sLife = new Sprite(400, 445, resourcesManager.lifeTexture, vbom);
+		sLife.setAlpha(1.0f);
 		attachChild(sLife);
-		sLifeValue = new TiledSprite(750, 450, resourcesManager.lifeValueTexture, vbom);
+		sLifeValue = new TiledSprite(460, 450, resourcesManager.lifeValueTexture, vbom);
 		sLifeValue.setCurrentTileIndex(lives);
 		attachChild(sLifeValue);
 	}
@@ -192,7 +193,7 @@ public class CountItPanel extends BaseScene {
 		// clues
 		correctClue = new Sprite(680, 370, correctClue(), vbom);
 		attachChild(correctClue);
-		
+
 		otherClue = new Sprite(680, 270, otherClue(), vbom);
 		attachChild(otherClue);
 		
@@ -594,7 +595,7 @@ public class CountItPanel extends BaseScene {
 			engine.getMusicManager().setMasterVolume(0.15f);
 		}
 		if(db.isSFXOn().compareTo("true")==0) {
-			engine.getSoundManager().setMasterVolume(1.2f);
+			engine.getSoundManager().setMasterVolume(1.6f);
 		}
 	}
 	

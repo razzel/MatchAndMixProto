@@ -484,7 +484,7 @@ public class OptionScene extends BaseScene {
 				sfxOff.setVisible(false);
 				sfxOn.setVisible(true);
 			}
-			engine.getSoundManager().setMasterVolume(1.0f);
+			engine.getSoundManager().setMasterVolume(1.6f);
 		}
 	}	
 	

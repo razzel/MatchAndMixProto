@@ -231,7 +231,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 				case TouchEvent.ACTION_UP:
 					correctSprite.setScale(1.0f);
 					resourcesManager.correct.play();
-					questionImageSound().play();
+					//questionImageSound().play();
 					update(questionSet, "true");
 					lock();
 					db.updateRate(1, computeRate());
@@ -473,7 +473,7 @@ public class GuessTheMissingLetterPanel extends BaseScene {
 			engine.getMusicManager().setMasterVolume(0.15f);
 		}
 		if(db.isSFXOn().compareTo("true")==0) {
-			engine.getSoundManager().setMasterVolume(1.2f);
+			engine.getSoundManager().setMasterVolume(1.6f);
 		}
 	}
 	

@@ -1031,7 +1031,7 @@ public class ResourcesManager {
 			this.airplaneTriviaSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "AirplaneTrivia.mp3");
 			this.catTriviaSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "CatTrivia.mp3");
 			this.cornTriviaSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "CornTrivia.mp3");
-			this.birdTriviaSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "AirplaneTrivia.mp3");
+			this.birdTriviaSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "BirdsTrivia.mp3");
 			this.circleTriviaSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "CircleTrivia.mp3");
 			this.dogTriviaSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "DogTrivia.mp3");
 			this.carrotTriviaSound = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "CarrotTrivia.mp3");
