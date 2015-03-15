@@ -8,6 +8,9 @@ import org.andengine.entity.scene.background.ParallaxBackground;
 import org.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
+import org.andengine.entity.text.Text;
+import org.andengine.entity.util.AverageFPSCounter;
+import org.andengine.entity.util.FPSCounter;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.input.touch.detector.ClickDetector;
 import org.andengine.input.touch.detector.ScrollDetector;
@@ -56,7 +59,6 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 	public void createScene() {
 		this.scrollDetector = new SurfaceScrollDetector(this);
 		this.setOnSceneTouchListener(this);
-		
 		
 		createMenuHeader();
 		createMenuBoxes();
@@ -567,4 +569,8 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 		
 	}
 
+	@Override
+	public boolean onSceneTouchEvent(TouchEvent pSceneTouchEvent) {
+		return super.onSceneTouchEvent(pSceneTouchEvent);
+	}
 }
