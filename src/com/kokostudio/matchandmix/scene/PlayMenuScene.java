@@ -33,8 +33,8 @@ public class PlayMenuScene extends BaseScene {
 	
 	@Override
 	public void createScene() {
+		db = new myDatabase(activity);
 		this.registerUpdateHandler(new TimerHandler(1, new ITimerCallback() {
-			
 			@Override
 			public void onTimePassed(TimerHandler pTimerHandler) {
 				unregisterUpdateHandler(pTimerHandler);
@@ -44,7 +44,7 @@ public class PlayMenuScene extends BaseScene {
 			}
 		}));
 		createBackground();
-		db = new myDatabase(activity);
+		
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 
 		checkSFX();
@@ -59,7 +59,6 @@ public class PlayMenuScene extends BaseScene {
 	@Override
 	public void onMenuKeyPressed() {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	@Override
@@ -78,6 +77,10 @@ public class PlayMenuScene extends BaseScene {
 		header.dispose();
 		header = null;
 		
+		bg.detachSelf();
+		bg.dispose();
+		bg = null;
+		
 		this.detachSelf();
 		this.dispose();	
 	}
@@ -89,8 +92,8 @@ public class PlayMenuScene extends BaseScene {
 		bg = new Sprite(400, 240, resourcesManager.playMenuBackgroundTexture, vbom) {
 			@Override
 			protected void preDraw(GLState pGLState, Camera pCamera) {
-				super.preDraw(pGLState, pCamera);
 				pGLState.enableDither();
+				super.preDraw(pGLState, pCamera);			
 			}
 		};
 		attachChild(bg);
@@ -116,7 +119,6 @@ public class PlayMenuScene extends BaseScene {
 					resourcesManager.click.play();
 					SceneManager.getInstance().loadMainMenuScene();
 					disposeScene();
-					
 					break;
 				}
 				return true;

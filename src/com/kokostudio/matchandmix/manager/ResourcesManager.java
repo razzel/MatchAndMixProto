@@ -1676,7 +1676,7 @@ public class ResourcesManager {
 	
 		private void loadPlayMenuGraphics() {
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu_play/");
-			playMenuTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+			playMenuTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 800, 800, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 			playTextTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(playMenuTextureAtlas, activity, "mNm.png");
 			playMenuBackgroundTexture = BitmapTextureAtlasTextureRegionFactory.createFromAsset(playMenuTextureAtlas, activity, "ms_bg.png");
 			playTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(playMenuTextureAtlas, activity, "play_btn.png", 2,1);
