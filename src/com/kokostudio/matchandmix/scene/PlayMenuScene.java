@@ -3,17 +3,11 @@ package com.kokostudio.matchandmix.scene;
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
-import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.MoveModifier;
-import org.andengine.entity.modifier.ScaleModifier;
-import org.andengine.entity.sprite.ButtonSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.util.GLState;
-import org.andengine.util.modifier.IModifier;
-import org.andengine.util.modifier.ease.EaseBounceIn;
-import org.andengine.util.modifier.ease.EaseBounceOut;
 import org.andengine.util.modifier.ease.EaseElasticOut;
 
 import com.kokostudio.matchandmix.base.BaseScene;
@@ -33,7 +27,10 @@ public class PlayMenuScene extends BaseScene {
 	
 	@Override
 	public void createScene() {
+		
 		db = new myDatabase(activity);
+		this.setTouchAreaBindingOnActionDownEnabled(true);
+		
 		this.registerUpdateHandler(new TimerHandler(1, new ITimerCallback() {
 			@Override
 			public void onTimePassed(TimerHandler pTimerHandler) {
@@ -45,14 +42,34 @@ public class PlayMenuScene extends BaseScene {
 		}));
 		createBackground();
 		
-		this.setTouchAreaBindingOnActionDownEnabled(true);
-
 		checkSFX();
 		checkBGM();
+		/*
+		try {
+			db = new myDatabase(activity);
+			this.setTouchAreaBindingOnActionDownEnabled(true);
+			
+			this.registerUpdateHandler(new TimerHandler(1, new ITimerCallback() {
+				@Override
+				public void onTimePassed(TimerHandler pTimerHandler) {
+					unregisterUpdateHandler(pTimerHandler);
+					createPlayHeader();
+					createButton();
+					
+				}
+			}));
+			createBackground();
+			
+			checkSFX();
+			checkBGM();
+		} catch (NullPointerException e) {
+			Debug.e(e);
+		} */
 	}
 
 	@Override
 	public void onBackKeyPressed() {
+		activity.finish();
 		System.exit(0);
 	}
 	

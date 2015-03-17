@@ -33,7 +33,7 @@ public class LoadingScene extends BaseScene {
 		loading = new AnimatedSprite(400, 240, resourcesManager.loadingTexture, vbom);
 		loading.animate(400);
 		attachChild(loading);
-		/*
+		
 		engine.registerUpdateHandler(new TimerHandler(5f, new ITimerCallback() {
 			@Override
 			public void onTimePassed(TimerHandler pTimerHandler) {
@@ -43,8 +43,8 @@ public class LoadingScene extends BaseScene {
 				disposeScene();
 			}
 		}));
-		*/
 		
+		/*
 		t = new Thread() {
 			public void run() {
 				try {
@@ -57,7 +57,7 @@ public class LoadingScene extends BaseScene {
 			}
 		};
 		t.start();
-		
+		*/
 	}
 
 	@Override

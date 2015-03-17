@@ -387,10 +387,12 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 			
 			menuSelectionTiledSprite[ctr] = new TiledSprite(spriteX, spriteY, menuSelectionTexture[ctr], vbom) {
 				
+				boolean test;
 				@Override
 				public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 					switch(pSceneTouchEvent.getAction()) {
 					case TouchEvent.ACTION_DOWN:
+						test = true;
 						this.setScale(0.9f);
 						this.setCurrentTileIndex(1);	
 						mDownXCurrent = pSceneTouchEvent.getX();
@@ -398,15 +400,19 @@ public class MainMenuScene extends BaseScene implements IScrollDetectorListener,
 						mDownXLast = mDownXCurrent;
 						mDownYLast = mDownYCurrent;
 						break;
-					case TouchEvent.ACTION_UP:	
-						if(mDownXLast == mDownXCurrent & mDownYCurrent == mDownYLast)
+					case TouchEvent.ACTION_UP:
+						if(test) {
+						//if(mDownXLast == mDownXCurrent & mDownYLast == mDownYCurrent);
 							setTheScene(index);
+						}
 						break;
 					case TouchEvent.ACTION_MOVE:
 						mDownXLast = pSceneTouchEvent.getX();
 						mDownYLast = pSceneTouchEvent.getY();
 						break;
-						
+					case TouchEvent.ACTION_CANCEL:
+						test = false;
+						break;
 					}
 						
 					return false;

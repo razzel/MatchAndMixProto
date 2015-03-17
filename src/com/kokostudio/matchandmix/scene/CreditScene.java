@@ -95,7 +95,7 @@ public class CreditScene extends BaseScene {
 		attachChild(creditHeader);
 		
 		credits = new AnimatedSprite(400, 200, resourcesManager.creditsBodyTexture, vbom);
-		credits.animate(2000);
+		credits.animate(3000);
 		attachChild(credits);
 	}
 
