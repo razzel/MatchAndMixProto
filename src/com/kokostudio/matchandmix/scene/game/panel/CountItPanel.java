@@ -50,6 +50,7 @@ public class CountItPanel extends BaseScene {
 	private Sprite thatsWrong;
 	
 	private int x;
+	private int counter;
 	
 	private int lives;
 	private float totalLives;
@@ -344,6 +345,7 @@ public class CountItPanel extends BaseScene {
 	private void createCorrectObjects() {
 		int[] posX = {172,410,454,123,180,308,350,110,543};
 		int[] posY = {219,318,217,208,265,205,205,225,366};
+		counter = 0;
 		
 		object1 = new Sprite[setHowManyCorrectObject()];
 		numCount = 0;
@@ -360,19 +362,22 @@ public class CountItPanel extends BaseScene {
 						object1[index].setScale(1.8f);
 						playNextSound();
 						unregisterTouchArea(object1[index]);
-						object1[index].registerUpdateHandler(new TimerHandler(6f, new ITimerCallback() {				
-							@Override
-							public void onTimePassed(TimerHandler pTimerHandler) {
-								
-								numCount = 0;
-								for(int ctr = 0; ctr<object1.length; ctr++) {
-									object1[ctr].unregisterUpdateHandler(pTimerHandler);
-									object1[ctr].setScale(1.0f);
-									registerTouchArea(object1[ctr]);
-								}								
-							}
-						}));
-						
+						counter++;
+						if( counter == 1) {
+							object1[0].registerUpdateHandler(new TimerHandler(4f, new ITimerCallback() {				
+								@Override
+								public void onTimePassed(TimerHandler pTimerHandler) {
+									counter = 0;
+									numCount = 0;
+									for(int ctr = 0; ctr<object1.length; ctr++) {
+										object1[ctr].unregisterUpdateHandler(pTimerHandler);
+										object1[ctr].setScale(1.0f);
+										registerTouchArea(object1[ctr]);
+									}								
+								}
+							}));
+						}
+										
 						break;
 					}
 					return true;
